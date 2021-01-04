@@ -65,15 +65,15 @@ There is much more to do, including:
 
 ### Main/Live Performance Screen (WiP)
 
-![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/main/AMIDIFX/Resources/Perform.png)
+![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/Organ.png)
 
 ### Preset Configuration for selected Song
 
-![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/main/AMIDIFX/Resources/Presets.png)
+![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/Presets.png)
 
 ### Manage Song List, MIDI SMF, and Preset Files
 
-![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/main/AMIDIFX/Resources/Songs.png)
+![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/Songs.png)
 
 
 
