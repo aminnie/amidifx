@@ -65,7 +65,7 @@ There is much more to do, including:
 
 ### Main/Live Performance Screen (WiP)
 
-![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/Organ.png)
+![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/Perform.png)
 
 ### Preset Configuration for selected Song
 
