@@ -18,6 +18,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
@@ -95,6 +96,8 @@ public class Main extends Application {
     Label labelpresetfile = new Label("  ");
     Label labelstatusSng = new Label(" ");
 
+    Image applicationIcon;
+
     SharedStatus sharedStatus;
 
     private static final String MID_DIRECTORY = "C:/amidifx/midifiles/";
@@ -105,6 +108,9 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("amidifx.fxml"));
         stage.setTitle("AMIDIFX");
         stage.initStyle(StageStyle.UNDECORATED);
+
+        applicationIcon = new Image(getClass().getResourceAsStream("music-48.png"));
+        stage.getIcons().add(applicationIcon);
 
         // Create instance of Shared Status to report back to Scenes
         sharedStatus = SharedStatus.getInstance();
@@ -290,6 +296,12 @@ public class Main extends Application {
         HBox hboxTitle = new HBox();
         hboxTitle.setPadding(new Insets(10, 10, 10,200));
         hboxTitle.getChildren().add(lbltitle1);
+
+        //Label labelicon = new Label();
+        //ImageView view = new ImageView(applicationIcon);
+        //labelicon.setGraphic(view);
+        //labelicon.setMaxSize(10, 10);
+        //hboxTitle.getChildren().add(view);
 
         ToolBar toolbarRight = new ToolBar(buttonupdate, buttonPanic, buttonExit);
         toolbarRight.setStyle(bgheadercolor);

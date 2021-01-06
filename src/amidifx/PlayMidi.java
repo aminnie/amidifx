@@ -308,9 +308,9 @@ public class PlayMidi {
                 return false;
             }
 
-            midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN, 0, MSB & 0xFF); //(int)(LSB & 0xFF));
+            midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN, 0, LSB & 0xFF); //(int)(LSB & 0xFF));
             midircv.send(midiMsg, timeStamp);
-            midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN, 32, LSB & 0xFF); //(int)(MSB & 0xFF));
+            midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN, 32, MSB & 0xFF); //(int)(MSB & 0xFF));
             midircv.send(midiMsg, timeStamp);
 
             midiMsg.setMessage(ShortMessage.PROGRAM_CHANGE, CHAN, PC & 0XFF, 64);
