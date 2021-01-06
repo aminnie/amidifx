@@ -39,9 +39,9 @@ public class Main extends Application {
 
     // Button Colors
     // https://yagisanatode.com/2019/08/06/google-apps-script-hexadecimal-color-codes-for-google-docs-sheets-and-slides-standart-palette/
-    final String bgpanecolor = "#999999";
-    final String bgheadercolor = "#B2B5B1;";
-    final String bgfootercolor = "#B2B5B1;";
+    final String bgpanecolor = "-fx-background-color: #999999; ";
+    final String bgheadercolor = "-fx-background-color: #B2B5B1; ";
+    final String bgfootercolor = "-fx-background-color: #B2B5B1; ";
 
     static final String btnMenuOn = "-fx-background-color: #4493C0; -fx-font-size: 15; ";
     static final String btnMenuOff = "-fx-background-color: #69A8CC; -fx-font-size: 15; ";
@@ -55,6 +55,8 @@ public class Main extends Application {
 
     final String btnPresetOff = "-fx-background-color: #DBD06B;  -fx-font-size: 15; -fx-text";
     final String btnPresetOn = "-fx-background-color: #C3B643;  -fx-font-size: 15; ";
+
+    final String stlInstrumentList =  "-fx-control-inner-background:#CCCCCC;";
 
     final String styletext = "-fx-font-size: 15; ";
 
@@ -214,7 +216,7 @@ public class Main extends Application {
         System.out.println("Main: Scene SongScene!");
 
         BorderPane borderPaneSng = new BorderPane();
-        borderPaneSng.setStyle("-fx-background-color: " + bgpanecolor);
+        borderPaneSng.setStyle(bgpanecolor);
 
         Label labelstatusSng = new Label(" Status: Ready");
 
@@ -280,7 +282,7 @@ public class Main extends Application {
         });
 
         ToolBar toolbarLeft = new ToolBar(buttonsc1, buttonsc2, buttonsc3);
-        toolbarLeft.setStyle("-fx-background-color: #B2B5B1; ");
+        toolbarLeft.setStyle(bgheadercolor);
         toolbarLeft.setMinWidth(225);
 
         Label lbltitle1 = new Label("AMIDIFX Sound Module Controller");
@@ -290,11 +292,11 @@ public class Main extends Application {
         hboxTitle.getChildren().add(lbltitle1);
 
         ToolBar toolbarRight = new ToolBar(buttonupdate, buttonPanic, buttonExit);
-        toolbarRight.setStyle("-fx-background-color: " + bgheadercolor);
+        toolbarRight.setStyle(bgheadercolor);
         toolbarRight.setMinWidth(150);
 
         BorderPane borderPaneTopSng = new BorderPane();
-        borderPaneTopSng.setStyle("-fx-background-color: #B2B5B1; ");
+        borderPaneTopSng.setStyle(bgheadercolor);
 
         // Assemble the Menu Bar Border Pane
         borderPaneTopSng.setLeft(toolbarLeft);
@@ -304,7 +306,7 @@ public class Main extends Application {
         // *** Start Bottom Status Bar
 
         BorderPane borderStatusSng = new BorderPane();
-        borderStatusSng.setStyle("-fx-background-color: #999999; "); //#B2B5B1; ");
+        borderStatusSng.setStyle(bgheadercolor);
 
         labelstatus.setText(" Status: " + sharedStatus.getStatusText());
         labelsongtitle.setText("Song: " + sharedStatus.getSongTitle());
@@ -924,8 +926,8 @@ public class Main extends Application {
             catch (Exception exception) {
                 bplaying = false;
 
-                buttondemo.setText("Demo");
-                buttondemo.setStyle("-fx-background-color: #8ED072; ");
+                buttondemo.setText("Play Song");
+                buttondemo.setStyle(btnplayOn);
 
                 exception.printStackTrace();
             }
@@ -935,7 +937,7 @@ public class Main extends Application {
 
         txtInstrumentList.setMaxWidth(500);
         txtInstrumentList.setMaxHeight(130);
-        txtInstrumentList.setStyle("-fx-control-inner-background:#CCCCCC;");
+        txtInstrumentList.setStyle(stlInstrumentList);
 
         VBox vboxInstrumentList = new VBox();
         VBox.setMargin(vboxInstrumentList, new Insets(10, 50, 10,10));
@@ -1081,7 +1083,7 @@ public class Main extends Application {
         System.out.println("Main: Scene PresetScene!");
 
         BorderPane borderPane1 = new BorderPane();
-        borderPane1.setStyle("-fx-background-color: " + bgpanecolor);
+        borderPane1.setStyle(bgpanecolor);
 
         // Create top bar navigation buttons
         Button buttonsc1 = new Button("Perform");
@@ -1152,7 +1154,7 @@ public class Main extends Application {
         });
 
         ToolBar toolbarLeft = new ToolBar(buttonsc1, buttonsc2, buttonsc3);
-        toolbarLeft.setStyle("-fx-background-color:" + bgheadercolor);
+        toolbarLeft.setStyle(bgheadercolor);
         toolbarLeft.setMinWidth(225);
 
         Label lbltitle1 = new Label("AMIDIFX Sound Module Controller");
@@ -1162,11 +1164,11 @@ public class Main extends Application {
         hboxTitle.getChildren().add(lbltitle1);
 
         ToolBar toolbarRight = new ToolBar(buttonSave, buttonPanic, buttonExit);
-        toolbarRight.setStyle("-fx-background-color: " + bgheadercolor);
+        toolbarRight.setStyle(bgheadercolor);
         toolbarRight.setMinWidth(150);
 
         BorderPane borderPaneTop = new BorderPane();
-        borderPaneTop.setStyle("-fx-background-color: " + bgheadercolor);
+        borderPaneTop.setStyle(bgheadercolor);
 
         // Assemble the Menu Bar Border Pane
         borderPaneTop.setLeft(toolbarLeft);
@@ -1238,6 +1240,7 @@ public class Main extends Application {
                 };
         moduleCombo.setOnAction(midxevent);
         VBox vboxModuleList = new VBox(moduleCombo);
+        vboxModuleList.setStyle(styletext);
 
         MidiBanks midiBanks = dopatches.getMidiBanks();
         for (int idx = 0; idx < midiBanks.getMidiBankSize(); idx++) {
@@ -1358,6 +1361,7 @@ public class Main extends Application {
             System.out.println("Main: Run later selected Preset 0");
         });
         VBox vboxPresetList = new VBox(presetCombo);
+        vboxPresetList.setStyle(styletext);
 
         channelIdx = 0;
         presetIdx = 0;

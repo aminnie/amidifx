@@ -23,9 +23,9 @@ public class OrganScene {
 
     // Button Colors
     // https://yagisanatode.com/2019/08/06/google-apps-script-hexadecimal-color-codes-for-google-docs-sheets-and-slides-standart-palette/
-    final String bgpanecolor = "#999999";
-    final String bgheadercolor = "#B2B5B1;";
-    final String bgfootercolor = "#B2B5B1;";
+    final String bgpanecolor = "-fx-background-color: #999999; ";
+    final String bgheadercolor = "-fx-background-color: #B2B5B1; ";
+    final String bgfootercolor = "-fx-background-color: #B2B5B1;";
 
     final String rcolorOff = "-fx-background-color: #ea9999; -fx-font-size: 15; ";
     final String rcolorOn = "-fx-background-color: #e06666; -fx-font-size: 15; ";
@@ -303,7 +303,7 @@ public class OrganScene {
             System.out.println("OrganScene: Scene OrganScene!");
 
             BorderPane borderPaneOrg = new BorderPane();
-            borderPaneOrg.setStyle("-fx-background-color: " + bgpanecolor);
+            borderPaneOrg.setStyle(bgpanecolor);
 
             sceneOrgan = new Scene(borderPaneOrg, 1024, 600);
             sceneOrgan.getStylesheets().clear();
@@ -391,7 +391,7 @@ public class OrganScene {
             });
 
             ToolBar toolbarLeft = new ToolBar(buttonsc1, buttonsc2, buttonsc3);
-            toolbarLeft.setStyle("-fx-background-color: " + bgheadercolor);
+            toolbarLeft.setStyle(bgheadercolor);
             toolbarLeft.setMinWidth(225);
 
             Label lbltitle1 = new Label("AMIDIFX Sound Module Controller");
@@ -401,11 +401,11 @@ public class OrganScene {
             hboxTitle.getChildren().add(lbltitle1);
 
             ToolBar toolbarRight = new ToolBar(buttonSave, buttonPanic, buttonExit);
-            toolbarRight.setStyle("-fx-background-color: " + bgheadercolor);
+            toolbarRight.setStyle(bgheadercolor);
             toolbarRight.setMinWidth(150);
 
             BorderPane borderPaneTop = new BorderPane();
-            borderPaneTop.setStyle("-fx-background-color: " + bgheadercolor);
+            borderPaneTop.setStyle(bgheadercolor);
 
             // Assemble the Menu Bar Border Pane
             borderPaneTop.setLeft(toolbarLeft);
@@ -607,7 +607,7 @@ public class OrganScene {
             // *** Start Bottom Status Bar
 
             BorderPane borderStatusOrg = new BorderPane();
-            borderStatusOrg.setStyle("-fx-background-color: #999999; "); //#B2B5B1; ");
+            borderStatusOrg.setStyle(bgpanecolor);
 
             labelstatusOrg.setText(" Status: " + sharedStatus.getStatusText());
             labelsongtitle.setText("Song: " + sharedStatus.getSongTitle());
