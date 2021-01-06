@@ -1,5 +1,6 @@
 package amidifx;
 
+
 import amidifx.models.MidiPreset;
 import amidifx.models.MidiSong;
 import amidifx.models.SharedStatus;
@@ -596,11 +597,12 @@ public class PlayMidi {
         return true;
     }
 
-    // Mute all Keyboard Channela
+    // Mute selected MIDI Tracks and associated MIDI Channela
     // Note: The Java MIDI mute/unmute function parameters is used as an index, and does not mute
     // the MIDI channel by channel Number on the Tracks. The user is to pick the Channels to be muted
     // by inspected the MIDI SMF file and apply the channel numbers in the Song definition.
     // Incorrect selection will result in MIDI channel mute failures or unintended channel mutes and plays.
+    // Ignore mutes for a CHAN == 0.
     public boolean muteKeyboardChannels(MidiSong midiSong) {
 
         boolean breturn = true;
@@ -611,29 +613,32 @@ public class PlayMidi {
                 sequencer.getTransmitter().setReceiver(midircv);
             }
 
-            sequencer.setTrackMute(midiSong.getChanBass() - 1, true);
-            boolean muted = sequencer.getTrackMute(midiSong.getChanBass() - 1);
-            if (!muted) {
-                System.out.println("PlayMidi: Mute failed Channel " + midiSong.getChanBass());
-                breturn = false;        // muting failed
+            if (midiSong.getChanBass() != 0) {
+                sequencer.setTrackMute(midiSong.getChanBass() - 1, true);
+                boolean muted = sequencer.getTrackMute(midiSong.getChanBass() - 1);
+                if (!muted) {
+                    System.out.println("PlayMidi: Mute failed Channel " + midiSong.getChanBass());
+                    breturn = false;        // muting failed
+                } else System.out.println("PlayMidi: Muted Channel Bass " + BASSKBD);
             }
-            else System.out.println("PlayMidi: Muted Channel Bass " + BASSKBD);
 
-            sequencer.setTrackMute(midiSong.getChanLower() - 1, true);
-            muted = sequencer.getTrackMute(midiSong.getChanLower() - 1);
-            if (!muted) {
-                System.out.println("PlayMidi: Mute failed Channel " + midiSong.getChanLower());
-                breturn = false;        // muting failed
+            if (midiSong.getChanLower() != 0) {
+                sequencer.setTrackMute(midiSong.getChanLower() - 1, true);
+                boolean muted = sequencer.getTrackMute(midiSong.getChanLower() - 1);
+                if (!muted) {
+                    System.out.println("PlayMidi: Mute failed Channel " + midiSong.getChanLower());
+                    breturn = false;        // muting failed
+                } else System.out.println("PlayMidi: Muted Channel Lower " + midiSong.getChanLower());
             }
-            else System.out.println("PlayMidi: Muted Channel Lower " + midiSong.getChanLower());
 
-            sequencer.setTrackMute(midiSong.getChanUpper() - 1, true);
-            muted = sequencer.getTrackMute(midiSong.getChanUpper() - 1);
-            if (!muted) {
-                System.out.println("PlayMidi: Mute failed Channel " + midiSong.getChanUpper());
-                breturn = false;        // muting failed
+            if (midiSong.getChanUpper() != 0) {
+                sequencer.setTrackMute(midiSong.getChanUpper() - 1, true);
+                boolean muted = sequencer.getTrackMute(midiSong.getChanUpper() - 1);
+                if (!muted) {
+                    System.out.println("PlayMidi: Mute failed Channel " + midiSong.getChanUpper());
+                    breturn = false;        // muting failed
+                } else System.out.println("PlayMidi: Muted Channel Upper " + midiSong.getChanUpper());
             }
-            else System.out.println("PlayMidi: Muted Channel Upper " + midiSong.getChanUpper());
 
         }
         catch (Exception ex) {

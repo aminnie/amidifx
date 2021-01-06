@@ -1,48 +1,34 @@
 package amidifx;
 
 import amidifx.models.*;
-import amidifx.scenes.WelcomeScene;
 import amidifx.scenes.OrganScene;
-
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import javafx.stage.Screen;
-import javafx.stage.StageStyle;
-import javafx.stage.FileChooser;
-
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.Parent;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.scene.control.Slider;
-import javafx.scene.control.Button;
-import javafx.scene.text.*;
-import javafx.scene.transform.Rotate;
-
-import javafx.collections.ObservableList;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.geometry.Pos;
-
+import javafx.collections.ObservableList;
+import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
-import javafx.css.PseudoClass;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
+import javafx.stage.FileChooser;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-import javafx.beans.binding.BooleanBinding;
-import javafx.beans.value.ObservableValue;
-import javafx.beans.value.ChangeListener;
-
-import javax.sound.midi.MidiSystem;
-import java.util.Optional;
-import java.util.ArrayList;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -56,6 +42,21 @@ public class Main extends Application {
     final String bgpanecolor = "#999999";
     final String bgheadercolor = "#B2B5B1;";
     final String bgfootercolor = "#B2B5B1;";
+
+    static final String btnMenuOn = "-fx-background-color: #4493C0; -fx-font-size: 15; ";
+    static final String btnMenuOff = "-fx-background-color: #69A8CC; -fx-font-size: 15; ";
+    static final String btnMenuSaveOn = "-fx-background-color: #DB6B6B; -fx-font-size: 15; ";
+
+    static final String btnplayOff = "-fx-background-color: #8ED072; -fx-font-size: 15; ";
+    static final String btnplayOn = "-fx-background-color: #DB6B6B; -fx-font-size: 15; ";
+
+    final String selectcolorOff = "-fx-background-color: #69A8CC; -fx-font-size: 15; ";
+    final String selectcolorOn = "-fx-background-color: #4493C0; -fx-font-size: 15; ";
+
+    final String btnPresetOff = "-fx-background-color: #DBD06B;  -fx-font-size: 15; -fx-text";
+    final String btnPresetOn = "-fx-background-color: #C3B643;  -fx-font-size: 15; ";
+
+    final String styletext = "-fx-font-size: 15; ";
 
     Scene sceneOrgan, scenePresets, sceneSongs, sceneMonitor;
     MidiPatches dopatches;
@@ -194,7 +195,7 @@ public class Main extends Application {
     TextField txtTimeSig = new TextField("4/4");
     TextArea txtInstrumentList = new TextArea("Play Song to update Song MIDI Track Instruments");
 
-    Button buttonupdate = new Button("  Save Song  ");
+    Button buttonupdate = new Button(" Save Song ");
 
     Button buttonedit = new Button("  Edit ");
     Button buttonnew = new Button("  New ");
@@ -223,7 +224,7 @@ public class Main extends Application {
         // *** Create Top Navigation Bar
 
         Button buttonsc1 = new Button("Perform");
-        buttonsc1.setStyle("-fx-background-color: #69a8cc; ");
+        buttonsc1.setStyle(btnMenuOff);
         //buttonsc1.setOnAction(e -> stage.setScene(sceneOrgan));
         buttonsc1.setOnAction(e -> {
             System.out.println(("Main: Changing to Organ Scene: " + sharedStatus.getOrganScene().toString()));
@@ -236,7 +237,7 @@ public class Main extends Application {
         });
 
         Button buttonsc2 = new Button("Songs");
-        buttonsc2.setStyle("-fx-background-color: #4493C0; ");
+        buttonsc2.setStyle(btnMenuOn);
         //buttonsc2.setOnAction(e -> stage.setScene(sceneSongs));
         buttonsc2.setOnAction(e -> {
             System.out.println(("Main: Changing to Songs Scene: " + sharedStatus.getSongsScene().toString()));
@@ -249,8 +250,8 @@ public class Main extends Application {
         });
 
         Button buttonsc3 = new Button("Presets");
-        buttonsc3.setStyle("-fx-background-color: #69a8cc; ");
-        buttonsc3.setOnAction(e -> stage.setScene(scenePresets));
+        buttonsc3.setStyle(btnMenuOff);
+        //buttonsc3.setOnAction(e -> stage.setScene(scenePresets));
         buttonsc3.setDisable(true);
         buttonsc3.setOnAction(e -> {
             System.out.println(("Main: Changing to Presets Scene: " + sharedStatus.getPresetsScene().toString()));
@@ -263,7 +264,7 @@ public class Main extends Application {
         });
 
         Button buttonPanic = new Button("  Panic  ");
-        buttonPanic.setStyle("-fx-background-color: #69a8cc; ");
+        buttonPanic.setStyle(btnMenuOff);
         buttonPanic.setOnAction(e -> {
             PlayMidi playmidifile = PlayMidi.getInstance();
             playmidifile.sendMidiPanic();
@@ -272,7 +273,7 @@ public class Main extends Application {
         });
 
         Button buttonExit = new Button("  Exit  ");
-        buttonExit.setStyle("-fx-background-color: #69a8cc; ");
+        buttonExit.setStyle(btnMenuOff);
         buttonExit.setOnAction(e -> {
             playmidifile.stopMidiPlay("End Play");
             Platform.exit();
@@ -283,12 +284,13 @@ public class Main extends Application {
         toolbarLeft.setMinWidth(225);
 
         Label lbltitle1 = new Label("AMIDIFX Sound Module Controller");
+        lbltitle1.setStyle(styletext);
         HBox hboxTitle = new HBox();
         hboxTitle.setPadding(new Insets(10, 10, 10,200));
         hboxTitle.getChildren().add(lbltitle1);
 
         ToolBar toolbarRight = new ToolBar(buttonupdate, buttonPanic, buttonExit);
-        toolbarRight.setStyle("-fx-background-color: #B2B5B1; ");
+        toolbarRight.setStyle("-fx-background-color: " + bgheadercolor);
         toolbarRight.setMinWidth(150);
 
         BorderPane borderPaneTopSng = new BorderPane();
@@ -394,9 +396,10 @@ public class Main extends Application {
                     labelstatusSng.setText(" Status: Selected song " + songTitle);
                 });
         songlistView.getSelectionModel().selectFirst();
+        songlistView.setStyle(styletext);
 
         Button buttonpreset = new Button("Edit Presets");
-        buttonpreset.setStyle("-fx-background-color: #69A8CC; ");
+        buttonpreset.setStyle(selectcolorOff);
         ////String songFile = "amloop.mid";
         buttonpreset.setPrefSize(150, 50);
         buttonpreset.setOnAction(event -> {
@@ -464,6 +467,8 @@ public class Main extends Application {
 
         // Song Details view, input and edit screen
         Label lblsong = new Label("Song Title:");
+        lblsong.setStyle(styletext);
+        txtSongTitle.setStyle(styletext);
         txtSongTitle = new TextField();
         txtSongTitle.setDisable(true);
         txtSongTitle.setMaxWidth(250);
@@ -483,6 +488,8 @@ public class Main extends Application {
         txtSongTitle.setStyle("-fx-control-inner-background: #E7ECEC;");
 
         Label lblpreset = new Label("Preset File:");
+        lblpreset.setStyle(styletext);
+        txtPresetFile.setStyle(styletext);
         txtPresetFile = new TextField();
         txtPresetFile.setDisable(true);
         txtPresetFile.textProperty().addListener(event -> {
@@ -501,6 +508,8 @@ public class Main extends Application {
         txtPresetFile.setStyle("-fx-control-inner-background: #E7ECEC;");
 
         Label lblsmf = new Label("MIDI File:");
+        lblsmf.setStyle(styletext);
+        txtSmfFile.setStyle(styletext);
         txtSmfFile = new TextField();
         txtSmfFile.setDisable(true);
         txtSmfFile.textProperty().addListener(event -> {
@@ -519,6 +528,8 @@ public class Main extends Application {
         txtSmfFile.setStyle("-fx-control-inner-background: #E7ECEC;");
 
         Label lblpresetsaveas = new Label("Preset As:");
+        lblpresetsaveas.setStyle(styletext);
+        txtPresetSaveAsFile.setStyle(styletext);
         txtPresetSaveAsFile.setDisable(true);
         txtPresetSaveAsFile.setEditable(false);
         txtPresetSaveAsFile.setMouseTransparent(true);
@@ -538,8 +549,8 @@ public class Main extends Application {
                 "Save as Preset name (Name in 8.3 Alphanum format)"));
         txtPresetSaveAsFile.setStyle("-fx-control-inner-background: #E7ECEC;");
 
-        buttonupdate.setStyle("-fx-background-color: #DB6B6B; ");
         buttonupdate.setDisable(true);
+        buttonupdate.setStyle(btnMenuSaveOn);
         //BooleanBinding booleanBind = txtSongTitle.textProperty().isEmpty()
         //        .or(txtPresetFile.textProperty().isEmpty())
         //        .or(txtSmfFile.textProperty().isEmpty())
@@ -641,8 +652,11 @@ public class Main extends Application {
 
         // Get Song Bass, Lower and Upper Channel override from User
         Label lblSongChannels = new Label("MIDI Track Number Override for Mute:");
+        lblSongChannels.setStyle(styletext);
 
         Label lblBass = new Label("Bass:  ");
+        lblBass.setStyle(styletext);
+        txtBass.setStyle(styletext);
         txtBass = new TextField(Integer.toString(sharedStatus.getBassCHAN()));
         txtBass.setDisable(true);
         txtBass.setMaxWidth(50);
@@ -656,6 +670,8 @@ public class Main extends Application {
         });
 
         Label lblLower = new Label("    Lower:  ");
+        lblLower.setStyle(styletext);
+        txtLower.setStyle(styletext);
         txtLower = new TextField(Integer.toString(sharedStatus.getLowerCHAN()));
         txtLower.setDisable(true);
         txtLower.setMaxWidth(50);
@@ -669,6 +685,8 @@ public class Main extends Application {
         });
 
         Label lblUpper = new Label("    Upper:  ");
+        lblUpper.setStyle(styletext);
+        txtUpper.setStyle(styletext);
         txtUpper = new TextField(Integer.toString(sharedStatus.getUpper1CHAN()));
         txtUpper.setDisable(true);
         txtUpper.setMaxWidth(50);
@@ -682,6 +700,8 @@ public class Main extends Application {
         });
 
         Label lblTimeSig = new Label("    Time:  ");
+        lblTimeSig.setStyle(styletext);
+        txtTimeSig.setStyle(styletext);
         txtTimeSig.setDisable(true);
         txtTimeSig.setMaxWidth(50);
         txtTimeSig.textProperty().addListener(event -> {
@@ -706,7 +726,7 @@ public class Main extends Application {
 
         // Song New/Update, Delete and Save Buttons
         buttonedit.setText("Edit");
-        buttonedit.setStyle("-fx-background-color: #69A8CC; ");
+        buttonedit.setStyle(selectcolorOff);
         buttonedit.setPrefSize(75, 25);
         buttonedit.setOnAction(event -> {
 
@@ -730,7 +750,7 @@ public class Main extends Application {
 
         // Song New/Update, Delete and Save Buttons
         buttonnew.setText("New");
-        buttonnew.setStyle("-fx-background-color: #69A8CC; ");
+        buttonnew.setStyle(selectcolorOff);
         buttonnew.setPrefSize(75, 25);
         buttonnew.setOnAction(event -> {
 
@@ -766,7 +786,7 @@ public class Main extends Application {
         });
 
         buttondelete.setText("Delete");
-        buttondelete.setStyle("-fx-background-color: #69A8CC; ");
+        buttondelete.setStyle(selectcolorOff);
         buttondelete.setPrefSize(75, 25);
         buttondelete.setOnAction(event -> {
             ObservableList selectedIndices = songlistView.getSelectionModel().getSelectedIndices();
@@ -811,8 +831,10 @@ public class Main extends Application {
 
         // Prepare for Demo Play with options, defaulting to demo play
         radioOriginal.setSelected(true);
+        radioOriginal.setStyle(styletext);
+
         Button buttondemo = new Button("Play Song");
-        buttondemo.setStyle("-fx-background-color: #8ED072; ");
+        buttondemo.setStyle(btnplayOff);
         buttondemo.setPrefSize(150, 25);
         buttondemo.setOnAction(e -> {
             //PlayMidi playmidifile = new PlayMidi();
@@ -822,7 +844,7 @@ public class Main extends Application {
                     boolean bsettimer = false;
 
                     buttondemo.setText("Stop Play");
-                    buttondemo.setStyle("-fx-background-color: #DB6B6B; ");
+                    buttondemo.setStyle(btnplayOn);
 
                     playmidifile = PlayMidi.getInstance();
                     if (radioOriginal.isSelected()) {
@@ -869,7 +891,7 @@ public class Main extends Application {
                                         bplaying = false;
 
                                         buttondemo.setText("Play Song");
-                                        buttondemo.setStyle("-fx-background-color: #8ED072; ");
+                                        buttondemo.setStyle(btnplayOff);
                                         labelstatusSng.setText(" Status: Song Play Complete " + playmidifile.getSequencerTickPosition());
                                     });
                                     songPlayTimer.cancel();
@@ -888,7 +910,7 @@ public class Main extends Application {
                 }
                 else {
                     buttondemo.setText("Play Song");
-                    buttondemo.setStyle("-fx-background-color: #8ED072; ");
+                    buttondemo.setStyle(btnplayOn);
 
                     playmidifile.stopMidiPlay(txtSmfFile.getText());
 
@@ -962,11 +984,14 @@ public class Main extends Application {
         // Do the Demo style radio buttons
 
         Label labelDemoType = new Label("Sequencer Mode:  ");
+        labelDemoType.setStyle(styletext);
 
         ToggleGroup radioDemoTypeGroup = new ToggleGroup();
         radioOriginal.setSelected(true);
         radioPresets = new RadioButton("With Presets    ");
+        radioPresets.setStyle(styletext);
         radioLive = new RadioButton("Backing Only");
+        radioLive.setStyle(styletext);
         radioOriginal.setToggleGroup(radioDemoTypeGroup);
         radioPresets.setToggleGroup(radioDemoTypeGroup);
         radioLive.setToggleGroup(radioDemoTypeGroup);
@@ -1060,7 +1085,7 @@ public class Main extends Application {
 
         // Create top bar navigation buttons
         Button buttonsc1 = new Button("Perform");
-        buttonsc1.setStyle("-fx-background-color: #69a8cc; ");
+        buttonsc1.setStyle(btnMenuOff);
         //buttonsc1.setOnAction(e -> stage.setScene(sceneOrgan));
         buttonsc1.setOnAction(e -> {
             System.out.println(("Main: Changing to Organ Scene: " + sharedStatus.getOrganScene().toString()));
@@ -1071,7 +1096,7 @@ public class Main extends Application {
         });
 
         Button buttonsc2 = new Button("Songs");
-        buttonsc2.setStyle("-fx-background-color: #69a8cc; ");
+        buttonsc2.setStyle(btnMenuOff);
         //buttonsc2.setOnAction(e -> stage.setScene(sceneSongs));
         buttonsc2.setOnAction(e -> {
             System.out.println(("Main: Changing to Songs Scene: " + sharedStatus.getSongsScene().toString()));
@@ -1082,7 +1107,7 @@ public class Main extends Application {
         });
 
         Button buttonsc3 = new Button("Presets");
-        buttonsc3.setStyle("-fx-background-color: #4493C0; ");
+        buttonsc3.setStyle(btnMenuOn);
         //buttonsc3.setOnAction(e -> stage.setScene(scenePresets));
         buttonsc3.setOnAction(e -> {
             System.out.println(("Main: Changing to Presets Scene: " + sharedStatus.getPresetsScene().toString()));
@@ -1093,7 +1118,7 @@ public class Main extends Application {
         });
 
         Button buttonPanic = new Button("  Panic  ");
-        buttonPanic.setStyle("-fx-background-color: #69a8cc; ");
+        buttonPanic.setStyle(btnMenuOff);
         buttonPanic.setOnAction(e -> {
             PlayMidi playmidifile = PlayMidi.getInstance();
             playmidifile.sendMidiPanic();
@@ -1102,15 +1127,15 @@ public class Main extends Application {
         });
 
         Button buttonExit = new Button("  Exit  ");
-        buttonExit.setStyle("-fx-background-color: #69a8cc; ");
+        buttonExit.setStyle(btnMenuOff);
         buttonExit.setOnAction(e -> {
             playmidifile.stopMidiPlay("End Play");
             Platform.exit();
         });
 
         // Save Presets Button
-        buttonSave = new Button("Save Presets");
-        buttonSave.setStyle("-fx-background-color: #DB6B6B; ");
+        buttonSave.setText("Save Presets");
+        buttonSave.setStyle(btnMenuSaveOn);
         buttonSave.setDisable(true);
         buttonSave.setOnAction(event -> {
             if (flgDirtyPreset) {
@@ -1131,6 +1156,7 @@ public class Main extends Application {
         toolbarLeft.setMinWidth(225);
 
         Label lbltitle1 = new Label("AMIDIFX Sound Module Controller");
+        lbltitle1.setStyle(styletext);
         HBox hboxTitle = new HBox();
         hboxTitle.setPadding(new Insets(10, 10, 10,200));
         hboxTitle.getChildren().add(lbltitle1);
@@ -1238,9 +1264,10 @@ public class Main extends Application {
                     labelstatus.setText(" Status: Selected Bank " + selectedItem);
                 });
         banklistView.getSelectionModel().selectFirst();
+        banklistView.setStyle(styletext);
 
         Button buttonb = new Button("Select Bank");
-        buttonb.setStyle("-fx-background-color: #69A8CC; ");
+        buttonb.setStyle(selectcolorOff);
         buttonb.setPrefSize(150, 50);
         buttonb.setOnAction(event -> {
             ObservableList selectedIndices = banklistView.getSelectionModel().getSelectedIndices();
@@ -1381,10 +1408,11 @@ public class Main extends Application {
                     setMidiLayerLabel(channelIdx + 1);
                 });
         presetListView.getSelectionModel().selectFirst();
+        presetListView.setStyle(styletext);
 
         // Update Voice for currently selected Channel in Preset Listview
         Button buttonvoice = new Button("Update Channel");
-        buttonvoice.setStyle("-fx-background-color: #69A8CC; ");
+        buttonvoice.setStyle(selectcolorOff);
         buttonvoice.setPrefSize(150, 50);
         buttonvoice.setOnAction(event -> {
             MidiPatch midiPatch = dopatches.getMIDIPatch(selpatchIdx);
@@ -1429,15 +1457,15 @@ public class Main extends Application {
 
         bpressed1 = false;
         pstbutton1 = new Button("Button 1");
-        pstbutton1.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton1.setStyle(btnPresetOff);
         pstbutton1.setWrapText(true);
         pstbutton1.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx);
             if (!bpressed1) {
-                pstbutton1.setStyle("-fx-background-color: #C3B643");
+                pstbutton1.setStyle(btnPresetOn);
             } else {
-                pstbutton1.setStyle("-fx-background-color: #DBD06B");
+                pstbutton1.setStyle(btnPresetOff);
             }
             bpressed1 = !bpressed1;
         });
@@ -1445,15 +1473,15 @@ public class Main extends Application {
 
         bpressed2 = false;
         pstbutton2 = new Button("Button 2");
-        pstbutton2.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton2.setStyle(btnPresetOff);
         pstbutton2.setWrapText(true);
         pstbutton2.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+1);
             if (!bpressed2) {
-                pstbutton2.setStyle("-fx-background-color: #C3B643");
+                pstbutton2.setStyle(btnPresetOn);
             } else {
-                pstbutton2.setStyle("-fx-background-color: #DBD06B");
+                pstbutton2.setStyle(btnPresetOff);
             }
             bpressed2 = !bpressed2;
         });
@@ -1461,15 +1489,15 @@ public class Main extends Application {
 
         bpressed3 = false;
         pstbutton3 = new Button("Button 3");
-        pstbutton3.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton3.setStyle(btnPresetOff);
         pstbutton3.setWrapText(true);
         pstbutton3.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+2);
             if (!bpressed3) {
-                pstbutton3.setStyle("-fx-background-color: #C3B643");
+                pstbutton3.setStyle(btnPresetOn);
             } else {
-                pstbutton3.setStyle("-fx-background-color: #DBD06B");
+                pstbutton3.setStyle(btnPresetOff);
             }
             bpressed3 = !bpressed3;
         });
@@ -1477,15 +1505,15 @@ public class Main extends Application {
 
         bpressed4 = false;
         pstbutton4 = new Button("Button 4");
-        pstbutton4.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton4.setStyle(btnPresetOff);
         pstbutton4.setWrapText(true);
         pstbutton4.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+3);
             if (!bpressed4) {
-                pstbutton4.setStyle("-fx-background-color: #C3B643");
+                pstbutton4.setStyle(btnPresetOn);
             } else {
-                pstbutton4.setStyle("-fx-background-color: #DBD06B");
+                pstbutton4.setStyle(btnPresetOff);
             }
             bpressed4 = !bpressed4;
         });
@@ -1493,15 +1521,15 @@ public class Main extends Application {
 
         bpressed5 = false;
         pstbutton5 = new Button("Button 5");
-        pstbutton5.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton5.setStyle(btnPresetOff);
         pstbutton5.setWrapText(true);
         pstbutton5.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+4);
             if (!bpressed5) {
-                pstbutton5.setStyle("-fx-background-color: #C3B643");
+                pstbutton5.setStyle(btnPresetOn);
             } else {
-                pstbutton5.setStyle("-fx-background-color: #DBD06B");
+                pstbutton5.setStyle(btnPresetOff);
             }
             bpressed5 = !bpressed5;
         });
@@ -1509,15 +1537,15 @@ public class Main extends Application {
 
         bpressed6 = false;
         pstbutton6 = new Button("Button 6");
-        pstbutton6.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton6.setStyle(btnPresetOff);
         pstbutton6.setWrapText(true);
         pstbutton6.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+5);
             if (!bpressed6) {
-                pstbutton6.setStyle("-fx-background-color: #C3B643");
+                pstbutton6.setStyle(btnPresetOn);
             } else {
-                pstbutton6.setStyle("-fx-background-color: #DBD06B");
+                pstbutton6.setStyle(btnPresetOff);
             }
             bpressed6 = !bpressed6;
         });
@@ -1525,15 +1553,15 @@ public class Main extends Application {
 
         bpressed7 = false;
         pstbutton7 = new Button("Button 7");
-        pstbutton7.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton7.setStyle(btnPresetOff);
         pstbutton7.setWrapText(true);
         pstbutton7.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+6);
             if (!bpressed7) {
-                pstbutton7.setStyle("-fx-background-color: #C3B643");
+                pstbutton7.setStyle(btnPresetOn);
             } else {
-                pstbutton7.setStyle("-fx-background-color: #DBD06B");
+                pstbutton7.setStyle(btnPresetOff);
             }
             bpressed7 = !bpressed7;
         });
@@ -1541,15 +1569,15 @@ public class Main extends Application {
 
         bpressed8 = false;
         pstbutton8 = new Button("Button 8");
-        pstbutton8.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton8.setStyle(btnPresetOff);
         pstbutton8.setWrapText(true);
         pstbutton8.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+7);
             if (!bpressed8) {
-                pstbutton8.setStyle("-fx-background-color: #C3B643");
+                pstbutton8.setStyle(btnPresetOn);
             } else {
-                pstbutton8.setStyle("-fx-background-color: #DBD06B");
+                pstbutton8.setStyle(btnPresetOff);
             }
             bpressed8 = !bpressed8;
         });
@@ -1557,15 +1585,15 @@ public class Main extends Application {
 
         bpressed9 = false;
         pstbutton9 = new Button("Button 9");
-        pstbutton9.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton9.setStyle(btnPresetOff);
         pstbutton9.setWrapText(true);
         pstbutton9.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+8);
             if (!bpressed9) {
-                pstbutton9.setStyle("-fx-background-color: #C3B643");
+                pstbutton9.setStyle(btnPresetOn);
             } else {
-                pstbutton9.setStyle("-fx-background-color: #DBD06B");
+                pstbutton9.setStyle(btnPresetOff);
             }
             bpressed9 = !bpressed9;
         });
@@ -1573,15 +1601,15 @@ public class Main extends Application {
 
         bpressed10 = false;
         pstbutton10 = new Button("Button 10");
-        pstbutton10.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton10.setStyle(btnPresetOff);
         pstbutton10.setWrapText(true);
         pstbutton10.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+9);
             if (!bpressed10) {
-                pstbutton10.setStyle("-fx-background-color: #C3B643");
+                pstbutton10.setStyle(btnPresetOn);
             } else {
-                pstbutton10.setStyle("-fx-background-color: #DBD06B");
+                pstbutton10.setStyle(btnPresetOff);
             }
             bpressed10 = !bpressed10;
         });
@@ -1589,15 +1617,15 @@ public class Main extends Application {
 
         bpressed11 = false;
         pstbutton11 = new Button("Button 11");
-        pstbutton11.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton11.setStyle(btnPresetOff);
         pstbutton11.setWrapText(true);
         pstbutton11.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+10);
             if (!bpressed11) {
-                pstbutton11.setStyle("-fx-background-color: #C3B643");
+                pstbutton11.setStyle(btnPresetOn);
             } else {
-                pstbutton11.setStyle("-fx-background-color: #DBD06B");
+                pstbutton11.setStyle(btnPresetOff);
             }
             bpressed11 = !bpressed11;
         });
@@ -1605,15 +1633,15 @@ public class Main extends Application {
 
         bpressed12 = false;
         pstbutton12 = new Button("Button 12");
-        pstbutton12.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton12.setStyle(btnPresetOff);
         pstbutton12.setWrapText(true);
         pstbutton12.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+11);
             if (!bpressed12) {
-                pstbutton12.setStyle("-fx-background-color: #C3B643");
+                pstbutton12.setStyle(btnPresetOn);
             } else {
-                pstbutton12.setStyle("-fx-background-color: #DBD06B");
+                pstbutton12.setStyle(btnPresetOff);
             }
             bpressed12 = !bpressed12;
         });
@@ -1621,15 +1649,15 @@ public class Main extends Application {
 
         bpressed13 = false;
         pstbutton13 = new Button("Button 13");
-        pstbutton13.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton13.setStyle(btnPresetOff);
         pstbutton13.setWrapText(true);
         pstbutton13.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+12);
             if (!bpressed13) {
-                pstbutton13.setStyle("-fx-background-color: #C3B643");
+                pstbutton13.setStyle(btnPresetOn);
             } else {
-                pstbutton13.setStyle("-fx-background-color: #DBD06B");
+                pstbutton13.setStyle(btnPresetOff);
             }
             bpressed13 = !bpressed13;
         });
@@ -1637,15 +1665,15 @@ public class Main extends Application {
 
         bpressed14 = false;
         pstbutton14 = new Button("Button 14");
-        pstbutton14.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton14.setStyle(btnPresetOff);
         pstbutton14.setWrapText(true);
         pstbutton14.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+13);
             if (!bpressed14) {
-                pstbutton14.setStyle("-fx-background-color: #C3B643");
+                pstbutton14.setStyle(btnPresetOn);
             } else {
-                pstbutton14.setStyle("-fx-background-color: #DBD06B");
+                pstbutton14.setStyle(btnPresetOff);
             }
             bpressed14 = !bpressed14;
         });
@@ -1653,15 +1681,15 @@ public class Main extends Application {
 
         bpressed15 = false;
         pstbutton15 = new Button("Button 15");
-        pstbutton15.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton15.setStyle(btnPresetOff);
         pstbutton15.setWrapText(true);
         pstbutton15.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+14);
             if (!bpressed15) {
-                pstbutton15.setStyle("-fx-background-color: #C3B643");
+                pstbutton15.setStyle(btnPresetOn);
             } else {
-                pstbutton15.setStyle("-fx-background-color: #DBD06B");
+                pstbutton15.setStyle(btnPresetOff);
             }
             bpressed15 = !bpressed15;
         });
@@ -1669,22 +1697,22 @@ public class Main extends Application {
 
         bpressed16 = false;
         pstbutton16 = new Button("Button 16");
-        pstbutton16.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton16.setStyle(btnPresetOff);
         pstbutton16.setWrapText(true);
         pstbutton16.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+15);
             if (!bpressed16) {
-                pstbutton16.setStyle("-fx-background-color: #C3B643");
+                pstbutton16.setStyle(btnPresetOn);
             } else {
-                pstbutton16.setStyle("-fx-background-color: #DBD06B");
+                pstbutton16.setStyle(btnPresetOff);
             }
             bpressed16 = !bpressed16;
         });
         pstbutton16.setPrefSize(150, 50);
 
         Button btnprev = new Button("<< Previous");
-        btnprev.setStyle("-fx-background-color: #69A8CC; ");
+        btnprev.setStyle(selectcolorOff);
         btnprev.setPrefSize(150, 50);
         btnprev.setOnAction(e -> {
             offAllButtons();
@@ -1692,13 +1720,13 @@ public class Main extends Application {
         });
 
         Button btntest = new Button("Test Voice");
-        btntest.setStyle("-fx-background-color: #8ED072; ");
+        btntest.setStyle(btnplayOff);
         btntest.setPrefSize(150, 50);
         btntest.setOnAction(e -> {
             try {
                 if (!btestnote) {
                     btntest.setText("Stop");
-                    btntest.setStyle("-fx-background-color: #DB6B6B; ");
+                    btntest.setStyle(btnplayOn);
 
                     PlayMidi playmidifile = PlayMidi.getInstance();
                     MidiPatch patch = dopatches.getMIDIPatch(selpatchIdx);
@@ -1719,12 +1747,10 @@ public class Main extends Application {
                 }
                 else {
                     btntest.setText("Test Note");
-                    btntest.setStyle("-fx-background-color: #8ED072; ");
+                    btntest.setStyle(btnplayOff);
 
                     PlayMidi playmidifile = PlayMidi.getInstance();
                     playmidifile.sendMidiNote((byte)1, (byte)60, false);
-
-                    btntest.setStyle("-fx-background-color: #8ED072; ");
 
                     btestnote = false;
                 }
@@ -1735,13 +1761,13 @@ public class Main extends Application {
         });
 
         Button btndemo = new Button(" Play Song");
-        btndemo.setStyle("-fx-background-color: #8ED072; ");
+        btndemo.setStyle(btnplayOff);
         btndemo.setPrefSize(150, 50);
         btndemo.setOnAction(e -> {
             try {
                 if (!bplaying) {
                     btndemo.setText(" Stop Play");
-                    btndemo.setStyle("-fx-background-color: #DB6B6B; ");
+                    btndemo.setStyle(btnplayOn);
 
                     bplaying = true;
 
@@ -1763,7 +1789,7 @@ public class Main extends Application {
                                         bplaying = false;
 
                                         btndemo.setText("Play Song");
-                                        btndemo.setStyle("-fx-background-color: #8ED072; ");
+                                        btndemo.setStyle(btnplayOff);
                                         labelstatus.setText(" Status: Song Play Complete " + playmidifile.getSequencerTickPosition());
                                     });
                                     songPlayTimer.cancel();
@@ -1783,7 +1809,7 @@ public class Main extends Application {
                 }
                 else {
                     btndemo.setText("Play Song");
-                    btndemo.setStyle("-fx-background-color: #8ED072; ");
+                    btndemo.setStyle(btnplayOff);
 
                     PlayMidi playmidifile = PlayMidi.getInstance();
                     playmidifile.stopMidiPlay(songFile);
@@ -1795,7 +1821,7 @@ public class Main extends Application {
                 bplaying = false;
 
                 btndemo.setText("Play Song");
-                btndemo.setStyle("-fx-background-color: #8ED072; ");
+                btndemo.setStyle(btnplayOff);
 
                 exception.printStackTrace();
             }
@@ -1803,7 +1829,7 @@ public class Main extends Application {
         });
 
         Button btnnext = new Button("Next >>");
-        btnnext.setStyle("-fx-background-color: #69A8CC; ");
+        btnnext.setStyle(selectcolorOff);
         btnnext.setPrefSize(150, 50);
         btnnext.setOnAction(e -> {
             offAllButtons();
@@ -2013,8 +2039,8 @@ public class Main extends Application {
         paneEffects.getChildren().add(new VBox(new Label(" TRE"), sliderTRE));
         paneEffects.getChildren().add(new VBox(new Label(" MOD"), sliderMOD));
         paneEffects.getChildren().add(new VBox(new Label(" PAN"), sliderPAN));
-//        paneEffects.setPadding(new Insets(0, 10, 0, 10)); // Insets(double top, double right, double bottom, double left)
         flowpane.getChildren().add(paneEffects);
+        flowpane.setStyle(styletext);
 
         // Add MIDI Channel Layering for each Channel
         VBox vboxLayers = new VBox();
@@ -2028,11 +2054,13 @@ public class Main extends Application {
                 " 9 ", "10 ", "11 ", "12 ", "13 ", "14 ", "15 ", "16 "};
 
         midiLayerLabel = new Label("MIDI Channel " + (channelIdx + 1) + " Layers");
+        midiLayerLabel.setStyle(styletext);
 
         chkBoxArray = new CheckBox[16];
         int x, y;
         for (checkIdx = 0; checkIdx < 16; checkIdx++) {                     // midiChannels.length
             chkBoxArray[checkIdx] = new CheckBox(midiChannels[checkIdx]);
+            chkBoxArray[checkIdx].setStyle(styletext);
             // Add Check Box event to save changes to Preset
             EventHandler<ActionEvent> event = e -> {
                 updateChannelOutIdx(channelIdx);
@@ -2054,7 +2082,7 @@ public class Main extends Application {
         // Send Presets to MIDI Button
         Button buttonApplyPreset = new Button("Apply Preset");
         buttonApplyPreset.setPrefSize(150, 25);
-        buttonApplyPreset.setStyle("-fx-background-color: #8ED072; ");
+        buttonApplyPreset.setStyle(btnplayOff);
         buttonApplyPreset.setOnAction(event -> {
             MidiPreset applypreset = dopresets.getPreset(channelIdx);
             dopresets.applyMidiPreset(applypreset, channelIdx+1);

@@ -2,30 +2,22 @@ package amidifx.scenes;
 
 import amidifx.*;
 import amidifx.models.*;
-
-import com.sun.scenario.effect.DropShadow;
-import javafx.application.*;
-
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.transform.Rotate;
-import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import org.w3c.dom.Text;
+import javafx.scene.layout.*;
+import javafx.scene.transform.Rotate;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.Flow;
 
 public class OrganScene {
 
@@ -35,26 +27,36 @@ public class OrganScene {
     final String bgheadercolor = "#B2B5B1;";
     final String bgfootercolor = "#B2B5B1;";
 
-    final String rcolorOff = "#ea9999";
-    final String rcolorOn = "#e06666";
+    final String rcolorOff = "-fx-background-color: #ea9999; -fx-font-size: 15; ";
+    final String rcolorOn = "-fx-background-color: #e06666; -fx-font-size: 15; ";
 
-    final String lcolorOff = "#ffe599";
-    final String lcolorOn = "#f1c232";
+    final String lcolorOff = "-fx-background-color: #ffe599; -fx-font-size: 15; ";
+    final String lcolorOn = "-fx-background-color: #f1c232; -fx-font-size: 15; ";
 
-    final String dcolorOff = "#a2c4c9";
-    final String dcolorOn = "#76a5af";
+    final String dcolorOff = "-fx-background-color: #a2c4c9; -fx-font-size: 15; ";
+    final String dcolorOn = "-fx-background-color: #76a5af; -fx-font-size: 15; ";
 
-    final String bcolorOff = "#a4c2f4";
-    final String bcolorOn = "#6d9eeb";
+    final String bcolorOff = "-fx-background-color: #a4c2f4; -fx-font-size: 15; ";
+    final String bcolorOn = "-fx-background-color: #6d9eeb; -fx-font-size: 15; ";
 
-    final String pcolorOff = "#DBD06B";
-    final String pcolorOn = "#C3B643";
+    final String pcolorOff = "-fx-background-color: #DBD06B; -fx-font-size: 15; ";
+    final String pcolorOn = "-fx-background-color: #C3B643; -fx-font-size: 15; ";
 
-    final String orgcolorOff = "#b7b7b7";
-    final String orgcolorOn = "#f3f3f3";
+    final String orgcolorOff = "-fx-background-color: #b7b7b7; -fx-font-size: 15; ";
+    final String orgcolorOn = "-fx-background-color: #f3f3f3; -fx-font-size: 15; ";
 
-    final String selectcolorOff = "#69a8cc";
-    final String selectcolorOn = "#4493C0";
+    final String selectcolorOff = "-fx-background-color: #69a8cc; -fx-font-size: 15; ";
+    final String selectcolorOn = "-fx-background-color: #4493C0; -fx-font-size: 15; ";
+
+    static final String btnMenuOn = "-fx-background-color: #4493C0; -fx-font-size: 15; ";
+    static final String btnMenuOff = "-fx-background-color: #69A8CC; -fx-font-size: 15; ";
+    static final String btnMenuSaveOn = "-fx-background-color: #DB6B6B; -fx-font-size: 15; ";
+    static final String btnMenuSaveOff = "-fx-background-color: #B2B5B1; -fx-font-size: 15; ";
+
+    static final String btnplayOff = "-fx-background-color: #8ED072; -fx-font-size: 15; ";
+    static final String btnplayOn = "-fx-background-color: #DB6B6B; -fx-font-size: 15; ";
+
+    final String styletext = "-fx-font-size: 15; ";
 
     Stage primaryStage;
     Scene returnScene;
@@ -316,7 +318,7 @@ public class OrganScene {
             // Create top bar navigation buttons
 
             Button buttonsc1 = new Button("Perform");
-            buttonsc1.setStyle("-fx-background-color: #4493C0; ");
+            buttonsc1.setStyle(btnMenuOn);
             buttonsc1.setOnAction(e -> {
                 //System.out.println(("OrganScene: Changing to Organ Scene " + sharedStatus.getOrganScene().toString()));
                 primaryStage.setScene(sharedStatus.getOrganScene());
@@ -328,7 +330,7 @@ public class OrganScene {
             });
 
             Button buttonsc2 = new Button("Songs");
-            buttonsc2.setStyle("-fx-background-color: #69a8cc; ");
+            buttonsc2.setStyle(btnMenuOff);
             buttonsc2.setOnAction(e -> {
                 //System.out.println(("OrganScene: Changing to Songs Scene " + sharedStatus.getSongsScene().toString()));
                 primaryStage.setScene(sharedStatus.getSongsScene());
@@ -340,7 +342,7 @@ public class OrganScene {
             });
 
             Button buttonsc3 = new Button("Presets");
-            buttonsc3.setStyle("-fx-background-color: #69a8cc; ");
+            buttonsc3.setStyle(btnMenuOff);
             buttonsc3.setDisable(true);
             buttonsc3.setOnAction(e -> {
                 //System.out.println(("OrganScene: Changing to Presets Scene " + sharedStatus.getPresetsScene().toString()));
@@ -354,7 +356,7 @@ public class OrganScene {
 
             // Save Presets Button
             buttonSave = new Button("Save Voices");
-            buttonSave.setStyle("-fx-background-color: #DB6B6B; ");
+            buttonSave.setStyle(btnMenuSaveOn);
             buttonSave.setDisable(true);
             buttonSave.setOnAction(event -> {
                 if (flgDirtyPreset) {
@@ -373,7 +375,7 @@ public class OrganScene {
             });
 
             Button buttonPanic = new Button("  Panic  ");
-            buttonPanic.setStyle("-fx-background-color: #69a8cc; ");
+            buttonPanic.setStyle(btnMenuOff);
             buttonPanic.setOnAction(e -> {
                 PlayMidi playmidifile = PlayMidi.getInstance();
                 playmidifile.sendMidiPanic();
@@ -382,7 +384,7 @@ public class OrganScene {
             });
 
             Button buttonExit = new Button("  Exit  ");
-            buttonExit.setStyle("-fx-background-color: #69a8cc; ");
+            buttonExit.setStyle(btnMenuOff);
             buttonExit.setOnAction(e -> {
                 playmidifile.stopMidiPlay("End Play");
                 Platform.exit();
@@ -393,6 +395,7 @@ public class OrganScene {
             toolbarLeft.setMinWidth(225);
 
             Label lbltitle1 = new Label("AMIDIFX Sound Module Controller");
+            lbltitle1.setStyle(styletext);
             HBox hboxTitle = new HBox();
             hboxTitle.setPadding(new Insets(10, 10, 10,200));
             hboxTitle.getChildren().add(lbltitle1);
@@ -412,13 +415,13 @@ public class OrganScene {
             // Build the Song Title Selection Controls
 
             Button buttonSongLoad = new Button(songTitle);
-            buttonSongLoad.setStyle("-fx-background-color: #69A8CC; ");
+            buttonSongLoad.setStyle(selectcolorOff);
             buttonSongLoad.setPrefSize(200, 25);
             buttonSongLoad.setAlignment(Pos.CENTER);
             buttonSongLoad.setOnAction(e -> {
                 buttonPresetLoad(dosongs.getSong(idxSongList).getPresetFile());
 
-                buttonSongLoad.setStyle("-fx-background-color: " + selectcolorOn);
+                buttonSongLoad.setStyle(selectcolorOn);
 
                 sharedStatus.setPresetFile(dosongs.getSong(idxSongList).getPresetFile());
                 sharedStatus.setMidiFile(dosongs.getSong(idxSongList).getMidiFile());
@@ -436,7 +439,7 @@ public class OrganScene {
             });
 
             Button buttonSongNameLeft = new Button("<<");
-            buttonSongNameLeft.setStyle("-fx-background-color: #69A8CC; ");
+            buttonSongNameLeft.setStyle(selectcolorOff);
             buttonSongNameLeft.setPrefSize(50, 25);
             buttonSongNameLeft.setOnAction(e -> {
                 if (idxSongList > 0) --idxSongList;
@@ -445,14 +448,14 @@ public class OrganScene {
                 buttonSongLoad.setText(songTitle);
 
                 // New Song to be selected for Play
-                buttonSongLoad.setStyle("-fx-background-color: " + selectcolorOff);
+                buttonSongLoad.setStyle(selectcolorOff);
                 btnplay.setDisable(true);
 
                 //System.out.println("OrganScene: Previous Song " + songTitle);
             });
 
             Button buttonSongNameRight = new Button(">>");
-            buttonSongNameRight.setStyle("-fx-background-color: #69A8CC; ");
+            buttonSongNameRight.setStyle(selectcolorOff);
             buttonSongNameRight.setPrefSize(50, 25);
             buttonSongNameRight.setOnAction(e -> {
                 if (idxSongList < (dosongs.getSongListSize() - 1)) idxSongList++;
@@ -461,7 +464,7 @@ public class OrganScene {
                 buttonSongLoad.setText(songTitle);
 
                 // New Song selected
-                buttonSongLoad.setStyle("-fx-background-color: " + selectcolorOff);
+                buttonSongLoad.setStyle(selectcolorOff);
                 btnplay.setDisable(true);
 
                 //System.out.println("OrganScene: Next Song " + songTitle);
@@ -481,7 +484,7 @@ public class OrganScene {
             // Build the Sound Bank Selection Controls
 
             buttonSoundBank.setPrefSize(200, 25);
-            buttonSoundBank.setStyle("-fx-background-color: #69A8CC; ");
+            buttonSoundBank.setStyle(selectcolorOff);
             buttonSoundBank.setAlignment(Pos.CENTER);
             buttonSoundBank.setOnAction(e -> {
                 // Load the start Patch IDx for the selected Bank
@@ -492,35 +495,35 @@ public class OrganScene {
                 fontname = dopatches.getMIDIPatch(patchidx).getPatchName();
                 buttonSoundFont.setText(fontname);
 
-                buttonSoundBank.setStyle("-fx-background-color: " + selectcolorOn);
+                buttonSoundBank.setStyle(selectcolorOn);
                 //bnewpatchselected = true;
             });
 
             Button buttonSoundBankLeft = new Button("<<");
-            buttonSoundBankLeft.setStyle("-fx-background-color: #69A8CC; ");
+            buttonSoundBankLeft.setStyle(selectcolorOff);
             buttonSoundBankLeft.setPrefSize(50, 25);
             buttonSoundBankLeft.setOnAction(e -> {
                 if (bankidx > 0) --bankidx;
                 bankname = dopatches.getMidiBanks().getMidiBank(bankidx).getBankName();
                 buttonSoundBank.setText(bankname);
 
-                buttonSoundBank.setStyle("-fx-background-color: " + selectcolorOff);
-                buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                buttonSoundBank.setStyle(selectcolorOff);
+                buttonSoundFont.setStyle(selectcolorOff);
                 bnewpatchselected = false;
 
                 //System.out.println("OrganScene: Previous Bank " + bankname);
             });
 
             Button buttonSoundBankRight = new Button(">>");
-            buttonSoundBankRight.setStyle("-fx-background-color: #69A8CC; ");
+            buttonSoundBankRight.setStyle(selectcolorOff);
             buttonSoundBankRight.setPrefSize(50, 25);
             buttonSoundBankRight.setOnAction(e -> {
                 if (bankidx < dopatches.getMidiBanks().getMidiBankSize() -1 ) bankidx++;
                 bankname = dopatches.getMidiBanks().getMidiBank(bankidx).getBankName();
                 buttonSoundBank.setText(bankname);
 
-                buttonSoundBank.setStyle("-fx-background-color: " + selectcolorOff);
-                buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                buttonSoundBank.setStyle(selectcolorOff);
+                buttonSoundFont.setStyle(selectcolorOff);
                 bnewpatchselected = false;
 
                 //System.out.println("OrganScene: Previous Bank " + bankname);
@@ -540,12 +543,12 @@ public class OrganScene {
             // Build the Sound Voice Selection Controls
 
             buttonSoundFont.setPrefSize(200, 25);
-            buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+            buttonSoundFont.setStyle(selectcolorOff);
             buttonSoundFont.setAlignment(Pos.CENTER);
             buttonSoundFont.setOnAction(e -> {
                 //buttonPresetLoad(dosongs.getSong(songidx).getPresetFile());
 
-                buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOn);
+                buttonSoundFont.setStyle(selectcolorOn);
                 labelstatusOrg.setText(" Status: Loaded Voice for " + fontname + ". Press Voice Button to Add.");
 
                 bnewpatchselected = true;
@@ -554,7 +557,7 @@ public class OrganScene {
             });
 
             Button buttonSoundFontLeft = new Button("<<");
-            buttonSoundFontLeft.setStyle("-fx-background-color: #69A8CC; ");
+            buttonSoundFontLeft.setStyle(selectcolorOff);
             buttonSoundFontLeft.setPrefSize(50, 25);
             buttonSoundFontLeft.setOnAction(e -> {
                 if (patchidx > bankpatchidx) --patchidx;
@@ -568,7 +571,7 @@ public class OrganScene {
             });
 
             Button buttonSoundFontRight = new Button(">>");
-            buttonSoundFontRight.setStyle("-fx-background-color: #69A8CC; ");
+            buttonSoundFontRight.setStyle(selectcolorOff);
             buttonSoundFontRight.setPrefSize(50, 25);
             buttonSoundFontRight.setOnAction(e -> {
                 if (patchidx < dopatches.getMIDIPatchSize() - 1) ++patchidx;
@@ -627,15 +630,15 @@ public class OrganScene {
 
             ppressed1 = false;
             btnpreset1 = new Button("Preset 1");
-            btnpreset1.setStyle("-fx-background-color: " + pcolorOff);
+            btnpreset1.setStyle(pcolorOff);
             btnpreset1.setOnAction(event -> {
                 offAllPresetButtons();
                 buttonPresetAction(0);
                 labelstatusOrg.setText(" Status: Applying Preset 1");
                 if (!ppressed1) {
-                    btnpreset1.setStyle("-fx-background-color: " + pcolorOn);
+                    btnpreset1.setStyle(pcolorOn);
                 } else {
-                    btnpreset1.setStyle("-fx-background-color: " + pcolorOff);
+                    btnpreset1.setStyle(pcolorOff);
                 }
                 ppressed1 = !ppressed1;
             });
@@ -643,15 +646,15 @@ public class OrganScene {
 
             ppressed2 = false;
             btnpreset2 = new Button("Preset 2");
-            btnpreset2.setStyle("-fx-background-color: " + pcolorOff);
+            btnpreset2.setStyle(pcolorOff);
             btnpreset2.setOnAction(event -> {
                 offAllPresetButtons();
                 buttonPresetAction(1);
                 labelstatusOrg.setText(" Status: Applying Preset 2");
                 if (!ppressed2) {
-                    btnpreset2.setStyle("-fx-background-color: " + pcolorOn);
+                    btnpreset2.setStyle(pcolorOn);
                 } else {
-                    btnpreset2.setStyle("-fx-background-color: #DBD06B");
+                    btnpreset2.setStyle(pcolorOff);
                 }
                 ppressed2 = !ppressed2;
             });
@@ -659,15 +662,15 @@ public class OrganScene {
 
             ppressed3 = false;
             btnpreset3 = new Button("Preset 3");
-            btnpreset3.setStyle("-fx-background-color: " + pcolorOff);
+            btnpreset3.setStyle(pcolorOff);
             btnpreset3.setOnAction(event -> {
                 offAllPresetButtons();
                 buttonPresetAction(2);
                 labelstatusOrg.setText(" Status: Applying Preset 3");
                 if (!ppressed3) {
-                    btnpreset3.setStyle("-fx-background-color: " + pcolorOn);
+                    btnpreset3.setStyle(pcolorOn);
                 } else {
-                    btnpreset3.setStyle("-fx-background-color: " + pcolorOff);
+                    btnpreset3.setStyle(pcolorOff);
                 }
                 ppressed3 = !ppressed3;
             });
@@ -675,15 +678,15 @@ public class OrganScene {
 
             ppressed4 = false;
             btnpreset4 = new Button("Preset 4");
-            btnpreset4.setStyle("-fx-background-color: " + pcolorOff);
+            btnpreset4.setStyle(pcolorOff);
             btnpreset4.setOnAction(event -> {
                 offAllPresetButtons();
                 buttonPresetAction(3);
                 labelstatusOrg.setText(" Status: Applying Preset 4");
                 if (!ppressed4) {
-                    btnpreset4.setStyle("-fx-background-color: " + pcolorOn);
+                    btnpreset4.setStyle(pcolorOn);
                 } else {
-                    btnpreset4.setStyle("-fx-background-color: " + pcolorOff);
+                    btnpreset4.setStyle(pcolorOff);
                 }
                 ppressed4 = !ppressed4;
             });
@@ -691,15 +694,15 @@ public class OrganScene {
 
             ppressed5 = false;
             btnpreset5 = new Button("Preset 5");
-            btnpreset5.setStyle("-fx-background-color: " + pcolorOff);
+            btnpreset5.setStyle(pcolorOff);
             btnpreset5.setOnAction(event -> {
                 offAllPresetButtons();
                 buttonPresetAction(4);
                 labelstatusOrg.setText(" Status: Applying Preset 5");
                 if (!ppressed5) {
-                    btnpreset5.setStyle("-fx-background-color: " + pcolorOn);
+                    btnpreset5.setStyle(pcolorOn);
                 } else {
-                    btnpreset5.setStyle("-fx-background-color: " + pcolorOff);
+                    btnpreset5.setStyle(pcolorOff);
                 }
                 ppressed5 = !ppressed5;
             });
@@ -707,15 +710,15 @@ public class OrganScene {
 
             ppressed6 = false;
             btnpreset6 = new Button("Preset 6");
-            btnpreset6.setStyle("-fx-background-color: " + pcolorOff);
+            btnpreset6.setStyle(pcolorOff);
             btnpreset6.setOnAction(event -> {
                 offAllPresetButtons();
                 buttonPresetAction(5);
                 labelstatusOrg.setText(" Status: Applying Preset 6");
                 if (!ppressed6) {
-                    btnpreset6.setStyle("-fx-background-color: " + pcolorOn);
+                    btnpreset6.setStyle(pcolorOn);
                 } else {
-                    btnpreset6.setStyle("-fx-background-color: " + pcolorOff);
+                    btnpreset6.setStyle(pcolorOff);
                 }
                 ppressed6 = !ppressed6;
             });
@@ -723,15 +726,15 @@ public class OrganScene {
 
             ppressed7 = false;
             btnpreset7 = new Button("Preset 7");
-            btnpreset7.setStyle("-fx-background-color: " + pcolorOff);
+            btnpreset7.setStyle(pcolorOff);
             btnpreset7.setOnAction(event -> {
                 offAllPresetButtons();
                 buttonPresetAction(6);
                 labelstatusOrg.setText(" Status: Applying Preset 7");
                 if (!ppressed7) {
-                    btnpreset7.setStyle("-fx-background-color: " + pcolorOn);
+                    btnpreset7.setStyle(pcolorOn);
                 } else {
-                    btnpreset7.setStyle("-fx-background-color: " + pcolorOff);
+                    btnpreset7.setStyle(pcolorOff);
                 }
                 ppressed7 = !ppressed7;
             });
@@ -739,15 +742,15 @@ public class OrganScene {
 
             ppressed8 = false;
             btnpreset8 = new Button("Preset 8");
-            btnpreset8.setStyle("-fx-background-color: " + pcolorOff);
+            btnpreset8.setStyle(pcolorOff);
             btnpreset8.setOnAction(event -> {
                 offAllPresetButtons();
                 buttonPresetAction(7);
                 labelstatusOrg.setText(" Status: Applying Preset 8");
                 if (!ppressed8) {
-                    btnpreset8.setStyle("-fx-background-color: " + pcolorOn);
+                    btnpreset8.setStyle(pcolorOn);
                 } else {
-                    btnpreset8.setStyle("-fx-background-color: " + pcolorOff);
+                    btnpreset8.setStyle(pcolorOff);
                 }
                 ppressed8 = !ppressed8;
             });
@@ -777,7 +780,7 @@ public class OrganScene {
             bleft1 = new Button(" Bass 1");
             bleft1.setId("B1-1");
             bleft1.setMinSize(120, 50);
-            bleft1.setStyle("-fx-background-color: " + bcolorOff);
+            bleft1.setStyle(bcolorOff);
             bleft1.setWrapText(true);
             bleft1.setWrapText(true);
             bleft1.setOnAction(event -> {
@@ -800,7 +803,7 @@ public class OrganScene {
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
                     bnewpatchselected = false;
                 }
 
@@ -815,10 +818,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    bleft1.setStyle("-fx-background-color: " + bcolorOn);
+                    bleft1.setStyle(bcolorOn);
                 }
                 else {
-                    bleft1.setStyle("-fx-background-color: " + bcolorOff);
+                    bleft1.setStyle(bcolorOff);
                 }
                 bpressed1 = !bpressed1;
 
@@ -828,7 +831,7 @@ public class OrganScene {
             bleft2.setText(" Bass 2");
             bleft2.setMinSize(120, 50);
             bleft2.setId("B1-2");
-            bleft2.setStyle("-fx-background-color: " + bcolorOff);
+            bleft2.setStyle(bcolorOff);
             bleft2.setWrapText(true);
             bleft2.setOnAction(event -> {
                 offAllBassButtons();
@@ -850,7 +853,7 @@ public class OrganScene {
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
                     bnewpatchselected = false;
                 }
 
@@ -865,10 +868,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    bleft2.setStyle("-fx-background-color: " + bcolorOn);
+                    bleft2.setStyle(bcolorOn);
                 }
                 else {
-                    bleft2.setStyle("-fx-background-color: " + bcolorOff);
+                    bleft2.setStyle(bcolorOff);
                 }
                 bpressed2 = !bpressed2;
 
@@ -878,7 +881,7 @@ public class OrganScene {
             bleft3.setText(" Bass 3");
             bleft3.setMinSize(120, 50);
             bleft3.setId("B1-3");
-            bleft3.setStyle("-fx-background-color: " + bcolorOff);
+            bleft3.setStyle(bcolorOff);
             bleft3.setWrapText(true);
             bleft3.setOnAction(event -> {
                 offAllBassButtons();
@@ -900,7 +903,7 @@ public class OrganScene {
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
                     bnewpatchselected = false;
                 }
 
@@ -915,10 +918,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    bleft3.setStyle("-fx-background-color: " + bcolorOn);
+                    bleft3.setStyle(bcolorOn);
                 }
                 else {
-                    bleft3.setStyle("-fx-background-color: " + bcolorOff);
+                    bleft3.setStyle(bcolorOff);
                 }
                 bpressed3 = !bpressed3;
 
@@ -928,7 +931,7 @@ public class OrganScene {
             bleft4.setText(" Bass 4");
             bleft4.setId("B1-4");
             bleft4.setMinSize(120, 50);
-            bleft4.setStyle("-fx-background-color: " + bcolorOff);
+            bleft4.setStyle(bcolorOff);
             bleft4.setWrapText(true);
             bleft4.setOnAction(event -> {
                 offAllBassButtons();
@@ -950,7 +953,7 @@ public class OrganScene {
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
                     bnewpatchselected = false;
                 }
 
@@ -965,10 +968,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    bleft4.setStyle("-fx-background-color: " + bcolorOn);
+                    bleft4.setStyle(bcolorOn);
                 }
                 else {
-                    bleft4.setStyle("-fx-background-color: " + bcolorOff);
+                    bleft4.setStyle(bcolorOff);
                 }
                 bpressed4 = !bpressed4;
 
@@ -991,7 +994,7 @@ public class OrganScene {
             dleft1.setText(" Drums 1");
             dleft1.setId("D1-1");
             dleft1.setMinSize(120, 50);
-            dleft1.setStyle("-fx-background-color: " + dcolorOff);
+            dleft1.setStyle(dcolorOff);
             dleft1.setWrapText(true);
             dleft1.setOnAction(event -> {
                 offAllDrumButtons();
@@ -1013,7 +1016,7 @@ public class OrganScene {
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
                     bnewpatchselected = false;
                 }
 
@@ -1028,10 +1031,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    dleft1.setStyle("-fx-background-color: " + dcolorOn);
+                    dleft1.setStyle(dcolorOn);
                 }
                 else {
-                    dleft1.setStyle("-fx-background-color: " + dcolorOff);
+                    dleft1.setStyle(dcolorOff);
                 }
                 dpressed1 = !dpressed1;
 
@@ -1041,7 +1044,7 @@ public class OrganScene {
             dleft2.setText(" Drums 2");
             dleft2.setId("D1-2");
             dleft2.setMinSize(120, 50);
-            dleft2.setStyle("-fx-background-color: " + dcolorOff);
+            dleft2.setStyle(dcolorOff);
             dleft2.setWrapText(true);
             dleft2.setOnAction(event -> {
                 offAllDrumButtons();
@@ -1063,7 +1066,7 @@ public class OrganScene {
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
                     bnewpatchselected = false;
                 }
 
@@ -1078,10 +1081,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    dleft2.setStyle("-fx-background-color: " + dcolorOn);
+                    dleft2.setStyle(dcolorOn);
                 }
                 else {
-                    dleft2.setStyle("-fx-background-color: " + dcolorOff);
+                    dleft2.setStyle(dcolorOff);
                 }
                 dpressed2 = !dpressed2;
 
@@ -1091,7 +1094,7 @@ public class OrganScene {
             dleft3.setText(" Drums 3");
             dleft3.setId("D1-3");
             dleft3.setMinSize(120, 50);
-            dleft3.setStyle("-fx-background-color: " + dcolorOff);
+            dleft3.setStyle(dcolorOff);
             dleft3.setWrapText(true);
             dleft3.setOnAction(event -> {
                 offAllDrumButtons();
@@ -1113,7 +1116,7 @@ public class OrganScene {
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
                     bnewpatchselected = false;
                 }
 
@@ -1128,10 +1131,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    dleft3.setStyle("-fx-background-color: " + dcolorOn);
+                    dleft3.setStyle(dcolorOn);
                 }
                 else {
-                    dleft3.setStyle("-fx-background-color: " + dcolorOff);
+                    dleft3.setStyle(dcolorOff);
                 }
                 dpressed3 = !dpressed3;
 
@@ -1141,7 +1144,7 @@ public class OrganScene {
             dleft4.setText(" Drums 4");
             dleft4.setId("D1-4");
             dleft4.setMinSize(120, 50);
-            dleft4.setStyle("-fx-background-color: " + dcolorOff);
+            dleft4.setStyle(dcolorOff);
             dleft4.setWrapText(true);
             dleft4.setOnAction(event -> {
                 offAllDrumButtons();
@@ -1164,7 +1167,7 @@ public class OrganScene {
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
                     bnewpatchselected = false;
                 }
 
@@ -1179,10 +1182,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    dleft4.setStyle("-fx-background-color: " + dcolorOn);
+                    dleft4.setStyle(dcolorOn);
                 }
                 else {
-                    dleft4.setStyle("-fx-background-color: " + dcolorOff);
+                    dleft4.setStyle(dcolorOff);
                 }
                 dpressed4 = !dpressed4;
 
@@ -1204,7 +1207,7 @@ public class OrganScene {
             lbutton11.setText(" Lower 1-1");
             lbutton11.setId("L1-1");
             lbutton11.setMinSize(120, 50);
-            lbutton11.setStyle("-fx-background-color: " + lcolorOff);
+            lbutton11.setStyle(lcolorOff);
             lbutton11.setWrapText(true);
             lbutton11.setOnAction(event -> {
                 offAllLower1Buttons();
@@ -1226,7 +1229,7 @@ public class OrganScene {
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
                     bnewpatchselected = false;
                 }
 
@@ -1241,10 +1244,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    lbutton11.setStyle("-fx-background-color: " + lcolorOn);
+                    lbutton11.setStyle(lcolorOn);
                 }
                 else {
-                    lbutton11.setStyle("-fx-background-color: " + lcolorOff);
+                    lbutton11.setStyle(lcolorOff);
                 }
                 lpressed11 = !lpressed11;
 
@@ -1254,7 +1257,7 @@ public class OrganScene {
             lbutton12.setText(" Lower 1-2");
             lbutton12.setId("L1-2");
             lbutton12.setMinSize(120, 50);
-            lbutton12.setStyle("-fx-background-color: " + lcolorOff);
+            lbutton12.setStyle(lcolorOff);
             lbutton12.setWrapText(true);
             lbutton12.setOnAction(event -> {
                 offAllLower1Buttons();
@@ -1276,7 +1279,7 @@ public class OrganScene {
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
                     bnewpatchselected = false;
                 }
 
@@ -1291,10 +1294,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    lbutton12.setStyle("-fx-background-color: " + lcolorOn);
+                    lbutton12.setStyle(lcolorOn);
                 }
                 else {
-                    lbutton12.setStyle("-fx-background-color: " + lcolorOff);
+                    lbutton12.setStyle(lcolorOff);
                 }
                 lpressed12 = !lpressed12;
 
@@ -1304,7 +1307,7 @@ public class OrganScene {
             lbutton13.setText(" Lower 1-3");
             lbutton13.setId("L1-3");
             lbutton13.setMinSize(120, 50);
-            lbutton13.setStyle("-fx-background-color: " + lcolorOff);
+            lbutton13.setStyle(lcolorOff);
             lbutton13.setWrapText(true);
             lbutton13.setOnAction(event -> {
                 offAllLower1Buttons();
@@ -1326,7 +1329,7 @@ public class OrganScene {
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
                     bnewpatchselected = false;
                 }
 
@@ -1341,10 +1344,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    lbutton13.setStyle("-fx-background-color: " + lcolorOn);
+                    lbutton13.setStyle(lcolorOn);
                 }
                 else {
-                    lbutton13.setStyle("-fx-background-color: " + lcolorOff);
+                    lbutton13.setStyle(lcolorOff);
                 }
                 lpressed13 = !lpressed13;
 
@@ -1354,7 +1357,7 @@ public class OrganScene {
             lbutton14.setText(" Lower 1-4");
             lbutton14.setId("L1-4");
             lbutton14.setMinSize(120, 50);
-            lbutton14.setStyle("-fx-background-color: " + lcolorOff);
+            lbutton14.setStyle(lcolorOff);
             lbutton14.setWrapText(true);
             lbutton14.setOnAction(event -> {
                 offAllLower1Buttons();
@@ -1376,7 +1379,7 @@ public class OrganScene {
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
                     bnewpatchselected = false;
                 }
 
@@ -1391,10 +1394,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    lbutton14.setStyle("-fx-background-color: " + lcolorOn);
+                    lbutton14.setStyle(lcolorOn);
                 }
                 else {
-                    lbutton14.setStyle("-fx-background-color: " + lcolorOff);
+                    lbutton14.setStyle(lcolorOff);
                 }
                 lpressed14 = !lpressed14;
 
@@ -1404,7 +1407,7 @@ public class OrganScene {
             lbutton21 = new Button(" Lower 2-1");
             lbutton21.setId("L2-1");
             lbutton21.setMinSize(120, 50);
-            lbutton21.setStyle("-fx-background-color: " + lcolorOff);
+            lbutton21.setStyle(lcolorOff);
             lbutton21.setWrapText(true);
             lbutton21.setOnAction(event -> {
                 offAllLower2Buttons();
@@ -1426,7 +1429,7 @@ public class OrganScene {
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
                     bnewpatchselected = false;
                 }
 
@@ -1441,10 +1444,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    lbutton21.setStyle("-fx-background-color: " + lcolorOn);
+                    lbutton21.setStyle(lcolorOn);
                 }
                 else {
-                    lbutton21.setStyle("-fx-background-color: " + lcolorOff);
+                    lbutton21.setStyle(lcolorOff);
                 }
                 lpressed21 = !lpressed21;
 
@@ -1454,7 +1457,7 @@ public class OrganScene {
             lbutton22 = new Button(" Lower 2-2");
             lbutton22.setId("L2-2");
             lbutton22.setMinSize(120, 50);
-            lbutton22.setStyle("-fx-background-color: " + lcolorOff);
+            lbutton22.setStyle(lcolorOff);
             lbutton22.setWrapText(true);
             lbutton22.setOnAction(event -> {
                 offAllLower2Buttons();
@@ -1476,7 +1479,7 @@ public class OrganScene {
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
                     bnewpatchselected = false;
                 }
 
@@ -1491,10 +1494,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    lbutton22.setStyle("-fx-background-color: " + lcolorOn);
+                    lbutton22.setStyle(lcolorOn);
                 }
                 else {
-                    lbutton22.setStyle("-fx-background-color: " + lcolorOff);
+                    lbutton22.setStyle(lcolorOff);
                 }
                 lpressed22 = !lpressed22;
 
@@ -1504,7 +1507,7 @@ public class OrganScene {
             lbutton23 = new Button(" Lower 2-3");
             lbutton23.setId("L2-3");
             lbutton23.setMinSize(120, 50);
-            lbutton23.setStyle("-fx-background-color: " + lcolorOff);
+            lbutton23.setStyle(lcolorOff);
             lbutton23.setWrapText(true);
             lbutton23.setOnAction(event -> {
                 offAllLower2Buttons();
@@ -1526,7 +1529,7 @@ public class OrganScene {
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
                     bnewpatchselected = false;
                 }
 
@@ -1541,10 +1544,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    lbutton23.setStyle("-fx-background-color: " + lcolorOn);
+                    lbutton23.setStyle(lcolorOn);
                 }
                 else {
-                    lbutton23.setStyle("-fx-background-color: " + lcolorOff);
+                    lbutton23.setStyle(lcolorOff);
                 }
                 lpressed23 = !lpressed23;
 
@@ -1554,7 +1557,7 @@ public class OrganScene {
             lbutton24 = new Button(" Lower 2-4");
             lbutton24.setId("L2-4");
             lbutton24.setMinSize(120, 50);
-            lbutton24.setStyle("-fx-background-color: " + lcolorOff);
+            lbutton24.setStyle(lcolorOff);
             lbutton24.setWrapText(true);
             lbutton24.setOnAction(event -> {
                 offAllLower2Buttons();
@@ -1576,7 +1579,7 @@ public class OrganScene {
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
                     bnewpatchselected = false;
                 }
 
@@ -1591,10 +1594,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    lbutton24.setStyle("-fx-background-color: " + lcolorOn);
+                    lbutton24.setStyle(lcolorOn);
                 }
                 else {
-                    lbutton24.setStyle("-fx-background-color: " + lcolorOff);
+                    lbutton24.setStyle(lcolorOff);
                 }
                 lpressed24 = !lpressed24;
 
@@ -1623,7 +1626,7 @@ public class OrganScene {
             rbutton11.setText(" Upper 1-1");
             rbutton11.setId("U1-1");
             rbutton11.setMinSize(120, 50);
-            rbutton11.setStyle("-fx-background-color: " + rcolorOff);
+            rbutton11.setStyle(rcolorOff);
             rbutton11.setWrapText(true);
             rbutton11.setOnAction(event -> {
                 offAllUpper1Buttons();
@@ -1642,7 +1645,7 @@ public class OrganScene {
                     midiButtons.getMidiButton(buttonidx, 0).setLSB((int)dopatches.getMIDIPatch(patchidx).getLSB());
                     midiButtons.getMidiButton(buttonidx, 0).setMSB((int)dopatches.getMIDIPatch(patchidx).getMSB());
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
 
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
@@ -1661,10 +1664,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    rbutton11.setStyle("-fx-background-color: " + rcolorOn);
+                    rbutton11.setStyle(rcolorOn);
                 }
                 else {
-                    rbutton11.setStyle("-fx-background-color: " + rcolorOff);
+                    rbutton11.setStyle(rcolorOff);
                 }
                 rpressed11 = !rpressed11;
 
@@ -1674,7 +1677,7 @@ public class OrganScene {
             rbutton12.setText(" Upper 1-2");
             rbutton12.setId("U1-2");
             rbutton12.setMinSize(120, 50);
-            rbutton12.setStyle("-fx-background-color:" + rcolorOff);
+            rbutton12.setStyle(rcolorOff);
             rbutton12.setWrapText(true);
             rbutton12.setOnAction(event -> {
                 offAllUpper1Buttons();
@@ -1693,7 +1696,7 @@ public class OrganScene {
                     midiButtons.getMidiButton(buttonidx, 0).setLSB((int)dopatches.getMIDIPatch(patchidx).getLSB());
                     midiButtons.getMidiButton(buttonidx, 0).setMSB((int)dopatches.getMIDIPatch(patchidx).getMSB());
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
 
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
@@ -1712,10 +1715,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    rbutton12.setStyle("-fx-background-color: " + rcolorOn);
+                    rbutton12.setStyle(rcolorOn);
                 }
                 else {
-                    rbutton12.setStyle("-fx-background-color: " + rcolorOff);
+                    rbutton12.setStyle(rcolorOff);
                 }
                 rpressed12 = !rpressed12;
 
@@ -1725,7 +1728,7 @@ public class OrganScene {
             rbutton13.setText(" Upper 1-3");
             rbutton13.setId("U1-3");
             rbutton13.setMinSize(120, 50);
-            rbutton13.setStyle("-fx-background-color:" + rcolorOff);
+            rbutton13.setStyle(rcolorOff);
             rbutton13.setWrapText(true);
             rbutton13.setOnAction(event -> {
                 offAllUpper1Buttons();
@@ -1744,7 +1747,7 @@ public class OrganScene {
                     midiButtons.getMidiButton(buttonidx, 0).setLSB((int)dopatches.getMIDIPatch(patchidx).getLSB());
                     midiButtons.getMidiButton(buttonidx, 0).setMSB((int)dopatches.getMIDIPatch(patchidx).getMSB());
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
 
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
@@ -1763,10 +1766,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    rbutton13.setStyle("-fx-background-color: " + rcolorOn);
+                    rbutton13.setStyle(rcolorOn);
                 }
                 else {
-                    rbutton13.setStyle("-fx-background-color: " + rcolorOff);
+                    rbutton13.setStyle(rcolorOff);
                 }
                 rpressed13 = !rpressed13;
 
@@ -1776,7 +1779,7 @@ public class OrganScene {
             rbutton14.setText(" Upper 1-4");
             rbutton14.setId("U1-4");
             rbutton14.setMinSize(120, 50);
-            rbutton14.setStyle("-fx-background-color:" + rcolorOff);
+            rbutton14.setStyle(rcolorOff);
             rbutton14.setWrapText(true);
             rbutton14.setOnAction(event -> {
                 offAllUpper1Buttons();
@@ -1795,7 +1798,7 @@ public class OrganScene {
                     midiButtons.getMidiButton(buttonidx, 0).setLSB((int)dopatches.getMIDIPatch(patchidx).getLSB());
                     midiButtons.getMidiButton(buttonidx, 0).setMSB((int)dopatches.getMIDIPatch(patchidx).getMSB());
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
 
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
@@ -1814,10 +1817,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    rbutton14.setStyle("-fx-background-color: " + rcolorOn);
+                    rbutton14.setStyle(rcolorOn);
                 }
                 else {
-                    rbutton14.setStyle("-fx-background-color: " + rcolorOff);
+                    rbutton14.setStyle(rcolorOff);
                 }
                 rpressed14 = !rpressed14;
 
@@ -1830,7 +1833,7 @@ public class OrganScene {
             rbutton15.setText(" Upper 1-5");
             rbutton15.setId("U1-5");
             rbutton15.setMinSize(120, 50);
-            rbutton15.setStyle("-fx-background-color:" + rcolorOff);
+            rbutton15.setStyle(rcolorOff);
             rbutton15.setWrapText(true);
             rbutton15.setOnAction(event -> {
                 offAllUpper1Buttons();
@@ -1849,7 +1852,7 @@ public class OrganScene {
                     midiButtons.getMidiButton(buttonidx, 0).setLSB((int)dopatches.getMIDIPatch(patchidx).getLSB());
                     midiButtons.getMidiButton(buttonidx, 0).setMSB((int)dopatches.getMIDIPatch(patchidx).getMSB());
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
 
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
@@ -1868,10 +1871,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    rbutton15.setStyle("-fx-background-color: " + rcolorOn);
+                    rbutton15.setStyle(rcolorOn);
                 }
                 else {
-                    rbutton15.setStyle("-fx-background-color: " + rcolorOff);
+                    rbutton15.setStyle(rcolorOff);
                 }
                 rpressed15 = !rpressed15;
 
@@ -1882,7 +1885,7 @@ public class OrganScene {
             rbutton16.setText(" Upper 1-6");
             rbutton16.setId("U1-6");
             rbutton16.setMinSize(120, 50);
-            rbutton16.setStyle("-fx-background-color:" + orgcolorOff);
+            rbutton16.setStyle(orgcolorOff);
             rbutton16.setWrapText(true);
             rbutton16.setOnAction(event -> {
                 offAllUpper1Buttons();
@@ -1901,7 +1904,7 @@ public class OrganScene {
                     midiButtons.getMidiButton(buttonidx, 0).setLSB((int)dopatches.getMIDIPatch(patchidx).getLSB());
                     midiButtons.getMidiButton(buttonidx, 0).setMSB((int)dopatches.getMIDIPatch(patchidx).getMSB());
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
 
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
@@ -1920,10 +1923,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    rbutton16.setStyle("-fx-background-color: " + orgcolorOn);
+                    rbutton16.setStyle(orgcolorOn);
                 }
                 else {
-                    rbutton16.setStyle("-fx-background-color: " + orgcolorOff);
+                    rbutton16.setStyle(orgcolorOff);
                 }
                 rpressed16 = !rpressed16;
 
@@ -1933,18 +1936,18 @@ public class OrganScene {
             rbutton17.setText("Rotary Brake");
             rbutton17.setId("U1-7");
             rbutton17.setMinSize(120, 50);
-            rbutton17.setStyle("-fx-background-color:" + orgcolorOff);
+            rbutton17.setStyle(orgcolorOff);
             rbutton17.setWrapText(true);
             rbutton17.setOnAction(event -> {
                 //buttonPresetAction(6);
 
                 labelstatusOrg.setText(" Status: Rotary On/Off");
                 if (!rpressed17) {
-                    rbutton17.setStyle("-fx-background-color: " + orgcolorOn);
+                    rbutton17.setStyle(orgcolorOn);
 
                     labelstatusOrg.setText(" Status: Rotary Brake On");
                 } else {
-                    rbutton17.setStyle("-fx-background-color: " + orgcolorOff);
+                    rbutton17.setStyle(orgcolorOff);
 
                     labelstatusOrg.setText(" Status: Rotary Brake Off");
                 }
@@ -1954,18 +1957,18 @@ public class OrganScene {
             rbutton18.setText(" Rotary On");
             rbutton18.setId("U1-8");
             rbutton18.setMinSize(120, 50);
-            rbutton18.setStyle("-fx-background-color:" + orgcolorOff);
+            rbutton18.setStyle(orgcolorOff);
             rbutton18.setWrapText(true);
             rbutton18.setOnAction(event -> {
                 //buttonPresetAction(6);
 
                 labelstatusOrg.setText(" Status: Rotary On/Off");
                 if (!rpressed18) {
-                    rbutton18.setStyle("-fx-background-color: " + orgcolorOn);
+                    rbutton18.setStyle(orgcolorOn);
 
                     labelstatusOrg.setText(" Status: Rotary On");
                 } else {
-                    rbutton18.setStyle("-fx-background-color: " + orgcolorOff);
+                    rbutton18.setStyle(orgcolorOff);
 
                     labelstatusOrg.setText(" Status: Rotary Off");
                 }
@@ -1976,7 +1979,7 @@ public class OrganScene {
             rbutton21.setText(" Upper 2-1");
             rbutton21.setId("U2-1");
             rbutton21.setMinSize(120, 50);
-            rbutton21.setStyle("-fx-background-color:" + rcolorOff);
+            rbutton21.setStyle(rcolorOff);
             rbutton21.setWrapText(true);
             rbutton21.setOnAction(event -> {
                 offAllUpper2Buttons();
@@ -1995,7 +1998,7 @@ public class OrganScene {
                     midiButtons.getMidiButton(buttonidx, 0).setLSB((int)dopatches.getMIDIPatch(patchidx).getLSB());
                     midiButtons.getMidiButton(buttonidx, 0).setMSB((int)dopatches.getMIDIPatch(patchidx).getMSB());
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
 
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
@@ -2014,10 +2017,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    rbutton21.setStyle("-fx-background-color: " + rcolorOn);
+                    rbutton21.setStyle(rcolorOn);
                 }
                 else {
-                    rbutton21.setStyle("-fx-background-color: " + rcolorOff);
+                    rbutton21.setStyle(rcolorOff);
                 }
                 rpressed21 = !rpressed21;
 
@@ -2027,7 +2030,7 @@ public class OrganScene {
             rbutton22.setText(" Upper 2-2");
             rbutton22.setId("U2-2");
             rbutton22.setMinSize(120, 50);
-            rbutton22.setStyle("-fx-background-color:" + rcolorOff);
+            rbutton22.setStyle(rcolorOff);
             rbutton22.setWrapText(true);
             rbutton22.setOnAction(event -> {
                 offAllUpper2Buttons();
@@ -2046,7 +2049,7 @@ public class OrganScene {
                     midiButtons.getMidiButton(buttonidx, 0).setLSB((int)dopatches.getMIDIPatch(patchidx).getLSB());
                     midiButtons.getMidiButton(buttonidx, 0).setMSB((int)dopatches.getMIDIPatch(patchidx).getMSB());
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
 
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
@@ -2065,10 +2068,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    rbutton22.setStyle("-fx-background-color: " + rcolorOn);
+                    rbutton22.setStyle(rcolorOn);
                 }
                 else {
-                    rbutton22.setStyle("-fx-background-color: " + rcolorOff);
+                    rbutton22.setStyle(rcolorOff);
                 }
                 rpressed22 = !rpressed22;
 
@@ -2078,7 +2081,7 @@ public class OrganScene {
             rbutton23.setText(" Upper 2-3");
             rbutton23.setId("U2-3");
             rbutton23.setMinSize(120, 50);
-            rbutton23.setStyle("-fx-background-color:" + rcolorOff);
+            rbutton23.setStyle(rcolorOff);
             rbutton23.setWrapText(true);
             rbutton23.setOnAction(event -> {
                 offAllUpper2Buttons();
@@ -2097,7 +2100,7 @@ public class OrganScene {
                     midiButtons.getMidiButton(buttonidx, 0).setLSB((int)dopatches.getMIDIPatch(patchidx).getLSB());
                     midiButtons.getMidiButton(buttonidx, 0).setMSB((int)dopatches.getMIDIPatch(patchidx).getMSB());
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
 
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
@@ -2116,10 +2119,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    rbutton23.setStyle("-fx-background-color: " + rcolorOn);
+                    rbutton23.setStyle(rcolorOn);
                 }
                 else {
-                    rbutton23.setStyle("-fx-background-color: " + rcolorOff);
+                    rbutton23.setStyle(rcolorOff);
                 }
                 rpressed23 = !rpressed23;
 
@@ -2129,7 +2132,7 @@ public class OrganScene {
             rbutton24.setText(" Upper 2-4");
             rbutton24.setId("U2-4");
             rbutton24.setMinSize(120, 50);
-            rbutton24.setStyle("-fx-background-color:" + rcolorOff);
+            rbutton24.setStyle(rcolorOff);
             rbutton24.setWrapText(true);
             rbutton24.setOnAction(event -> {
                 offAllUpper2Buttons();
@@ -2148,7 +2151,7 @@ public class OrganScene {
                     midiButtons.getMidiButton(buttonidx, 0).setLSB((int)dopatches.getMIDIPatch(patchidx).getLSB());
                     midiButtons.getMidiButton(buttonidx, 0).setMSB((int)dopatches.getMIDIPatch(patchidx).getMSB());
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
 
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
@@ -2167,10 +2170,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    rbutton24.setStyle("-fx-background-color: " + rcolorOn);
+                    rbutton24.setStyle(rcolorOn);
                 }
                 else {
-                    rbutton24.setStyle("-fx-background-color: " + rcolorOff);
+                    rbutton24.setStyle(rcolorOff);
                 }
                 rpressed24 = !rpressed24;
 
@@ -2180,7 +2183,7 @@ public class OrganScene {
             rbutton31.setText(" Upper 3-1");
             rbutton31.setId("U3-1");
             rbutton31.setMinSize(120, 50);
-            rbutton31.setStyle("-fx-background-color:" + rcolorOff);
+            rbutton31.setStyle(rcolorOff);
             rbutton31.setWrapText(true);
             rbutton31.setOnAction(event -> {
                 offAllUpper3Buttons();
@@ -2199,7 +2202,7 @@ public class OrganScene {
                     midiButtons.getMidiButton(buttonidx, 0).setLSB((int)dopatches.getMIDIPatch(patchidx).getLSB());
                     midiButtons.getMidiButton(buttonidx, 0).setMSB((int)dopatches.getMIDIPatch(patchidx).getMSB());
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
 
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
@@ -2218,10 +2221,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    rbutton31.setStyle("-fx-background-color: " + rcolorOn);
+                    rbutton31.setStyle(rcolorOn);
                 }
                 else {
-                    rbutton31.setStyle("-fx-background-color: " + rcolorOff);
+                    rbutton31.setStyle(rcolorOff);
                 }
                 rpressed31 = !rpressed31;
 
@@ -2231,7 +2234,7 @@ public class OrganScene {
             rbutton32.setText(" Upper 3-2");
             rbutton32.setId("U3-2");
             rbutton32.setMinSize(120, 50);
-            rbutton32.setStyle("-fx-background-color:" + rcolorOff);
+            rbutton32.setStyle(rcolorOff);
             rbutton32.setWrapText(true);
             rbutton32.setOnAction(event -> {
                 offAllUpper3Buttons();
@@ -2250,7 +2253,7 @@ public class OrganScene {
                     midiButtons.getMidiButton(buttonidx, 0).setLSB((int)dopatches.getMIDIPatch(patchidx).getLSB());
                     midiButtons.getMidiButton(buttonidx, 0).setMSB((int)dopatches.getMIDIPatch(patchidx).getMSB());
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
 
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
@@ -2269,10 +2272,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    rbutton32.setStyle("-fx-background-color: " + rcolorOn);
+                    rbutton32.setStyle(rcolorOn);
                 }
                 else {
-                    rbutton32.setStyle("-fx-background-color: " + rcolorOff);
+                    rbutton32.setStyle(rcolorOff);
                 }
                 rpressed32 = !rpressed32;
 
@@ -2282,7 +2285,7 @@ public class OrganScene {
             rbutton33.setText(" Upper 3-3");
             rbutton33.setId("U3-3");
             rbutton33.setMinSize(120, 50);
-            rbutton33.setStyle("-fx-background-color:" + rcolorOff);
+            rbutton33.setStyle(rcolorOff);
             rbutton33.setWrapText(true);
             rbutton33.setOnAction(event -> {
                 offAllUpper3Buttons();
@@ -2301,7 +2304,7 @@ public class OrganScene {
                     midiButtons.getMidiButton(buttonidx, 0).setLSB((int)dopatches.getMIDIPatch(patchidx).getLSB());
                     midiButtons.getMidiButton(buttonidx, 0).setMSB((int)dopatches.getMIDIPatch(patchidx).getMSB());
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
 
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
@@ -2320,10 +2323,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    rbutton33.setStyle("-fx-background-color: " + rcolorOn);
+                    rbutton33.setStyle(rcolorOn);
                 }
                 else {
-                    rbutton33.setStyle("-fx-background-color: " + rcolorOff);
+                    rbutton33.setStyle(rcolorOff);
                 }
                 rpressed33 = !rpressed33;
 
@@ -2333,7 +2336,7 @@ public class OrganScene {
             rbutton34.setText(" Upper 3-4");
             rbutton34.setId("U3-4");
             rbutton34.setMinSize(120, 50);
-            rbutton34.setStyle("-fx-background-color:" + rcolorOff);
+            rbutton34.setStyle(rcolorOff);
             rbutton34.setWrapText(true);
             rbutton34.setOnAction(event -> {
                 offAllUpper3Buttons();
@@ -2352,7 +2355,7 @@ public class OrganScene {
                     midiButtons.getMidiButton(buttonidx, 0).setLSB((int)dopatches.getMIDIPatch(patchidx).getLSB());
                     midiButtons.getMidiButton(buttonidx, 0).setMSB((int)dopatches.getMIDIPatch(patchidx).getMSB());
 
-                    buttonSoundFont.setStyle("-fx-background-color: " + selectcolorOff);
+                    buttonSoundFont.setStyle(selectcolorOff);
 
                     buttonSave.setDisable(false);
                     flgDirtyPreset = true;      // Need to save updated Preset
@@ -2371,10 +2374,10 @@ public class OrganScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderPAN.setValue(midibutton.getPAN());
 
-                    rbutton34.setStyle("-fx-background-color: " + rcolorOn);
+                    rbutton34.setStyle(rcolorOn);
                 }
                 else {
-                    rbutton34.setStyle("-fx-background-color: " + rcolorOff);
+                    rbutton34.setStyle(rcolorOff);
                 }
                 rpressed34 = !rpressed34;
 
@@ -2408,7 +2411,7 @@ public class OrganScene {
 
             btnplay = new Button("Play Song");
             btnplay.setDisable(true);
-            btnplay.setStyle("-fx-background-color: #8ED072; ");
+            btnplay.setStyle(btnplayOff);
             btnplay.setMinSize(120, 50);
             btnplay.setOnAction(e -> {
                 try {
@@ -2419,7 +2422,7 @@ public class OrganScene {
 
                     if (!bplaying) {
                         btnplay.setText("Stop Play");
-                        btnplay.setStyle("-fx-background-color: #DB6B6B; ");
+                        btnplay.setStyle(btnplayOn);
 
                         bplaying = true;
 
@@ -2445,7 +2448,7 @@ public class OrganScene {
                                                 bplaying = false;
 
                                                 btnplay.setText("Play Song");
-                                                btnplay.setStyle("-fx-background-color: #8ED072; ");
+                                                btnplay.setStyle(btnplayOff);
                                                 labelstatusOrg.setText(" Status: Song Play Ended");
                                             });
                                         songPlayTimer.cancel();
@@ -2466,7 +2469,7 @@ public class OrganScene {
                     }
                     else {
                         btnplay.setText("Play Song");
-                        btnplay.setStyle("-fx-background-color: #8ED072; ");
+                        btnplay.setStyle(btnplayOff);
 
                         PlayMidi playmidifile = PlayMidi.getInstance();
                         playmidifile.stopMidiPlay(songFile);
@@ -2480,7 +2483,7 @@ public class OrganScene {
                     bplaying = false;
 
                     btnplay.setText("Play Song");
-                    btnplay.setStyle("-fx-background-color: #8ED072; ");
+                    btnplay.setStyle(btnplayOff);
 
                     exception.printStackTrace();
                 }
@@ -2489,13 +2492,13 @@ public class OrganScene {
             gridmidcenterOrgan.add(btnplay, 0, 6, 1, 1);
 
             Button btntest = new Button("Test Voice");
-            btntest.setStyle("-fx-background-color: #8ED072; ");
+            btntest.setStyle(btnplayOff);
             btntest.setPrefSize(120, 50);
             btntest.setOnAction(e -> {
                 try {
                     if (!btestnote) {
                         btntest.setText("Stop");
-                        btntest.setStyle("-fx-background-color: #DB6B6B; ");
+                        btntest.setStyle(btnplayOn);
 
                         PlayMidi playmidifile = PlayMidi.getInstance();
                         MidiPatch patch = dopatches.getMIDIPatch(patchidx);
@@ -2518,12 +2521,10 @@ public class OrganScene {
                     }
                     else {
                         btntest.setText("Test Voice");
-                        btntest.setStyle("-fx-background-color: #8ED072; ");
+                        btntest.setStyle(btnplayOff);
 
                         PlayMidi playmidifile = PlayMidi.getInstance();
                         playmidifile.sendMidiNote((byte)15, (byte)60, false);
-
-                        btntest.setStyle("-fx-background-color: #8ED072; ");
 
                         btestnote = false;
                     }
@@ -2669,6 +2670,7 @@ public class OrganScene {
             gridEffects.add(new VBox(new Label("PAN"), sliderPAN), 3, 1, 1, 1);
             gridEffects.setHgap(25);
             gridmidcenterOrgan.add(gridEffects, 3, 5, 3, 2);
+            gridmidcenterOrgan.setStyle(styletext);
 
             // Finalize Organ Center Panel
 
@@ -2723,102 +2725,102 @@ public class OrganScene {
     private void offAllPresetButtons() {
 
         ppressed1 = false;
-        btnpreset1.setStyle("-fx-background-color: " + pcolorOff);
+        btnpreset1.setStyle(pcolorOff);
         ppressed2 = false;
-        btnpreset2.setStyle("-fx-background-color: " + pcolorOff);
+        btnpreset2.setStyle(pcolorOff);
         ppressed3 = false;
-        btnpreset3.setStyle("-fx-background-color: " + pcolorOff);
+        btnpreset3.setStyle(pcolorOff);
         ppressed4 = false;
-        btnpreset4.setStyle("-fx-background-color: " + pcolorOff);
+        btnpreset4.setStyle(pcolorOff);
         ppressed5 = false;
-        btnpreset5.setStyle("-fx-background-color: " + pcolorOff);
+        btnpreset5.setStyle(pcolorOff);
         ppressed6 = false;
-        btnpreset6.setStyle("-fx-background-color: " + pcolorOff);
+        btnpreset6.setStyle(pcolorOff);
         ppressed7 = false;
-        btnpreset7.setStyle("-fx-background-color: " + pcolorOff);
+        btnpreset7.setStyle(pcolorOff);
         ppressed8 = false;
-        btnpreset8.setStyle("-fx-background-color: " + pcolorOff);
+        btnpreset8.setStyle(pcolorOff);
     }
 
     private void offAllUpper1Buttons() {
         rpressed11 = false;
-        rbutton11.setStyle("-fx-background-color: " + rcolorOff);
+        rbutton11.setStyle(rcolorOff);
         rpressed12 = false;
-        rbutton12.setStyle("-fx-background-color: " + rcolorOff);
+        rbutton12.setStyle(rcolorOff);
         rpressed13 = false;
-        rbutton13.setStyle("-fx-background-color: " + rcolorOff);
+        rbutton13.setStyle(rcolorOff);
         rpressed14 = false;
-        rbutton14.setStyle("-fx-background-color: " + rcolorOff);
+        rbutton14.setStyle(rcolorOff);
         rpressed15 = false;
-        rbutton15.setStyle("-fx-background-color: " + rcolorOff);
+        rbutton15.setStyle(rcolorOff);
         rpressed16 = false;
-        rbutton16.setStyle("-fx-background-color: " + orgcolorOff);
+        rbutton16.setStyle(orgcolorOff);
     }
 
     private void offAllUpper2Buttons() {
         rpressed21 = false;
-        rbutton21.setStyle("-fx-background-color: " + rcolorOff);
+        rbutton21.setStyle(rcolorOff);
         rpressed22 = false;
-        rbutton22.setStyle("-fx-background-color: " + rcolorOff);
+        rbutton22.setStyle(rcolorOff);
         rpressed23 = false;
-        rbutton23.setStyle("-fx-background-color: " + rcolorOff);
+        rbutton23.setStyle(rcolorOff);
         rpressed24 = false;
-        rbutton24.setStyle("-fx-background-color: " + rcolorOff);
+        rbutton24.setStyle(rcolorOff);
     }
 
     private void offAllUpper3Buttons() {
         rpressed31 = false;
-        rbutton31.setStyle("-fx-background-color: " + rcolorOff);
+        rbutton31.setStyle(rcolorOff);
         rpressed32 = false;
-        rbutton32.setStyle("-fx-background-color: " + rcolorOff);
+        rbutton32.setStyle(rcolorOff);
         rpressed33 = false;
-        rbutton33.setStyle("-fx-background-color: " + rcolorOff);
+        rbutton33.setStyle(rcolorOff);
         rpressed34 = false;
-        rbutton34.setStyle("-fx-background-color: " + rcolorOff);
+        rbutton34.setStyle(rcolorOff);
     }
 
     private void offAllLower1Buttons() {
         lpressed11 = false;
-        lbutton11.setStyle("-fx-background-color: " + lcolorOff);
+        lbutton11.setStyle(lcolorOff);
         lpressed12 = false;
-        lbutton12.setStyle("-fx-background-color: " + lcolorOff);
+        lbutton12.setStyle(lcolorOff);
         lpressed13 = false;
-        lbutton13.setStyle("-fx-background-color: " + lcolorOff);
+        lbutton13.setStyle(lcolorOff);
         lpressed14 = false;
-        lbutton14.setStyle("-fx-background-color: " + lcolorOff);
+        lbutton14.setStyle(lcolorOff);
     }
 
     private void offAllLower2Buttons() {
         lpressed21 = false;
-        lbutton21.setStyle("-fx-background-color: " + lcolorOff);
+        lbutton21.setStyle(lcolorOff);
         lpressed22 = false;
-        lbutton22.setStyle("-fx-background-color: " + lcolorOff);
+        lbutton22.setStyle(lcolorOff);
         lpressed23 = false;
-        lbutton23.setStyle("-fx-background-color: " + lcolorOff);
+        lbutton23.setStyle(lcolorOff);
         lpressed24 = false;
-        lbutton24.setStyle("-fx-background-color: " + lcolorOff);
+        lbutton24.setStyle(lcolorOff);
     }
 
     private void offAllBassButtons() {
         bpressed1 = false;
-        bleft1.setStyle("-fx-background-color: " + bcolorOff);
+        bleft1.setStyle(bcolorOff);
         bpressed2 = false;
-        bleft2.setStyle("-fx-background-color: " + bcolorOff);
+        bleft2.setStyle(bcolorOff);
         bpressed3 = false;
-        bleft3.setStyle("-fx-background-color: " + bcolorOff);
+        bleft3.setStyle(bcolorOff);
         bpressed4 = false;
-        bleft4.setStyle("-fx-background-color: " + bcolorOff);
+        bleft4.setStyle(bcolorOff);
     }
 
     private void offAllDrumButtons() {
         dpressed1 = false;
-        dleft1.setStyle("-fx-background-color: " + dcolorOff);
+        dleft1.setStyle(dcolorOff);
         dpressed2 = false;
-        dleft2.setStyle("-fx-background-color: " + dcolorOff);
+        dleft2.setStyle(dcolorOff);
         dpressed3 = false;
-        dleft3.setStyle("-fx-background-color: " + dcolorOff);
+        dleft3.setStyle(dcolorOff);
         dpressed4 = false;
-        dleft4.setStyle("-fx-background-color: " + dcolorOff);
+        dleft4.setStyle(dcolorOff);
     }
 
     /** Save and Apply MIDI Patch for Button just pressed **/
