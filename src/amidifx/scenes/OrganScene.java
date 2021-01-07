@@ -2551,7 +2551,7 @@ public class OrganScene {
 
                 if (lastVoiceButton != null) {
                     PlayMidi playmidifile = PlayMidi.getInstance();
-                    playmidifile.sendMidiControlChange((byte) lastVoiceChannel, ccVOL, (byte) sliderVOL.getValue());
+                    playmidifile.sendMidiControlChange((byte) lastVoiceChannel+1, ccVOL, (byte) sliderVOL.getValue());
 
                     midiButtons.getButtonById(lastVoiceButton, 0).setVOL((int) sliderVOL.getValue());
 
@@ -2576,7 +2576,7 @@ public class OrganScene {
                 rotateRev.setAngle((double) newValue);
 
                 PlayMidi playmidifile = PlayMidi.getInstance();
-                playmidifile.sendMidiControlChange((byte) lastVoiceChannel, ccREV, (byte) sliderREV.getValue());
+                playmidifile.sendMidiControlChange((byte) lastVoiceChannel+1, ccREV, (byte) sliderREV.getValue());
 
                 midiButtons.getButtonById(lastVoiceButton, 0).setREV((int)sliderREV.getValue());
 
@@ -2601,7 +2601,7 @@ public class OrganScene {
                 rotateCho.setAngle((double) newValue);
 
                 PlayMidi playmidifile = PlayMidi.getInstance();
-                playmidifile.sendMidiControlChange((byte) lastVoiceChannel, ccCHO, (byte) sliderCHO.getValue());
+                playmidifile.sendMidiControlChange((byte) lastVoiceChannel+1, ccCHO, (byte) sliderCHO.getValue());
 
                 midiButtons.getButtonById(lastVoiceButton, 0).setCHO((int)sliderCHO.getValue());
 
@@ -2626,7 +2626,7 @@ public class OrganScene {
                 rotateMod.setAngle((double) newValue);
 
                 PlayMidi playmidifile = PlayMidi.getInstance();
-                playmidifile.sendMidiControlChange((byte) lastVoiceChannel, ccMOD, (byte) sliderMOD.getValue());
+                playmidifile.sendMidiControlChange((byte) lastVoiceChannel+1, ccMOD, (byte) sliderMOD.getValue());
 
                 midiButtons.getButtonById(lastVoiceButton, 0).setMOD((int)sliderMOD.getValue());
 
@@ -2651,7 +2651,7 @@ public class OrganScene {
                 rotatePan.setAngle((double) newValue);
 
                 PlayMidi playmidifile = PlayMidi.getInstance();
-                playmidifile.sendMidiControlChange((byte) lastVoiceChannel, ccPAN, (byte) sliderPAN.getValue());
+                playmidifile.sendMidiControlChange((byte) lastVoiceChannel+1, ccPAN, (byte) sliderPAN.getValue());
 
                 midiButtons.getButtonById(lastVoiceButton, 0).setPAN((int)sliderPAN.getValue());
 

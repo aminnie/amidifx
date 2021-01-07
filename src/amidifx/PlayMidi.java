@@ -283,7 +283,7 @@ public class PlayMidi {
     }
 
     // http://jsresources.sourceforge.net/faq_midi.html#hw_synth_as_synthesizer
-    public boolean sendMidiProgramChange(int CHAN, int PC, int LSB, int MSB) {
+    public boolean sendMidiProgramChange(int CHAN, int PC, int MSB, int LSB) {
 
         CHAN = CHAN - 1;
         if (CHAN < 0) {
@@ -291,7 +291,7 @@ public class PlayMidi {
             return false;
         }
 
-        System.out.println("PlayMidi: Sending MIDI Program Change  CHAN: " + (CHAN +1 )  + " PC:" + PC + " LSB:" + LSB + " MSB:"+ MSB);
+        System.out.println("PlayMidi: Sending MIDI Program Change  CHAN: " + (CHAN +1 )  + " PC:" + PC + " MSB:" + MSB + " LSB:"+ LSB);
 
         long timeStamp = -1;
         ShortMessage midiMsg = new ShortMessage();
@@ -308,16 +308,16 @@ public class PlayMidi {
                 return false;
             }
 
-            midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN, 0, LSB & 0xFF); //(int)(LSB & 0xFF));
+            midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN, 0, MSB & 0xFF); //(int)(LSB & 0xFF));
             midircv.send(midiMsg, timeStamp);
-            midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN, 32, MSB & 0xFF); //(int)(MSB & 0xFF));
+            midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN, 32, LSB & 0xFF); //(int)(MSB & 0xFF));
             midircv.send(midiMsg, timeStamp);
 
             midiMsg.setMessage(ShortMessage.PROGRAM_CHANGE, CHAN, PC & 0XFF, 64);
             midircv.send(midiMsg, timeStamp);
         }
         catch (Exception ex) {
-            System.err.println("### PlayMidi Error: Sent MIDI Program Change: " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " PC:" + PC + " LSB:" + LSB + " MSB:" + MSB);
+            System.err.println("### PlayMidi Error: Sent MIDI Program Change: " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " PC:" + PC + " MSB:" + MSB + " LSB:" + LSB);
             System.err.println(ex);
             return false;
         }
@@ -406,7 +406,7 @@ public class PlayMidi {
             return false;
         }
 
-        //System.out.println("PlayMidi: Sent MIDI Control Message: " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
+        System.out.println("PlayMidi: Sent MIDI Control Message: " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
         return true;
     }
 
