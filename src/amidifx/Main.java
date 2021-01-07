@@ -661,7 +661,6 @@ public class Main extends Application {
                 }
             }
 
-            buttonupdate.setDisable(true);
         });
 
         // Get Song Bass, Lower and Upper Channel override from User
