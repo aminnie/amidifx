@@ -158,8 +158,12 @@ public class SharedStatus {
         return UPPERKBD+2;
     }
 
-    public int getLowerCHAN() {
+    public int getLower1CHAN() {
         return LOWERKBD;
+    }
+
+    public int getLower2CHAN() {
+        return LOWERKBD+1;
     }
 
     public int getBassCHAN() {

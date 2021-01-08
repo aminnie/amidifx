@@ -685,7 +685,7 @@ public class Main extends Application {
         Label lblLower = new Label("    Lower:  ");
         lblLower.setStyle(styletext);
         txtLower.setStyle(styletext);
-        txtLower = new TextField(Integer.toString(sharedStatus.getLowerCHAN()));
+        txtLower = new TextField(Integer.toString(sharedStatus.getLower1CHAN()));
         txtLower.setDisable(true);
         txtLower.setMaxWidth(50);
         txtLower.textProperty().addListener(event -> {

@@ -808,8 +808,8 @@ public class OrganScene {
                 }
 
                 if (!bpressed1) {
-                    // Apply MIDI Program Change on Upper Channel for Button Press
-                    int CHAN = sharedStatus.getDrumCHAN();
+                    // Apply MIDI Program Change on Bass Channel for Button Press
+                    int CHAN = sharedStatus.getBassCHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
                     MidiButton midibutton = midiButtons.getButtonById(bleft1.getId(), 0);
@@ -859,7 +859,7 @@ public class OrganScene {
 
                 if (!bpressed2) {
                     // Apply MIDI Program Change on Upper Channel for Button Press
-                    int CHAN = sharedStatus.getDrumCHAN();
+                    int CHAN = sharedStatus.getBassCHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
                     MidiButton midibutton = midiButtons.getButtonById(bleft2.getId(), 0);
@@ -909,7 +909,7 @@ public class OrganScene {
 
                 if (!bpressed3) {
                     // Apply MIDI Program Change on Upper Channel for Button Press
-                    int CHAN = sharedStatus.getDrumCHAN();
+                    int CHAN = sharedStatus.getBassCHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
                     MidiButton midibutton = midiButtons.getButtonById(bleft3.getId(), 0);
@@ -959,7 +959,7 @@ public class OrganScene {
 
                 if (!bpressed4) {
                     // Apply MIDI Program Change on Upper Channel for Button Press
-                    int CHAN = sharedStatus.getDrumCHAN();
+                    int CHAN = sharedStatus.getBassCHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
                     MidiButton midibutton = midiButtons.getButtonById(bleft4.getId(), 0);
@@ -1235,7 +1235,7 @@ public class OrganScene {
 
                 if (!lpressed11) {
                     // Apply MIDI Program Change on Upper Channel for Button Press
-                    int CHAN = sharedStatus.getLowerCHAN();
+                    int CHAN = sharedStatus.getLower1CHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
                     MidiButton midibutton = midiButtons.getButtonById(lbutton11.getId(), 0);
@@ -1285,7 +1285,7 @@ public class OrganScene {
 
                 if (!lpressed12) {
                     // Apply MIDI Program Change on Upper Channel for Button Press
-                    int CHAN = sharedStatus.getLowerCHAN();
+                    int CHAN = sharedStatus.getLower1CHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
                     MidiButton midibutton = midiButtons.getButtonById(lbutton12.getId(), 0);
@@ -1335,7 +1335,7 @@ public class OrganScene {
 
                 if (!lpressed13) {
                     // Apply MIDI Program Change on Upper Channel for Button Press
-                    int CHAN = sharedStatus.getLowerCHAN();
+                    int CHAN = sharedStatus.getLower1CHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
                     MidiButton midibutton = midiButtons.getButtonById(lbutton13.getId(), 0);
@@ -1385,7 +1385,7 @@ public class OrganScene {
 
                 if (!lpressed14) {
                     // Apply MIDI Program Change on Upper Channel for Button Press
-                    int CHAN = sharedStatus.getLowerCHAN();
+                    int CHAN = sharedStatus.getLower1CHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
                     MidiButton midibutton = midiButtons.getButtonById(lbutton14.getId(), 0);
@@ -1435,7 +1435,7 @@ public class OrganScene {
 
                 if (!lpressed21) {
                     // Apply MIDI Program Change on Upper Channel for Button Press
-                    int CHAN = sharedStatus.getLowerCHAN();
+                    int CHAN = sharedStatus.getLower2CHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
                     MidiButton midibutton = midiButtons.getButtonById(lbutton21.getId(), 0);
@@ -1485,7 +1485,7 @@ public class OrganScene {
 
                 if (!lpressed22) {
                     // Apply MIDI Program Change on Upper Channel for Button Press
-                    int CHAN = sharedStatus.getLowerCHAN();
+                    int CHAN = sharedStatus.getLower2CHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
                     MidiButton midibutton = midiButtons.getButtonById(lbutton22.getId(), 0);
@@ -1535,7 +1535,7 @@ public class OrganScene {
 
                 if (!lpressed23) {
                     // Apply MIDI Program Change on Upper Channel for Button Press
-                    int CHAN = sharedStatus.getLowerCHAN();
+                    int CHAN = sharedStatus.getLower2CHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
                     MidiButton midibutton = midiButtons.getButtonById(lbutton23.getId(), 0);
@@ -1585,7 +1585,7 @@ public class OrganScene {
 
                 if (!lpressed24) {
                     // Apply MIDI Program Change on Upper Channel for Button Press
-                    int CHAN = sharedStatus.getLowerCHAN();
+                    int CHAN = sharedStatus.getLower2CHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
                     MidiButton midibutton = midiButtons.getButtonById(lbutton24.getId(), 0);
@@ -2505,8 +2505,8 @@ public class OrganScene {
                         //System.out.println("OrganScene: Selecting patch " + patch.toString());
 
                         // Note: Monitor as using CHAN 15 by default may cause unexpected behavior.
-                        playmidifile.sendMidiProgramChange((byte)15, (byte)patch.getPC(), (byte)patch.getLSB(), (byte)patch.getMSB());
-                        playmidifile.sendMidiNote((byte)15, (byte)60, true);
+                        playmidifile.sendMidiProgramChange((byte)(lastVoiceChannel), (byte)patch.getPC(), (byte)patch.getLSB(), (byte)patch.getMSB());
+                        playmidifile.sendMidiNote((byte)(lastVoiceChannel), (byte)60, true);
 
 /*
                         playmidifile.sendMidiControlChange((byte)channelIdx, ccVOL, (byte)sliderVOL.getValue());
@@ -2524,7 +2524,7 @@ public class OrganScene {
                         btntest.setStyle(btnplayOff);
 
                         PlayMidi playmidifile = PlayMidi.getInstance();
-                        playmidifile.sendMidiNote((byte)15, (byte)60, false);
+                        playmidifile.sendMidiNote((byte)lastVoiceChannel, (byte)60, false);
 
                         btestnote = false;
                     }
@@ -2551,7 +2551,7 @@ public class OrganScene {
 
                 if (lastVoiceButton != null) {
                     PlayMidi playmidifile = PlayMidi.getInstance();
-                    playmidifile.sendMidiControlChange((byte) lastVoiceChannel+1, ccVOL, (byte) sliderVOL.getValue());
+                    playmidifile.sendMidiControlChange((byte) lastVoiceChannel, ccVOL, (byte) sliderVOL.getValue());
 
                     midiButtons.getButtonById(lastVoiceButton, 0).setVOL((int) sliderVOL.getValue());
 
@@ -2576,7 +2576,7 @@ public class OrganScene {
                 rotateRev.setAngle((double) newValue);
 
                 PlayMidi playmidifile = PlayMidi.getInstance();
-                playmidifile.sendMidiControlChange((byte) lastVoiceChannel+1, ccREV, (byte) sliderREV.getValue());
+                playmidifile.sendMidiControlChange((byte) lastVoiceChannel, ccREV, (byte) sliderREV.getValue());
 
                 midiButtons.getButtonById(lastVoiceButton, 0).setREV((int)sliderREV.getValue());
 
@@ -2601,7 +2601,7 @@ public class OrganScene {
                 rotateCho.setAngle((double) newValue);
 
                 PlayMidi playmidifile = PlayMidi.getInstance();
-                playmidifile.sendMidiControlChange((byte) lastVoiceChannel+1, ccCHO, (byte) sliderCHO.getValue());
+                playmidifile.sendMidiControlChange((byte) lastVoiceChannel, ccCHO, (byte) sliderCHO.getValue());
 
                 midiButtons.getButtonById(lastVoiceButton, 0).setCHO((int)sliderCHO.getValue());
 
@@ -2626,7 +2626,7 @@ public class OrganScene {
                 rotateMod.setAngle((double) newValue);
 
                 PlayMidi playmidifile = PlayMidi.getInstance();
-                playmidifile.sendMidiControlChange((byte) lastVoiceChannel+1, ccMOD, (byte) sliderMOD.getValue());
+                playmidifile.sendMidiControlChange((byte) lastVoiceChannel, ccMOD, (byte) sliderMOD.getValue());
 
                 midiButtons.getButtonById(lastVoiceButton, 0).setMOD((int)sliderMOD.getValue());
 
@@ -2651,7 +2651,7 @@ public class OrganScene {
                 rotatePan.setAngle((double) newValue);
 
                 PlayMidi playmidifile = PlayMidi.getInstance();
-                playmidifile.sendMidiControlChange((byte) lastVoiceChannel+1, ccPAN, (byte) sliderPAN.getValue());
+                playmidifile.sendMidiControlChange((byte) lastVoiceChannel, ccPAN, (byte) sliderPAN.getValue());
 
                 midiButtons.getButtonById(lastVoiceButton, 0).setPAN((int)sliderPAN.getValue());
 
@@ -2667,7 +2667,8 @@ public class OrganScene {
             gridEffects.add(new VBox(new Label("VOL"), sliderVOL), 0, 1, 1, 1);
             gridEffects.add(new VBox(new Label("REV"), sliderREV), 1, 1, 1, 1);
             gridEffects.add(new VBox(new Label("CHO"), sliderCHO), 2, 1, 1, 1);
-            gridEffects.add(new VBox(new Label("PAN"), sliderPAN), 3, 1, 1, 1);
+            gridEffects.add(new VBox(new Label("MOD"), sliderMOD), 3, 1, 1, 1);
+            gridEffects.add(new VBox(new Label("PAN"), sliderPAN), 4, 1, 1, 1);
             gridEffects.setHgap(25);
             gridmidcenterOrgan.add(gridEffects, 3, 5, 3, 2);
             gridmidcenterOrgan.setStyle(styletext);

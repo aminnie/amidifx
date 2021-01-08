@@ -287,7 +287,7 @@ public class PlayMidi {
 
         CHAN = CHAN - 1;
         if (CHAN < 0) {
-            //System.out.println("PlayMidi: sendMidiProgramChange Error CHAN: " + (CHAN + 1)  + " PC:" + (PC + 1) + " LSB:" + LSB + " MSB:"+ MSB);
+            System.err.println("PlayMidi: sendMidiProgramChange Error CHAN: " + (CHAN + 1)  + " PC:" + (PC + 1) + " LSB:" + LSB + " MSB:"+ MSB);
             return false;
         }
 
@@ -349,12 +349,12 @@ public class PlayMidi {
 
         CHAN = CHAN - 1;
         if (CHAN < 0) {
-            //System.out.println("### PlayMidi: sendMidiControlChange Error:  CHAN: " + (CHAN + 1)  + " CTRL:" + CTRL + " VAL:" + VAL);
+            System.err.println("### PlayMidi: sendMidiControlChange Error:  CHAN: " + (CHAN + 1)  + " CTRL:" + CTRL + " VAL:" + VAL);
             return false;
         }
 
         try {
-            //System.out.println("PlayMidi: sendMidiControlChange sending MIDI Control Change:  CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
+            System.out.println("PlayMidi: sendMidiControlChange sending MIDI Control Change:  CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
 
             // Start playing note
             long timeStamp = -1;
