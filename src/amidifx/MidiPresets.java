@@ -32,10 +32,6 @@ public class MidiPresets {
     public static final byte ccMOD = 1;
     public static final byte ccPAN = 10;
 
-    // Empty Constructor
-    //public void makeMidiPresets() {
-    //
-    //}
 
     // Load specific Preset file
     public void makeMidiPresets(String presetFile) {
@@ -44,7 +40,7 @@ public class MidiPresets {
 
         MidiPresets banks = new MidiPresets();
 
-        ///// Need to validate this
+        // To do: Need to validate this
         presetList.clear();
 
         //System.out.println("Loading MIDI Preset using BufferedReader:  " + presetFile);
@@ -95,7 +91,6 @@ public class MidiPresets {
             // Print Preset Channels
             //for (int i = 0; i < presetList.size(); i++) {
             //    MidiPreset mPreset = presetList.get(i);
-
             //    System.out.println("*** " +  mPreset.toString());
             //}
         }
@@ -134,8 +129,7 @@ public class MidiPresets {
         presetList.get(idx).setMSB(midiPatch.getMSB());
         presetList.get(idx).setModuleIdx(moduleidx);
 
-        //presetList.get(idx).setBankIdx(midiPatch.getBankIdx());
-        //presetList.get(idx).setFontIdx(midiPatch.getFontIdx());
+        presetList.get(idx).setPatchIdx(midiPatch.getPatchId());
         presetList.get(idx).setPatchName(midiPatch.getPatchName());
 
         System.out.println("Updated MIDI Preset " + idx + ": " + midiPatch.toString());
@@ -163,7 +157,6 @@ public class MidiPresets {
         // Print Preset Channels
         //for (int i = 0; i < presetList.size(); i++) {
         //    MidiPreset mPreset = presetList.get(i);
-
         //    System.out.println(mPreset.toString());
         //}
 
@@ -193,8 +186,9 @@ public class MidiPresets {
                 presetline = presetline.concat(",").concat(Integer.toString(preset.getVOL())).concat(",").concat(Integer.toString(preset.getEXP()));
                 presetline = presetline.concat(",").concat(Integer.toString(preset.getREV())).concat(",").concat(Integer.toString(preset.getCHO()));
                 presetline = presetline.concat(",").concat(Integer.toString(preset.getPAN())).concat(",").concat(Integer.toString(preset.getMOD()));
-                presetline = presetline.concat(",").concat(Integer.toString(preset.getEffectIdx()));
-                presetline = presetline.concat(",").concat(Integer.toString(preset.getBankIdx())).concat(",").concat(Integer.toString(preset.getFontIdx()));
+                presetline = presetline.concat(",").concat(Integer.toString(preset.getBankIdx()));
+                presetline = presetline.concat(",").concat(Integer.toString(preset.getFontIdx()));
+                presetline = presetline.concat(",").concat(Integer.toString(preset.getPatchIdx()));
                 presetline = presetline.concat(",").concat(preset.getPatchName()).concat("\r");
                 bw.write(presetline);
 
@@ -222,7 +216,6 @@ public class MidiPresets {
 
 
     // Apply current current/selected MIDI Preset
-    @SuppressWarnings("StringOperationCanBeSimplified")
     public boolean applyMidiPreset(MidiPreset preset, int channelIdx) {
 
         try {

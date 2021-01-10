@@ -291,7 +291,7 @@ public class PlayMidi {
             return false;
         }
 
-        System.out.println("PlayMidi: Sending MIDI Program Change  CHAN: " + (CHAN +1 )  + " PC:" + PC + " MSB:" + MSB + " LSB:"+ LSB);
+        //System.out.println("PlayMidi: Sending MIDI Program Change  CHAN: " + (CHAN +1 )  + " PC:" + PC + " MSB:" + MSB + " LSB:"+ LSB);
 
         long timeStamp = -1;
         ShortMessage midiMsg = new ShortMessage();
@@ -354,7 +354,7 @@ public class PlayMidi {
         }
 
         try {
-            System.out.println("PlayMidi: sendMidiControlChange sending MIDI Control Change:  CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
+            //System.out.println("PlayMidi: sendMidiControlChange sending MIDI Control Change:  CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
 
             // Start playing note
             long timeStamp = -1;
@@ -406,7 +406,7 @@ public class PlayMidi {
             return false;
         }
 
-        System.out.println("PlayMidi: Sent MIDI Control Message: " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
+        //System.out.println("PlayMidi: Sent MIDI Control Message: " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
         return true;
     }
 

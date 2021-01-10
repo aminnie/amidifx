@@ -16,9 +16,9 @@ public class MidiPreset {
     private int PAN;
     private int MOD;
     private int TRE;
-    private int effectIdx;
     private int bankIdx;
     private int fontIdx;
+    private int patchIdx;
     private String patchName;
 
     public MidiPreset() {
@@ -41,7 +41,7 @@ public class MidiPreset {
     public MidiPreset(int presetIdx, int channelIdx, String channelOutIdx, int octaveTran,
                       int PC, int LSB, int MSB, int moduleIdx,
                       int VOL, int EXP, int REV, int CHO, int PAN,int MOD, int TRE,
-                      int effectIdx, int bankIdx, int fontIdx, String patchName) {
+                      int bankIdx, int fontIdx, int patchIdx, String patchName) {
         super();
         this.presetIdx = presetIdx;
         this.channelIdx = channelIdx;
@@ -58,9 +58,9 @@ public class MidiPreset {
         this.PAN = PAN;
         this.MOD = MOD;
         this.TRE = TRE;
-        this.effectIdx = effectIdx;
         this.bankIdx = bankIdx;
         this.fontIdx = fontIdx;
+        this.patchIdx = patchIdx;
         this.patchName = patchName;
     }
 
@@ -169,13 +169,6 @@ public class MidiPreset {
         this.TRE = TRE;
     }
 
-    public int getEffectIdx() {
-        return effectIdx;
-    }
-    public void setEffectIdx(int effectIdx) {
-        this.effectIdx = effectIdx;
-    }
-
     public int getBankIdx() {
         return bankIdx;
     }
@@ -188,6 +181,13 @@ public class MidiPreset {
     }
     public void setFontIdx(int fontIdx) {
         this.fontIdx = fontIdx;
+    }
+
+    public int getPatchIdx() {
+        return patchIdx;
+    }
+    public void setPatchIdx(int patchIdx) {
+        this.patchIdx = patchIdx;
     }
 
     public String getPatchName() {
@@ -204,7 +204,7 @@ public class MidiPreset {
                 + ", PC=" + PC + ", LSB=" + LSB + ", MSB=" + MSB
                 + ", VOL=" + VOL + ", EXP=" + EXP + ", REV=" + REV
                 + ", CHO=" + CHO + ", PAN=" + PAN + ", MOD=" + MOD + ", TRE=" + TRE
-                + ", effectIdx=" + effectIdx + ", bankIdx=" + bankIdx + ", fontIdx=" + fontIdx
-                + ", patchName=" + patchName + "]";
+                + ", bankIdx=" + bankIdx + ", fontIdx=" + fontIdx
+                + ", patchIdx=" + patchIdx + ", patchName=" + patchName + "]";
     }
 }
