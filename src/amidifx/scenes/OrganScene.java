@@ -19,6 +19,12 @@ import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
+// https://github.com/reapzor/FiloFirmata
+// https://forum.arduino.cc/index.php?topic=281994.0
+import org.firmata4j.IODevice;
+import org.firmata4j.Pin.Mode;
+import org.firmata4j.firmata.FirmataDevice;
+
 public class OrganScene {
 
     // Button Colors
@@ -295,10 +301,10 @@ public class OrganScene {
             // Start Building the Scene
 
             Parent root = FXMLLoader.load(getClass().getResource("../amidifx.fxml"));
-            System.out.println("OrganScene root: " + root.toString());
+            //System.out.println("OrganScene root: " + root.toString());
 
             File fstyle = new File("src/amidifx/style.css");
-            System.out.println("OrganScene fstyle: " + fstyle.toString());
+            //System.out.println("OrganScene fstyle: " + fstyle.toString());
 
             System.out.println("OrganScene: Scene OrganScene!");
 
