@@ -3,6 +3,8 @@ package amidifx.utils;
 import org.firmata4j.IODevice;
 import org.firmata4j.Pin;
 import org.firmata4j.firmata.FirmataDevice;
+//import jssc.SerialNativeInterface;
+import jssc.SerialPortList;
 
 import java.io.IOException;
 
@@ -14,6 +16,13 @@ public class Firmata {
     IODevice device;
 
     public boolean initFirmataDevice() {
+
+
+        String[] portNames;
+        portNames = SerialPortList.getPortNames();
+        for (String portName : portNames) {
+            System.out.println(portName);
+        }
 
         System.out.println("Firmata initFirmataDevice: Starting");
 
