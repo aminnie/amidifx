@@ -2,6 +2,7 @@ package amidifx.scenes;
 
 import amidifx.*;
 import amidifx.models.*;
+import amidifx.utils.Firmata;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -19,11 +20,6 @@ import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
-// https://github.com/reapzor/FiloFirmata
-// https://forum.arduino.cc/index.php?topic=281994.0
-import org.firmata4j.IODevice;
-import org.firmata4j.Pin.Mode;
-import org.firmata4j.firmata.FirmataDevice;
 
 public class OrganScene {
 
@@ -241,6 +237,14 @@ public class OrganScene {
     public OrganScene(Stage primaryStage, Scene returnScene) {
 
         System.out.println("OrganScene: AMIDIFX Organ Scene Starting");
+
+        Firmata firmata = new Firmata();
+        if (!firmata.initFirmataDevice()) {
+            System.out.println("OrganScene: Firmata initialization failed and ignored.");
+        }
+        else {
+            firmata.setFirmataPin(1);
+        }
 
         try {
 
