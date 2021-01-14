@@ -240,7 +240,7 @@ public class OrganScene {
 
         ArduinoUtils arduino = new ArduinoUtils();
         arduino.listPorts();
-        arduino.setPort(2);
+        arduino.setPort(0);
         arduino.writeData();
 
         try {

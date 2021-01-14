@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="openjfx-15.0" level="project" />
-    <orderEntry type="library" name="java" level="application" />
+    <orderEntry type="library" name="javafx" level="project" />
+    <orderEntry type="library" name="jSerialComm-2.6.2" level="application" />
   </component>
 </module>
