@@ -3,6 +3,7 @@
     <CLASSES>
       <root url="file://$PATH_TO_FX$" />
       <root url="file://$PATH_TO_FX$/javafx-sdk-15.0.1/lib" />
+      <root url="jar://$PROJECT_DIR$/lib/jSerialComm-2.6.2.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

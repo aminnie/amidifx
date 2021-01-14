@@ -8,7 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="openjfx-15.0" level="project" />
-    <orderEntry type="library" name="com.bortbort.arduino:filo-firmata:0.1.11" level="application" />
-    <orderEntry type="library" name="com.github.kurbatov:firmata4j:2.3.8" level="application" />
+    <orderEntry type="library" name="java" level="application" />
   </component>
 </module>
