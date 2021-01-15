@@ -1,8 +1,7 @@
 package amidifx.utils;
 
-//import com.fazecast.jSerialComm.*;
-
 import amidifx.models.SharedStatus;
+
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
