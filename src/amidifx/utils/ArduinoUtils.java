@@ -2,6 +2,7 @@ package amidifx.utils;
 
 //import com.fazecast.jSerialComm.*;
 
+import amidifx.models.SharedStatus;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
@@ -11,25 +12,66 @@ public class ArduinoUtils {
     SerialPort activePort;
     SerialPort[] ports;
 
+    int baudRate = 115200;
+    int numberPorts = 0;
+    boolean hasPort = false;
+
+    // Static variable single_instance of type PlayMidi
+    private static ArduinoUtils single_ArduinoInstance = null;
+
+    // Create instance of Shared Status to report back to Scenes
+    final SharedStatus sharedStatus = SharedStatus.getInstance();
+
+    // Static method to create singleton instance of PlayMidi class
+    public synchronized static ArduinoUtils getInstance()
+    {
+        if (single_ArduinoInstance == null) {
+            single_ArduinoInstance = new ArduinoUtils();
+
+            System.out.println("PlayMidi: Creating instance ArduinoUtils");
+        }
+
+        return single_ArduinoInstance;
+    }
+
+    // *** Make constructor private for Singleton ***
+    // Initialize Serial Port to Arduino Controller
+    private ArduinoUtils() {
+
+        this.hasPort = false;
+        this.listPorts();
+        this.setPort(2);
+
+        byte[] buffer = {'A', 'M', 'I', 'D', 'I', 'F', 'X'};
+        this.writeData(buffer);
+    }
+
     public void listPorts() {
 
         //System.out.println("ArduinoUtils: Listing Ports");
 
         ports = SerialPort.getCommPorts();
 
-        int i = 0;
+        numberPorts = 0;
         for (SerialPort port : ports) {
-            System.out.print("ArduinoUtils Port: " + i + ". " + port.getDescriptivePortName() + " ");
+            System.out.print("ArduinoUtils Port: " + numberPorts + ". " + port.getDescriptivePortName() + " ");
             System.out.println(port.getPortDescription());
-            i++;
+            numberPorts++;
         }
     }
 
-    public void setPort(int portIndex) {
+    public boolean setPort(int portIndex) {
 
         System.out.println("ArduinoUtils: Setting Port: " + portIndex);
 
+        if (portIndex > (numberPorts - 1)) {
+            System.err.println("ArduinoUtils: Port not available: " + portIndex);
+            return false;
+        }
+        hasPort = true;
+
         activePort = ports[portIndex];
+        activePort.setBaudRate(baudRate);
 
         if (activePort.openPort())
             System.out.println("ArduinoUtils: " + activePort.getPortDescription() + " port opened.");
@@ -51,18 +93,30 @@ public class ArduinoUtils {
                 return SerialPort.LISTENING_EVENT_DATA_AVAILABLE;
             }
         });
+
+        return true;
     }
 
-    public void writeData() {
+    public void closePort() {
+        System.out.println("ArduinoUtils: closePort()");
+
+        if (hasPort) activePort.closePort();
+    }
+
+    public void writeData(byte[] buffer) {
         System.out.println("ArduinoUtils: writeData()");
 
-        byte[] buffer = {'A', 'B', 'C'};
-        long bytesToWrite = 3;
+        if (!hasPort) return;
 
+        long bytesToWrite = buffer.length;
         activePort.writeBytes(buffer, bytesToWrite);
     }
 
     public void readData() {
+        System.out.println("ArduinoUtils: readData()");
+
+        if (!hasPort) return;
+
     }
 
 }

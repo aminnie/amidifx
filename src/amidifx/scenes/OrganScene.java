@@ -65,6 +65,7 @@ public class OrganScene {
 
     SharedStatus sharedStatus;
     PlayMidi playmidifile;
+    ArduinoUtils arduinoUtils;
 
     // Main pane for the Organ scene
     private BorderPane paneWelcome;
@@ -238,11 +239,6 @@ public class OrganScene {
 
         System.out.println("OrganScene: AMIDIFX Organ Scene Starting");
 
-        ArduinoUtils arduino = new ArduinoUtils();
-        arduino.listPorts();
-        arduino.setPort(0);
-        arduino.writeData();
-
         try {
 
             // Create instance of Shared Status to report back to Scenes
@@ -252,6 +248,9 @@ public class OrganScene {
             // Prepare the Channel Program and Effects tracking list
             playmidifile = PlayMidi.getInstance();
             playmidifile.initCurPresetList();
+
+            // Get instance of Arduino Utilities
+            arduinoUtils = ArduinoUtils.getInstance();
 
             // Load MIDI Default MIDI Preset file on start up
             dopresets = new MidiPresets();
@@ -394,6 +393,8 @@ public class OrganScene {
             buttonExit.setStyle(btnMenuOff);
             buttonExit.setOnAction(e -> {
                 playmidifile.stopMidiPlay("End Play");
+                arduinoUtils.closePort();
+
                 Platform.exit();
             });
 

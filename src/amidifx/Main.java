@@ -2,6 +2,7 @@ package amidifx;
 
 import amidifx.models.*;
 import amidifx.scenes.OrganScene;
+import amidifx.utils.ArduinoUtils;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
@@ -99,6 +100,7 @@ public class Main extends Application {
     Image applicationIcon;
 
     SharedStatus sharedStatus;
+    ArduinoUtils arduinoUtils;
 
     private static final String MID_DIRECTORY = "C:/amidifx/midifiles/";
 
@@ -131,6 +133,9 @@ public class Main extends Application {
 
         // Prepare the Channel Program and Effects tracking list
         playmidifile.initCurPresetList();
+
+        // Prepare Arduino Interface
+        arduinoUtils = ArduinoUtils.getInstance();
 
         // Load MIDI Sound Module List on start up
         midimodules = new MidiModules();
@@ -284,6 +289,8 @@ public class Main extends Application {
         buttonExit.setStyle(btnMenuOff);
         buttonExit.setOnAction(e -> {
             playmidifile.stopMidiPlay("End Play");
+            arduinoUtils.closePort();
+
             Platform.exit();
         });
 
@@ -1143,6 +1150,8 @@ public class Main extends Application {
         buttonExit.setStyle(btnMenuOff);
         buttonExit.setOnAction(e -> {
             playmidifile.stopMidiPlay("End Play");
+            arduinoUtils.closePort();
+
             Platform.exit();
         });
 
