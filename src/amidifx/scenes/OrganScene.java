@@ -29,7 +29,7 @@ public class OrganScene {
 
     int ifsize = 15;
     int xscene = (int)(1024 * xmul);
-    int yscene = (int)(600 * ymul - 50);
+    int yscene = (int)(600 * ymul - 45);    // 45 = Adjustment while we are single showing Windows status bar
 
     int xtoolbarleft = (int)(225 * xmul);
     int xtitle = (int)(200 * xmul);
