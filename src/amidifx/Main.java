@@ -37,9 +37,13 @@ import static amidifx.utils.Logger.logSystemToFile;
 @SuppressWarnings("CanBeFinal")
 public class Main extends Application {
 
-    // Scaling based on 1024 x 600 resolution
-    float xmul = 1280f/1024f;
-    float ymul = 800f/600f;
+    // Scaling based on default 1024 x 600 resolution.
+    // Anything other resolution overrides and may require additional tuning of screen layout
+    final static float xscreensize = 1280;
+    final static float yscreensize = 800;
+
+    float xmul = xscreensize/1024f;
+    float ymul = yscreensize/600f;
 
     int ifsize = 15;
     int xscene = (int)(1024 * xmul);
