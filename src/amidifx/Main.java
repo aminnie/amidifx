@@ -97,7 +97,7 @@ public class Main extends Application {
     final String btnPresetOff = "-fx-background-color: #DBD06B;  -fx-font-size: " + fsize;
     final String btnPresetOn = "-fx-background-color: #C3B643;  -fx-font-size: " + fsize;
 
-    final String stlInstrumentList =  "-fx-control-inner-background:#CCCCCC;";
+    final String stlInstrumentList =  "-fx-control-inner-background:#CCCCCC; -fx-font-size: " + fsize;
 
     final String styletext = "-fx-font-size: " + fsize ;
 
@@ -460,7 +460,7 @@ public class Main extends Application {
         songlistView.getSelectionModel().selectFirst();
         songlistView.setStyle(styletext);
 
-        Button buttonpreset = new Button("Edit Presets");
+        Button buttonpreset = new Button("Edit Song Presets");
         buttonpreset.setStyle(selectcolorOff);
         ////String songFile = "amloop.mid";
         buttonpreset.setPrefSize(xbutton, ybutton);
@@ -993,8 +993,8 @@ public class Main extends Application {
             //System.out.println("Main: " + dopresets.presetString(presetIdx * 16 + channelIdx));
         });
 
-        txtInstrumentList.setMaxWidth(500);
-        txtInstrumentList.setMaxHeight(130);
+        txtInstrumentList.setMaxWidth(450 * xmul);
+        txtInstrumentList.setMaxHeight(135 * ymul);
         txtInstrumentList.setStyle(stlInstrumentList);
 
         VBox vboxInstrumentList = new VBox();
@@ -1333,7 +1333,7 @@ public class Main extends Application {
         banklistView.getSelectionModel().selectFirst();
         banklistView.setStyle(styletext);
 
-        Button buttonb = new Button("Select Bank");
+        Button buttonb = new Button("Select Voice Bank");
         buttonb.setStyle(selectcolorOff);
         buttonb.setPrefSize(xbutton, ybutton);
         buttonb.setOnAction(event -> {
@@ -1479,7 +1479,7 @@ public class Main extends Application {
         presetListView.setStyle(styletext);
 
         // Update Voice for currently selected Channel in Preset Listview
-        Button buttonvoice = new Button("Update Channel");
+        Button buttonvoice = new Button("Set Channel Voice");
         buttonvoice.setStyle(selectcolorOff);
         buttonvoice.setPrefSize(xbutton, ybutton);
         buttonvoice.setOnAction(event -> {
@@ -1519,6 +1519,7 @@ public class Main extends Application {
 
         // **** Show Middle Pane: Sound Fonts for selected Bank. First sound from Bank 1 1 by default
         FlowPane flowpane = new FlowPane();
+        flowpane.prefHeight(ypatchlist);
         flowpane.setPadding(new Insets(10, 5, 0,10));    // Insets(double top, double right, double bottom, double left)
         flowpane.setHgap(10);
         flowpane.setVgap(10);
@@ -2100,6 +2101,7 @@ public class Main extends Application {
         flowpane.getChildren().add(btnnext);
 
         FlowPane paneEffects = new FlowPane();
+        paneEffects.setStyle(styletext);
         paneEffects.getChildren().add(new VBox(new Label(" VOL"), sliderVOL));
         paneEffects.getChildren().add(new VBox(new Label(" EXP"), sliderEXP));
         paneEffects.getChildren().add(new VBox(new Label(" REV"), sliderREV));
@@ -2108,7 +2110,6 @@ public class Main extends Application {
         paneEffects.getChildren().add(new VBox(new Label(" MOD"), sliderMOD));
         paneEffects.getChildren().add(new VBox(new Label(" PAN"), sliderPAN));
         flowpane.getChildren().add(paneEffects);
-        flowpane.setStyle(styletext);
 
         // Add MIDI Channel Layering for each Channel
         VBox vboxLayers = new VBox();
@@ -2149,7 +2150,7 @@ public class Main extends Application {
 
         // Send Presets to MIDI Button
         Button buttonApplyPreset = new Button("Apply Preset");
-        buttonApplyPreset.setPrefSize(150, 25);
+        buttonApplyPreset.setPrefSize(xbutton, ybutton / 2);
         buttonApplyPreset.setStyle(btnplayOff);
         buttonApplyPreset.setOnAction(event -> {
             MidiPreset applypreset = dopresets.getPreset(channelIdx);
@@ -2346,37 +2347,37 @@ public class Main extends Application {
 
     private void offAllButtons() {
         bpressed1 = false;
-        pstbutton1.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton1.setStyle("-fx-background-color: #DBD06B; -fx-font-size: " + fsize);
         bpressed2 = false;
-        pstbutton2.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton2.setStyle("-fx-background-color: #DBD06B; -fx-font-size: " + fsize);
         bpressed3 = false;
-        pstbutton3.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton3.setStyle("-fx-background-color: #DBD06B; -fx-font-size: " + fsize);
         bpressed4 = false;
-        pstbutton4.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton4.setStyle("-fx-background-color: #DBD06B; -fx-font-size: " + fsize);
         bpressed5 = false;
-        pstbutton5.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton5.setStyle("-fx-background-color: #DBD06B; -fx-font-size: " + fsize);
         bpressed6 = false;
-        pstbutton6.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton6.setStyle("-fx-background-color: #DBD06B; -fx-font-size: " + fsize);
         bpressed7 = false;
-        pstbutton7.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton7.setStyle("-fx-background-color: #DBD06B; -fx-font-size: " + fsize);
         bpressed8 = false;
-        pstbutton8.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton8.setStyle("-fx-background-color: #DBD06B; -fx-font-size: " + fsize);
         bpressed9 = false;
-        pstbutton9.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton9.setStyle("-fx-background-color: #DBD06B; -fx-font-size: " + fsize);
         bpressed10 = false;
-        pstbutton10.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton10.setStyle("-fx-background-color: #DBD06B; -fx-font-size: " + fsize);
         bpressed11 = false;
-        pstbutton11.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton11.setStyle("-fx-background-color: #DBD06B; -fx-font-size: " + fsize);
         bpressed12 = false;
-        pstbutton12.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton12.setStyle("-fx-background-color: #DBD06B; -fx-font-size: " + fsize);
         bpressed13 = false;
-        pstbutton13.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton13.setStyle("-fx-background-color: #DBD06B; -fx-font-size: " + fsize);
         bpressed14 = false;
-        pstbutton14.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton14.setStyle("-fx-background-color: #DBD06B; -fx-font-size: " + fsize);
         bpressed15 = false;
-        pstbutton15.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton15.setStyle("-fx-background-color: #DBD06B; -fx-font-size: " + fsize);
         bpressed16 = false;
-        pstbutton16.setStyle("-fx-background-color: #DBD06B; ");
+        pstbutton16.setStyle("-fx-background-color: #DBD06B; -fx-font-size: " + fsize);
     }
 
     private void updateChannelOutIdx(int channelIdx) {
