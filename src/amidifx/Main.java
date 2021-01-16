@@ -38,11 +38,12 @@ import static amidifx.utils.Logger.logSystemToFile;
 public class Main extends Application {
 
     // Scaling based on 1024 x 600 resolution
-    float xmul = 1 * 1280f/1000f;
-    float ymul = 1 * 800f/600f;
+    float xmul = 1280f/1024f;
+    float ymul = 800f/600f;
 
+    int ifsize = 15;
     int xscene = (int)(1024 * xmul);
-    int yscene = (int)(600 * ymul);
+    int yscene = (int)(600 * ymul - 50);
 
     int xbutton = (int)(150 * xmul);
     int ybutton = (int)(50 * ymul);
@@ -71,7 +72,7 @@ public class Main extends Application {
     int xmute = (int)(50 * xmul);
 
     // Calculate font size based on screen dimensions. Default = 15 for 1024 * 600
-    final String fsize = Integer.toString((int)(15 * xmul)) + "; ";
+    final String fsize = Integer.toString((int)(ifsize * xmul)) + "; ";
 
     // Button Colors
     // https://yagisanatode.com/2019/08/06/google-apps-script-hexadecimal-color-codes-for-google-docs-sheets-and-slides-standart-palette/
