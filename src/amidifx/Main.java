@@ -15,7 +15,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -24,7 +23,6 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.FileChooser;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -39,28 +37,64 @@ import static amidifx.utils.Logger.logSystemToFile;
 @SuppressWarnings("CanBeFinal")
 public class Main extends Application {
 
+    // Scaling based on 1024 x 600 resolution
+    float xmul = 1 * 1280f/1024f;
+    float ymul = 1 * 800f/600f;
+
+    int xscene = (int)(1024 * xmul);
+    int yscene = (int)(600 * ymul);
+
+    int xbutton = (int)(150 * xmul);
+    int ybutton = (int)(50 * ymul);
+
+    int xtoolbarleft = (int)(225 * xmul);
+    int xtitle = 200 * (int)(xmul);
+    int xtoolbarright = (int)(150 * xmul);
+
+    int xfileselect = (int)(25 * xmul);
+    int yfileselect = (int)(15 * ymul);
+
+    int xsmallbtn = (int)(75 * xmul);
+    int ysmallbtn = (int)(25 * ymul);
+
+    int xsonglist = (int)(200 * xmul);
+    int ysonglist = (int)(550 * 1); //ymul
+
+    int xpatchlist = (int)(180 * xmul);
+    int ypatchlist = (int)(550 * 1); //xmul)
+
+    int xpresetlist = (int)(175 * xmul);
+    int ypresetlist = (int)(550 * 1); //xmul)
+
+    int xstatusleft = (int)(400 * xmul);
+
+    int xmute = (int)(50 * xmul);
+
+    // Calculate font size based on screen dimensions. Default = 15 for 1024 * 600
+    final String fsize = Integer.toString((int)(15 * xmul)) + "; ";
+
     // Button Colors
     // https://yagisanatode.com/2019/08/06/google-apps-script-hexadecimal-color-codes-for-google-docs-sheets-and-slides-standart-palette/
     final String bgpanecolor = "-fx-background-color: #999999; ";
     final String bgheadercolor = "-fx-background-color: #B2B5B1; ";
     final String bgfootercolor = "-fx-background-color: #B2B5B1; ";
 
-    static final String btnMenuOn = "-fx-background-color: #4493C0; -fx-font-size: 15; ";
-    static final String btnMenuOff = "-fx-background-color: #69A8CC; -fx-font-size: 15; ";
-    static final String btnMenuSaveOn = "-fx-background-color: #DB6B6B; -fx-font-size: 15; ";
+    final String btnMenuOn = "-fx-background-color: #4493C0; -fx-font-size: " + fsize;
+    final String btnMenuOff = "-fx-background-color: #69A8CC; -fx-font-size: " + fsize;
+    final String btnMenuSaveOn = "-fx-background-color: #DB6B6B; -fx-font-size: " + fsize;
 
-    static final String btnplayOff = "-fx-background-color: #8ED072; -fx-font-size: 15; ";
-    static final String btnplayOn = "-fx-background-color: #DB6B6B; -fx-font-size: 15; ";
+    final String btnplayOff = "-fx-background-color: #8ED072; -fx-font-size: " + fsize;
+    final String btnplayOn = "-fx-background-color: #DB6B6B; -fx-font-size: " + fsize;
 
-    final String selectcolorOff = "-fx-background-color: #69A8CC; -fx-font-size: 15; ";
-    final String selectcolorOn = "-fx-background-color: #4493C0; -fx-font-size: 15; ";
+    final String selectcolorOff = "-fx-background-color: #69A8CC; -fx-font-size: " + fsize;
+    final String selectcolorOn = "-fx-background-color: #4493C0; -fx-font-size: " + fsize;
 
-    final String btnPresetOff = "-fx-background-color: #DBD06B;  -fx-font-size: 15; -fx-text";
-    final String btnPresetOn = "-fx-background-color: #C3B643;  -fx-font-size: 15; ";
+    final String btnPresetOff = "-fx-background-color: #DBD06B;  -fx-font-size: " + fsize;
+    final String btnPresetOn = "-fx-background-color: #C3B643;  -fx-font-size: " + fsize;
 
     final String stlInstrumentList =  "-fx-control-inner-background:#CCCCCC;";
 
-    final String styletext = "-fx-font-size: 15; ";
+    final String styletext = "-fx-font-size: " + fsize ;
 
     Scene sceneOrgan, scenePresets, sceneSongs, sceneMonitor;
     MidiPatches dopatches;
@@ -92,6 +126,7 @@ public class Main extends Application {
     String songFile = "amloop.mid";
     String presetFile = "default.csv";
     Label labelstatus = new Label(" ");
+
     Label labelsongtitle = new Label(" ");
     Label labelmidifile = new Label(" ");
     Label labelpresetfile = new Label("  ");
@@ -169,22 +204,19 @@ public class Main extends Application {
         // *** Prepare the Organ, Song and Preset Screens
         File fstyle = new File("src/amidifx/style.css");
 
-        sceneSongs = new Scene(createSongScene(stage), 1024, 600);
+        sceneSongs = new Scene(createSongScene(stage), xscene, yscene);
         sceneSongs.getStylesheets().clear();
         sceneSongs.getStylesheets().add("file:///" + fstyle.getAbsolutePath().replace("\\", "/"));
         sharedStatus.setSongsScene(sceneSongs);
 
-        scenePresets = new Scene(createPresetScene(stage), 1024, 600);
+        scenePresets = new Scene(createPresetScene(stage), xscene, yscene);
         scenePresets.getStylesheets().clear();
         scenePresets.getStylesheets().add("file:///" + fstyle.getAbsolutePath().replace("\\", "/"));
         sharedStatus.setPresetsScene(scenePresets);
 
-        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 3);
-        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 3);
-
-        //WelcomeScene welcomeScene = new WelcomeScene(stage, sceneSongs);
-        //stage.setScene(welcomeScene.getScene());
+        ////Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        ////stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 3);
+        ////stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 3);
 
         OrganScene organScene = new OrganScene(stage, sceneSongs);
         stage.setScene(organScene.getScene());
@@ -230,6 +262,7 @@ public class Main extends Application {
         borderPaneSng.setStyle(bgpanecolor);
 
         Label labelstatusSng = new Label(" Status: Ready");
+        labelstatusSng.setStyle(styletext);
 
         FileChooser fileChooserPreset = new FileChooser();
         FileChooser fileChooserMidi = new FileChooser();
@@ -238,7 +271,6 @@ public class Main extends Application {
 
         Button buttonsc1 = new Button("Perform");
         buttonsc1.setStyle(btnMenuOff);
-        //buttonsc1.setOnAction(e -> stage.setScene(sceneOrgan));
         buttonsc1.setOnAction(e -> {
             System.out.println(("Main: Changing to Organ Scene: " + sharedStatus.getOrganScene().toString()));
             stage.setScene(sharedStatus.getOrganScene());
@@ -296,12 +328,12 @@ public class Main extends Application {
 
         ToolBar toolbarLeft = new ToolBar(buttonsc1, buttonsc2, buttonsc3);
         toolbarLeft.setStyle(bgheadercolor);
-        toolbarLeft.setMinWidth(225);
+        toolbarLeft.setMinWidth(xtoolbarleft);
 
         Label lbltitle1 = new Label("AMIDIFX Sound Module Controller");
         lbltitle1.setStyle(styletext);
         HBox hboxTitle = new HBox();
-        hboxTitle.setPadding(new Insets(10, 10, 10,200));
+        hboxTitle.setPadding(new Insets(10, 10, 10, xtitle));
         hboxTitle.getChildren().add(lbltitle1);
 
         //Label labelicon = new Label();
@@ -312,7 +344,7 @@ public class Main extends Application {
 
         ToolBar toolbarRight = new ToolBar(buttonupdate, buttonPanic, buttonExit);
         toolbarRight.setStyle(bgheadercolor);
-        toolbarRight.setMinWidth(150);
+        toolbarRight.setMinWidth(xtoolbarright);
 
         BorderPane borderPaneTopSng = new BorderPane();
         borderPaneTopSng.setStyle(bgheadercolor);
@@ -328,9 +360,13 @@ public class Main extends Application {
         borderStatusSng.setStyle(bgheadercolor);
 
         labelstatus.setText(" Status: " + sharedStatus.getStatusText());
+        labelstatus.setStyle(styletext);
         labelsongtitle.setText("Song: " + sharedStatus.getSongTitle());
+        labelsongtitle.setStyle(styletext);
         labelmidifile.setText("   Midi: " + sharedStatus.getMidiFile());
+        labelmidifile.setStyle(styletext);
         labelpresetfile.setText("   Preset: " + sharedStatus.getPresetFile());
+        labelpresetfile.setStyle(styletext);
 
         FlowPane panefilesSng = new FlowPane();
         panefilesSng.setHgap(20);
@@ -339,7 +375,7 @@ public class Main extends Application {
         panefilesSng.getChildren().add(labelpresetfile);
 
         VBox vboxstatusLeftSng = new VBox();
-        vboxstatusLeftSng.setMinWidth(400);
+        vboxstatusLeftSng.setMinWidth(xstatusleft);
         vboxstatusLeftSng.getChildren().add(labelstatusSng);
 
         // Assemble Status BorderPane View
@@ -350,8 +386,8 @@ public class Main extends Application {
 
         ObservableList<String> songdata = FXCollections.observableArrayList();
         ListView<String> songlistView = new ListView<>(songdata);
-        songlistView.setPrefWidth(200);
-        songlistView.setPrefHeight(550);
+        songlistView.setPrefWidth(xsonglist);
+        songlistView.setPrefHeight(ysonglist);
         songlistView.setStyle("-fx-control-inner-background: #E7ECEC;");
 
         ArrayList<MidiSong> midiSongs = dosongs.getSongs();
@@ -422,7 +458,7 @@ public class Main extends Application {
         Button buttonpreset = new Button("Edit Presets");
         buttonpreset.setStyle(selectcolorOff);
         ////String songFile = "amloop.mid";
-        buttonpreset.setPrefSize(150, 50);
+        buttonpreset.setPrefSize(xbutton, ybutton);
         buttonpreset.setOnAction(event -> {
 
             presetFile = txtPresetFile.getText();
@@ -461,7 +497,7 @@ public class Main extends Application {
         vboxLeftS.getChildren().add(vboxbutpreset);
 
         Button presetchooser = new Button("...");
-        presetchooser.setPrefSize(25, 15);
+        presetchooser.setPrefSize(xfileselect, yfileselect);
         presetchooser.setStyle("-fx-font-size: 15; ");
         presetchooser.setOnAction(e -> {
             fileChooserPreset.setInitialDirectory(new File(MID_DIRECTORY));
@@ -474,7 +510,7 @@ public class Main extends Application {
         });
 
         Button midichooser = new Button("...");
-        midichooser.setPrefSize(25, 15);
+        midichooser.setPrefSize(xfileselect, yfileselect);
         midichooser.setStyle("-fx-font-size: 15; ");
         midichooser.setOnAction(e -> {
             fileChooserMidi.setInitialDirectory(new File(MID_DIRECTORY));
@@ -679,7 +715,7 @@ public class Main extends Application {
         txtBass.setStyle(styletext);
         txtBass = new TextField(Integer.toString(sharedStatus.getBassCHAN()));
         txtBass.setDisable(true);
-        txtBass.setMaxWidth(50);
+        txtBass.setMaxWidth(xmute);
         txtBass.textProperty().addListener(event -> {
             String regexfile = "^[0-9]{1,2}$";
             txtBass.pseudoClassStateChanged(
@@ -694,7 +730,7 @@ public class Main extends Application {
         txtLower.setStyle(styletext);
         txtLower = new TextField(Integer.toString(sharedStatus.getLower1CHAN()));
         txtLower.setDisable(true);
-        txtLower.setMaxWidth(50);
+        txtLower.setMaxWidth(xmute);
         txtLower.textProperty().addListener(event -> {
             String regexfile = "^[0-9]{1,2}$";
             txtLower.pseudoClassStateChanged(
@@ -709,7 +745,7 @@ public class Main extends Application {
         txtUpper.setStyle(styletext);
         txtUpper = new TextField(Integer.toString(sharedStatus.getUpper1CHAN()));
         txtUpper.setDisable(true);
-        txtUpper.setMaxWidth(50);
+        txtUpper.setMaxWidth(xmute);
         txtUpper.textProperty().addListener(event -> {
             String regexfile = "^[0-9]{1,2}$";
             txtUpper.pseudoClassStateChanged(
@@ -723,7 +759,7 @@ public class Main extends Application {
         lblTimeSig.setStyle(styletext);
         txtTimeSig.setStyle(styletext);
         txtTimeSig.setDisable(true);
-        txtTimeSig.setMaxWidth(50);
+        txtTimeSig.setMaxWidth(xmute);
         txtTimeSig.textProperty().addListener(event -> {
             String regexfile = "^[0-9]{1}/[0-9]{1}$";
             txtTimeSig.pseudoClassStateChanged(
@@ -747,7 +783,7 @@ public class Main extends Application {
         // Song New/Update, Delete and Save Buttons
         buttonedit.setText("Edit");
         buttonedit.setStyle(selectcolorOff);
-        buttonedit.setPrefSize(75, 25);
+        buttonedit.setPrefSize(xsmallbtn, ysmallbtn);
         buttonedit.setOnAction(event -> {
 
             // Enable Preset File Save As text entry
@@ -771,7 +807,7 @@ public class Main extends Application {
         // Song New/Update, Delete and Save Buttons
         buttonnew.setText("New");
         buttonnew.setStyle(selectcolorOff);
-        buttonnew.setPrefSize(75, 25);
+        buttonnew.setPrefSize(xsmallbtn, ysmallbtn);
         buttonnew.setOnAction(event -> {
 
             MidiSong midiSong = dosongs.getSong(0);
@@ -807,13 +843,12 @@ public class Main extends Application {
 
         buttondelete.setText("Delete");
         buttondelete.setStyle(selectcolorOff);
-        buttondelete.setPrefSize(75, 25);
+        buttondelete.setPrefSize(xsmallbtn, ysmallbtn);
         buttondelete.setOnAction(event -> {
             ObservableList selectedIndices = songlistView.getSelectionModel().getSelectedIndices();
 
             buttonedit.setDisable(true);
             buttonnew.setDisable(true);
-
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete selected Song");
@@ -855,7 +890,7 @@ public class Main extends Application {
 
         Button buttondemo = new Button("Play Song");
         buttondemo.setStyle(btnplayOff);
-        buttondemo.setPrefSize(150, 25);
+        buttondemo.setPrefSize(xsmallbtn * 2, ysmallbtn);
         buttondemo.setOnAction(e -> {
             //PlayMidi playmidifile = new PlayMidi();
             try {
@@ -1175,17 +1210,17 @@ public class Main extends Application {
 
         ToolBar toolbarLeft = new ToolBar(buttonsc1, buttonsc2, buttonsc3);
         toolbarLeft.setStyle(bgheadercolor);
-        toolbarLeft.setMinWidth(225);
+        toolbarLeft.setMinWidth(xtoolbarleft);
 
         Label lbltitle1 = new Label("AMIDIFX Sound Module Controller");
         lbltitle1.setStyle(styletext);
         HBox hboxTitle = new HBox();
-        hboxTitle.setPadding(new Insets(10, 10, 10,200));
+        hboxTitle.setPadding(new Insets(10, 10, 10, xtitle));
         hboxTitle.getChildren().add(lbltitle1);
 
         ToolBar toolbarRight = new ToolBar(buttonSave, buttonPanic, buttonExit);
         toolbarRight.setStyle(bgheadercolor);
-        toolbarRight.setMinWidth(150);
+        toolbarRight.setMinWidth(xtoolbarright);
 
         BorderPane borderPaneTop = new BorderPane();
         borderPaneTop.setStyle(bgheadercolor);
@@ -1201,9 +1236,13 @@ public class Main extends Application {
         borderStatus.setStyle("-fx-background-color: #999999; "); //#B2B5B1; ");
 
         labelstatus.setText(" Status: " + sharedStatus.getStatusText());
+        labelstatus.setStyle(styletext);
         labelsongtitle.setText(" Song: " + sharedStatus.getSongTitle());
+        labelsongtitle.setStyle(styletext);
         labelmidifile.setText("   Midi: " + sharedStatus.getMidiFile());
+        labelmidifile.setStyle(styletext);
         labelpresetfile.setText("   Preset: " + sharedStatus.getPresetFile());
+        labelpresetfile.setStyle(styletext);
 
         FlowPane panefiles = new FlowPane();
         panefiles.setHgap(20);
@@ -1212,7 +1251,7 @@ public class Main extends Application {
         panefiles.getChildren().add(labelpresetfile);
 
         VBox vboxstatusLeft = new VBox();
-        vboxstatusLeft.setMinWidth(400);
+        vboxstatusLeft.setMinWidth(xstatusleft);
         vboxstatusLeft.getChildren().add(labelstatus);
 
         // Assemble the Status BorderPane View
@@ -1229,12 +1268,12 @@ public class Main extends Application {
 
         ObservableList<String> soundbank = FXCollections.observableArrayList();
         ListView<String> banklistView = new ListView<>(soundbank);
-        banklistView.setPrefWidth(175);
-        banklistView.setPrefHeight(550);
+        banklistView.setPrefWidth(xpatchlist);
+        banklistView.setPrefHeight(ypatchlist);
         banklistView.setStyle("-fx-control-inner-background: #E7ECEC;");
 
         ComboBox moduleCombo = new ComboBox(FXCollections.observableArrayList(moduleNames));
-        moduleCombo.setPrefSize(175, 20);
+        moduleCombo.setPrefSize(xpatchlist, 20);
         moduleCombo.getSelectionModel().select(moduleidx);
         EventHandler<ActionEvent> midxevent =
                 e -> {
@@ -1291,7 +1330,7 @@ public class Main extends Application {
 
         Button buttonb = new Button("Select Bank");
         buttonb.setStyle(selectcolorOff);
-        buttonb.setPrefSize(150, 50);
+        buttonb.setPrefSize(xbutton, ybutton);
         buttonb.setOnAction(event -> {
             ObservableList selectedIndices = banklistView.getSelectionModel().getSelectedIndices();
 
@@ -1323,14 +1362,14 @@ public class Main extends Application {
         ObservableList<String> patchdata = FXCollections.observableArrayList();
         //ListView<String> presetListView = new ListView<String>(patchdata);
         presetListView = new ListView<>(patchdata);
-        presetListView.setPrefWidth(175);
-        presetListView.setPrefHeight(550);
+        presetListView.setPrefWidth(xpatchlist);
+        presetListView.setPrefHeight(ypresetlist);
         presetListView.setStyle("-fx-control-inner-background: #E7ECEC;");
 
         // Preset select Combobox
         String[] weekDays = { "Preset 1", "Preset 2", "Preset 3", "Preset 4", "Preset 5", "Preset 6", "Preset 7", "Preset 8"};
         presetCombo = new ComboBox(FXCollections.observableArrayList(weekDays));
-        presetCombo.setPrefSize(175, 20);
+        presetCombo.setPrefSize(xpatchlist, 20);
         presetCombo.getSelectionModel().select(0);
         EventHandler<ActionEvent> pidxevent =
                 e -> {
@@ -1437,7 +1476,7 @@ public class Main extends Application {
         // Update Voice for currently selected Channel in Preset Listview
         Button buttonvoice = new Button("Update Channel");
         buttonvoice.setStyle(selectcolorOff);
-        buttonvoice.setPrefSize(150, 50);
+        buttonvoice.setPrefSize(xbutton, ybutton);
         buttonvoice.setOnAction(event -> {
             MidiPatch midiPatch = dopatches.getMIDIPatch(selpatchIdx);
             dopresets.setPreset(presetIdx * 16 + channelIdx, moduleIdx, midiPatch);
@@ -1493,7 +1532,7 @@ public class Main extends Application {
             }
             bpressed1 = !bpressed1;
         });
-        pstbutton1.setPrefSize(150, 50);
+        pstbutton1.setPrefSize(xbutton, ybutton);
 
         bpressed2 = false;
         pstbutton2 = new Button("Button 2");
@@ -1509,7 +1548,7 @@ public class Main extends Application {
             }
             bpressed2 = !bpressed2;
         });
-        pstbutton2.setPrefSize(150, 50);
+        pstbutton2.setPrefSize(xbutton, ybutton);
 
         bpressed3 = false;
         pstbutton3 = new Button("Button 3");
@@ -1525,7 +1564,7 @@ public class Main extends Application {
             }
             bpressed3 = !bpressed3;
         });
-        pstbutton3.setPrefSize(150, 50);
+        pstbutton3.setPrefSize(xbutton, ybutton);
 
         bpressed4 = false;
         pstbutton4 = new Button("Button 4");
@@ -1541,7 +1580,7 @@ public class Main extends Application {
             }
             bpressed4 = !bpressed4;
         });
-        pstbutton4.setPrefSize(150, 50);
+        pstbutton4.setPrefSize(xbutton, ybutton);
 
         bpressed5 = false;
         pstbutton5 = new Button("Button 5");
@@ -1557,7 +1596,7 @@ public class Main extends Application {
             }
             bpressed5 = !bpressed5;
         });
-        pstbutton5.setPrefSize(150, 50);
+        pstbutton5.setPrefSize(xbutton, ybutton);
 
         bpressed6 = false;
         pstbutton6 = new Button("Button 6");
@@ -1573,7 +1612,7 @@ public class Main extends Application {
             }
             bpressed6 = !bpressed6;
         });
-        pstbutton6.setPrefSize(150, 50);
+        pstbutton6.setPrefSize(xbutton, ybutton);
 
         bpressed7 = false;
         pstbutton7 = new Button("Button 7");
@@ -1589,7 +1628,7 @@ public class Main extends Application {
             }
             bpressed7 = !bpressed7;
         });
-        pstbutton7.setPrefSize(150, 50);
+        pstbutton7.setPrefSize(xbutton, ybutton);
 
         bpressed8 = false;
         pstbutton8 = new Button("Button 8");
@@ -1605,7 +1644,7 @@ public class Main extends Application {
             }
             bpressed8 = !bpressed8;
         });
-        pstbutton8.setPrefSize(150, 50);
+        pstbutton8.setPrefSize(xbutton, ybutton);
 
         bpressed9 = false;
         pstbutton9 = new Button("Button 9");
@@ -1621,7 +1660,7 @@ public class Main extends Application {
             }
             bpressed9 = !bpressed9;
         });
-        pstbutton9.setPrefSize(150, 50);
+        pstbutton9.setPrefSize(xbutton, ybutton);
 
         bpressed10 = false;
         pstbutton10 = new Button("Button 10");
@@ -1637,7 +1676,7 @@ public class Main extends Application {
             }
             bpressed10 = !bpressed10;
         });
-        pstbutton10.setPrefSize(150, 50);
+        pstbutton10.setPrefSize(xbutton, ybutton);
 
         bpressed11 = false;
         pstbutton11 = new Button("Button 11");
@@ -1653,7 +1692,7 @@ public class Main extends Application {
             }
             bpressed11 = !bpressed11;
         });
-        pstbutton11.setPrefSize(150, 50);
+        pstbutton11.setPrefSize(xbutton, ybutton);
 
         bpressed12 = false;
         pstbutton12 = new Button("Button 12");
@@ -1669,7 +1708,7 @@ public class Main extends Application {
             }
             bpressed12 = !bpressed12;
         });
-        pstbutton12.setPrefSize(150, 50);
+        pstbutton12.setPrefSize(xbutton, ybutton);
 
         bpressed13 = false;
         pstbutton13 = new Button("Button 13");
@@ -1685,7 +1724,7 @@ public class Main extends Application {
             }
             bpressed13 = !bpressed13;
         });
-        pstbutton13.setPrefSize(150, 50);
+        pstbutton13.setPrefSize(xbutton, ybutton);
 
         bpressed14 = false;
         pstbutton14 = new Button("Button 14");
@@ -1701,7 +1740,7 @@ public class Main extends Application {
             }
             bpressed14 = !bpressed14;
         });
-        pstbutton14.setPrefSize(150, 50);
+        pstbutton14.setPrefSize(xbutton, ybutton);
 
         bpressed15 = false;
         pstbutton15 = new Button("Button 15");
@@ -1717,7 +1756,7 @@ public class Main extends Application {
             }
             bpressed15 = !bpressed15;
         });
-        pstbutton15.setPrefSize(150, 50);
+        pstbutton15.setPrefSize(xbutton, ybutton);
 
         bpressed16 = false;
         pstbutton16 = new Button("Button 16");
@@ -1733,11 +1772,11 @@ public class Main extends Application {
             }
             bpressed16 = !bpressed16;
         });
-        pstbutton16.setPrefSize(150, 50);
+        pstbutton16.setPrefSize(xbutton, ybutton);
 
         Button btnprev = new Button("<< Previous");
         btnprev.setStyle(selectcolorOff);
-        btnprev.setPrefSize(150, 50);
+        btnprev.setPrefSize(xbutton, ybutton);
         btnprev.setOnAction(e -> {
             offAllButtons();
             renderVoiceButtons(patchIdx - 16 > 0 ? (patchIdx = patchIdx - 16) : (patchIdx = 0), dopatches.getMIDIPatchSize());
@@ -1745,7 +1784,7 @@ public class Main extends Application {
 
         Button btntest = new Button("Test Voice");
         btntest.setStyle(btnplayOff);
-        btntest.setPrefSize(150, 50);
+        btntest.setPrefSize(xbutton, ybutton);
         btntest.setOnAction(e -> {
             try {
                 if (!btestnote) {
@@ -1786,7 +1825,7 @@ public class Main extends Application {
 
         Button btndemo = new Button(" Play Song");
         btndemo.setStyle(btnplayOff);
-        btndemo.setPrefSize(150, 50);
+        btndemo.setPrefSize(xbutton, ybutton);
         btndemo.setOnAction(e -> {
             try {
                 if (!bplaying) {
@@ -1854,7 +1893,7 @@ public class Main extends Application {
 
         Button btnnext = new Button("Next >>");
         btnnext.setStyle(selectcolorOff);
-        btnnext.setPrefSize(150, 50);
+        btnnext.setPrefSize(xbutton, ybutton);
         btnnext.setOnAction(e -> {
             offAllButtons();
             //System.out.println("Main: patchIdx " + patchIdx + " Total Patch Size: " + dopatches.getMIDIPatchSize());

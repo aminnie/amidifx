@@ -23,42 +23,70 @@ import java.util.TimerTask;
 
 public class OrganScene {
 
+    // Scaling based on 1024 x 600 resolution
+    float xmul = 1 * 1280f/1024f;
+    float ymul = 1 * 800f/600f;
+
+    int xscene = (int)(1024 * xmul);
+    int yscene = (int)(600 * ymul);
+
+    int xtoolbarleft = (int)(225 * xmul);
+    int xtitle = (int)(200 * xmul);
+    int xtoolbarright = (int)(150 * xmul);
+
+    int xleftright = (int)(50 * xmul);
+    int yleftright = (int)(25 * ymul);
+
+    int xbtnleftright = (int)(200 * xmul);
+    int ybtnleftright = (int)(25 * ymul);
+
+    int xbtnpreset = (int)(115 * xmul);
+    int ybtnpreset = (int)(50 * ymul);
+
+    int xvoicebtn = (int)(120 * xmul);
+    int yvoicebtn = (int)(50 * ymul);
+
+    int xstatusleft = (int)(400 * xmul);
+
+    // Calculate font size based on screen dimensions. Default = 15 for 1024 * 600
+    final String fsize = Integer.toString((int)(15 * xmul)) + "; ";
+
     // Button Colors
     // https://yagisanatode.com/2019/08/06/google-apps-script-hexadecimal-color-codes-for-google-docs-sheets-and-slides-standart-palette/
     final String bgpanecolor = "-fx-background-color: #999999; ";
     final String bgheadercolor = "-fx-background-color: #B2B5B1; ";
     final String bgfootercolor = "-fx-background-color: #B2B5B1;";
 
-    final String rcolorOff = "-fx-background-color: #ea9999; -fx-font-size: 15; ";
-    final String rcolorOn = "-fx-background-color: #e06666; -fx-font-size: 15; ";
+    final String rcolorOff = "-fx-background-color: #ea9999; -fx-font-size: " + fsize ;
+    final String rcolorOn = "-fx-background-color: #e06666; -fx-font-size: " + fsize ;
 
-    final String lcolorOff = "-fx-background-color: #ffe599; -fx-font-size: 15; ";
-    final String lcolorOn = "-fx-background-color: #f1c232; -fx-font-size: 15; ";
+    final String lcolorOff = "-fx-background-color: #ffe599; -fx-font-size: " + fsize ;
+    final String lcolorOn = "-fx-background-color: #f1c232; -fx-font-size: " + fsize ;
 
-    final String dcolorOff = "-fx-background-color: #a2c4c9; -fx-font-size: 15; ";
-    final String dcolorOn = "-fx-background-color: #76a5af; -fx-font-size: 15; ";
+    final String dcolorOff = "-fx-background-color: #a2c4c9; -fx-font-size: " + fsize ;
+    final String dcolorOn = "-fx-background-color: #76a5af; -fx-font-size: " + fsize ;
 
-    final String bcolorOff = "-fx-background-color: #a4c2f4; -fx-font-size: 15; ";
-    final String bcolorOn = "-fx-background-color: #6d9eeb; -fx-font-size: 15; ";
+    final String bcolorOff = "-fx-background-color: #a4c2f4; -fx-font-size: " + fsize ;
+    final String bcolorOn = "-fx-background-color: #6d9eeb; -fx-font-size: " + fsize ;
 
-    final String pcolorOff = "-fx-background-color: #DBD06B; -fx-font-size: 15; ";
-    final String pcolorOn = "-fx-background-color: #C3B643; -fx-font-size: 15; ";
+    final String pcolorOff = "-fx-background-color: #DBD06B; -fx-font-size: " + fsize ;
+    final String pcolorOn = "-fx-background-color: #C3B643; -fx-font-size: " + fsize ;
 
-    final String orgcolorOff = "-fx-background-color: #b7b7b7; -fx-font-size: 15; ";
-    final String orgcolorOn = "-fx-background-color: #f3f3f3; -fx-font-size: 15; ";
+    final String orgcolorOff = "-fx-background-color: #b7b7b7; -fx-font-size: " + fsize ;
+    final String orgcolorOn = "-fx-background-color: #f3f3f3; -fx-font-size: " + fsize ;
 
-    final String selectcolorOff = "-fx-background-color: #69a8cc; -fx-font-size: 15; ";
-    final String selectcolorOn = "-fx-background-color: #4493C0; -fx-font-size: 15; ";
+    final String selectcolorOff = "-fx-background-color: #69a8cc; -fx-font-size: " + fsize ;
+    final String selectcolorOn = "-fx-background-color: #4493C0; -fx-font-size: " + fsize ;
 
-    static final String btnMenuOn = "-fx-background-color: #4493C0; -fx-font-size: 15; ";
-    static final String btnMenuOff = "-fx-background-color: #69A8CC; -fx-font-size: 15; ";
-    static final String btnMenuSaveOn = "-fx-background-color: #DB6B6B; -fx-font-size: 15; ";
-    static final String btnMenuSaveOff = "-fx-background-color: #B2B5B1; -fx-font-size: 15; ";
+    final String btnMenuOn = "-fx-background-color: #4493C0; -fx-font-size: " + fsize ;
+    final String btnMenuOff = "-fx-background-color: #69A8CC; -fx-font-size: " + fsize ;
+    final String btnMenuSaveOn = "-fx-background-color: #DB6B6B; -fx-font-size: " + fsize ;
+    final String btnMenuSaveOff = "-fx-background-color: #B2B5B1; -fx-font-size: " + fsize ;
 
-    static final String btnplayOff = "-fx-background-color: #8ED072; -fx-font-size: 15; ";
-    static final String btnplayOn = "-fx-background-color: #DB6B6B; -fx-font-size: 15; ";
+    final String btnplayOff = "-fx-background-color: #8ED072; -fx-font-size: " + fsize ;
+    final String btnplayOn = "-fx-background-color: #DB6B6B; -fx-font-size: " + fsize ;
 
-    final String styletext = "-fx-font-size: 15; ";
+    final String styletext = "-fx-font-size: " + fsize ;
 
     Stage primaryStage;
     Scene returnScene;
@@ -311,13 +339,14 @@ public class OrganScene {
             BorderPane borderPaneOrg = new BorderPane();
             borderPaneOrg.setStyle(bgpanecolor);
 
-            sceneOrgan = new Scene(borderPaneOrg, 1024, 600);
+            sceneOrgan = new Scene(borderPaneOrg, xscene, yscene);
             sceneOrgan.getStylesheets().clear();
             sceneOrgan.getStylesheets().add("file:///" + fstyle.getAbsolutePath().replace("\\", "/"));
 
             sharedStatus.setOrganScene(sceneOrgan);
 
             labelstatusOrg = new Label(" Status: Ready");
+            labelstatusOrg.setStyle(styletext);
             Label labelsongtitle = new Label("");
             Label labelstatus = new Label("");
 
@@ -400,17 +429,17 @@ public class OrganScene {
 
             ToolBar toolbarLeft = new ToolBar(buttonsc1, buttonsc2, buttonsc3);
             toolbarLeft.setStyle(bgheadercolor);
-            toolbarLeft.setMinWidth(225);
+            toolbarLeft.setMinWidth(xtoolbarleft);
 
             Label lbltitle1 = new Label("AMIDIFX Sound Module Controller");
             lbltitle1.setStyle(styletext);
             HBox hboxTitle = new HBox();
-            hboxTitle.setPadding(new Insets(10, 10, 10,200));
+            hboxTitle.setPadding(new Insets(10, 10, 10, xtitle));
             hboxTitle.getChildren().add(lbltitle1);
 
             ToolBar toolbarRight = new ToolBar(buttonSave, buttonPanic, buttonExit);
             toolbarRight.setStyle(bgheadercolor);
-            toolbarRight.setMinWidth(150);
+            toolbarRight.setMinWidth(xtoolbarright);
 
             BorderPane borderPaneTop = new BorderPane();
             borderPaneTop.setStyle(bgheadercolor);
@@ -424,7 +453,7 @@ public class OrganScene {
 
             Button buttonSongLoad = new Button(songTitle);
             buttonSongLoad.setStyle(selectcolorOff);
-            buttonSongLoad.setPrefSize(200, 25);
+            buttonSongLoad.setPrefSize(xbtnleftright, ybtnleftright);
             buttonSongLoad.setAlignment(Pos.CENTER);
             buttonSongLoad.setOnAction(e -> {
                 buttonPresetLoad(dosongs.getSong(idxSongList).getPresetFile());
@@ -448,7 +477,7 @@ public class OrganScene {
 
             Button buttonSongNameLeft = new Button("<<");
             buttonSongNameLeft.setStyle(selectcolorOff);
-            buttonSongNameLeft.setPrefSize(50, 25);
+            buttonSongNameLeft.setPrefSize(xleftright, yleftright);
             buttonSongNameLeft.setOnAction(e -> {
                 if (idxSongList > 0) --idxSongList;
                 songTitle = dosongs.getSong(idxSongList).getSongTitle();
@@ -466,7 +495,7 @@ public class OrganScene {
 
             Button buttonSongNameRight = new Button(">>");
             buttonSongNameRight.setStyle(selectcolorOff);
-            buttonSongNameRight.setPrefSize(50, 25);
+            buttonSongNameRight.setPrefSize(xleftright, yleftright);
             buttonSongNameRight.setOnAction(e -> {
                 if (idxSongList < (dosongs.getSongListSize() - 1)) idxSongList++;
                 songTitle = dosongs.getSong(idxSongList).getSongTitle();
@@ -495,7 +524,7 @@ public class OrganScene {
 
             // Build the Sound Bank Selection Controls
 
-            buttonSoundBank.setPrefSize(200, 25);
+            buttonSoundBank.setPrefSize(xbtnleftright, ybtnleftright);
             buttonSoundBank.setStyle(selectcolorOff);
             buttonSoundBank.setAlignment(Pos.CENTER);
             buttonSoundBank.setOnAction(e -> {
@@ -513,7 +542,7 @@ public class OrganScene {
 
             Button buttonSoundBankLeft = new Button("<<");
             buttonSoundBankLeft.setStyle(selectcolorOff);
-            buttonSoundBankLeft.setPrefSize(50, 25);
+            buttonSoundBankLeft.setPrefSize(xleftright, yleftright);
             buttonSoundBankLeft.setOnAction(e -> {
                 if (bankidx > 0) --bankidx;
                 bankname = dopatches.getMidiBanks().getMidiBank(bankidx).getBankName();
@@ -528,7 +557,7 @@ public class OrganScene {
 
             Button buttonSoundBankRight = new Button(">>");
             buttonSoundBankRight.setStyle(selectcolorOff);
-            buttonSoundBankRight.setPrefSize(50, 25);
+            buttonSoundBankRight.setPrefSize(xleftright, yleftright);
             buttonSoundBankRight.setOnAction(e -> {
                 if (bankidx < dopatches.getMidiBanks().getMidiBankSize() -1 ) bankidx++;
                 bankname = dopatches.getMidiBanks().getMidiBank(bankidx).getBankName();
@@ -554,7 +583,7 @@ public class OrganScene {
 
             // Build the Sound Voice Selection Controls
 
-            buttonSoundFont.setPrefSize(200, 25);
+            buttonSoundFont.setPrefSize(xbtnleftright, ybtnleftright);
             buttonSoundFont.setStyle(selectcolorOff);
             buttonSoundFont.setAlignment(Pos.CENTER);
             buttonSoundFont.setOnAction(e -> {
@@ -570,7 +599,7 @@ public class OrganScene {
 
             Button buttonSoundFontLeft = new Button("<<");
             buttonSoundFontLeft.setStyle(selectcolorOff);
-            buttonSoundFontLeft.setPrefSize(50, 25);
+            buttonSoundFontLeft.setPrefSize(xleftright, yleftright);
             buttonSoundFontLeft.setOnAction(e -> {
                 if (patchidx > bankpatchidx) --patchidx;
                 fontname = dopatches.getMIDIPatch(patchidx).getPatchName();
@@ -584,7 +613,7 @@ public class OrganScene {
 
             Button buttonSoundFontRight = new Button(">>");
             buttonSoundFontRight.setStyle(selectcolorOff);
-            buttonSoundFontRight.setPrefSize(50, 25);
+            buttonSoundFontRight.setPrefSize(xleftright, yleftright);
             buttonSoundFontRight.setOnAction(e -> {
                 if (patchidx < dopatches.getMIDIPatchSize() - 1) ++patchidx;
                 fontname = dopatches.getMIDIPatch(patchidx).getPatchName();
@@ -623,13 +652,14 @@ public class OrganScene {
 
             labelstatusOrg.setText(" Status: " + sharedStatus.getStatusText());
             labelsongtitle.setText("Song: " + sharedStatus.getSongTitle());
+            labelsongtitle.setStyle(styletext);
 
             FlowPane panefilesOrg = new FlowPane();
             panefilesOrg.setHgap(20);
             panefilesOrg.getChildren().add(labelsongtitle);
 
             VBox vboxstatusLeftOrg = new VBox();
-            vboxstatusLeftOrg.setMinWidth(400);
+            vboxstatusLeftOrg.setMinWidth(xstatusleft);
             vboxstatusLeftOrg.getChildren().add(labelstatus);
 
             // Assemble the Status Bar BorderPane View
@@ -654,7 +684,7 @@ public class OrganScene {
                 }
                 ppressed1 = !ppressed1;
             });
-            btnpreset1.setPrefSize(115, 50);
+            btnpreset1.setPrefSize(xbtnpreset, ybtnpreset);
 
             ppressed2 = false;
             btnpreset2 = new Button("Preset 2");
@@ -670,7 +700,7 @@ public class OrganScene {
                 }
                 ppressed2 = !ppressed2;
             });
-            btnpreset2.setPrefSize(115, 50);
+            btnpreset2.setPrefSize(xbtnpreset, ybtnpreset);
 
             ppressed3 = false;
             btnpreset3 = new Button("Preset 3");
@@ -686,7 +716,7 @@ public class OrganScene {
                 }
                 ppressed3 = !ppressed3;
             });
-            btnpreset3.setPrefSize(115, 50);
+            btnpreset3.setPrefSize(xbtnpreset, ybtnpreset);
 
             ppressed4 = false;
             btnpreset4 = new Button("Preset 4");
@@ -702,7 +732,7 @@ public class OrganScene {
                 }
                 ppressed4 = !ppressed4;
             });
-            btnpreset4.setPrefSize(115, 50);
+            btnpreset4.setPrefSize(xbtnpreset, ybtnpreset);
 
             ppressed5 = false;
             btnpreset5 = new Button("Preset 5");
@@ -718,7 +748,7 @@ public class OrganScene {
                 }
                 ppressed5 = !ppressed5;
             });
-            btnpreset5.setPrefSize(115, 50);
+            btnpreset5.setPrefSize(xbtnpreset, ybtnpreset);
 
             ppressed6 = false;
             btnpreset6 = new Button("Preset 6");
@@ -734,7 +764,7 @@ public class OrganScene {
                 }
                 ppressed6 = !ppressed6;
             });
-            btnpreset6.setPrefSize(115, 50);
+            btnpreset6.setPrefSize(xbtnpreset, ybtnpreset);
 
             ppressed7 = false;
             btnpreset7 = new Button("Preset 7");
@@ -750,7 +780,7 @@ public class OrganScene {
                 }
                 ppressed7 = !ppressed7;
             });
-            btnpreset7.setPrefSize(115, 50);
+            btnpreset7.setPrefSize(xbtnpreset, ybtnpreset);
 
             ppressed8 = false;
             btnpreset8 = new Button("Preset 8");
@@ -766,7 +796,7 @@ public class OrganScene {
                 }
                 ppressed8 = !ppressed8;
             });
-            btnpreset8.setPrefSize(115, 50);
+            btnpreset8.setPrefSize(xbtnpreset, ybtnpreset);
 
             GridPane presetGrid = new GridPane();
             presetGrid.setHgap(10);
@@ -787,11 +817,11 @@ public class OrganScene {
             gridmidcenterOrgan.setVgap(10);
 
             Label blabel1 = new Label("Bass [11]");
-            blabel1.setStyle("-fx-font-size:15px;");
+            blabel1.setStyle(styletext);
 
             bleft1 = new Button(" Bass 1");
             bleft1.setId("B1-1");
-            bleft1.setMinSize(120, 50);
+            bleft1.setMinSize(xvoicebtn, yvoicebtn);
             bleft1.setStyle(bcolorOff);
             bleft1.setWrapText(true);
             bleft1.setWrapText(true);
@@ -841,7 +871,7 @@ public class OrganScene {
             });
 
             bleft2.setText(" Bass 2");
-            bleft2.setMinSize(120, 50);
+            bleft2.setMinSize(xvoicebtn, yvoicebtn);
             bleft2.setId("B1-2");
             bleft2.setStyle(bcolorOff);
             bleft2.setWrapText(true);
@@ -891,7 +921,7 @@ public class OrganScene {
             });
 
             bleft3.setText(" Bass 3");
-            bleft3.setMinSize(120, 50);
+            bleft3.setMinSize(xvoicebtn, yvoicebtn);
             bleft3.setId("B1-3");
             bleft3.setStyle(bcolorOff);
             bleft3.setWrapText(true);
@@ -939,10 +969,10 @@ public class OrganScene {
 
                 labelstatusOrg.setText(" Status: Applied Bass 3");
             });
-
+            
             bleft4.setText(" Bass 4");
             bleft4.setId("B1-4");
-            bleft4.setMinSize(120, 50);
+            bleft4.setMinSize(xvoicebtn, yvoicebtn);
             bleft4.setStyle(bcolorOff);
             bleft4.setWrapText(true);
             bleft4.setOnAction(event -> {
@@ -997,15 +1027,15 @@ public class OrganScene {
             gridmidcenterOrgan.add(bleft4, 1, 2, 1, 1);
 
             Label dlabel1 = new Label("Drums [10]");
-            dlabel1.setStyle("-fx-font-size:15px;");
+            dlabel1.setStyle(styletext);
 
             // Do Beat Counter in large font
             Label lblbeatcount = new Label("Bar: 0.0");
-            lblbeatcount.setStyle("-fx-font-size:15px; -fx-color:crimson");
+            lblbeatcount.setStyle(styletext);
 
             dleft1.setText(" Drums 1");
             dleft1.setId("D1-1");
-            dleft1.setMinSize(120, 50);
+            dleft1.setMinSize(xvoicebtn, yvoicebtn);
             dleft1.setStyle(dcolorOff);
             dleft1.setWrapText(true);
             dleft1.setOnAction(event -> {
@@ -1055,7 +1085,7 @@ public class OrganScene {
 
             dleft2.setText(" Drums 2");
             dleft2.setId("D1-2");
-            dleft2.setMinSize(120, 50);
+            dleft2.setMinSize(xvoicebtn, yvoicebtn);
             dleft2.setStyle(dcolorOff);
             dleft2.setWrapText(true);
             dleft2.setOnAction(event -> {
@@ -1105,7 +1135,7 @@ public class OrganScene {
 
             dleft3.setText(" Drums 3");
             dleft3.setId("D1-3");
-            dleft3.setMinSize(120, 50);
+            dleft3.setMinSize(xvoicebtn, yvoicebtn);
             dleft3.setStyle(dcolorOff);
             dleft3.setWrapText(true);
             dleft3.setOnAction(event -> {
@@ -1155,7 +1185,7 @@ public class OrganScene {
 
             dleft4.setText(" Drums 4");
             dleft4.setId("D1-4");
-            dleft4.setMinSize(120, 50);
+            dleft4.setMinSize(xvoicebtn, yvoicebtn);
             dleft4.setStyle(dcolorOff);
             dleft4.setWrapText(true);
             dleft4.setOnAction(event -> {
@@ -1212,13 +1242,13 @@ public class OrganScene {
             gridmidcenterOrgan.add(dleft4, 1, 5, 1, 1);
 
             Label llabel1 = new Label("Lower 1 [12]");
-            llabel1.setStyle("-fx-font-size:15px;");
+            llabel1.setStyle(styletext);
             Label llabel2 = new Label("Lower 2 [13]");
-            llabel2.setStyle("-fx-font-size:15px;");
+            llabel2.setStyle(styletext);
 
             lbutton11.setText(" Lower 1-1");
             lbutton11.setId("L1-1");
-            lbutton11.setMinSize(120, 50);
+            lbutton11.setMinSize(xvoicebtn, yvoicebtn);
             lbutton11.setStyle(lcolorOff);
             lbutton11.setWrapText(true);
             lbutton11.setOnAction(event -> {
@@ -1268,7 +1298,7 @@ public class OrganScene {
 
             lbutton12.setText(" Lower 1-2");
             lbutton12.setId("L1-2");
-            lbutton12.setMinSize(120, 50);
+            lbutton12.setMinSize(xvoicebtn, yvoicebtn);
             lbutton12.setStyle(lcolorOff);
             lbutton12.setWrapText(true);
             lbutton12.setOnAction(event -> {
@@ -1318,7 +1348,7 @@ public class OrganScene {
 
             lbutton13.setText(" Lower 1-3");
             lbutton13.setId("L1-3");
-            lbutton13.setMinSize(120, 50);
+            lbutton13.setMinSize(xvoicebtn, yvoicebtn);
             lbutton13.setStyle(lcolorOff);
             lbutton13.setWrapText(true);
             lbutton13.setOnAction(event -> {
@@ -1368,7 +1398,7 @@ public class OrganScene {
 
             lbutton14.setText(" Lower 1-4");
             lbutton14.setId("L1-4");
-            lbutton14.setMinSize(120, 50);
+            lbutton14.setMinSize(xvoicebtn, yvoicebtn);
             lbutton14.setStyle(lcolorOff);
             lbutton14.setWrapText(true);
             lbutton14.setOnAction(event -> {
@@ -1418,7 +1448,7 @@ public class OrganScene {
 
             lbutton21 = new Button(" Lower 2-1");
             lbutton21.setId("L2-1");
-            lbutton21.setMinSize(120, 50);
+            lbutton21.setMinSize(xvoicebtn, yvoicebtn);
             lbutton21.setStyle(lcolorOff);
             lbutton21.setWrapText(true);
             lbutton21.setOnAction(event -> {
@@ -1468,7 +1498,7 @@ public class OrganScene {
 
             lbutton22 = new Button(" Lower 2-2");
             lbutton22.setId("L2-2");
-            lbutton22.setMinSize(120, 50);
+            lbutton22.setMinSize(xvoicebtn, yvoicebtn);
             lbutton22.setStyle(lcolorOff);
             lbutton22.setWrapText(true);
             lbutton22.setOnAction(event -> {
@@ -1518,7 +1548,7 @@ public class OrganScene {
 
             lbutton23 = new Button(" Lower 2-3");
             lbutton23.setId("L2-3");
-            lbutton23.setMinSize(120, 50);
+            lbutton23.setMinSize(xvoicebtn, yvoicebtn);
             lbutton23.setStyle(lcolorOff);
             lbutton23.setWrapText(true);
             lbutton23.setOnAction(event -> {
@@ -1568,7 +1598,7 @@ public class OrganScene {
 
             lbutton24 = new Button(" Lower 2-4");
             lbutton24.setId("L2-4");
-            lbutton24.setMinSize(120, 50);
+            lbutton24.setMinSize(xvoicebtn, yvoicebtn);
             lbutton24.setStyle(lcolorOff);
             lbutton24.setWrapText(true);
             lbutton24.setOnAction(event -> {
@@ -1629,15 +1659,15 @@ public class OrganScene {
             gridmidcenterOrgan.add(lbutton24, 4, 4, 1, 1);
 
             Label rlabel1 = new Label("Upper 1 [14]");
-            rlabel1.setStyle("-fx-font-size:15px;");
+            rlabel1.setStyle(styletext);
             Label rlabel2 = new Label("Upper 2 [15]");
-            rlabel2.setStyle("-fx-font-size:15px;");
+            rlabel2.setStyle(styletext);
             Label rlabel3 = new Label("Upper 3 [16]");
-            rlabel3.setStyle("-fx-font-size:15px;");
+            rlabel3.setStyle(styletext);
 
             rbutton11.setText(" Upper 1-1");
             rbutton11.setId("U1-1");
-            rbutton11.setMinSize(120, 50);
+            rbutton11.setMinSize(xvoicebtn, yvoicebtn);
             rbutton11.setStyle(rcolorOff);
             rbutton11.setWrapText(true);
             rbutton11.setOnAction(event -> {
@@ -1688,7 +1718,7 @@ public class OrganScene {
 
             rbutton12.setText(" Upper 1-2");
             rbutton12.setId("U1-2");
-            rbutton12.setMinSize(120, 50);
+            rbutton12.setMinSize(xvoicebtn, yvoicebtn);
             rbutton12.setStyle(rcolorOff);
             rbutton12.setWrapText(true);
             rbutton12.setOnAction(event -> {
@@ -1739,7 +1769,7 @@ public class OrganScene {
 
             rbutton13.setText(" Upper 1-3");
             rbutton13.setId("U1-3");
-            rbutton13.setMinSize(120, 50);
+            rbutton13.setMinSize(xvoicebtn, yvoicebtn);
             rbutton13.setStyle(rcolorOff);
             rbutton13.setWrapText(true);
             rbutton13.setOnAction(event -> {
@@ -1790,7 +1820,7 @@ public class OrganScene {
 
             rbutton14.setText(" Upper 1-4");
             rbutton14.setId("U1-4");
-            rbutton14.setMinSize(120, 50);
+            rbutton14.setMinSize(xvoicebtn, yvoicebtn);
             rbutton14.setStyle(rcolorOff);
             rbutton14.setWrapText(true);
             rbutton14.setOnAction(event -> {
@@ -1844,7 +1874,7 @@ public class OrganScene {
 
             rbutton15.setText(" Upper 1-5");
             rbutton15.setId("U1-5");
-            rbutton15.setMinSize(120, 50);
+            rbutton15.setMinSize(xvoicebtn, yvoicebtn);
             rbutton15.setStyle(rcolorOff);
             rbutton15.setWrapText(true);
             rbutton15.setOnAction(event -> {
@@ -1896,7 +1926,7 @@ public class OrganScene {
             // Organ Button + Rotary On/Off and Brake
             rbutton16.setText(" Upper 1-6");
             rbutton16.setId("U1-6");
-            rbutton16.setMinSize(120, 50);
+            rbutton16.setMinSize(xvoicebtn, yvoicebtn);
             rbutton16.setStyle(orgcolorOff);
             rbutton16.setWrapText(true);
             rbutton16.setOnAction(event -> {
@@ -1947,7 +1977,7 @@ public class OrganScene {
 
             rbutton17.setText("Rotary Brake");
             rbutton17.setId("U1-7");
-            rbutton17.setMinSize(120, 50);
+            rbutton17.setMinSize(xvoicebtn, yvoicebtn);
             rbutton17.setStyle(orgcolorOff);
             rbutton17.setWrapText(true);
             rbutton17.setOnAction(event -> {
@@ -1968,7 +1998,7 @@ public class OrganScene {
 
             rbutton18.setText(" Rotary On");
             rbutton18.setId("U1-8");
-            rbutton18.setMinSize(120, 50);
+            rbutton18.setMinSize(xvoicebtn, yvoicebtn);
             rbutton18.setStyle(orgcolorOff);
             rbutton18.setWrapText(true);
             rbutton18.setOnAction(event -> {
@@ -1990,7 +2020,7 @@ public class OrganScene {
             // Upper 2 CHAN 15 + 16 Buttons
             rbutton21.setText(" Upper 2-1");
             rbutton21.setId("U2-1");
-            rbutton21.setMinSize(120, 50);
+            rbutton21.setMinSize(xvoicebtn, yvoicebtn);
             rbutton21.setStyle(rcolorOff);
             rbutton21.setWrapText(true);
             rbutton21.setOnAction(event -> {
@@ -2041,7 +2071,7 @@ public class OrganScene {
 
             rbutton22.setText(" Upper 2-2");
             rbutton22.setId("U2-2");
-            rbutton22.setMinSize(120, 50);
+            rbutton22.setMinSize(xvoicebtn, yvoicebtn);
             rbutton22.setStyle(rcolorOff);
             rbutton22.setWrapText(true);
             rbutton22.setOnAction(event -> {
@@ -2092,7 +2122,7 @@ public class OrganScene {
 
             rbutton23.setText(" Upper 2-3");
             rbutton23.setId("U2-3");
-            rbutton23.setMinSize(120, 50);
+            rbutton23.setMinSize(xvoicebtn, yvoicebtn);
             rbutton23.setStyle(rcolorOff);
             rbutton23.setWrapText(true);
             rbutton23.setOnAction(event -> {
@@ -2143,7 +2173,7 @@ public class OrganScene {
 
             rbutton24.setText(" Upper 2-4");
             rbutton24.setId("U2-4");
-            rbutton24.setMinSize(120, 50);
+            rbutton24.setMinSize(xvoicebtn, yvoicebtn);
             rbutton24.setStyle(rcolorOff);
             rbutton24.setWrapText(true);
             rbutton24.setOnAction(event -> {
@@ -2194,7 +2224,7 @@ public class OrganScene {
 
             rbutton31.setText(" Upper 3-1");
             rbutton31.setId("U3-1");
-            rbutton31.setMinSize(120, 50);
+            rbutton31.setMinSize(xvoicebtn, yvoicebtn);
             rbutton31.setStyle(rcolorOff);
             rbutton31.setWrapText(true);
             rbutton31.setOnAction(event -> {
@@ -2245,7 +2275,7 @@ public class OrganScene {
 
             rbutton32.setText(" Upper 3-2");
             rbutton32.setId("U3-2");
-            rbutton32.setMinSize(120, 50);
+            rbutton32.setMinSize(xvoicebtn, yvoicebtn);
             rbutton32.setStyle(rcolorOff);
             rbutton32.setWrapText(true);
             rbutton32.setOnAction(event -> {
@@ -2296,7 +2326,7 @@ public class OrganScene {
 
             rbutton33.setText(" Upper 3-3");
             rbutton33.setId("U3-3");
-            rbutton33.setMinSize(120, 50);
+            rbutton33.setMinSize(xvoicebtn, yvoicebtn);
             rbutton33.setStyle(rcolorOff);
             rbutton33.setWrapText(true);
             rbutton33.setOnAction(event -> {
@@ -2347,7 +2377,7 @@ public class OrganScene {
 
             rbutton34.setText(" Upper 3-4");
             rbutton34.setId("U3-4");
-            rbutton34.setMinSize(120, 50);
+            rbutton34.setMinSize(xvoicebtn, yvoicebtn);
             rbutton34.setStyle(rcolorOff);
             rbutton34.setWrapText(true);
             rbutton34.setOnAction(event -> {
@@ -2424,7 +2454,7 @@ public class OrganScene {
             btnplay = new Button("Play Song");
             btnplay.setDisable(true);
             btnplay.setStyle(btnplayOff);
-            btnplay.setMinSize(120, 50);
+            btnplay.setMinSize(xvoicebtn, yvoicebtn);
             btnplay.setOnAction(e -> {
                 try {
                     if (songFile == null) {
@@ -2505,7 +2535,7 @@ public class OrganScene {
 
             Button btntest = new Button("Test Voice");
             btntest.setStyle(btnplayOff);
-            btntest.setPrefSize(120, 50);
+            btntest.setPrefSize(xvoicebtn, yvoicebtn);
             btntest.setOnAction(e -> {
                 try {
                     if (!btestnote) {
