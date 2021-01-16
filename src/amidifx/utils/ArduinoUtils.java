@@ -12,7 +12,8 @@ public class ArduinoUtils {
     SerialPort[] ports;
 
     int baudRate = 115200;
-    int numberPorts = 0;
+    int numberPort = 0;
+    int usePort = -1;
     boolean hasPort = false;
 
     // Static variable single_instance of type PlayMidi
@@ -38,24 +39,33 @@ public class ArduinoUtils {
     private ArduinoUtils() {
 
         this.hasPort = false;
-        this.listPorts();
-        this.setPort(2);
+        this.getPort();
+        if (usePort != -1) {
+            this.setPort(usePort);
 
-        byte[] buffer = {'A', 'M', 'I', 'D', 'I', 'F', 'X'};
-        this.writeData(buffer);
+            byte[] buffer = {'A', 'M', 'I', 'D', 'I', 'F', 'X'};
+            this.writeData(buffer);
+        }
+        else
+            System.out.println("ArduinoUtils: No COM Port for Seeeduino ARM Processor detected");
     }
 
-    public void listPorts() {
+    public void getPort() {
 
         //System.out.println("ArduinoUtils: Listing Ports");
 
         ports = SerialPort.getCommPorts();
 
-        numberPorts = 0;
+        numberPort = 0;
         for (SerialPort port : ports) {
-            System.out.print("ArduinoUtils Port: " + numberPorts + ". " + port.getDescriptivePortName() + " ");
+            System.out.print("ArduinoUtils Port: " + numberPort + ". " + port.getDescriptivePortName() + " ");
             System.out.println(port.getPortDescription());
-            numberPorts++;
+
+            // Seeeduino is the Port the onboard COM Port
+            if (port.getDescriptivePortName().contains("Seeeduino"))
+                usePort = numberPort;
+
+            numberPort++;
         }
     }
 
@@ -63,7 +73,7 @@ public class ArduinoUtils {
 
         System.out.println("ArduinoUtils: Setting Port: " + portIndex);
 
-        if (portIndex > (numberPorts - 1)) {
+        if (portIndex > (numberPort - 1)) {
             System.err.println("ArduinoUtils: Port not available: " + portIndex);
             return false;
         }
