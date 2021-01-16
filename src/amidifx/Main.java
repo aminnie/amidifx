@@ -1279,6 +1279,7 @@ public class Main extends Application {
 
         ComboBox moduleCombo = new ComboBox(FXCollections.observableArrayList(moduleNames));
         moduleCombo.setPrefSize(xpatchlist, 20);
+        moduleCombo.setStyle(selectcolorOff);
         moduleCombo.getSelectionModel().select(moduleidx);
         EventHandler<ActionEvent> midxevent =
                 e -> {
@@ -1375,6 +1376,7 @@ public class Main extends Application {
         String[] weekDays = { "Preset 1", "Preset 2", "Preset 3", "Preset 4", "Preset 5", "Preset 6", "Preset 7", "Preset 8"};
         presetCombo = new ComboBox(FXCollections.observableArrayList(weekDays));
         presetCombo.setPrefSize(xpatchlist, 20);
+        presetCombo.setStyle(selectcolorOff);
         presetCombo.getSelectionModel().select(0);
         EventHandler<ActionEvent> pidxevent =
                 e -> {
