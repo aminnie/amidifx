@@ -58,11 +58,11 @@ public class ArduinoUtils {
 
         numberPort = 0;
         for (SerialPort port : ports) {
-            System.out.print("ArduinoUtils Port: " + numberPort + ". " + port.getDescriptivePortName() + " ");
+            System.out.print("ArduinoUtils Port: " + numberPort + " - " + port.getDescriptivePortName() + " ");
             System.out.println(port.getPortDescription());
 
             // Seeeduino is the Port the onboard COM Port
-            if (port.getDescriptivePortName().contains("Seeeduino"))
+            if (port.getPortDescription().contains("Seeeduino"))
                 usePort = numberPort;
 
             numberPort++;
