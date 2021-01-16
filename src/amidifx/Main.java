@@ -38,7 +38,7 @@ import static amidifx.utils.Logger.logSystemToFile;
 public class Main extends Application {
 
     // Scaling based on 1024 x 600 resolution
-    float xmul = 1 * 1280f/1024f;
+    float xmul = 1 * 1280f/1000f;
     float ymul = 1 * 800f/600f;
 
     int xscene = (int)(1024 * xmul);
