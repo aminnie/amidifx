@@ -55,6 +55,7 @@ You need the following hardware and software to run AMIDIFX:
    * Screen with 1024 x 600 or 1280 by 800 resolution. A capacitive touch screen speeds up entry. I use this one: https://www.waveshare.com/10.1inch-hdmi-lcd-with-case.htm
 * For now, the Deebach Blackbox (https://www.deebach.eu/) sound module, or any MIDI GM compatible sound module is supported. The Roland Integra7 modified patch file will be availble as an option soon.
 * MIDI file manipulation software. MidiYodi (https://www.canato.se/midiyodi/) works great for manipulating channel events, inserting Preset CUE meta messages, program changes, and including movign channels around
+* Note: The Seeed Odessey has proved to have anough compute power and memory to act as a development host. I have installed JeyBrains IntelliJ, the Arduino IDE, MidiYodi and several other applicatiosn on it, and while the 10" touch screen is relative small, the solution is performant enough to make changes to the applcation (using an attached keyboard), change MIDI files, while running AMIDIFX and the built-in sequencer! 
 
 There more to do, including:
 * Channel layering and multiplexing. The onboard Seeed Oddesey ARM controller will be programmed to handle MIDI layering/multiplexes via MIDI DIN connectors, as well as external buttons and switches.
