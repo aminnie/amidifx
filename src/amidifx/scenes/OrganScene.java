@@ -2798,25 +2798,25 @@ public class OrganScene {
         rbutton31.setStyle(rcolorOn);
 
         // Lower 1-1
-        preset = dopresets.getPreset(presetIdx + sharedStatus.getLower1CHAN());
+        preset = dopresets.getPreset(presetIdx + sharedStatus.getLower1CHAN()-1);
         lbutton11.setText(preset.getPatchName());
         offAllLower1Buttons();
         lbutton11.setStyle(lcolorOn);
 
         // Lower 2-1
-        preset = dopresets.getPreset(presetIdx + sharedStatus.getLower2CHAN());
+        preset = dopresets.getPreset(presetIdx + sharedStatus.getLower2CHAN()-1);
         lbutton21.setText(preset.getPatchName());
         offAllLower2Buttons();
         lbutton21.setStyle(lcolorOn);
 
         // Bass 1
-        preset = dopresets.getPreset(presetIdx + sharedStatus.getBassCHAN());
+        preset = dopresets.getPreset(presetIdx + sharedStatus.getBassCHAN()-1);
         bleft1.setText(preset.getPatchName());
         offAllBassButtons();
         bleft1.setStyle(bcolorOn);
 
         // Drum 1
-        preset = dopresets.getPreset(presetIdx + sharedStatus.getDrumCHAN());
+        preset = dopresets.getPreset(presetIdx + sharedStatus.getDrumCHAN()-1);
         dleft1.setText(preset.getPatchName());
         offAllDrumButtons();
         dleft1.setStyle(dcolorOn);
