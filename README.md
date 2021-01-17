@@ -28,17 +28,17 @@ AMIDIFX provides a realtime keyboard or organ interface (Perform) that is used t
 You will find really great MIDI SMF files for free or sale on the internet. The idea is to manipluate your MIDI files to enable you to use them as backing tracks for real-time play. Typically the following changes are needed:
 * Move the MIDI channels around to match our keyboard output channels. Typically for I put the bass pedals on channel 11, lower KBD on channel 12 & 13 (layering), and upper KBDs on channel 14, 15, & 16 if extra upper keyboards, keyboard split or layering is used
 * A MIDI SMF file can be modified to by adding the following MIDI Meta Messages that is enables the MIDI Sequencer to:
- * MIDI CUE meta message 1: Trigger Preset P[1-8] changes via a callback mechanism in the MIDI Sequencer. This messages is added into the MIDI file just afer the original program changes, a fraction of a second before the first notes are played. Doing so allows MIDI play wiht the original MIDI GM sounds, or overriding them with your preset channel voice selections.
- * MIDI CUE meta message 2: Trigger Sequencer Bar Counter B[0-1] to enable realtime display or Bar Counts. This messages is added into the MIDI file just afer the original program changes, a tick or so before the first notes are played to ensure alignment.
- * I typically use MidiYodi to modify the channels to match my keyboard output channels and add the CUE messages.
+  * MIDI CUE meta message 1: Trigger Preset P[1-8] changes via a callback mechanism in the MIDI Sequencer. This messages is added into the MIDI file just afer the original program changes, a fraction of a second before the first notes are played. Doing so allows MIDI play wiht the original MIDI GM sounds, or overriding them with your preset channel voice selections.
+  * MIDI CUE meta message 2: Trigger Sequencer Bar Counter B[0-1] to enable realtime display or Bar Counts. This messages is added into the MIDI file just afer the original program changes, a tick or so before the first notes are played to ensure alignment.
+  * I typically use MidiYodi to modify the channels to match my keyboard output channels and add the CUE messages.
 
 ## Why am I building AMIDIFX?
 
 AMDIDFX is the 4th incarnation of a solution that started life as a simple preset controller to help manage an Integra7 that I have connected to my Roland Atelier 90 organ. The preset swicthes are syncrohonized with the organ based on a MIDI command from the organ everytime a preset in the organ is changed. The most recent version and pre-cursor to AMDIDFX consists of:
 * 3 x Teensy 3.2 microcontrollers: 
- * A keyboard controller that handles channel layering, expression pedal duplication
- * A 16 channel MIDI Sequencer along with a MIDI Song Playlist
- * A controller that manages a set Hammond Drawbars (https://shop.keyboardpartner.de/epages/13705466.sf/de_DE/?ObjectPath=/Shops/13705466/Products/db9).
+  * A keyboard controller that handles channel layering, expression pedal duplication
+  * A 16 channel MIDI Sequencer along with a MIDI Song Playlist
+  * A controller that manages a set Hammond Drawbars (https://shop.keyboardpartner.de/epages/13705466.sf/de_DE/?ObjectPath=/Shops/13705466/Products/db9).
 * Raspberry PI 3B+ that hosts a 10" touch interface, the MQTT broker that shares MIDI song and Preser files with the Teensies via Ethernet plus GPIO for realtime changes.
 * The resources section for AMIDI* images (https://github.com/aminnie/amidifx/tree/master/Resources). Has been running perfectly well all this time with only minor updates and never moved off the breadboard. This time round we want to simplify the build and use the additional resources of newer microcontrollers.
 
@@ -50,9 +50,9 @@ Earlier in 2020, Deebach (https://www.deebach.eu/#xl_xr_page_blackbox) made the 
 
 You need the following hardware and software to run AMIDIFX:
 * A host prepared to host and run JavaFX development - see https://docs.oracle.com/javafx/release-documentation.html.
- * I use a Dell 7550 Windows 19 laptop as primary development environment
- * Early in 2021 I ported the solution to a new single board computer (SBC), the Seeed Odyssey: https://www.seeedstudio.com/ODYSSEY-X86J4105800-p-4445.html. This X86-based SBC has 8GB Ram, support for SATA drives and SSDs (including M.2 and NVMe), and most import an onboard ARM microcontroller that can be integrated to the X86 via USB and programmed to add low level GPIO to a solution runnign on the X86.
-  * Screen with 1024 x 600 or 1280 by 800 resolution. A capacitive touch screen speeds up entry. I use this one: https://www.waveshare.com/10.1inch-hdmi-lcd-with-case.htm
+  * I use a Dell 7550 Windows 19 laptop as primary development environment
+  * Early in 2021 I ported the solution to a new single board computer (SBC), the Seeed Odyssey: https://www.seeedstudio.com/ODYSSEY-X86J4105800-p-4445.html. This X86-based SBC has 8GB Ram, support for SATA drives and SSDs (including M.2 and NVMe), and most import an onboard ARM microcontroller that can be integrated to the X86 via USB and programmed to add low level GPIO to a solution runnign on the X86.
+   * Screen with 1024 x 600 or 1280 by 800 resolution. A capacitive touch screen speeds up entry. I use this one: https://www.waveshare.com/10.1inch-hdmi-lcd-with-case.htm
 * For now, the Deebach Blackbox (https://www.deebach.eu/) sound module, or any MIDI GM compatible sound module is supported. The Roland Integra7 modified patch file will be availble as an option soon.
 * MIDI file manipulation software. MidiYodi (https://www.canato.se/midiyodi/) works great for manipulating channel events, inserting Preset CUE meta messages, program changes, and including movign channels around
 
