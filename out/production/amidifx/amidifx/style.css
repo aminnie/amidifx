@@ -40,7 +40,7 @@
 }
 
 .list-view .list-cell:even {
-    -fx-background-color: #999999;
+    -fx-background-color: #CCCCCC;
 }
 
 .list-view .list-cell:selected:odd,

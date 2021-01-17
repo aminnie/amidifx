@@ -108,6 +108,7 @@ public class Main extends Application {
     MidiModules midimodules;
 
     Label midiLayerLabel;   // Midi Channel Layer Indicator
+    Label labeleffects;     // Midi Channel Effects
     CheckBox[] chkBoxArray; // MIDI Out Channel Layer
 
     int patchIdx = 100;     // On Screen Voice Index Started
@@ -2102,16 +2103,26 @@ public class Main extends Application {
         flowpane.getChildren().add(btndemo);
         flowpane.getChildren().add(btnnext);
 
-        FlowPane paneEffects = new FlowPane();
-        paneEffects.setStyle(styletext);
-        paneEffects.getChildren().add(new VBox(new Label(" VOL"), sliderVOL));
-        paneEffects.getChildren().add(new VBox(new Label(" EXP"), sliderEXP));
-        paneEffects.getChildren().add(new VBox(new Label(" REV"), sliderREV));
-        paneEffects.getChildren().add(new VBox(new Label(" CHO"), sliderCHO));
-        paneEffects.getChildren().add(new VBox(new Label(" TRE"), sliderTRE));
-        paneEffects.getChildren().add(new VBox(new Label(" MOD"), sliderMOD));
-        paneEffects.getChildren().add(new VBox(new Label(" PAN"), sliderPAN));
-        flowpane.getChildren().add(paneEffects);
+        // Add MIDI Channel Effects for currently selected
+        VBox vboxEffects = new VBox();
+        //vboxEffects.setSpacing(10);
+        vboxEffects.setPadding(new Insets(0, 10, 0,10));
+        vboxEffects.setStyle(styletext);
+
+        labeleffects = new Label("Effects: Channel " + (channelIdx + 1));
+        labeleffects.setStyle(styletext);
+
+        GridPane gridEffects = new GridPane();
+        gridEffects.add(new VBox(new Label("VOL"), sliderVOL), 0, 1, 1, 1);
+        gridEffects.add(new VBox(new Label("EXP"), sliderEXP), 1, 1, 1, 1);
+        gridEffects.add(new VBox(new Label("REV"), sliderREV), 2, 1, 1, 1);
+        gridEffects.add(new VBox(new Label("CHO"), sliderCHO), 3, 1, 1, 1);
+        //gridEffects.add(new VBox(new Label("TRE"), sliderTRE), 4, 1, 1, 1);
+        gridEffects.add(new VBox(new Label("MOD"), sliderMOD), 5, 1, 1, 1);
+        gridEffects.add(new VBox(new Label("PAN"), sliderPAN), 6, 1, 1, 1);
+
+        vboxEffects.getChildren().add(labeleffects);
+        vboxEffects.getChildren().add(gridEffects);
 
         // Add MIDI Channel Layering for each Channel
         VBox vboxLayers = new VBox();
@@ -2124,7 +2135,7 @@ public class Main extends Application {
         String[] midiChannels = { " 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ",
                 " 9 ", "10 ", "11 ", "12 ", "13 ", "14 ", "15 ", "16 "};
 
-        midiLayerLabel = new Label("MIDI Channel " + (channelIdx + 1) + " Layers");
+        midiLayerLabel = new Label("Channel " + (channelIdx + 1) + " Layers");
         midiLayerLabel.setStyle(styletext);
 
         chkBoxArray = new CheckBox[16];
@@ -2165,6 +2176,9 @@ public class Main extends Application {
         vboxLayers.getChildren().add(midiLayerLabel);
         vboxLayers.getChildren().add(gridLayers);
         vboxLayers.getChildren().add(buttonApplyPreset);
+
+        // Assemble Layers and Effects Controls
+        flowpane.getChildren().add(vboxEffects);
         flowpane.getChildren().add(vboxLayers);
 
         // Assemble the Preset Scene BorderPane View
@@ -2407,9 +2421,12 @@ public class Main extends Application {
 
 
     private void setMidiLayerLabel(int chidx) {
-        String strLabel = "MIDI Out Layers Channel: ".concat(Integer.toString(chidx));
+        String strLayers = "Layers Channel: ".concat(Integer.toString(chidx));
 
-        midiLayerLabel.setText(strLabel);
+        String strEffects = "Effects Channel: ".concat(Integer.toString(chidx));
+
+        midiLayerLabel.setText(strLayers);
+        labeleffects.setText(strEffects);
     }
 
     // Patch Button Actions
