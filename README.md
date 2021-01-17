@@ -6,12 +6,12 @@ AMIDIFX is a JavaFX based solution enables a keyboard user to manage:
 * Integration into the local (PC-based) MIIDI GM module, and hardware modules such as the the Deeback Blackbox via USB
 * There are numerous free and commercial MIDI arrangements available that can be adapted to serve as backing tracks for live keyboard play. 
 * Original or adapted MIDI SMF files to be used for:
- * Demo purposes, listening to arrangements that you have modified to use the capabilities of an external MIDI sound module
- * Live play of original MIDI file using MIDI GM sounds, 1 to 16 backing tracks
- * Play along purposes to listen and learn the tracks while playing a keyboard
+  * Demo purposes, listening to arrangements that you have modified to use the capabilities of an external MIDI sound module
+  * Live play of original MIDI file using MIDI GM sounds, 1 to 16 backing tracks
+  * Play along purposes to listen and learn the tracks while playing a keyboard
 * Preset Files program up to 8 presets with 16 channels each for every MIDI Song file. 
- * Every Preset defines paramaters for all 16 MIDI channels, including the following MIDI Program and Control changes: MSB, LSB, PC, VOL EXP, REV, CHO, TRE. MOD, PAN. 
- * Preset file allow layering of channels enabling multiple voices for a track. We plan to extend this to multiplex input channels into multiple output MIDI modules in the near future. 
+  * Every Preset defines paramaters for all 16 MIDI channels, including the following MIDI Program and Control changes: MSB, LSB, PC, VOL EXP, REV, CHO, TRE. MOD, PAN. 
+  * Preset file allow layering of channels enabling multiple voices for a track. We plan to extend this to multiplex input channels into multiple output MIDI modules in the near future. 
 
 AMIDIFIX loads easily modified Sound Module Cubase Patch files enabling the user to select, configure and test the patches for each preset channel. A selected patch can tested with a single note, or while the selected MIDI SMF file is playing. Program and Control Changes to a channel are implemented realtime, enabling you to adjust the instrument voice until it matches the arrangement best. Preset files are saved to disk along with the MIDI SMF file for future plae, and instant recall of any of the eigth presets programmed for the Song.
 
