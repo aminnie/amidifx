@@ -90,15 +90,15 @@ There more to do, including:
 
 ### Current Status: 01/17/2021
 * Built out three AMDIDFX screens: 
- * Songs: Create/update new Songs with associated MIDI SMF and Preset configuration files
- * Presets: For a selected Song, define all 16 MIDI channels, including keyboard real-time play (performance mode on channels 10 - 16), and backing tracks
- * Perform: Real-time keyboard/organ configuration in MIDI GM and Deebach Blackbox modes. Defaults o Deebach if detected on start-up
- * Java MIDI Sequencer integrated and playing in demo and demo with preset more. Backing mode channels 10 - 16 mute issue to be resolved.
+  * Songs: Create/update new Songs with associated MIDI SMF and Preset configuration files
+  * Presets: For a selected Song, define all 16 MIDI channels, including keyboard real-time play (performance mode on channels 10 - 16), and backing tracks 
+  * Perform: Real-time keyboard/organ configuration in MIDI GM and Deebach Blackbox modes. Defaults o Deebach if detected on start-up
+  * Java MIDI Sequencer integrated and playing in demo and demo with preset more. Backing mode channels 10 - 16 mute issue to be resolved.
 * Other:
- * Effect Sliders on all screens work in realtime, and adjust the current/last channel and voice selected. 
+  * Effect Sliders on all screens work in realtime, and adjust the current/last channel and voice selected. 
 * Next up:
- * Deeper integraton into Deebach: Complete Rotary on/off, etc.
- * Complete programming the Odessey onboard ARM controller to manage layring and multiplexing of incoming keyboard MIDI data.
+  * Deeper integraton into Deebach: Complete Rotary on/off, etc.
+  * Complete programming the Odessey onboard ARM controller to manage layring and multiplexing of incoming keyboard MIDI data.
  
 
 -- More to follow  ---
