@@ -62,7 +62,8 @@ There more to do, including:
 * Channel layering and multiplexing. The onboard Seeed Oddesey ARM controller will be programmed to handle MIDI layering/multiplexes via MIDI DIN connectors, as well as external buttons and switches.
 * Continue to build out the real-time organ/keyboard functionality, including adding physical buttons and rotary encoders, etc.
 
-![Example AMIDIFX Setup:](https://github.com/aminnie/amidifx/blob/master/Resources/AMIDIFX01182021.png)
+Current setup with Seed Odyssey, Waveshare 10.1" Touch Screen, and midibox IO module:
+![Example AMIDIFX Setup:](https://github.com/aminnie/amidifx/blob/master/Resources/AMIDIDX01182021.jpg)
 
 ## Building and Running AMIDIFX
 
