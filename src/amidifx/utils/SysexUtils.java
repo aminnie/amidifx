@@ -57,30 +57,20 @@ public class SysexUtils {
     protected byte[] data = null;
 
     /**
-     * Sets the data for the system exclusive message. The first byte of the data array must be a valid system
-     * exclusive status byte (0xF0 or 0xF7).
-     */
-    public byte[]  setSysexMessage(byte[] data, int length)  {
-
-        byte[] newData = new byte[length+2];
-
-        newData[0] = (byte) (SYSTEM_EXCLUSIVE & 0xFF);
-        System.arraycopy(data, 0, newData, 1, newData.length);
-        data[length] = (byte) (END_OF_EXCLUSIVE & 0xFF);
-
-        return newData;
-    }
-
-    /**
      * Obtains a copy of the data for the system exclusive message.
      * The returned array of bytes does not include the status byte.
      */
-    public byte[] getSysexMessage(byte[] data) {
+    public byte[] getSysexMessage(byte messagetype, byte[] data)  {
 
-        byte[] newData = new byte[data.length - 1];
-        System.arraycopy(data, 1, newData, 0, (data.length - 1));
+        byte[] newdata = new byte[data.length+4];
 
-        return newData;
+        newdata[0] = (byte) (SYSTEM_EXCLUSIVE & 0xFF);
+        newdata[1] = (byte) (80 & 0xFF);                // Temporary Device ID = 80
+        newdata[2] = (byte) (messagetype & 0XFF);
+        System.arraycopy(data, 0, newdata, 3, data.length);
+        newdata[newdata.length-1] = (byte) (END_OF_EXCLUSIVE & 0xFF);
+
+        return newdata;
     }
 
 }

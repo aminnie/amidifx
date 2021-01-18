@@ -1,14 +1,11 @@
 package amidifx;
 
+import amidifx.models.MidiLayer;
 import amidifx.models.MidiPatch;
 import amidifx.models.MidiPreset;
+import amidifx.utils.ArduinoUtils;
 
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,6 +97,20 @@ public class MidiPresets {
         finally {
             try {
                 br.close();
+
+                // Forward Preset Channel Layer Data to ARM Controller
+                ArduinoUtils arduinoutils = ArduinoUtils.getInstance();
+                if (arduinoutils.hasARMPort()) {
+                    for (int i = 0; i < presetList.size(); i++) {
+                        MidiPreset mPreset = presetList.get(i);
+
+                        MidiLayer midilayer = new MidiLayer(mPreset);
+                        arduinoutils.writeSysexData((byte)1, midilayer.getChannelOut());
+
+                        //System.out.println("Sending to ARM Controller " + midilayer.toString());
+                    }
+                }
+
             }
             catch (IOException ie) {
                 System.out.println("*** Error occured while closing the MIDI Preset BufferedReader ***");

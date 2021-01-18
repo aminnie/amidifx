@@ -1,7 +1,6 @@
 package amidifx.utils;
 
 import amidifx.models.SharedStatus;
-
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
@@ -34,6 +33,7 @@ public class ArduinoUtils {
         return single_ArduinoInstance;
     }
 
+
     // *** Make constructor private for Singleton ***
     // Initialize Serial Port to Arduino Controller
     private ArduinoUtils() {
@@ -49,6 +49,7 @@ public class ArduinoUtils {
         else
             System.out.println("ArduinoUtils: No COM Port for Seeeduino ARM Processor detected");
     }
+
 
     public void getPort() {
 
@@ -68,6 +69,7 @@ public class ArduinoUtils {
             numberPort++;
         }
     }
+
 
     public boolean setPort(int portIndex) {
 
@@ -106,26 +108,53 @@ public class ArduinoUtils {
         return true;
     }
 
+    // Check if an ARM Port was found
+    public boolean hasARMPort() {
+        return hasPort;
+    }
+
+
     public void closePort() {
         System.out.println("ArduinoUtils: closePort()");
 
         if (hasPort) activePort.closePort();
     }
 
-    public void writeData(byte[] buffer) {
+
+    public boolean writeData(byte[] buffer) {
+
         System.out.println("ArduinoUtils: writeData()");
 
-        if (!hasPort) return;
+        if (!hasPort) return false;
 
         long bytesToWrite = buffer.length;
         activePort.writeBytes(buffer, bytesToWrite);
+
+        return true;
     }
+
+
+    // Creates and writes Sysex Message buffer that starts with 0xF0 and ends with 0xF7
+    public boolean writeSysexData(byte messagetype, byte[] messagebuffer) {
+
+        System.out.println("ArduinoUtils: writeSysexData()" + messagetype);
+
+        if (!hasPort) return false;
+
+        SysexUtils sysex = new SysexUtils();
+        byte[] sysexbuffer = sysex.getSysexMessage(messagetype, messagebuffer);
+
+        long bytesToWrite = sysexbuffer.length;
+        activePort.writeBytes(sysexbuffer, bytesToWrite);
+
+        return true;
+    }
+
 
     public void readData() {
         System.out.println("ArduinoUtils: readData()");
 
         if (!hasPort) return;
-
     }
 
 }

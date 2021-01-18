@@ -19,8 +19,8 @@ public class MidiLayer {
     private int moduleIdx;
     private int patchIdx;
 
-    // Layered channels out (defaulted): presetIdx, channelInIdx, ChannelOutIdx * 10, OctaveTran
-    private byte[] channelOutStruct = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
+    // Layered channels out (defaulted): presetIdx, channelInIdx, (ChannelOutIdx & ModuleIdx) * 10, OctaveTran
+    private byte[] channelOutStruct = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
 
     public MidiLayer(MidiPreset midipreset) {
 
@@ -92,6 +92,8 @@ public class MidiLayer {
 
 
     // Parse Channel Out String into Byte Array to be shared with ARM Controller
+    // To do: In future, modify the Preset file structure to allow moduleIdx to be spcified at the Channel Out level
+    // in order to allow for multiplexing input channels to multiple output modules
     private boolean parseChannelOut() {
 
         channelOutStruct[0] = (byte)(presetIdx & 0xFF);
@@ -100,19 +102,26 @@ public class MidiLayer {
         // Convert the channel out string from preset into bytes
         byte[] outchannels = channelOutIdx.getBytes();
 
-        int i = 0;
+        int i = 0, j = 2;
         while (i < outchannels.length) {
-            // Skip out channel seperator
+            // Skip out channel separator
             if (outchannels[i] == '|') {
                 i++;
             }
-            channelOutStruct[i+2] = outchannels[i++];
+            channelOutStruct[j] = (byte)(moduleIdx & 0xFF);
+            channelOutStruct[j+1] = (byte)(outchannels[i++] - 48);
+            System.out.print("moduleIdx: " + channelOutStruct[j] +  ", channelOutIdx: " + channelOutStruct[j+1]);
 
-            System.out.print(channelOutStruct[i+1]);
+            j = j + 2;
         }
         System.out.println(" <- Channel out byte array");
 
         return true;
+    }
+
+
+    public byte[] getChannelOut() {
+        return channelOutStruct;
     }
 
 
