@@ -62,6 +62,8 @@ There more to do, including:
 * Channel layering and multiplexing. The onboard Seeed Oddesey ARM controller will be programmed to handle MIDI layering/multiplexes via MIDI DIN connectors, as well as external buttons and switches.
 * Continue to build out the real-time organ/keyboard functionality, including adding physical buttons and rotary encoders, etc.
 
+![Example AMIDIFX Setup:](https://github.com/aminnie/amidifx/blob/master/Resources/AMIDIFX01182021.png)
+
 ## Building and Running AMIDIFX
 
 * Note: As of 12/17, I have been running AMIDIFX on a Windows 10 Laptop as well as the Seeed Oddesey SBC referred to above. The latter is intended as a standalone option that can be used with touch only.
