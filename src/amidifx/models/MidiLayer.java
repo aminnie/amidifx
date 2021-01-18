@@ -110,11 +110,11 @@ public class MidiLayer {
             }
             channelOutStruct[j] = (byte)(moduleIdx & 0xFF);
             channelOutStruct[j+1] = (byte)(outchannels[i++] - 48);
-            System.out.print("moduleIdx: " + channelOutStruct[j] +  ", channelOutIdx: " + channelOutStruct[j+1]);
+            //System.out.print("moduleIdx: " + channelOutStruct[j] +  ", channelOutIdx: " + channelOutStruct[j+1]);
 
             j = j + 2;
         }
-        System.out.println(" <- Channel out byte array");
+        //System.out.println(" <- Channel out byte array");
 
         return true;
     }

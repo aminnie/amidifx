@@ -137,7 +137,7 @@ public class ArduinoUtils {
     // Creates and writes Sysex Message buffer that starts with 0xF0 and ends with 0xF7
     public boolean writeSysexData(byte messagetype, byte[] messagebuffer) {
 
-        System.out.println("ArduinoUtils: writeSysexData()" + messagetype);
+        //System.out.println("ArduinoUtils: writeSysexData() Message Tyoe: " + messagetype);
 
         if (!hasPort) return false;
 
