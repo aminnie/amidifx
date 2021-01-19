@@ -63,6 +63,7 @@ There more to do, including:
 * Continue to build out the real-time organ/keyboard functionality, including adding physical buttons and rotary encoders, etc.
 
 Current setup with Seed Odyssey, Waveshare 10.1" Touch Screen, and midibox IO module:
+
 ![Example AMIDIFX Setup:](https://github.com/aminnie/amidifx/blob/master/Resources/AMIDIDX01182021.jpg)
 
 ## Building and Running AMIDIFX
