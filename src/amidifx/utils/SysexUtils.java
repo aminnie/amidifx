@@ -59,15 +59,38 @@ public class SysexUtils {
     /**
      * Obtains a copy of the data for the system exclusive message.
      * The returned array of bytes does not include the status byte.
+     * sysexbuf[] = {0xF0, 0X80, 0x06, 0x00, 0x01, 0xF7};
      */
     public byte[] getSysexMessage(byte messagetype, byte[] data)  {
 
-        byte[] newdata = new byte[data.length+4];
+        byte[] newdata = new byte[data.length + 7];
 
         newdata[0] = (byte) (SYSTEM_EXCLUSIVE & 0xFF);
-        newdata[1] = (byte) (80 & 0xFF);                // Temporary Device ID = 80
-        newdata[2] = (byte) (messagetype & 0XFF);
-        System.arraycopy(data, 0, newdata, 3, data.length);
+        newdata[1] = (byte) (0x50);                // Temporary Device ID = 80
+        newdata[2] = (byte) (data.length + 7 & 0XFF);
+        newdata[3] = (byte) (0X00);
+        newdata[4] = (byte) (messagetype & 0XFF);
+        System.arraycopy(data, 0, newdata, 5, data.length);
+        newdata[newdata.length-1] = (byte) (END_OF_EXCLUSIVE & 0xFF);
+
+        return newdata;
+    }
+
+    /**
+     * Obtains a copy of the data for the system exclusive message.
+     * The returned array of bytes does not include the status byte.
+     * sysexbuf[] = {0xF0, 0X50, 0x14, 0x00, 0x02, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x00, 0x00, 0xF7};
+     */
+    public byte[] getLayerSysexMessage(byte messagetype, byte[] data)  {
+
+        byte[] newdata = new byte[data.length + 6];
+
+        newdata[0] = (byte) (SYSTEM_EXCLUSIVE & 0xFF);
+        newdata[1] = (byte) (0x50);                // Temporary Device ID = 80
+        newdata[2] = (byte) (0X14);
+        newdata[3] = (byte) (0X00);
+        newdata[4] = (byte) (messagetype & 0XFF);
+        System.arraycopy(data, 0, newdata, 5, data.length);
         newdata[newdata.length-1] = (byte) (END_OF_EXCLUSIVE & 0xFF);
 
         return newdata;

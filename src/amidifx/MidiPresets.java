@@ -105,7 +105,7 @@ public class MidiPresets {
                         MidiPreset mPreset = presetList.get(i);
 
                         MidiLayer midilayer = new MidiLayer(mPreset);
-                        arduinoutils.writeSysexData((byte)1, midilayer.getChannelOut());
+                        arduinoutils.writeLayerSysexData((byte)2, midilayer.getChannelOut());
 
                         //System.out.println("Sending to ARM Controller " + midilayer.toString());
                     }

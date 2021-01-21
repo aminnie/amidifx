@@ -44,7 +44,10 @@ public class ArduinoUtils {
             this.setPort(usePort);
 
             byte[] buffer = {'A', 'M', 'I', 'D', 'I', 'F', 'X'};
-            this.writeData(buffer);
+
+            //this.writeData(buffer);
+            writeSysexData((byte)0, buffer);
+
         }
         else
             System.out.println("ArduinoUtils: No COM Port for Seeeduino ARM Processor detected");
@@ -64,6 +67,10 @@ public class ArduinoUtils {
 
             // Seeeduino is the Port the onboard COM Port
             if (port.getPortDescription().contains("Seeeduino"))
+                usePort = numberPort;
+
+            // Otherwise assume first USB Serial Port for remote Arduino controller
+            else if (port.getPortDescription().contains("USB Serial"))
                 usePort = numberPort;
 
             numberPort++;
@@ -150,6 +157,22 @@ public class ArduinoUtils {
         return true;
     }
 
+
+    // Creates and writes Keyoard Layering Sysex Message buffer that starts with 0xF0 and ends with 0xF7
+    public boolean writeLayerSysexData(byte messagetype, byte[] messagebuffer) {
+
+        //System.out.println("ArduinoUtils: writeLayerSysexData() Message Tyoe: " + messagetype);
+
+        if (!hasPort) return false;
+
+        SysexUtils sysex = new SysexUtils();
+        byte[] sysexbuffer = sysex.getLayerSysexMessage(messagetype, messagebuffer);
+
+        long bytesToWrite = sysexbuffer.length;
+        activePort.writeBytes(sysexbuffer, bytesToWrite);
+
+        return true;
+    }
 
     public void readData() {
         System.out.println("ArduinoUtils: readData()");
