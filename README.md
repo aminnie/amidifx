@@ -101,10 +101,10 @@ Current setup with Seed Odyssey, Waveshare 10.1" Touch Screen, and midibox IO mo
   * Perform: Real-time keyboard/organ configuration in MIDI GM and Deebach Blackbox modes. Defaults o Deebach if detected on start-up
   * Java MIDI Sequencer integrated and playing in demo and demo with preset more. Backing mode channels 10 - 16 mute issue to be resolved.
 * Other:
-  * Effect Sliders on all screens work in realtime, and adjust the current/last channel and voice selected. 
+  * Voice selections and effect sliders on all screens work in realtime, and adjust the current/last channel and voice selected. 
 * Next up:
-  * Deeper integraton into Deebach: Complete Rotary on/off, etc.
-  * Complete programming the Odessey onboard ARM controller to manage layring and multiplexing of incoming keyboard MIDI data.
- 
+  * Complete programming the Odessey onboard ARM controller to manage layering and multiplexing of incoming keyboard MIDI data.
+  * Deeper integraton into Deebach: Complete rotary on/off, drawbar integration, etc.
+  
 
 -- More to follow  ---
