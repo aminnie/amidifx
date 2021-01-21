@@ -51,16 +51,15 @@ Earlier in 2020, Deebach (https://www.deebach.eu/#xl_xr_page_blackbox) made the 
 You need the following hardware and software to run AMIDIFX:
 * A host prepared to host and run JavaFX development - see https://docs.oracle.com/javafx/release-documentation.html.
   * I use a Dell 7550 Windows 19 laptop as primary development environment
-  * In January 2021, I ported the solution to a single board computer (SBC) - the Seeed Odyssey: https://www.seeedstudio.com/ODYSSEY-X86J4105800-p-4445.html. This X86-based SBC has 8GB Ram, support for SATA drives and SSDs (including M.2 and NVMe), and most important an onboard ARM microcontroller that can be integrated to the X86 via USB. This RM cotroller can programmed to add low level GPIO to a solution runnign on the X86. As of 01/17 I have the X86-based JAVAFX application talking to the ARM controller and am preparing to build out the ARM-based real-time keyboard interface logic.
-   * Screen with 1024 x 600 or 1280 by 800 resolution. A capacitive touch screen speeds up entry. I use this one: https://www.waveshare.com/10.1inch-hdmi-lcd-with-case.htm
-* For now, the Deebach Blackbox (https://www.deebach.eu/) sound module, or any MIDI GM compatible sound module is supported. The Roland Integra7 modified patch file will be availble as an option soon.
-* A MIDI Interface DIN Board. This board provides the MIDI IN and OUT connectivty to the Odyssey ARM controler via the one/two sets of Serial GPIO pins. Most MIDI interface boards will work. For example, I use the midibox.org (http://www.ucapps.de/) dual MIDI channel MBHP_MIDI_IO board. 
-* MIDI file manipulation software. MidiYodi (https://www.canato.se/midiyodi/) works great for manipulating channel events, inserting Preset CUE meta messages, program changes, and including movign channels around
+  * In January 2021, I ported the solution to a single board computer (SBC) - the Seeed Odyssey: https://www.seeedstudio.com/ODYSSEY-X86J4105800-p-4445.html. This X86-based SBC has 8GB Ram, support for SATA drives and SSDs (including M.2 and NVMe), and most important an onboard ARM microcontroller that can be integrated to the X86 via USB. This ARM cotroller can programmed to add low level GPIO to a solution running on the X86. The JavaFX application will be forwarding MIDI layering configurations to the ARM controller to manage keyboard layering and muting.
+   * Screen with 1024 x 600 or 1280 by 800 resolution - capactive touch. I use this one: https://www.waveshare.com/10.1inch-hdmi-lcd-with-case.htm
+* At this time, the Deebach Blackbox (https://www.deebach.eu/) sound module, or any MIDI GM compatible sound module is supported. The Roland Integra7 modified patch file will be availble as an option soon.
+* A MIDI Interface DIN Board. This board provides the MIDI DIN IN and OUT connectivty to the Odyssey ARM controler via the one/two sets of Serial GPIO pins. Most MIDI interface boards will work. For example, I use the midibox.org (http://www.ucapps.de/) dual MIDI channel MBHP_MIDI_IO board.
+* MIDI file manipulation software. MidiYodi (https://www.canato.se/midiyodi/) works great for manipulating channel events, inserting Preset and Bar Counter CUE meta messages, program changes, and moving channels around to map to you keyboard preferences. I use CHAN 11 for Bass, CHAN 12 + 13 for Lower, and CHAN 14 + 15 + 16 for Upper.
 * Note: The Seeed Odessey has proved to more than enough compute power and memory to act as a development host. I have installed JetBrains IntelliJ, the Arduino IDE, MidiYodi and several other applicatiosn on it, and while the 10" touch screen is relative small for development, the solution is performant enough to make changes to the applcation (using an attached keyboard), change MIDI files, while running AMIDIFX and the built-in sequencer! At this time I am running WIndows 10 on the SBC, but all components of this solution including the IDE can be deployed on e.g. Ubuntu should you prefer to do so.
 
-There more to do, including:
+In process development includes:
 * Channel layering and multiplexing. The onboard Seeed Oddesey ARM controller will be programmed to handle MIDI layering/multiplexes via MIDI DIN connectors, as well as external buttons and switches.
-* Continue to build out the real-time organ/keyboard functionality, including adding physical buttons and rotary encoders, etc.
 
 Current setup with Seed Odyssey, Waveshare 10.1" Touch Screen, and midibox IO module with 2 In / 2 Out DIN MIDI ports:
 
@@ -77,7 +76,7 @@ Current setup with Seed Odyssey, Waveshare 10.1" Touch Screen, and midibox IO mo
   * Songs List file (songs.csv) is a directory of all the Songs and their respective configurations including associated MIDI SMF and Preset files, track/channel mutes, etc.
   * Add your own MIDI files through the user interface. Don't forget to:
    * Add MIDI Cue = P[1-8] meta events to auto trigger and inject a Preset configuration into the MIDI stream. Find a place in the MIDI file following the initial channel MSB, LSB and PC changes, but before the first notes sound (often the intro symbol beats on the drum track), and insert the CUE = P1.
-   * Add MIDI Cue = B[0] meta event to preset the Bar Counter with the music play. This may require carefull reviewing the MIDI file in e.g. MidiYodi to determine where the first beat starts. Initial cymbal quarter lead in often is the start of Music in a Midi file.
+   * Add MIDI Cue = B[0-1] meta event to preset the Bar Counter with the music play. This may require a carefully reviewing the MIDI file in e.g. MidiYodi to determine where the first beat starts. Initial quarter lead in often is the start of Music in a Midi file.
 
 ## AMIDIFX Example Screens
 
@@ -101,8 +100,7 @@ Current setup with Seed Odyssey, Waveshare 10.1" Touch Screen, and midibox IO mo
   * Perform: Real-time keyboard/organ configuration in MIDI GM and Deebach Blackbox modes. Defaults o Deebach if detected on start-up
   * Java MIDI Sequencer integrated and playing in demo and demo with preset more. Backing mode channels 10 - 16 mute issue to be resolved.
   * Voice selections and effect sliders on all screens work in realtime, and adjust the current/last channel and voice selected. 
-* In Process and Next up:
-  * Programming the Odessey onboard ARM controller to manage layering and multiplexing of incoming keyboard MIDI data.
+* Next up:
   * Deeper integraton into Deebach: Complete rotary on/off, drawbar integration, etc.
   
 
