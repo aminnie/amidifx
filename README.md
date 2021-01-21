@@ -62,7 +62,7 @@ There more to do, including:
 * Channel layering and multiplexing. The onboard Seeed Oddesey ARM controller will be programmed to handle MIDI layering/multiplexes via MIDI DIN connectors, as well as external buttons and switches.
 * Continue to build out the real-time organ/keyboard functionality, including adding physical buttons and rotary encoders, etc.
 
-Current setup with Seed Odyssey, Waveshare 10.1" Touch Screen, and midibox IO module:
+Current setup with Seed Odyssey, Waveshare 10.1" Touch Screen, and midibox IO module with 2 In / 2 Out DIN MIDI ports:
 
 ![Example AMIDIFX Setup:](https://github.com/aminnie/amidifx/blob/master/Resources/AMIDIDX01182021.jpg)
 
@@ -100,10 +100,9 @@ Current setup with Seed Odyssey, Waveshare 10.1" Touch Screen, and midibox IO mo
   * Presets: For a selected Song, define all 16 MIDI channels, including keyboard real-time play (performance mode on channels 10 - 16), and backing tracks 
   * Perform: Real-time keyboard/organ configuration in MIDI GM and Deebach Blackbox modes. Defaults o Deebach if detected on start-up
   * Java MIDI Sequencer integrated and playing in demo and demo with preset more. Backing mode channels 10 - 16 mute issue to be resolved.
-* Other:
   * Voice selections and effect sliders on all screens work in realtime, and adjust the current/last channel and voice selected. 
-* Next up:
-  * Complete programming the Odessey onboard ARM controller to manage layering and multiplexing of incoming keyboard MIDI data.
+* In Process and Next up:
+  * Programming the Odessey onboard ARM controller to manage layering and multiplexing of incoming keyboard MIDI data.
   * Deeper integraton into Deebach: Complete rotary on/off, drawbar integration, etc.
   
 
