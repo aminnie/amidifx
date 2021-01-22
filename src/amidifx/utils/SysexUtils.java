@@ -107,11 +107,11 @@ public class SysexUtils {
             data[1] = (byte) 11;
             data[2] = (byte) 12;
         }
-        else if (l1pressed) {
+        else if ((l1pressed) && (!l2pressed)) {
             data[1] = (byte) 11;
             data[2] = (byte) 0;
         }
-        else if (l2pressed) {
+        else if ((!l1pressed) && (l2pressed)) {
             data[1] = (byte) 12;
             data[2] = (byte) 0;
         }
@@ -158,12 +158,12 @@ public class SysexUtils {
             data[2] = (byte) 0;
             data[3] = (byte) 0;
         }
-        if ((!r1pressed) && (r2pressed) && (!r3pressed)) {
+        else if ((!r1pressed) && (r2pressed) && (!r3pressed)) {
             data[1] = (byte) 15;
             data[2] = (byte) 0;
             data[3] = (byte) 0;
         }
-        if ((!r1pressed) && (!r2pressed) && (r3pressed)) {
+        else if ((!r1pressed) && (!r2pressed) && (r3pressed)) {
             data[1] = (byte) 16;
             data[2] = (byte) 0;
             data[3] = (byte) 0;
