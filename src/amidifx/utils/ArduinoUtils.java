@@ -174,6 +174,31 @@ public class ArduinoUtils {
         return true;
     }
 
+
+    // Creates and writes Keyoard Layering Sysex Message buffer that starts with 0xF0 and ends with 0xF7
+    public boolean lefthandLayerSysexData(boolean l1pressed, boolean l2pressed) {
+
+        SysexUtils sysex = new SysexUtils();
+        byte[] sysexbuffer = sysex.getlefthandLayerSysexMessage(l1pressed, l2pressed);
+
+        long bytesToWrite = sysexbuffer.length;
+        activePort.writeBytes(sysexbuffer, bytesToWrite);
+
+        return true;
+    }
+
+    // Creates and writes Keyoard Layering Sysex Message buffer that starts with 0xF0 and ends with 0xF7
+    public boolean righthandLayerSysexData(boolean r1pressed, boolean r2pressed, boolean r3pressed) {
+
+        SysexUtils sysex = new SysexUtils();
+        byte[] sysexbuffer = sysex.getrighthandLayerSysexMessage(r1pressed, r2pressed, r3pressed);
+
+        long bytesToWrite = sysexbuffer.length;
+        activePort.writeBytes(sysexbuffer, bytesToWrite);
+
+        return true;
+    }
+
     public void readData() {
         System.out.println("ArduinoUtils: readData()");
 

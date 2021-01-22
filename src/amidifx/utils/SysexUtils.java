@@ -96,5 +96,94 @@ public class SysexUtils {
         return newdata;
     }
 
+    // Prepare Lefthand Layer SysExMessage
+    public byte[] getlefthandLayerSysexMessage(boolean l1pressed, boolean l2pressed) {
+        byte[] data = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+        byte[] newdata = new byte[data.length + 6];
+        byte messagetype = 2;
+
+        data[0] = (byte) 11;
+        if ((l1pressed) && (l2pressed)) {
+            data[1] = (byte) 11;
+            data[2] = (byte) 12;
+        }
+        else if (l1pressed) {
+            data[1] = (byte) 11;
+            data[2] = (byte) 0;
+        }
+        else if (l2pressed) {
+            data[1] = (byte) 12;
+            data[2] = (byte) 0;
+        }
+        else {
+            data[1] = (byte) 0;
+            data[2] = (byte) 0;
+        }
+
+        newdata[0] = (byte) (SYSTEM_EXCLUSIVE & 0xFF);
+        newdata[1] = (byte) (0x50);                // Temporary Device ID = 80
+        newdata[2] = (byte) (0X14);
+        newdata[3] = (byte) (0X00);
+        newdata[4] = (byte) (messagetype & 0XFF);
+        System.arraycopy(data, 0, newdata, 5, data.length);
+        newdata[newdata.length-1] = (byte) (END_OF_EXCLUSIVE & 0xFF);
+
+        return newdata;
+    }
+
+    // Prepare Lefthand Layer SysExMessage
+    public byte[] getrighthandLayerSysexMessage(boolean r1pressed, boolean r2pressed, boolean r3pressed) {
+        byte[] data = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+        byte[] newdata = new byte[data.length + 6];
+        byte messagetype = 2;
+
+        data[0] = (byte) 14;
+        if ((r1pressed) && (r2pressed) && (r3pressed)) {
+            data[1] = (byte) 14;
+            data[2] = (byte) 15;
+            data[3] = (byte) 16;
+        }
+        else if ((r1pressed) && (r2pressed) && (!r3pressed)) {
+            data[1] = (byte) 14;
+            data[2] = (byte) 15;
+            data[3] = (byte) 0;
+        }
+        else if ((r1pressed) && (!r2pressed) && (r3pressed)) {
+            data[1] = (byte) 14;
+            data[2] = (byte) 16;
+            data[3] = (byte) 0;
+        }
+        else if ((r1pressed) && (!r2pressed) && (!r3pressed)) {
+            data[1] = (byte) 14;
+            data[2] = (byte) 0;
+            data[3] = (byte) 0;
+        }
+        if ((!r1pressed) && (r2pressed) && (!r3pressed)) {
+            data[1] = (byte) 15;
+            data[2] = (byte) 0;
+            data[3] = (byte) 0;
+        }
+        if ((!r1pressed) && (!r2pressed) && (r3pressed)) {
+            data[1] = (byte) 16;
+            data[2] = (byte) 0;
+            data[3] = (byte) 0;
+        }
+        else {
+            data[1] = (byte) 0;
+            data[2] = (byte) 0;
+            data[3] = (byte) 0;
+        }
+
+        newdata[0] = (byte) (SYSTEM_EXCLUSIVE & 0xFF);
+        newdata[1] = (byte) (0x50);                // Temporary Device ID = 80
+        newdata[2] = (byte) (0X14);
+        newdata[3] = (byte) (0X00);
+        newdata[4] = (byte) (messagetype & 0XFF);
+        System.arraycopy(data, 0, newdata, 5, data.length);
+        newdata[newdata.length-1] = (byte) (END_OF_EXCLUSIVE & 0xFF);
+
+        return newdata;
+    }
+
 }
 

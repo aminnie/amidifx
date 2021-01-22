@@ -91,6 +91,9 @@ public class OrganScene {
     final String btnplayOff = "-fx-background-color: #8ED072; -fx-font-size: " + fsize ;
     final String btnplayOn = "-fx-background-color: #DB6B6B; -fx-font-size: " + fsize ;
 
+    final String lrpressedOff = "-fx-background-color: #8ED072; -fx-font-size: " + fsize ;
+    final String lrpressedOn = "-fx-background-color: #DB6B6B; -fx-font-size: " + fsize ;
+
     final String styletext = "-fx-font-size: " + fsize ;
 
     Stage primaryStage;
@@ -245,6 +248,20 @@ public class OrganScene {
     boolean dpressed2 = false;
     boolean dpressed3 = false;
     boolean dpressed4 = false;
+
+    Button r1layerbtn;       // Righthand Layering Buttons
+    Button r2layerbtn;
+    Button r3layerbtn;
+
+    boolean r1pressed = false;
+    boolean r2pressed = false;
+    boolean r3pressed = false;
+
+    Button l1layerbtn;       // Lefthand Layering Buttons
+    Button l2layerbtn;
+
+    boolean l1pressed = false;
+    boolean l2pressed = false;
 
     Slider sliderVOL;
     Slider sliderEXP;
@@ -1246,10 +1263,34 @@ public class OrganScene {
             gridmidcenterOrgan.add(dleft3, 0, 5, 1, 1);
             gridmidcenterOrgan.add(dleft4, 1, 5, 1, 1);
 
-            Label llabel1 = new Label("Lower 1 [12]");
-            llabel1.setStyle(styletext);
-            Label llabel2 = new Label("Lower 2 [13]");
-            llabel2.setStyle(styletext);
+            // Lower Buttons
+
+            l1layerbtn = new Button("Lower 1 [12]");       // Lefthand Layering Buttons
+            l1layerbtn.setStyle(lrpressedOff);
+            l1layerbtn.setOnAction(event -> {
+                if (l1pressed == false) {
+                    l1layerbtn.setStyle(lrpressedOn);
+                    l1pressed = true;
+                }
+                else {
+                    l1layerbtn.setStyle(lrpressedOff);
+                    l1pressed = false;
+                }
+                arduinoUtils.lefthandLayerSysexData(l1pressed, l2pressed);
+            });
+            l2layerbtn = new Button("Lower 2 [13]");
+            l2layerbtn.setStyle(lrpressedOff);
+            l2layerbtn.setOnAction(event -> {
+                if (l2pressed == false) {
+                    l2layerbtn.setStyle(lrpressedOn);
+                    l2pressed = true;
+                }
+                else {
+                    l2layerbtn.setStyle(lrpressedOff);
+                    l2pressed = false;
+                }
+                arduinoUtils.lefthandLayerSysexData(l1pressed, l2pressed);
+            });
 
             lbutton11.setText(" Lower 1-1");
             lbutton11.setId("L1-1");
@@ -1651,8 +1692,8 @@ public class OrganScene {
                 labelstatusOrg.setText(" Status: Applied Lower 2-4");
             });
 
-            gridmidcenterOrgan.add(llabel1, 3, 0, 1, 1);
-            gridmidcenterOrgan.add(llabel2, 4, 0, 1, 1);
+            gridmidcenterOrgan.add(l1layerbtn, 3, 0, 1, 1);
+            gridmidcenterOrgan.add(l2layerbtn, 4, 0, 1, 1);
 
             gridmidcenterOrgan.add(lbutton11, 3, 1, 1, 1);
             gridmidcenterOrgan.add(lbutton12, 3, 2, 1, 1);
@@ -1663,12 +1704,47 @@ public class OrganScene {
             gridmidcenterOrgan.add(lbutton23, 4, 3, 1, 1);
             gridmidcenterOrgan.add(lbutton24, 4, 4, 1, 1);
 
-            Label rlabel1 = new Label("Upper 1 [14]");
-            rlabel1.setStyle(styletext);
-            Label rlabel2 = new Label("Upper 2 [15]");
-            rlabel2.setStyle(styletext);
-            Label rlabel3 = new Label("Upper 3 [16]");
-            rlabel3.setStyle(styletext);
+            // Upper Buttons
+
+            r1layerbtn = new Button("Upper 1 [14]");       // Righthand Layering Buttons
+            r1layerbtn.setStyle(lrpressedOff);
+            r1layerbtn.setOnAction(event -> {
+                if (r1pressed == false) {
+                    r1layerbtn.setStyle(lrpressedOn);
+                    r1pressed = true;
+                }
+                else {
+                    r1layerbtn.setStyle(lrpressedOff);
+                    r1pressed = false;
+                }
+                arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
+            });
+            r2layerbtn = new Button("Upper 2 [15]");
+            r2layerbtn.setStyle(lrpressedOff);
+            r2layerbtn.setOnAction(event -> {
+                if (r2pressed == false) {
+                    r2layerbtn.setStyle(lrpressedOn);
+                    r2pressed = true;
+                }
+                else {
+                    r2layerbtn.setStyle(lrpressedOff);
+                    r2pressed = false;
+                }
+                arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
+            });
+            r3layerbtn = new Button("Upper 3 [16]");
+            r3layerbtn.setStyle(lrpressedOff);
+            r3layerbtn.setOnAction(event -> {
+                if (r3pressed == false) {
+                    r3layerbtn.setStyle(lrpressedOn);
+                    r3pressed = true;
+                }
+                else {
+                    r3layerbtn.setStyle(lrpressedOff);
+                    r3pressed = false;
+                }
+                arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
+            });
 
             rbutton11.setText(" Upper 1-1");
             rbutton11.setId("U1-1");
@@ -2431,9 +2507,9 @@ public class OrganScene {
                 labelstatusOrg.setText(" Status: Applied Upper 3-4");
             });
 
-            gridmidcenterOrgan.add(rlabel1, 6, 0, 1, 1);
-            gridmidcenterOrgan.add(rlabel2, 7, 0, 1, 1);
-            gridmidcenterOrgan.add(rlabel3, 8, 0, 1, 1);
+            gridmidcenterOrgan.add(r1layerbtn, 6, 0, 1, 1);
+            gridmidcenterOrgan.add(r2layerbtn, 7, 0, 1, 1);
+            gridmidcenterOrgan.add(r3layerbtn, 8, 0, 1, 1);
 
             gridmidcenterOrgan.add(rbutton11, 6, 1, 1, 1);
             gridmidcenterOrgan.add(rbutton12, 6, 2, 1, 1);
