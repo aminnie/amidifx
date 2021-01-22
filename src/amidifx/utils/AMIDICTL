@@ -1,6 +1,5 @@
 /******************************************************************************************
   AMIDIFX ARM Controller
-  C/C++ Source Code. To do: Added to own repo longer term.
 
   Handle MIDI Channel Layering for inbound messages from one or more keyboards
 
@@ -194,7 +193,14 @@ void loop() {
 
 }
 
+/******************************************************************************************
+  procesAMIDIFX(): Process AMIDIFX Sysex Buffers and commands
 
+  Command = 0: Play Test Notes
+  Command = 1: Initialize Layer Mapping to Default
+  Command = 2: Update Layer Configuration
+
+******************************************************************************************/
 void procesAMIDIFX(byte sysexbuf[]) {
 
   Serial.println("*** processAMIDIFX: Processing Sysex Buffer");
