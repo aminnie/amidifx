@@ -10,7 +10,7 @@ public class ArduinoUtils {
     SerialPort activePort;
     SerialPort[] ports;
 
-    int baudRate = 115200;
+    int baudRate = 57600; //115200;
     int numberPort = 0;
     int usePort = -1;
     boolean hasPort = false;

@@ -143,7 +143,7 @@ public class MidiPresets {
         presetList.get(idx).setPatchIdx(midiPatch.getPatchId());
         presetList.get(idx).setPatchName(midiPatch.getPatchName());
 
-        System.out.println("Updated MIDI Preset " + idx + ": " + midiPatch.toString());
+        //System.out.println("Updated MIDI Preset " + idx + ": " + midiPatch.toString());
     }
 
     // List Preset details at index number

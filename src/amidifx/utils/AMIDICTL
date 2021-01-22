@@ -1,0 +1,666 @@
+/******************************************************************************************
+  AMIDIFX ARM Controller
+  C/C++ Source Code. To do: Added to own repo longer term.
+
+  Handle MIDI Channel Layering for inbound messages from one or more keyboards
+
+******************************************************************************************/
+
+//#define DEBUGTST
+#define DEBUGMON
+//#define DEBUGLT
+
+#include <MIDI.h>
+#include <midi_Defs.h>
+#include <midi_Message.h>
+#include <midi_Namespace.h>
+#include <midi_Settings.h>
+
+// Create the Serial MIDI ports
+MIDI_CREATE_DEFAULT_INSTANCE();
+MIDI_CREATE_INSTANCE(HardwareSerial, Serial1, MIDI1);
+MIDI_CREATE_INSTANCE(HardwareSerial, Serial2, MIDI2);
+
+// Midi Definitions
+#define PC  0XC0            // Program Change
+#define CC  0xB0            // Control Change
+#define MSB 0x00            // CC MSB
+#define LSB 0x20            // CC LSB
+#define MOD 0x01            // CC Modulation (Tremelo/Leslie)
+#define VOL 0x07            // CC Volume
+#define EXP 0x0B            // CC Expression
+#define REV 0X5B            // CC Reverb
+#define CHO 0x5D            // CC Chorus
+#define PAN 0x0A            // CC Pan
+#define NOTEON  0X90        // Note On
+#define NOTEOFF 0X80        // Note Off
+#define CLOCK 0XF8          // Timing Clock
+#define SENSING 0XFE        // Active Sending
+
+#define DRUMS     10-1      //
+#define BASSKBD   11-1      //
+#define LOWERKBD  12-1      // Organ Controller PC and EXP change transmit MIDI channel
+#define UPPERKBD  14-1      // Remember -1 for actual MIDI Channel specification
+#define SOLOKBD   16-1      //
+#define CTRLKBD   16-1      //
+
+byte lowerchan = LOWERKBD;
+byte upperchan = UPPERKBD;
+byte basschan = BASSKBD;
+byte solochan = SOLOKBD;
+
+// 8 Presets per Song. 16 Channel Layers per Preset
+#define PRESETCNT 8
+
+byte module = 0;
+boolean insysex = false;
+int sysexidx = 0;
+
+/******************************************************************************************
+  Layers Variable Declarations
+    MIDI Channels:
+       Organ Lower = 12, Organ Upper = 13, Organ Base = 14, MIDI Keyboard = 15,
+       Organ Solo = 16, Drums = 10
+       Other channels = Available for background Song Parts
+******************************************************************************************/
+struct channelout {
+  byte moduleout;
+  byte channelout;
+};
+
+// MIDI Layer Mapping Structure
+// Sound Module: 0 = Deebach, 1 = Integra 7
+struct layer {
+  byte presetidx;
+  byte channelidx;                 // Input channel
+  channelout channelidxout[10];    // Output Channels
+  byte octavetran;
+  byte patchidx;
+};
+
+#define LAYERITEMCNT 128          // Total number of preset items alllowed - combination of Presets and Channel definitions per Song
+layer Layers[LAYERITEMCNT];
+
+// Track Arduino Main() loop performance with objective to keep as low (<10 to 20ms)
+// and avoid audible effects and note loss during controller operation
+#ifdef DEBUGLT
+  unsigned long lstart = 0;       // Loop start time (ms)
+  unsigned long lend = 0;         // Loop end time (ms)
+  unsigned long ltimemax = 0;     // Maximum loop time
+
+  unsigned long pmark = millis(); //
+  unsigned long tmark = millis(); //
+  unsigned long resettimer = 0;   // Reset loop times once every 15 seconds
+#endif
+
+unsigned long activitymillis = 0;
+
+int curpreset = 0;                 // Tracks Song Preset in use. Reset if new Song selected
+
+int testno = 1;
+
+boolean doneflg = false;
+
+
+/******************************************************************************************
+  setup()
+
+******************************************************************************************/
+void setup() {
+
+  // Odyssey input port
+  Serial.begin(57600);
+
+  MIDI.begin(MIDI_CHANNEL_OMNI);
+  MIDI.turnThruOff();
+
+  MIDI1.begin(MIDI_CHANNEL_OMNI);
+  MIDI1.turnThruOff();
+
+  MIDI2.begin(MIDI_CHANNEL_OMNI);
+  MIDI2.turnThruOff();
+
+  activitymillis = millis();
+
+  Serial.println("AMIDICTL Setup complete!");
+
+  initLayers();
+
+  #ifdef DEBUGTST
+    testinitLayers();
+    //listLayers();
+  #endif
+
+  curpreset = 0;
+
+}
+
+
+/******************************************************************************************
+  loop()
+
+  1. Process incoming MIDI messages
+  2. Map incoming MIDI messages via the Layering logic and mapping
+  3. Read incoming messages
+  3.1 Layer Updates (Sysex Message)
+  3.2 New Song (reloads, resets all Channel Mappings)
+  3.2 New Layer command from AMIDIFX UI (realtime mapping layer request form UI)
+
+******************************************************************************************/
+void loop() {
+
+  #ifdef DEBUGLT
+    lstart = millis();
+  #endif
+
+  // Manage Odessey Serial Input from AMIDIFX. Implemented as state machine processing Sysex Messages
+  handleAMIDIFX();
+
+  // Manage MIDI IN and OUT Messages and necessary Layering, Muting, etc.
+  handleMIDIInOut();
+
+  #ifdef DEBUGTST
+    if (testno <= 6) {
+      testLayers(testno++);
+    }
+
+    if (doneflg != true) {
+      testLayers(6);
+      testLayers(7);
+      testLayers(8);
+      doneflg = true;
+      delay(500);
+    }
+  #endif
+
+  #ifdef DEBUGLT
+    // Track and report the loop minimum and maximum times
+    if ((millis() - resettimer) > 15000) {
+      resettimer = millis();
+
+      ltimemax = 0;
+
+      Serial.print(F("*Reset Loop (ms): "));
+      Serial.println(ltimemax);
+    }
+
+    lend = millis() - lstart;
+    if (lend > ltimemax) {
+      ltimemax = lend;
+      Serial.print(F("*Loop (ms): "));
+      Serial.println(ltimemax);
+    }
+  #endif
+
+}
+
+
+void procesAMIDIFX(byte sysexbuf[]) {
+
+  Serial.println("*** processAMIDIFX: Processing Sysex Buffer");
+
+  // Command 0 = Send Test Notes
+  if (sysexbuf[4] == 0) {
+      Serial.println("*** processAMDIFX: Command = 0 - Test Notes");
+      testNotes(14);
+  }
+
+  // Command 1 = Reset Layers to Default
+  else if (sysexbuf[4] == 1) {
+      Serial.println("*** processAMDIFX: Command 1 - Reset Layers to Default");
+
+      initLayers();
+      //listLayers();
+  }
+
+  // Command 2 = Update Preset/Layer Combination
+  else if (sysexbuf[4] == 2) {
+      Serial.println("*** processAMDIFX: Command = 2 - Update Preset/Layer Combination");
+
+      int i = sysexbuf[5];      // Preset IDX
+      int j = sysexbuf[6] - 1;  // CHannel IDX
+      Layers[(i * 16) + j].presetidx = sysexbuf[5];   // Preset
+      Layers[(i * 16) + j].channelidx = sysexbuf[6];  // Channel In
+
+      Layers[(i * 16) + j].channelidxout[0].channelout = sysexbuf[7];  // Channel Out 0
+      Layers[(i * 16) + j].channelidxout[1].channelout = sysexbuf[8];  // Channel Out 1
+      Layers[(i * 16) + j].channelidxout[2].channelout = sysexbuf[9];  // Channel Out 2
+      Layers[(i * 16) + j].channelidxout[3].channelout = sysexbuf[10];  // Channel Out 3
+      Layers[(i * 16) + j].channelidxout[4].channelout = sysexbuf[11];  // Channel Out 4
+      Layers[(i * 16) + j].channelidxout[5].channelout = sysexbuf[12];  // Channel Out 5
+      Layers[(i * 16) + j].channelidxout[6].channelout = sysexbuf[13];  // Channel Out 6
+      Layers[(i * 16) + j].channelidxout[7].channelout = sysexbuf[14];  // Channel Out 7
+      Layers[(i * 16) + j].channelidxout[8].channelout = sysexbuf[15];  // Channel Out 8
+      Layers[(i * 16) + j].channelidxout[9].channelout = sysexbuf[16];  // Channel Out 9
+
+      Layers[(i * 16) + j].octavetran = sysexbuf[17];
+      Layers[(i * 16) + j].patchidx = sysexbuf[18];
+
+      //listLayers();
+  }
+
+  else {
+      Serial.print("*** processAMDIFX: Invalid Command: ");
+      Serial.println(sysexbuf[4]);
+  }
+}
+
+/******************************************************************************************
+  handleAMIDIFX()
+
+  Message types:
+  1. Reset all Layer Mappings using defaults
+  2. New Song load all provided mappings - after Reset
+  3. Change Layer for specified channel
+
+******************************************************************************************/
+void handleAMIDIFX() {
+
+  //Serial.println("handleAMIDIFX(): Reading incoming data");
+
+  byte sysexmsg[100];
+
+  // Read MIDI Channel 1 and output to Port 1 or 2 based on Preset Layer Module config
+
+    if (Serial.available()) {
+        byte abyte = Serial.read();
+
+        // Start new Sysex Message
+        if (abyte == 0xF0) {
+          memset(sysexmsg,0,100);
+          sysexidx = 0;
+          sysexmsg[sysexidx++] = abyte;
+          insysex = true;
+
+          Serial.print(" Sysex Start -->");
+          Serial.print(abyte);
+        }
+
+        else if ((abyte != 0xF0) && (insysex == true)) {
+
+          if (abyte == 0xF7) {
+            sysexmsg[sysexidx++] = abyte;
+            insysex = false;
+
+            Serial.print(abyte);
+            Serial.println("<-- Sysex End");
+
+            procesAMIDIFX(sysexmsg);
+          }
+          else {
+            sysexmsg[sysexidx++] = abyte;
+            Serial.print(abyte);
+          }
+        }
+        // Not a recognized command. Bounce back into AMIDIFX console
+        else
+            Serial.print(abyte);
+
+    }
+
+}
+
+
+/******************************************************************************************
+  hanldeMIDI(): Software MIDI Mux:
+
+  Read MIDI keyboard input channels, and use the Preset configuriations to output MIDI
+  signals to one or more Sound modules attached.
+******************************************************************************************/
+void handleMIDIInOut() {
+
+  // Read MIDI Channel 1 and output to Port 1 or 2 based on Preset Layer Module config
+  if (MIDI1.read()) {
+
+    // get a MIDI IN1 (Serial) message
+    midi::MidiType type = MIDI1.getType();
+    byte channel = MIDI1.getChannel();
+    byte data1 = MIDI1.getData1();
+    byte data2 = MIDI1.getData2();
+
+    //  Determine which MIDI Port to outut this Channel to based on current Preset:
+    //  Module 0 = Deebach
+    //  Module 1 = Integra 7 or other
+
+    // Output normal and non-SySEX MIDI messages
+    if (type != midi::SystemExclusive) {
+
+      // Check and layer incoming channel to up to 10 output channels
+      if ((channel == DRUMS) || (channel == UPPERKBD) || (channel == LOWERKBD) || (channel == BASSKBD)) {
+        for (int i = 0; i < 10; i++) {
+
+          int channelout = Layers[(curpreset * 16) + channel].channelidxout[i].channelout;
+          if (channelout != 0) {
+            MIDI1.send(type, data1, data2, channelout - 1);
+
+            #ifdef DEBUGMON
+              Serial.print("MIDI Layered Output - MIDI1.Type:");
+              Serial.print(type);
+              Serial.print(", MIDI1.Data1:");
+              Serial.print(data1);
+              Serial.print(", MIDI1.Data2:");
+              Serial.print(data2);
+              Serial.print(", MIDI1.Channel: ");
+              Serial.print(channelout);
+              if (module == 0)
+                Serial.println(" Module: Deebach");
+              else
+                Serial.println(" Module: Integra7");
+            #endif
+
+          }
+        }
+      }
+      // Do not layer other channels (not BASS, LOWER, UPPPER), and ignore/mute notes if output channel is 0
+      else {
+
+        int channelout = Layers[(curpreset * 16) + channel].channelidxout[0].channelout;
+        if (channelout != 0) {
+          MIDI1.send(type, data1, data2, channel - 1);
+
+          #ifdef DEBUGMON
+            Serial.print("MIDI Through - MIDI1.Type:");
+            Serial.print(type);
+            Serial.print(", MIDI1.Data1:");
+            Serial.print(data1);
+            Serial.print(", MIDI1.Data2:");
+            Serial.print(data2);
+            Serial.print(", MIDI1.Channel: ");
+            Serial.print(channelout);
+            if (module == 0)
+              Serial.println(" Module: Deebach");
+            else
+              Serial.println(" MOdule: Integra7");
+          #endif
+        }
+        else {
+          #ifdef DEBUGMON
+            Serial.print("MIDI Ignore/Muted - MIDI1.Type:");
+            Serial.print(type);
+            Serial.print(", MIDI1.Data1:");
+            Serial.print(data1);
+            Serial.print(", MIDI1.Data2:");
+            Serial.print(data2);
+            Serial.print(", MIDI1.Channel: ");
+            Serial.print(channelout);
+            if (module == 0)
+              Serial.println(" Module: Deebach");
+            else
+              Serial.println(" MOdule: Integra7");
+          #endif
+        }
+      }
+
+    }
+    else {
+      // Output SysEX MIDID Messages: MIDI SysEx messages are special. Message length is given in data1 & data2
+      unsigned int SysExLength = data1 + data2 * 256;
+      MIDI1.sendSysEx(SysExLength, MIDI1.getSysExArray(), true);
+    }
+  }
+}
+
+
+/******************************************************************************************
+  Init Layer data sctructure
+******************************************************************************************/
+void listLayers() {
+
+  Serial.println("Listing Layer contents: ");
+
+  for (int i = 0; i < PRESETCNT; i++) {
+    for (int j = 0; j < 16; j++) {
+      Serial.print(" Presetidx:");
+      Serial.print(Layers[(i * 16) + j].presetidx);
+      Serial.print(", Chanidx:");
+      Serial.print(Layers[(i * 16) + j].channelidx);
+      Serial.print(", Chanidxout0:");
+      Serial.print(Layers[(i * 16) + j].channelidxout[0].channelout);
+      Serial.print(", Chanidxout1:");
+      Serial.print(Layers[(i * 16) + j].channelidxout[1].channelout);
+      Serial.print(", Chanidxout2:");
+      Serial.print(Layers[(i * 16) + j].channelidxout[2].channelout);
+      Serial.print(", Chanidxout3:");
+      Serial.print(Layers[(i * 16) + j].channelidxout[3].channelout);
+      Serial.print(", Chanidxout4:");
+      Serial.print(Layers[(i * 16) + j].channelidxout[4].channelout);
+      Serial.print(", Chanidxout5:");
+      Serial.print(Layers[(i * 16) + j].channelidxout[5].channelout);
+      Serial.print(", Chanidxout6:");
+      Serial.print(Layers[(i * 16) + j].channelidxout[6].channelout);
+      Serial.print(", Chanidxout7:");
+      Serial.print(Layers[(i * 16) + j].channelidxout[7].channelout);
+      Serial.print(", Chanidxout8:");
+      Serial.print(Layers[(i * 16) + j].channelidxout[8].channelout);
+      Serial.print(", Chanidxout9:");
+      Serial.print(Layers[(i * 16) + j].channelidxout[9].channelout);
+      Serial.print(", octavetran:");
+      Serial.print(Layers[(i * 16) + j].octavetran);
+      Serial.print(", patchidx:");
+      Serial.println(Layers[(i * 16) + j].patchidx);
+    }
+
+    Serial.println("");
+  }
+
+}
+
+
+/******************************************************************************************
+  Init Layer data sctructure
+
+  Note:
+  1. Preset counts are 0 based
+  2. Channel counts are 1 based (1 - 16). Channel value of 0 = mute, or ignore input note!
+
+  Called during Setup, and everytime a new Song is selected
+******************************************************************************************/
+void initLayers() {
+
+  Serial.println("Initializing Layer contents");
+
+  for (int i = 0; i < PRESETCNT; i++) {
+    for (int j = 0; j < 16; j++) {
+
+      Layers[(i * 16) + j].presetidx = i;
+      Layers[(i * 16) + j].channelidx = j + 1;
+
+      Layers[(i * 16) + j].channelidxout[0].channelout = j + 1;
+      Layers[(i * 16) + j].channelidxout[0].moduleout = 0;
+      Layers[(i * 16) + j].channelidxout[1].channelout = 0;
+      Layers[(i * 16) + j].channelidxout[1].moduleout = 0;
+      Layers[(i * 16) + j].channelidxout[2].channelout = 0;
+      Layers[(i * 16) + j].channelidxout[2].moduleout = 0;
+      Layers[(i * 16) + j].channelidxout[3].channelout = 0;
+      Layers[(i * 16) + j].channelidxout[3].moduleout = 0;
+      Layers[(i * 16) + j].channelidxout[4].channelout = 0;
+      Layers[(i * 16) + j].channelidxout[4].moduleout = 0;
+      Layers[(i * 16) + j].channelidxout[5].channelout = 0;
+      Layers[(i * 16) + j].channelidxout[5].moduleout = 0;
+      Layers[(i * 16) + j].channelidxout[6].channelout = 0;
+      Layers[(i * 16) + j].channelidxout[6].moduleout = 0;
+      Layers[(i * 16) + j].channelidxout[7].channelout = 0;
+      Layers[(i * 16) + j].channelidxout[7].moduleout = 0;
+      Layers[(i * 16) + j].channelidxout[8].channelout = 0;
+      Layers[(i * 16) + j].channelidxout[8].moduleout = 0;
+      Layers[(i * 16) + j].channelidxout[9].channelout = 0;
+      Layers[(i * 16) + j].channelidxout[9].moduleout = -0;
+
+      Layers[(i * 16) + j].octavetran = 0;
+      Layers[(i * 16) + j].patchidx = 0;
+
+    }
+  }
+}
+
+/******************************************************************************************
+  Init Layer data sctructure
+
+  Note:
+  1. Preset counts are 0 based
+  2. Channel counts are 1 based (1 - 16). Channel value of 0 = mute, or ignore input note!
+
+  Called during Setup, and everytime a new Song is selected
+******************************************************************************************/
+void testinitLayers() {
+
+  Serial.println("Test Initializing Layer contents");
+
+  // Test 1a - Channel 1 Muted
+  int i = 0;        // Preset
+  int j = 0;        // Channel 1
+  Layers[(i * 16) + j].presetidx = i;
+  Layers[(i * 16) + j].channelidx = j + 1;
+  Layers[(i * 16) + j].channelidxout[0].channelout = 0;
+  Layers[(i * 16) + j].channelidxout[0].moduleout = 0;
+  //Serial.println("Test 1: Channel 1 muted");
+
+  // Test 2 - Bass Keyboard to Channel Bass
+  i = 0;        // Preset
+  j = BASSKBD;  // Bass Keyboard
+  Layers[(i * 16) + j].presetidx = i;
+  Layers[(i * 16) + j].channelidx = BASSKBD + 1;
+  Layers[(i * 16) + j].channelidxout[0].channelout = BASSKBD + 1;
+  Layers[(i * 16) + j].channelidxout[0].moduleout = 0;
+
+  // Test 3 - Lower Keyboard to Channels Lower, Lower + 1
+  i = 0;        // Preset
+  j = LOWERKBD; // Lower Keyboard
+  Layers[(i * 16) + j].presetidx = i;
+  Layers[(i * 16) + j].channelidx = LOWERKBD + 1;
+  Layers[(i * 16) + j].channelidxout[0].channelout = LOWERKBD + 1;
+  Layers[(i * 16) + j].channelidxout[0].moduleout = 0;
+  Layers[(i * 16) + j].channelidxout[1].channelout = LOWERKBD + 2;
+  Layers[(i * 16) + j].channelidxout[1].moduleout = 0;
+  //Serial.println("Test 2: Channel 12, 13 layered");
+
+  // Test 4 - Upper Keyboard to Channels Upper, Upper + 1, Upper + 2
+  i = 0;        // Preset
+  j = UPPERKBD; // Upper Keyboard
+  Layers[(i * 16) + j].presetidx = i;
+  Layers[(i * 16) + j].channelidx = UPPERKBD + 1;
+  Layers[(i * 16) + j].channelidxout[0].channelout = UPPERKBD + 1;
+  Layers[(i * 16) + j].channelidxout[0].moduleout = 0;
+  Layers[(i * 16) + j].channelidxout[1].channelout = UPPERKBD + 2;
+  Layers[(i * 16) + j].channelidxout[1].moduleout = 0;
+  Layers[(i * 16) + j].channelidxout[2].channelout = UPPERKBD + 3;
+  Layers[(i * 16) + j].channelidxout[2].moduleout = 0;
+  //Serial.println("Test 4: Channel 14, 15, 16 layered");
+
+  // Test 5 - Channel 2 Muted, routed to Channel 3 and 4
+  i = 0;        // Preset
+  j = 1;        // Channel 2
+  Layers[(i * 16) + j].presetidx = i;
+  Layers[(i * 16) + j].channelidx = j + 1;
+  Layers[(i * 16) + j].channelidxout[0].channelout = 0;
+  Layers[(i * 16) + j].channelidxout[0].moduleout = 0;
+  Layers[(i * 16) + j].channelidxout[1].channelout = j + 2;
+  Layers[(i * 16) + j].channelidxout[1].moduleout = 0;
+  Layers[(i * 16) + j].channelidxout[2].channelout = j + 3;
+  Layers[(i * 16) + j].channelidxout[2].moduleout = 0;
+  //Serial.println("Test 5: Channel 2 muted and latered to Channels 3 and 4");
+
+}
+
+
+/******************************************************************************************
+  Test Note Layering logic
+******************************************************************************************/
+void testLayers(int testno) {
+
+  //Serial.println("*** testLayers: Please connect MIDI OUT 2 to MIDI IN 1 to execute this test ***");
+
+  if (testno == 1) {
+    Serial.println("Testing Channel 1 Muted");
+    testNote(60, 0);
+    delay(250);
+  }
+
+  if (testno == 2) {
+    Serial.println("Testing Channel UPPERKBD");
+    testNote(61, UPPERKBD);
+    delay(250);
+  }
+
+  if (testno == 3) {
+    Serial.println("Testing Channel LOWERKBD");
+    testNote(62, LOWERKBD);
+    delay(250);
+  }
+
+  if (testno == 4) {
+    Serial.println("Testing Channel BASSKBD");
+    testNote(63, BASSKBD);
+    delay(250);
+  }
+
+
+  if (testno == 5) {
+    Serial.println("Testing Channel 2 Muted, directed to Channel 3 and 4");
+    testNote(64, 1);
+    delay(250);
+  }
+
+  if (testno == 6) {
+    Serial.println("Testing Sysex Send for Test Notes");
+
+    uint8_t sysexbuf[] = {0xF0, 0X80, 0x06, 0x00, 0x00, 0xF7};
+    unsigned int SysExLength = 6;
+    MIDI2.sendSysEx(SysExLength, sysexbuf, true);
+  }
+
+  if (testno == 7) {
+    Serial.println("Testing Sysex Send for Reset");
+
+    uint8_t sysexbuf[] = {0xF0, 0X80, 0x06, 0x00, 0x01, 0xF7};
+    unsigned int SysExLength = 6;
+    MIDI2.sendSysEx(SysExLength, sysexbuf, true);
+  }
+
+  if (testno == 8) {
+    Serial.println("Testing Sysex Send for Update Preset Layer");
+
+    uint8_t sysexbuf[] = {0xF0, 0X80, 0x14, 0x00, 0x02, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x00, 0x00, 0xF7};
+    unsigned int SysExLength = 20;
+    MIDI2.sendSysEx(SysExLength, sysexbuf, true);
+  }
+
+}
+
+
+/******************************************************************************************
+  Play a test note from MIDI Port 2
+  For test, we assume that Port 2 Out is connected to Port 1
+******************************************************************************************/
+void testNote(byte note, byte channel) {
+
+  //MIDI1.sendNoteOn(note, 120, channel);
+  MIDI2.sendNoteOn(note, 0x50, channel);
+  delay(200);
+
+  //MIDI1.sendNoteOff(note, 0, channel);
+  MIDI2.sendNoteOff(note, 0, channel);
+  delay(200);
+
+}
+
+
+/******************************************************************************************
+  Loop through an array of test notes on specified channel
+******************************************************************************************/
+void testNotes(int channel) {
+
+  byte tstsong[] = {48, 50, 52, 53, 55, 57, 59, 60};        // Array of test notes to play
+
+  for (uint16_t i = 0; i < (sizeof(tstsong) / sizeof(byte)); i++) {
+
+    #ifdef DEBUGMON
+      Serial.print(F("Sounding note: "));
+      Serial.print(channel);
+      Serial.print(F(", "));
+      Serial.println(tstsong[i]);
+    #endif
+
+    testNote(tstsong[i], (byte)channel);
+  }
+}
