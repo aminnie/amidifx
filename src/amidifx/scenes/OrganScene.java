@@ -253,14 +253,14 @@ public class OrganScene {
     Button r2layerbtn;
     Button r3layerbtn;
 
-    boolean r1pressed = false;
+    boolean r1pressed = true;
     boolean r2pressed = false;
     boolean r3pressed = false;
 
     Button l1layerbtn;       // Lefthand Layering Buttons
     Button l2layerbtn;
 
-    boolean l1pressed = false;
+    boolean l1pressed = true;
     boolean l2pressed = false;
 
     Slider sliderVOL;
@@ -1265,8 +1265,9 @@ public class OrganScene {
 
             // Lower Buttons
 
-            l1layerbtn = new Button("Lower 1 [12]");       // Lefthand Layering Buttons
-            l1layerbtn.setStyle(lrpressedOff);
+            l1layerbtn = new Button("Lower 1 [12]  L1 ");       // Lefthand Layering Buttons
+            l1layerbtn.setStyle(lrpressedOn);
+            l1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             l1layerbtn.setOnAction(event -> {
                 if (l1pressed == false) {
                     l1layerbtn.setStyle(lrpressedOn);
@@ -1278,8 +1279,10 @@ public class OrganScene {
                 }
                 arduinoUtils.lefthandLayerSysexData(l1pressed, l2pressed);
             });
-            l2layerbtn = new Button("Lower 2 [13]");
+
+            l2layerbtn = new Button("Lower 2 [13]  L1 ");
             l2layerbtn.setStyle(lrpressedOff);
+            l2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             l2layerbtn.setOnAction(event -> {
                 if (l2pressed == false) {
                     l2layerbtn.setStyle(lrpressedOn);
@@ -1706,8 +1709,9 @@ public class OrganScene {
 
             // Upper Buttons
 
-            r1layerbtn = new Button("Upper 1 [14]");       // Righthand Layering Buttons
-            r1layerbtn.setStyle(lrpressedOff);
+            r1layerbtn = new Button("Upper 1 [14]  U1 ");       // Righthand Layering Buttons
+            r1layerbtn.setStyle(lrpressedOn);
+            r1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r1layerbtn.setOnAction(event -> {
                 if (r1pressed == false) {
                     r1layerbtn.setStyle(lrpressedOn);
@@ -1719,8 +1723,9 @@ public class OrganScene {
                 }
                 arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
             });
-            r2layerbtn = new Button("Upper 2 [15]");
+            r2layerbtn = new Button("Upper 2 [15]  U1 ");
             r2layerbtn.setStyle(lrpressedOff);
+            r2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r2layerbtn.setOnAction(event -> {
                 if (r2pressed == false) {
                     r2layerbtn.setStyle(lrpressedOn);
@@ -1732,8 +1737,9 @@ public class OrganScene {
                 }
                 arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
             });
-            r3layerbtn = new Button("Upper 3 [16]");
+            r3layerbtn = new Button("Upper 3 [16]  U1 ");
             r3layerbtn.setStyle(lrpressedOff);
+            r3layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r3layerbtn.setOnAction(event -> {
                 if (r3pressed == false) {
                     r3layerbtn.setStyle(lrpressedOn);
