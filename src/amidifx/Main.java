@@ -2157,29 +2157,50 @@ public class Main extends Application {
             else if (checkIdx < 12) { x = checkIdx - 8; y = 2; }
             else { x = checkIdx - 12; y = 3; }
             gridLayers.add(chkBoxArray[checkIdx], x, y, 1, 1);
-
-            //chkBox.setIndeterminate(true);
         }
-
-        // Send Presets to MIDI Button
-        Button buttonApplyPreset = new Button("Apply Preset");
-        buttonApplyPreset.setPrefSize(xbutton, ybutton / 2);
-        buttonApplyPreset.setStyle(btnplayOff);
-        buttonApplyPreset.setOnAction(event -> {
-            MidiPreset applypreset = dopresets.getPreset(channelIdx);
-            dopresets.applyMidiPreset(applypreset, channelIdx+1);
-
-            labelstatus.setText(" Status: Preset CHAN " + (channelIdx + 1) + " MIDI sent");
-        });
 
         vboxLayers.setPadding(new Insets(0, 0, 0,0));
         vboxLayers.getChildren().add(midiLayerLabel);
         vboxLayers.getChildren().add(gridLayers);
-        vboxLayers.getChildren().add(buttonApplyPreset);
+
+        VBox vboxApplyPreset = new VBox();
+        vboxApplyPreset.setSpacing(10);
+
+        Label labelPresets = new Label("Apply Presets");
+        labelPresets.setStyle(styletext);
+
+        // Send Presets to MIDI Button
+        Button buttonApplyPreset = new Button("1 Channel");
+        buttonApplyPreset.setPrefSize(xbutton / 1.2, ybutton / 2);
+        buttonApplyPreset.setStyle(btnplayOff);
+        buttonApplyPreset.setOnAction(event -> {
+            MidiPreset applypreset = dopresets.getPreset(channelIdx);
+            dopresets.applyMidiPreset(applypreset, channelIdx + 1);
+
+            labelstatus.setText(" Status: Preset CHAN " + (channelIdx + 1) + " MIDI sent");
+        });
+
+        // Send Presets to MIDI Button
+        Button buttonApplyAllPresets = new Button("16 Channels");
+        buttonApplyAllPresets.setPrefSize(xbutton / 1.2, ybutton / 2);
+        buttonApplyAllPresets.setStyle(btnplayOff);
+        buttonApplyAllPresets.setOnAction(event -> {
+            for (int idx = 0; idx < 15; idx++) {
+                MidiPreset applypreset = dopresets.getPreset(idx);
+                dopresets.applyMidiPreset(applypreset, idx + 1);
+            }
+
+            labelstatus.setText(" Status: MIDI Sent all CHAN Presets");
+        });
+
+        vboxApplyPreset.getChildren().add(labelPresets);
+        vboxApplyPreset.getChildren().add(buttonApplyPreset);
+        vboxApplyPreset.getChildren().add(buttonApplyAllPresets);
 
         // Assemble Layers and Effects Controls
         flowpane.getChildren().add(vboxEffects);
         flowpane.getChildren().add(vboxLayers);
+        flowpane.getChildren().add(vboxApplyPreset);
 
         // Assemble the Preset Scene BorderPane View
         borderPane1.setTop(borderPaneTop);
