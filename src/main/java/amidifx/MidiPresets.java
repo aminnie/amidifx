@@ -13,7 +13,7 @@ public class MidiPresets {
 
     // CSV file delimiter
     private static final String CSV_DELIMITER = ",";
-    private static final String CSV_DIRECTORY = "C:/amidifx/midifiles/";
+    private static final String MID_DIRECTORY = "C:/amidifx/midifiles/";
 
     String presetFile;
 
@@ -45,7 +45,7 @@ public class MidiPresets {
         BufferedReader br = null;
         try {
             // To do: Read a specific Preset csv file
-            br = new BufferedReader(new FileReader(CSV_DIRECTORY + presetFile));
+            br = new BufferedReader(new FileReader(MID_DIRECTORY + presetFile));
 
             String line;
             while ((line = br.readLine()) != null) {
@@ -170,7 +170,7 @@ public class MidiPresets {
         presetList.get(nextpresetIdx).setPatchIdx(midipreset.getPatchIdx());
         presetList.get(nextpresetIdx).setPatchName(midipreset.getPatchName());
 
-        System.out.println("Copied Preset " + (presetIdx + 1) + " to " + (presetList.get(nextpresetIdx).getPresetIdx() + 1));
+        //System.out.println("Copied Preset " + (presetIdx + 1) + " to " + (presetList.get(nextpresetIdx).getPresetIdx() + 1));
     }
 
     // List Preset details at index number
@@ -201,7 +201,7 @@ public class MidiPresets {
         BufferedWriter bw = null;
         try {
             //Specify the file name and path here
-            File file = new File(CSV_DIRECTORY + presetFle);
+            File file = new File(MID_DIRECTORY + presetFle);
 
             // Ensure that the fil gets created if it is not present at the specified location
             if (!file.exists()) {

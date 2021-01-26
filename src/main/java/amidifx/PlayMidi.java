@@ -21,7 +21,7 @@ public class PlayMidi {
     // Create instance of Shared Status to report back to Scenes
     final SharedStatus sharedStatus = SharedStatus.getInstance();
 
-    private static final String CSV_DIRECTORY = "C:/amidifx/midifiles/";
+    private static final String MID_DIRECTORY = "C:/amidifx/midifiles/";
 
     // Hardcoded keyboard channels for now. Note channels are coded from 0 - 15!
     private static final int DRUMS = 10;
@@ -97,7 +97,7 @@ public class PlayMidi {
         try {
             System.out.println("PlayMidi: Starting Sequencer Play " + midiFile);
 
-            mfile = new File(CSV_DIRECTORY + midiFile);
+            mfile = new File(MID_DIRECTORY + midiFile);
             if (!mfile.exists()) {
                 sharedStatus.setStatusText(" Playing " + midiFile + ". File not found!");
                 System.err.println("PlayMidi: FIle " + midiFile + " does not exist!");
