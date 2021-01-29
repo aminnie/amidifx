@@ -69,6 +69,8 @@ public class Main extends Application {
     int xpresetlist = (int)(175 * xmul);
     int ypresetlist = (int)(550 * 1); //xmul)
 
+    int yslider = (int)(135 * xmul);
+
     int xstatusleft = (int)(400 * xmul);
 
     int xmute = (int)(50 * xmul);
@@ -1922,6 +1924,7 @@ public class Main extends Application {
         sliderVOL.setShowTickMarks(true);
         sliderVOL.setMajorTickUnit(16);
         sliderVOL.setBlockIncrement(4);
+        sliderVOL.setPrefHeight(yslider);
         Rotate rotateVol = new Rotate();
         sliderVOL.valueProperty().addListener((observable, oldValue, newValue) -> {
             //Setting the angle for the rotation
@@ -1946,6 +1949,7 @@ public class Main extends Application {
         sliderEXP.setShowTickMarks(true);
         sliderEXP.setMajorTickUnit(16);
         sliderEXP.setBlockIncrement(4);
+        sliderEXP.setPrefHeight(yslider);
         Rotate rotateExp = new Rotate();
         sliderEXP.valueProperty().addListener((observable, oldValue, newValue) -> {
             //Setting the angle for the rotation
@@ -1970,6 +1974,7 @@ public class Main extends Application {
         sliderREV.setShowTickMarks(true);
         sliderREV.setMajorTickUnit(16);
         sliderREV.setBlockIncrement(4);
+        sliderREV.setPrefHeight(yslider);
         Rotate rotateRev = new Rotate();
         sliderREV.valueProperty().addListener((observable, oldValue, newValue) -> {
             //Setting the angle for the rotation
@@ -1994,6 +1999,7 @@ public class Main extends Application {
         sliderCHO.setShowTickMarks(true);
         sliderCHO.setMajorTickUnit(16);
         sliderCHO.setBlockIncrement(4);
+        sliderCHO.setPrefHeight(yslider);
         Rotate rotateCho = new Rotate();
         sliderCHO.valueProperty().addListener((observable, oldValue, newValue) -> {
             //Setting the angle for the rotation
@@ -2018,6 +2024,7 @@ public class Main extends Application {
         sliderMOD.setShowTickMarks(true);
         sliderMOD.setMajorTickUnit(16);
         sliderMOD.setBlockIncrement(4);
+        sliderMOD.setPrefHeight(yslider);
         Rotate rotateMod = new Rotate();
         sliderMOD.valueProperty().addListener((observable, oldValue, newValue) -> {
             //Setting the angle for the rotation
@@ -2042,6 +2049,7 @@ public class Main extends Application {
         sliderPAN.setShowTickMarks(true);
         sliderPAN.setMajorTickUnit(16);
         sliderPAN.setBlockIncrement(4);
+        sliderPAN.setPrefHeight(yslider);
         Rotate rotatePan = new Rotate();
         sliderPAN.valueProperty().addListener((observable, oldValue, newValue) -> {
             //Setting the angle for the rotation
@@ -2068,6 +2076,7 @@ public class Main extends Application {
         sliderTRE.setShowTickMarks(true);
         sliderTRE.setMajorTickUnit(16);
         sliderTRE.setBlockIncrement(4);
+        sliderTRE.setPrefHeight(yslider);
         Rotate rotateTre = new Rotate();
         sliderTRE.valueProperty().addListener((observable, oldValue, newValue) -> {
             //Setting the angle for the rotation
@@ -2158,8 +2167,8 @@ public class Main extends Application {
 
             if (checkIdx < 4) { x = checkIdx; y = 0; }
             else if (checkIdx < 8) { x = checkIdx - 4; y = 1; }
-            else if (checkIdx < 12) { x = checkIdx - 8; y = 2; }
-            else { x = checkIdx - 12; y = 3; }
+            else if (checkIdx < 12) { x = checkIdx - 8; y = 3; }
+            else { x = checkIdx - 12; y = 5; }
             gridLayers.add(chkBoxArray[checkIdx], x, y, 1, 1);
         }
 
@@ -2174,8 +2183,8 @@ public class Main extends Application {
         labelPresets.setStyle(styletext);
 
         // Send Presets to MIDI Module Button
-        Button buttonApplyPreset = new Button("Current Chan");
-        buttonApplyPreset.setPrefSize(xbutton / 1.2, ybutton / 2);
+        Button buttonApplyPreset = new Button("Cur Channel");
+        buttonApplyPreset.setPrefSize(xbutton / 1.2, ybutton);
         buttonApplyPreset.setStyle(btnplayOff);
         buttonApplyPreset.setOnAction(event -> {
             MidiPreset applypreset = dopresets.getPreset(presetIdx * 16 + channelIdx);
@@ -2185,8 +2194,8 @@ public class Main extends Application {
         });
 
         // Send All Presets to MIDI Module Button
-        Button buttonApplyAllPresets = new Button("16 Channels");
-        buttonApplyAllPresets.setPrefSize(xbutton / 1.2, ybutton / 2);
+        Button buttonApplyAllPresets = new Button("All Channels");
+        buttonApplyAllPresets.setPrefSize(xbutton / 1.2, ybutton);
         buttonApplyAllPresets.setStyle(btnplayOff);
         buttonApplyAllPresets.setOnAction(event -> {
             for (int idx = 0; idx < 16; idx++) {
@@ -2199,10 +2208,9 @@ public class Main extends Application {
 
         // Copy all Presets to Next Preset. Makes it easier to set next one up - especially when it is incremental
         Button buttonCopyPresets = new Button("Copy Next");
-        buttonCopyPresets.setPrefSize(xbutton / 1.2, ybutton / 2);
-        buttonCopyPresets.setStyle(btnMenuOff);
+        buttonCopyPresets.setPrefSize(xbutton / 1.2, ybutton / 1.2);
+        buttonCopyPresets.setStyle(selectcolorOff);
         buttonCopyPresets.setOnAction(event -> {
-
             if (presetIdx >= 7) {
                 labelstatus.setText(" Status: Copy Preset " + (presetIdx + 1) + " no next Preset to copy to!");
                 return;
@@ -2215,13 +2223,17 @@ public class Main extends Application {
             buttonSave.setDisable(false);
             flgDirtyPreset = true;
 
-            labelstatus.setText(" Status: Copy Preset " + (presetIdx + 1) + " copied to next " + (presetIdx + 2));
+            labelstatus.setText(" Status: Preset " + (presetIdx + 1) + " copied to next " + (presetIdx + 2));
         });
 
         vboxApplyPreset.getChildren().add(labelPresets);
         vboxApplyPreset.getChildren().add(buttonApplyPreset);
         vboxApplyPreset.getChildren().add(buttonApplyAllPresets);
-        vboxApplyPreset.getChildren().add(buttonCopyPresets);
+
+        VBox vboxCopyAll = new VBox();
+        vboxCopyAll.setPadding(new Insets(27,0,0,00));
+        vboxCopyAll.getChildren().add(buttonCopyPresets);
+        vboxApplyPreset.getChildren().add(vboxCopyAll);
 
         // Assemble Layers and Effects Controls
         flowpane.getChildren().add(vboxEffects);
