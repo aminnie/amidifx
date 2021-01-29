@@ -44,6 +44,7 @@ public class PlayMidi {
 
     Boolean midirunning = false;
     long barzerotickposition = 0;
+    int barstartnumber = 1;
 
     long seqresolution;
 
@@ -153,11 +154,16 @@ public class PlayMidi {
                     }
                 }
                 // Bar/Beat Count Cues: Get the current sequencer tick position to properly reset Bar/Beat counter
+                // B0 = Lead in Bar, B1 = Start with no Lead in
                 else if (cuetext[0] == 'B') {
-                    //int baridx = (cuetext[1] - 48) - 1;
                     //System.out.println("### PlayMidi: MetaEvent Cue: Bar [0] " + cuetext[0] + " [1] " + cuetext[1]);
 
                     barzerotickposition = sequencer.getTickPosition();
+
+                    barstartnumber = (cuetext[1] - 48) - 1;
+                    if ((barstartnumber < 0) || (barstartnumber > 1)) {
+                        barstartnumber = 1;
+                    }
                 }
             }
             // End of file and play
@@ -215,7 +221,7 @@ public class PlayMidi {
             beatposition = (tickposition - (barposition * (seqresolution * TimeSigNum) )) / (seqresolution * 1);
 
             //System.out.println("PlayMidi: Bar.Beat Position " + (barposition + 1) + "." + (beatposition + 1));
-            return (barposition + 1) + "." + (beatposition + 1) + " | " + (ticklen - barzerolen);
+            return (barposition + barstartnumber) + "." + (beatposition + 1) + " | " + (ticklen - barzerolen);
         }
         else {
             //System.out.println("PlayMidi: Bar.Beat Position " + barposition + "." + beatposition);
