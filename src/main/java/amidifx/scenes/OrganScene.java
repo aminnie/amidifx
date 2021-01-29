@@ -348,9 +348,6 @@ public class OrganScene {
 
             // Start Building the Scene
 
-            ////Parent root = FXMLLoader.load(getClass().getResource("../amidifx.fxml"));
-            //System.out.println("OrganScene root: " + root.toString());
-
             System.out.println("OrganScene: Scene OrganScene!");
 
             BorderPane borderPaneOrg = new BorderPane();
@@ -2851,7 +2848,7 @@ public class OrganScene {
         // To do: Determine if we need to update and save the Button PC, MSB, LSB, PatchIdx, etc as well
 
         // Upper 1-1
-        MidiPreset preset = dopresets.getPreset(presetIdx + sharedStatus.getUpper1CHAN()-1);
+        MidiPreset preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getUpper1CHAN()-1);
         rbutton11.setText(preset.getPatchName());
         offAllUpper1Buttons();
         rbutton11.setStyle(rcolorOn);
@@ -2863,37 +2860,37 @@ public class OrganScene {
         //midiButtons.getMidiButton(buttonidx, 0).setMSB((int)preset.getMSB());
 
         // Upper 2-1
-        preset = dopresets.getPreset(presetIdx + sharedStatus.getUpper2CHAN()-1);
+        preset = dopresets.getPreset(presetIdx * 16  + sharedStatus.getUpper2CHAN()-1);
         rbutton21.setText(preset.getPatchName());
         offAllUpper2Buttons();
         rbutton21.setStyle(rcolorOn);
 
         // Upper 3-1
-        preset = dopresets.getPreset(presetIdx + sharedStatus.getUpper3CHAN()-1);
+        preset = dopresets.getPreset(presetIdx * 16  + sharedStatus.getUpper3CHAN()-1);
         rbutton31.setText(preset.getPatchName());
         offAllUpper3Buttons();
         rbutton31.setStyle(rcolorOn);
 
         // Lower 1-1
-        preset = dopresets.getPreset(presetIdx + sharedStatus.getLower1CHAN()-1);
+        preset = dopresets.getPreset(presetIdx * 16  + sharedStatus.getLower1CHAN()-1);
         lbutton11.setText(preset.getPatchName());
         offAllLower1Buttons();
         lbutton11.setStyle(lcolorOn);
 
         // Lower 2-1
-        preset = dopresets.getPreset(presetIdx + sharedStatus.getLower2CHAN()-1);
+        preset = dopresets.getPreset(presetIdx * 16  + sharedStatus.getLower2CHAN()-1);
         lbutton21.setText(preset.getPatchName());
         offAllLower2Buttons();
         lbutton21.setStyle(lcolorOn);
 
         // Bass 1
-        preset = dopresets.getPreset(presetIdx + sharedStatus.getBassCHAN()-1);
+        preset = dopresets.getPreset(presetIdx * 16  + sharedStatus.getBassCHAN()-1);
         bleft1.setText(preset.getPatchName());
         offAllBassButtons();
         bleft1.setStyle(bcolorOn);
 
         // Drum 1
-        preset = dopresets.getPreset(presetIdx + sharedStatus.getDrumCHAN()-1);
+        preset = dopresets.getPreset(presetIdx * 16  + sharedStatus.getDrumCHAN()-1);
         dleft1.setText(preset.getPatchName());
         offAllDrumButtons();
         dleft1.setStyle(dcolorOn);
