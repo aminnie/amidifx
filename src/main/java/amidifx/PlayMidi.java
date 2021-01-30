@@ -89,6 +89,9 @@ public class PlayMidi {
             return false;
         }
 
+        // Reset all MIDI Controllers as we start out
+        sendAllControllersOff();
+
         // Prepare the TIme Signature for this Song
         setTimeSignature(midiSong);
 
@@ -453,6 +456,30 @@ public class PlayMidi {
     }
 
 
+    //http://midi.teragonaudio.com/tech/midispec/ctloff.htm
+    public boolean sendAllControllersOff() {
+
+        int allControllersoff = 121;
+        int CHAN = 0;
+
+        long timeStamp = -1;
+        ShortMessage midiMsg = new ShortMessage();
+
+        try {
+            for (CHAN = 0; CHAN < 16; CHAN++) {
+                midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, allControllersoff & 0XFF, 0 &0XFF);
+                midircv.send(midiMsg, timeStamp);
+            }
+        }
+        catch (Exception ex) {
+            System.err.println("### PlayMidi Error: Sent MIDI Program Change: All Controllers Reset:  CHAN: " + (CHAN + 1));
+            System.err.println(ex);
+            return false;
+        }
+
+        return true;
+    }
+
     public boolean sendMidiPanic() {
         ShortMessage midiMsg = new ShortMessage();
 
@@ -482,6 +509,8 @@ public class PlayMidi {
             System.err.println(ex);
             return false;
         }
+
+        sendAllControllersOff();
 
         sharedStatus.setStatusText("PlayMidi: MIDI PANIC Sent");
 

@@ -2148,7 +2148,7 @@ public class Main extends Application {
         String[] midiChannels = { " 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ",
                 " 9 ", "10 ", "11 ", "12 ", "13 ", "14 ", "15 ", "16 "};
 
-        midiLayerLabel = new Label("Channel " + (channelIdx + 1) + " Layers");
+        midiLayerLabel = new Label("Keyboard: Channel " + (channelIdx + 1) + " Layers");
         midiLayerLabel.setStyle(styletext);
 
         chkBoxArray = new CheckBox[16];
@@ -2208,7 +2208,7 @@ public class Main extends Application {
 
         // Copy all Presets to Next Preset. Makes it easier to set next one up - especially when it is incremental
         Button buttonCopyPresets = new Button("Copy Next");
-        buttonCopyPresets.setPrefSize(xbutton / 1.2, ybutton / 1.2);
+        buttonCopyPresets.setPrefSize(xbutton / 1.2, ybutton / 1.15);
         buttonCopyPresets.setStyle(selectcolorOff);
         buttonCopyPresets.setOnAction(event -> {
             if (presetIdx >= 7) {
