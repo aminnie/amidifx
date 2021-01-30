@@ -127,6 +127,8 @@ public class Main extends Application {
     boolean bplaying = false;
     boolean btestnote = false;
 
+    boolean deleteconfirmed = false;
+
     ListView<String> presetListView;
     String songTitle = "Organ";
     String songFile = "amloop.mid";
@@ -169,7 +171,7 @@ public class Main extends Application {
             System.exit(-1);
         }
         else {
-            sharedStatus.setStatusText("PlayMidi: MIDI Device is " + sharedStatus.getSynth());
+            sharedStatus.setStatusText("Selected MIDI Device " + sharedStatus.getSynth());
         }
 
         // Prepare the Channel Program and Effects tracking list
@@ -649,7 +651,7 @@ public class Main extends Application {
 
                         // Never overwrite default.csv. System needs to boot.
                         if (txtPresetSaveAsFile.getText().equals("default.csv")) {
-                            System.err.println("### Main Error: Required file default.csv does not exist. Aborting start up");
+                            System.err.println("### Main Error: Required file default.csv does not exist.");
                             return;
                         }
 
@@ -708,6 +710,9 @@ public class Main extends Application {
                     }
                 }
             }
+
+            // Default the "Saved As" new file name after save
+            txtPresetSaveAsFile.setPromptText("New Preset File (required for New)");
 
         });
 
@@ -860,32 +865,43 @@ public class Main extends Application {
             alert.setContentText("Proceed with delete?");
             ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
             ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.NO);
-            alert.getButtonTypes().setAll(okButton, noButton);
+            alert.getButtonTypes().setAll(noButton, okButton);
             alert.showAndWait().ifPresent(type -> {
-                if (type == ButtonType.NO) {
+                if (type == okButton) {
+                    deleteconfirmed = true;
                     labelstatusSng.setText(" Status: Deleting current Song");
+                }
+                else {
+                    deleteconfirmed = false;
+                    labelstatusSng.setText(" Status: Abort delete current Song");
+                    return;
                 }
             });
 
-            for(Object o : selectedIndices) {
-                System.out.println("Main: o = " + o + " (" + o.getClass() + ")");
-                int idx = Integer.parseInt(o.toString());
+            if (deleteconfirmed) {
+                for(Object o : selectedIndices) {
+                    System.out.println("Main: o = " + o + " (" + o.getClass() + ")");
+                    int idx = Integer.parseInt(o.toString());
 
-                MidiSong midiSong = midiSongs.get(idx);
-                String songtitle = midiSong.getSongTitle();
+                    MidiSong midiSong = midiSongs.get(idx);
+                    String songtitle = midiSong.getSongTitle();
 
-                // Never delete the initial default organ preset file.
-                if (idx == 0) {
-                    labelstatusSng.setText(" Status: Deleting Song " + songtitle + " not allowed");
-                    return;
+                    // Never delete the initial default organ preset file.
+                    if (idx == 0) {
+                        labelstatusSng.setText(" Status: Deleting Song " + songtitle + " not allowed");
+                        return;
+                    }
+
+                    midiSongs.remove(idx);
+
+                    songlistView.getItems().remove(idx);
+                    songlistView.refresh();
+
+                    labelstatusSng.setText(" Status: Deleted Song " + songtitle);
+
+                    // Enable user save of UI deleted Song form List
+                    buttonupdate.setDisable(false);
                 }
-
-                midiSongs.remove(idx);
-
-                songlistView.getItems().remove(idx);
-                songlistView.refresh();
-
-                labelstatusSng.setText(" Status: Deleted Song " + songtitle);
             }
         });
 
@@ -2156,6 +2172,7 @@ public class Main extends Application {
         for (checkIdx = 0; checkIdx < 16; checkIdx++) {                     // midiChannels.length
             chkBoxArray[checkIdx] = new CheckBox(midiChannels[checkIdx]);
             chkBoxArray[checkIdx].setStyle(styletext);
+            chkBoxArray[checkIdx].setDisable(!ArduinoUtils.getInstance().hasARMPort());
             // Add Check Box event to save changes to Preset
             EventHandler<ActionEvent> event = e -> {
                 updateChannelOutIdx(channelIdx);

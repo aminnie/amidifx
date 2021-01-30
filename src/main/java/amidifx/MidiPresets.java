@@ -3,6 +3,7 @@ package amidifx;
 import amidifx.models.MidiLayer;
 import amidifx.models.MidiPatch;
 import amidifx.models.MidiPreset;
+import amidifx.models.SharedStatus;
 import amidifx.utils.ArduinoUtils;
 
 import java.io.*;
@@ -16,6 +17,8 @@ public class MidiPresets {
     private static final String MID_DIRECTORY = "C:/amidifx/midifiles/";
 
     String presetFile;
+
+    SharedStatus sharedStatus;
 
     // List for holding Patch objects
     final List<MidiPreset> presetList = new ArrayList<>();
@@ -36,6 +39,9 @@ public class MidiPresets {
         this.presetFile = presetFile;
 
         MidiPresets banks = new MidiPresets();
+
+        // Create instance of Shared Status to report back to Scenes
+        sharedStatus = SharedStatus.getInstance();
 
         // To do: Need to validate this
         presetList.clear();
@@ -110,6 +116,9 @@ public class MidiPresets {
                         //System.out.println("Sending to ARM Controller " + midilayer.toString());
                     }
                 }
+
+                // Reload presets on screens such as Perform it has changed
+                sharedStatus.setPresetReload(false);
 
             }
             catch (IOException ie) {
@@ -192,6 +201,9 @@ public class MidiPresets {
 
         boolean bsaved = false;
 
+        // Create instance of Shared Status to report back to Scenes
+        sharedStatus = SharedStatus.getInstance();
+
         // Print Preset Channels
         //for (int i = 0; i < presetList.size(); i++) {
         //    MidiPreset mPreset = presetList.get(i);
@@ -232,6 +244,9 @@ public class MidiPresets {
 
                 //System.out.print("presetline " + idx + ": " + presetline);
             }
+
+            // Reload presets on screens such as Perform it has changed
+            sharedStatus.setPresetReload(true);
 
             //System.out.println("Preset file " + presetFle + " successfully written");
         }

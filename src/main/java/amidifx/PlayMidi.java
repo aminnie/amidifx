@@ -103,7 +103,8 @@ public class PlayMidi {
 
             mfile = new File(MID_DIRECTORY + midiFile);
             if (!mfile.exists()) {
-                sharedStatus.setStatusText(" Playing " + midiFile + ". File not found!");
+                sharedStatus.setStatusText("Playing " + midiFile + ". File not found!");
+
                 System.err.println("PlayMidi: FIle " + midiFile + " does not exist!");
                 return false;
             }
@@ -153,7 +154,7 @@ public class PlayMidi {
                             readpresets.applyMidiPreset(preset, chanidx);
 
                         }
-                        sharedStatus.setStatusText(" Preset " + (presetidx + 1) + " auto applied ");
+                        sharedStatus.setStatusText("Preset " + (presetidx + 1) + " auto applied ");
                     }
                 }
                 // Bar/Beat Count Cues: Get the current sequencer tick position to properly reset Bar/Beat counter
@@ -176,7 +177,10 @@ public class PlayMidi {
                 midirunning = false;
                 sharedStatus.isMidirunning(false);
 
-                sharedStatus.setStatusText("PlayMidi: Play ended " + midiFile);
+                // Reset all MIDI Controllers as we start out
+                sendAllControllersOff();
+
+                sharedStatus.setStatusText("Sequencer play ended " + midiFile);
                 //System.out.println("### PlayMidi: MetaEvent Play ended " + midiFile);
             }
         });
@@ -189,7 +193,7 @@ public class PlayMidi {
 
         midirunning = true;
         sharedStatus.isMidirunning(true);
-        sharedStatus.setStatusText("PlayMidi: Sequencer play started " + midiFile);
+        sharedStatus.setStatusText("Sequencer play started " + midiFile);
         return true;
     }
 
@@ -253,11 +257,11 @@ public class PlayMidi {
 
         }
         catch (Exception ex) {
-            System.err.println("### PlayMidi: Error attempting to stop sequencer play: " + ex);
+            //System.err.println("### PlayMidi: Error attempting to stop sequencer play: " + ex);
             return false;
         }
 
-        sharedStatus.setStatusText("PlayMidi: Stopped Sequencer play " + midiFile);
+        sharedStatus.setStatusText("Stopped Sequencer play " + midiFile);
         return true;
     }
 
@@ -512,7 +516,7 @@ public class PlayMidi {
 
         sendAllControllersOff();
 
-        sharedStatus.setStatusText("PlayMidi: MIDI PANIC Sent");
+        sharedStatus.setStatusText("MIDI PANIC Sent");
 
         return true;
     }
@@ -564,6 +568,7 @@ public class PlayMidi {
                     selectedDevice.open();
 
                     sharedStatus.setSynth(selectedDevice.getDeviceInfo().getName());
+
                     System.out.println("PlayMidi: Selected MIDI device *** " + selectedDevice.getDeviceInfo().getName() + " ***");
                 }
                 catch (MidiUnavailableException e) {
@@ -571,7 +576,6 @@ public class PlayMidi {
                     return false;
                 }
                 midircv = selectedDevice.getReceiver();
-                //super.resume();
 
                 result = true;
             }

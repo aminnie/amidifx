@@ -115,6 +115,7 @@ public class OrganScene {
 
     String songTitle;
     String songFile;
+    String presetFile;
     String buttonFile = "perform.csv";
     private static final String MID_DIRECTORY = "C:/amidifx/midifiles/";
 
@@ -302,7 +303,7 @@ public class OrganScene {
 
             // Load MIDI Default MIDI Preset file on start up
             dopresets = new MidiPresets();
-            String presetFile = sharedStatus.getPresetFile();
+            presetFile = sharedStatus.getPresetFile();
             dopresets.makeMidiPresets(presetFile);
             System.out.println("OrganScene Init: Loaded new Preset file: " + presetFile);
 
@@ -2837,6 +2838,11 @@ public class OrganScene {
     }
 
     void buttonPresetAction(int presetIdx) {
+
+        // Reload Preset file if changed, e.g. in Preset Scene
+        if (sharedStatus.getPresetReload() == true) {
+            dopresets.makeMidiPresets(presetFile);
+        }
 
         // Apply selected Preset Program and Control Changes to MIDI output
         for (int chanidx = 0; chanidx < 16; chanidx++) {
