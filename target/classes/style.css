@@ -1,0 +1,50 @@
+// style.css
+
+.root {
+    -fx-font-family: Helvetica;
+    -fx-font-size: 15px;
+    -fx-base: rgb(224, 224, 224);
+    -fx-background: rgb(224, 224, 224);
+}
+
+.pane {
+    -fx-border-color: white;
+}
+
+.label {
+    -fx-font-size:15px;
+    -fx-text-fill:Black;
+    -fx-border-radius: 5;
+}
+
+.button {
+    -fx-font-size: 15px;
+    -fx-font-family: Helvetica;
+    -fx-text-fill:  black;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-border-width:5;
+}
+
+.text-input:error {
+    -fx-text-fill: white;
+    -fx-border-insets: 0;
+    -fx-border-width: 2px;
+    -fx-border-color: red;
+    -fx-border-style: hidden hidden solid hidden;
+    -fx-background-color: derive(red, 99%);
+}
+
+.list-view .list-cell:odd {
+    -fx-background-color: #B2B5B1;
+}
+
+.list-view .list-cell:even {
+    -fx-background-color: #CCCCCC;
+}
+
+.list-view .list-cell:selected:odd,
+.list-view .list-cell:selected:even {
+    -fx-background-color: #4493C0;
+}
+
