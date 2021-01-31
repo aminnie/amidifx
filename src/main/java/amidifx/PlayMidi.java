@@ -243,7 +243,7 @@ public class PlayMidi {
         midirunning = false;
         try {
             if (sequencer == null) {
-                System.err.println("### PlayMidi: stopMidiPlay Sequencer is null");
+                //System.out.println("### PlayMidi: stopMidiPlay Sequencer is null");
                 return false;
             }
             if (sequencer.isRunning()) {

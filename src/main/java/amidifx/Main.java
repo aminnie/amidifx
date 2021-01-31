@@ -60,6 +60,9 @@ public class Main extends Application {
     int xsmallbtn = (int)(75 * xmul);
     int ysmallbtn = (int)(25 * ymul);
 
+    int xsmallestbtn = (int)(40 * xmul);
+    int ysmallestbtn = (int)(10 * ymul);
+
     int xsonglist = (int)(200 * xmul);
     int ysonglist = (int)(550 * 1); //ymul
 
@@ -77,6 +80,7 @@ public class Main extends Application {
 
     // Calculate font size based on screen dimensions. Default = 15 for 1024 * 600
     final String fsize = Integer.toString((int)(ifsize * xmul)) + "; ";
+    final String fsmallsize = Integer.toString((int)(ifsize / 1.30 * xmul)) + "; ";
 
     // Button Colors
     // https://yagisanatode.com/2019/08/06/google-apps-script-hexadecimal-color-codes-for-google-docs-sheets-and-slides-standart-palette/
@@ -100,6 +104,7 @@ public class Main extends Application {
     final String stlInstrumentList =  "-fx-control-inner-background:#CCCCCC; -fx-font-size: " + fsize;
 
     final String styletext = "-fx-font-size: " + fsize ;
+    final String smallstyletext = "-fx-background-color: #69A8CC; -fx-font-size: " + fsmallsize ;
 
     Scene sceneOrgan, scenePresets, sceneSongs, sceneMonitor;
     MidiPatches dopatches;
@@ -126,6 +131,9 @@ public class Main extends Application {
     boolean flgDirtyPreset = false; // Track need to save changes Presets
     boolean bplaying = false;
     boolean btestnote = false;
+
+    Button midichooser;
+    Button presetchooser;
 
     boolean deleteconfirmed = false;
 
@@ -390,6 +398,8 @@ public class Main extends Application {
         borderStatusSng.setCenter(panefilesSng);
 
         // Show Left Pane: MIDI Song List
+        presetchooser = new Button("...");
+        midichooser = new Button("...");
 
         ObservableList<String> songdata = FXCollections.observableArrayList();
         ListView<String> songlistView = new ListView<>(songdata);
@@ -446,6 +456,9 @@ public class Main extends Application {
                     txtUpper.setDisable(true);
                     txtTimeSig.setDisable(true);
                     txtPresetSaveAsFile.setDisable(true);
+                    presetchooser.setDisable(true);
+                    midichooser.setDisable(true);
+
                     txtInstrumentList.setText("Play Song to update Song MIDI Track Instruments");
 
                     songTitle = midiSong.getSongTitle();
@@ -493,6 +506,8 @@ public class Main extends Application {
             labelmidifile.setText("Midi: " + sharedStatus.getMidiFile());
             labelpresetfile.setText("Preset: " + sharedStatus.getPresetFile());
 
+            // Switch to Presets Scene and ensure Save Button is off
+            buttonSave.setDisable(true);
             stage.setScene(scenePresets);
         });
         VBox vboxbutpreset = new VBox(buttonpreset);
@@ -503,9 +518,9 @@ public class Main extends Application {
         vboxLeftS.getChildren().add(vboxList);
         vboxLeftS.getChildren().add(vboxbutpreset);
 
-        Button presetchooser = new Button("...");
         presetchooser.setPrefSize(xfileselect, yfileselect);
         presetchooser.setStyle("-fx-font-size: 15; ");
+        presetchooser.setDisable(true);
         presetchooser.setOnAction(e -> {
             fileChooserPreset.setInitialDirectory(new File(MID_DIRECTORY));
             fileChooserPreset.getExtensionFilters().addAll(
@@ -516,9 +531,9 @@ public class Main extends Application {
                 txtPresetFile.setText(selectedFile.getName());
         });
 
-        Button midichooser = new Button("...");
         midichooser.setPrefSize(xfileselect, yfileselect);
         midichooser.setStyle("-fx-font-size: 15; ");
+        midichooser.setDisable(true);
         midichooser.setOnAction(e -> {
             fileChooserMidi.setInitialDirectory(new File(MID_DIRECTORY));
             fileChooserMidi.getExtensionFilters().addAll(
@@ -703,6 +718,7 @@ public class Main extends Application {
                         midiSongs.set(idx, midiSong);
                         songlistView.getItems().set(idx, midiSong.getSongTitle());
                         songlistView.refresh();
+                        songlistView.scrollTo(songlistView.getItems().size());
 
                         dosongs.saveSongs();
 
@@ -710,6 +726,9 @@ public class Main extends Application {
                     }
                 }
             }
+
+            // Prevent repeat saves or new entries
+            ////buttonupdate.setDisable(true);
 
             // Default the "Saved As" new file name after save
             txtPresetSaveAsFile.setPromptText("New Preset File (required for New)");
@@ -805,16 +824,21 @@ public class Main extends Application {
             txtUpper.setDisable(false);
             txtTimeSig.setDisable(false);
             txtPresetSaveAsFile.setDisable(true);
+            presetchooser.setDisable(false);
+            midichooser.setDisable(false);
 
             buttonedit.setDisable(true);
             buttonnew.setDisable(true);
             buttondelete.setDisable(true);
             buttonupdate.setDisable(false);
 
+
             labelstatusSng.setText(" Status: Editing details for Song " + txtSongTitle.getText());
         });
 
         // Song New/Update, Delete and Save Buttons
+
+        // New Song
         buttonnew.setText("New");
         buttonnew.setStyle(selectcolorOff);
         buttonnew.setPrefSize(xsmallbtn, ysmallbtn);
@@ -841,6 +865,9 @@ public class Main extends Application {
             txtLower.setDisable(false);
             txtUpper.setDisable(false);
             txtTimeSig.setDisable(false);
+            presetchooser.setDisable(false);
+            midichooser.setDisable(false);
+
             txtInstrumentList.setText("Play Song to update Song MIDI Track Instruments");
 
             buttonedit.setDisable(true);
@@ -851,6 +878,7 @@ public class Main extends Application {
             labelstatusSng.setText(" Status: Creating New Song " + txtSongTitle.getText());
         });
 
+        // Delete Song
         buttondelete.setText("Delete");
         buttondelete.setStyle(selectcolorOff);
         buttondelete.setPrefSize(xsmallbtn, ysmallbtn);
@@ -1126,6 +1154,13 @@ public class Main extends Application {
     Boolean bpressed14 = false;
     Boolean bpressed15 = false;
     Boolean bpressed16 = false;
+
+    Button cfgVOLbutton;
+    Button cfgEXPbutton;
+    Button cfgREVbutton;
+    Button cfgCHObutton;
+    Button cfgMODbutton;
+    Button cfgPANbutton;
 
     Button buttonSave = new Button();   // Presets save button - disabled/enabled when dirty
 
@@ -2150,8 +2185,77 @@ public class Main extends Application {
         gridEffects.add(new VBox(new Label("MOD"), sliderMOD), 5, 1, 1, 1);
         gridEffects.add(new VBox(new Label("PAN"), sliderPAN), 6, 1, 1, 1);
 
+        // Effects and Slider Default or deeper Configurations
+        HBox hboxEffects = new HBox();
+        hboxEffects.setSpacing(5);
+
+        cfgVOLbutton = new Button("SET");
+        cfgVOLbutton.setStyle(smallstyletext);
+        cfgVOLbutton.setPrefSize(xsmallestbtn, ysmallestbtn);
+        cfgVOLbutton.setOnAction(e -> {
+            sliderVOL.setValue(100);
+            buttonSave.setDisable(false);
+            flgDirtyPreset = true;      // Need to save updated Preset
+        });
+
+        cfgEXPbutton = new Button("SET");
+        cfgEXPbutton.setStyle(smallstyletext);
+        cfgEXPbutton.setPrefSize(xsmallestbtn, ysmallestbtn);
+        cfgEXPbutton.setOnAction(e -> {
+            sliderEXP.setValue(127);
+            buttonSave.setDisable(false);
+            flgDirtyPreset = true;      // Need to save updated Preset
+        });
+
+        cfgREVbutton = new Button("CFG");
+        cfgREVbutton.setStyle(smallstyletext);
+        cfgREVbutton.setPrefSize(xsmallestbtn, ysmallestbtn);
+        cfgREVbutton.setOnAction(e -> {
+            sliderREV.setValue(20);
+            buttonSave.setDisable(false);
+            flgDirtyPreset = true;      // Need to save updated Preset
+        });
+
+        cfgCHObutton = new Button("SET");
+        cfgCHObutton.setStyle(smallstyletext);
+        cfgCHObutton.setPrefSize(xsmallestbtn, ysmallestbtn);
+        cfgCHObutton.setDisable(true);
+        cfgCHObutton.setOnAction(e -> {
+            sliderCHO.setValue(10);
+            buttonSave.setDisable(false);
+            flgDirtyPreset = true;      // Need to save updated Preset
+        });
+
+        cfgMODbutton = new Button("CFG");
+        cfgMODbutton.setStyle(smallstyletext);
+        cfgMODbutton.setPrefSize(xsmallestbtn, ysmallestbtn);
+        cfgMODbutton.setDisable(true);
+        cfgMODbutton.setOnAction(e -> {
+            sliderMOD.setValue(0);
+            buttonSave.setDisable(false);
+            flgDirtyPreset = true;      // Need to save updated Preset
+        });
+
+        cfgPANbutton = new Button("SET");
+        cfgPANbutton.setStyle(smallstyletext);
+        cfgPANbutton.setPrefSize(xsmallestbtn, ysmallestbtn);
+        cfgPANbutton.setOnAction(e -> {
+            sliderPAN.setValue(64);
+
+            buttonSave.setDisable(false);
+            flgDirtyPreset = true;      // Need to save updated Preset
+        });
+
+        hboxEffects.getChildren().add(cfgVOLbutton);
+        hboxEffects.getChildren().add(cfgEXPbutton);
+        hboxEffects.getChildren().add(cfgREVbutton);
+        hboxEffects.getChildren().add(cfgCHObutton);
+        hboxEffects.getChildren().add(cfgMODbutton);
+        hboxEffects.getChildren().add(cfgPANbutton);
+
         vboxEffects.getChildren().add(labeleffects);
         vboxEffects.getChildren().add(gridEffects);
+        vboxEffects.getChildren().add(hboxEffects);
 
         // Add MIDI Channel Layering for each Channel
         VBox vboxLayers = new VBox();
