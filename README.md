@@ -67,7 +67,7 @@ Current setup with Seed Odyssey, Waveshare 10.1" Touch Screen, and midibox IO mo
 
 ## Building and Running AMIDIFX
 
-* Note: As of 12/17, I have been running AMIDIFX on a Windows 10 Laptop as well as the Seeed Oddesey SBC referred to above. The latter is intended as a standalone option that can be used with touch only.
+* I have been running AMIDIFX on a Windows 10 Laptop as well as the Seeed Oddesey SBC referred to above. The latter is intended as a standalone option that can be used with touch only.
 * You may use the following for building the solution: JetBrains Intellij IDEA Community Edition (free): https://www.jetbrains.com/idea/download/#section=windows
 * Download the source code from this repo, build and run the solution
 * Plug in GM MIDI compatible sound module or Deebach Blackbox via USB. It will be detected on startup and be available to program, test Song and Presets configurations and live play. If no external sound module is available the system will default to the built-in Synth. 
@@ -93,7 +93,7 @@ Current setup with Seed Odyssey, Waveshare 10.1" Touch Screen, and midibox IO mo
 ![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/other/Songs.png)
 
 
-### Current Status: 01/17/2021
+### Current Status: 01/31/2021
 * Built out three AMDIDFX screens: 
   * Songs: Create/update new Songs with associated MIDI SMF and Preset configuration files
   * Presets: For a selected Song, define all 16 MIDI channels, including keyboard real-time play (performance mode on channels 10 - 16), and backing tracks 
