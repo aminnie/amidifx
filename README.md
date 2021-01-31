@@ -82,15 +82,15 @@ Current setup with Seed Odyssey, Waveshare 10.1" Touch Screen, and midibox IO mo
 
 ### Main/Live Performance Screen (WiP)
 
-![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/Perform.png)
+![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/other/Perform.png)
 
 ### Preset Configuration for selected Song
 
-![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/Presets.png)
+![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/other/Presets.png)
 
 ### Manage Song List, MIDI SMF, and Preset Files
 
-![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/Songs.png)
+![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/other/Songs.png)
 
 
 ### Current Status: 01/17/2021
