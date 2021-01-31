@@ -3042,10 +3042,10 @@ public class OrganScene {
         int MSB = midiButton.getMSB();
         playmidifile.sendMidiProgramChange(CHAN, PC, LSB, MSB);
 
-        String patchname = dopatches.getMIDIPatch(midiButton.getPatchId()).getPatchName();
-        labelstatusOrg.setText(" Status: Applied Patch: " + patchname + " " +  " CHAN:" + (CHAN + 1)
-                + " PC:" + midiButton.getPC() + " LSB:" + midiButton.getLSB() + " MSB:" + midiButton.getMSB());
-        //System.out.println("OrganScene: applyMidiButton " + buttonidx + " applied " + midiButton.toString());
+        //////String patchname = dopatches.getMIDIPatch(midiButton.getPatchId()).getPatchName();
+        //////labelstatusOrg.setText(" Status: Applied Patch: " + patchname + " " +  " CHAN:" + (CHAN + 1)
+        //////        + " PC:" + midiButton.getPC() + " LSB:" + midiButton.getLSB() + " MSB:" + midiButton.getMSB());
+        ////////System.out.println("OrganScene: applyMidiButton " + buttonidx + " applied " + midiButton.toString());
     }
 
     // Populate Every Midi Button Patchname on Screen
