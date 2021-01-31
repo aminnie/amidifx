@@ -63,7 +63,7 @@ In process development includes:
 
 Current setup with Seed Odyssey, Waveshare 10.1" Touch Screen, and midibox IO module with 2 In / 2 Out DIN MIDI ports:
 
-![Example AMIDIFX Setup:](https://github.com/aminnie/amidifx/blob/master/Resources/AMIDIDX01182021.jpg)
+![Example AMIDIFX Setup:](https://github.com/aminnie/amidifx/blob/master/Resources/other/AMIDIDX01182021.jpg)
 
 ## Building and Running AMIDIFX
 
