@@ -337,7 +337,7 @@ public class OrganScene {
             buttonSoundFont.setText(fontname);
 
             // Prepare Voice Buttons Mappings by loading either Deebach or MidiGM Organ Files
-            MidiButtons midiButtons = new MidiButtons();
+            midiButtons = new MidiButtons();
 
             if (sharedStatus.getPerformFile() != null) {
                 buttonFile = sharedStatus.getPerformFile();
@@ -2839,68 +2839,97 @@ public class OrganScene {
 
     void buttonPresetAction(int presetIdx) {
 
-        // Reload Preset file if changed, e.g. in Preset Scene
-        if (sharedStatus.getPresetReload() == true) {
-            dopresets.makeMidiPresets(presetFile);
+        try {
+
+            // Reload Preset file if changed, e.g. in Preset Scene
+            if (sharedStatus.getPresetReload() == true) {
+                dopresets.makeMidiPresets(presetFile);
+            }
+
+            // Apply selected Preset Program and Control Changes to MIDI output
+            // Get this done before we catch before we catch up with UI
+            for (int chanidx = 0; chanidx < 16; chanidx++) {
+                MidiPreset preset = dopresets.getPreset(presetIdx + chanidx);
+                dopresets.applyMidiPreset(preset, chanidx);
+            }
+
+            // Apply selected Preset Program Changes to Organ Buttons
+            // Set Voide Name on the Button, and copy Preset details & effects in Button's MidiButton object
+
+            // Upper 1-1
+            MidiPreset preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getUpper1CHAN() - 1);
+            int buttonidx = midiButtons.lookupButtonIdx(rbutton11.getId());
+            MidiButton midibutton = midiButtons.getMidiButton(buttonidx, 0);
+            midiButtons.copyPresetToMidiButton(preset, midibutton);
+
+            rbutton11.setText(preset.getPatchName());
+            offAllUpper1Buttons();
+            rbutton11.setStyle(rcolorOn);
+
+            // Upper 2-1
+            preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getUpper2CHAN() - 1);
+            buttonidx = midiButtons.lookupButtonIdx(rbutton21.getId());
+            midibutton = midiButtons.getMidiButton(buttonidx, 0);
+            midiButtons.copyPresetToMidiButton(preset, midibutton);
+
+            rbutton21.setText(preset.getPatchName());
+            offAllUpper2Buttons();
+            rbutton21.setStyle(rcolorOn);
+
+            // Upper 3-1
+            preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getUpper3CHAN() - 1);
+            buttonidx = midiButtons.lookupButtonIdx(rbutton31.getId());
+            midibutton = midiButtons.getMidiButton(buttonidx, 0);
+            midiButtons.copyPresetToMidiButton(preset, midibutton);
+
+            rbutton31.setText(preset.getPatchName());
+            offAllUpper3Buttons();
+            rbutton31.setStyle(rcolorOn);
+
+            // Lower 1-1
+            preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getLower1CHAN() - 1);
+            buttonidx = midiButtons.lookupButtonIdx(lbutton11.getId());
+            midibutton = midiButtons.getMidiButton(buttonidx, 0);
+            midiButtons.copyPresetToMidiButton(preset, midibutton);
+
+            lbutton11.setText(preset.getPatchName());
+            offAllLower1Buttons();
+            lbutton11.setStyle(lcolorOn);
+
+            // Lower 2-1
+            preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getLower2CHAN() - 1);
+            buttonidx = midiButtons.lookupButtonIdx(lbutton21.getId());
+            midibutton = midiButtons.getMidiButton(buttonidx, 0);
+            midiButtons.copyPresetToMidiButton(preset, midibutton);
+
+            lbutton21.setText(preset.getPatchName());
+            offAllLower2Buttons();
+            lbutton21.setStyle(lcolorOn);
+
+            // Bass 1
+            preset = dopresets.getPreset(presetIdx * 16  + sharedStatus.getBassCHAN() - 1);
+            buttonidx = midiButtons.lookupButtonIdx(bleft1.getId());
+            midibutton = midiButtons.getMidiButton(buttonidx, 0);
+            midiButtons.copyPresetToMidiButton(preset, midibutton);
+
+            bleft1.setText(preset.getPatchName());
+            offAllBassButtons();
+            bleft1.setStyle(bcolorOn);
+
+            // Drum 1
+            preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getDrumCHAN() - 1);
+            buttonidx = midiButtons.lookupButtonIdx(dleft1.getId());
+            midibutton = midiButtons.getMidiButton(buttonidx, 0);
+            midiButtons.copyPresetToMidiButton(preset, midibutton);
+
+            dleft1.setText(preset.getPatchName());
+            offAllDrumButtons();
+            dleft1.setStyle(dcolorOn);
         }
-
-        // Apply selected Preset Program and Control Changes to MIDI output
-        for (int chanidx = 0; chanidx < 16; chanidx++) {
-            MidiPreset preset = dopresets.getPreset(presetIdx + chanidx);
-            dopresets.applyMidiPreset(preset, chanidx);
+        catch (Exception ex) {
+            System.out.println("OrganScene buttonPresetAction: Exception occurred");
+            System.out.println(ex);
         }
-
-        // Apply selected Preset Program Changes to Organ Buttons
-        // To do: Determine if we need to update and save the Button PC, MSB, LSB, PatchIdx, etc as well
-
-        // Upper 1-1
-        MidiPreset preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getUpper1CHAN()-1);
-        rbutton11.setText(preset.getPatchName());
-        offAllUpper1Buttons();
-        rbutton11.setStyle(rcolorOn);
-
-        //int buttonidx = midiButtons.lookupButtonIdx(rbutton11.getId());
-        ////midiButtons.getMidiButton(buttonidx, 0).setPatchId((int)dopatches.getMIDIPatch(patchidx).getPatchId());
-        //midiButtons.getMidiButton(buttonidx, 0).setPC((int)preset.getPC());
-        //midiButtons.getMidiButton(buttonidx, 0).setLSB((int)preset.getLSB());
-        //midiButtons.getMidiButton(buttonidx, 0).setMSB((int)preset.getMSB());
-
-        // Upper 2-1
-        preset = dopresets.getPreset(presetIdx * 16  + sharedStatus.getUpper2CHAN()-1);
-        rbutton21.setText(preset.getPatchName());
-        offAllUpper2Buttons();
-        rbutton21.setStyle(rcolorOn);
-
-        // Upper 3-1
-        preset = dopresets.getPreset(presetIdx * 16  + sharedStatus.getUpper3CHAN()-1);
-        rbutton31.setText(preset.getPatchName());
-        offAllUpper3Buttons();
-        rbutton31.setStyle(rcolorOn);
-
-        // Lower 1-1
-        preset = dopresets.getPreset(presetIdx * 16  + sharedStatus.getLower1CHAN()-1);
-        lbutton11.setText(preset.getPatchName());
-        offAllLower1Buttons();
-        lbutton11.setStyle(lcolorOn);
-
-        // Lower 2-1
-        preset = dopresets.getPreset(presetIdx * 16  + sharedStatus.getLower2CHAN()-1);
-        lbutton21.setText(preset.getPatchName());
-        offAllLower2Buttons();
-        lbutton21.setStyle(lcolorOn);
-
-        // Bass 1
-        preset = dopresets.getPreset(presetIdx * 16  + sharedStatus.getBassCHAN()-1);
-        bleft1.setText(preset.getPatchName());
-        offAllBassButtons();
-        bleft1.setStyle(bcolorOn);
-
-        // Drum 1
-        preset = dopresets.getPreset(presetIdx * 16  + sharedStatus.getDrumCHAN()-1);
-        dleft1.setText(preset.getPatchName());
-        offAllDrumButtons();
-        dleft1.setStyle(dcolorOn);
-
     }
 
     private void offAllPresetButtons() {

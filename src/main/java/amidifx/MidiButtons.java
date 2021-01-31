@@ -2,17 +2,9 @@ package amidifx;
 
 import amidifx.models.MidiButton;
 import amidifx.models.MidiPatch;
+import amidifx.models.MidiPreset;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -382,6 +374,26 @@ public class MidiButtons {
         //System.out.println("applyMIDIPreset: " + preset.toString());
 
         return true;
+    }
+
+    public void copyPresetToMidiButton(MidiPreset preset, MidiButton midibutton) {
+
+        midibutton.setPatchId(preset.getPatchIdx());
+
+        midibutton.setPC(preset.getPC());
+        midibutton.setLSB(preset.getLSB());
+        midibutton.setMSB(preset.getMSB());
+
+        midibutton.setVOL(preset.getVOL());
+        midibutton.setEXP(preset.getEXP());
+        midibutton.setREV(preset.getREV());
+        midibutton.setCHO(preset.getCHO());
+        midibutton.setMOD(preset.getMOD());
+        midibutton.setTRE(preset.getTRE());
+        midibutton.setPAN(preset.getPAN());
+
+        midibutton.setPatchId(preset.getPatchIdx());
+
     }
 
 }
