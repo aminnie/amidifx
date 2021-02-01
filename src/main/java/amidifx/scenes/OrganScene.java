@@ -649,6 +649,50 @@ public class OrganScene {
             hboxFont.getChildren().add(buttonSoundFont);
             hboxFont.getChildren().add(buttonSoundFontRight);
 
+            // Voice Test Button
+            Button btntest = new Button("Sound");
+            btntest.setStyle(btnplayOff);
+            btntest.setPrefSize(xbtnleftright / 2, ybtnleftright);
+            btntest.setOnAction(e -> {
+                try {
+                    if (!btestnote) {
+                        btntest.setText("Stop");
+                        btntest.setStyle(btnplayOn);
+
+                        PlayMidi playmidifile = PlayMidi.getInstance();
+                        MidiPatch patch = dopatches.getMIDIPatch(patchidx);
+                        //System.out.println("OrganScene: Selecting patch " + patch.toString());
+
+                        // Note: Monitor as using CHAN 15 by default may cause unexpected behavior.
+                        playmidifile.sendMidiProgramChange((byte)(lastVoiceChannel), (byte)patch.getPC(), (byte)patch.getLSB(), (byte)patch.getMSB());
+                        playmidifile.sendMidiNote((byte)(lastVoiceChannel), (byte)60, true);
+
+/*
+                        playmidifile.sendMidiControlChange((byte)channelIdx, ccVOL, (byte)sliderVOL.getValue());
+                        playmidifile.sendMidiControlChange((byte)channelIdx, ccEXP, (byte)sliderEXP.getValue());
+                        playmidifile.sendMidiControlChange((byte)channelIdx, ccREV, (byte)sliderREV.getValue());
+                        playmidifile.sendMidiControlChange((byte)channelIdx, ccCHO, (byte)sliderCHO.getValue());
+                        playmidifile.sendMidiControlChange((byte)channelIdx, ccMOD, (byte)sliderMOD.getValue());
+                        playmidifile.sendMidiControlChange((byte)channelIdx, ccPAN, (byte)sliderPAN.getValue());
+                        playmidifile.sendMidiControlChange((byte)channelIdx, ccTRE, (byte)sliderTRE.getValue());
+*/
+                        btestnote = true;
+                    }
+                    else {
+                        btntest.setText("Sound");
+                        btntest.setStyle(btnplayOff);
+
+                        PlayMidi playmidifile = PlayMidi.getInstance();
+                        playmidifile.sendMidiNote((byte)lastVoiceChannel, (byte)60, false);
+
+                        btestnote = false;
+                    }
+                }
+                catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            });
+
             FlowPane flowFont = new FlowPane();
             flowFont.setHgap(10);
             flowFont.setVgap(10);
@@ -661,6 +705,7 @@ public class OrganScene {
             gridTopLine.add(flowSong, 0, 0, 1, 1);
             gridTopLine.add(flowBank, 1, 0, 1, 1);
             gridTopLine.add(flowFont, 2, 0, 1, 1);
+            gridTopLine.add(btntest, 3, 0, 1, 1);
 
 
             // *** Start Bottom Status Bar
@@ -2615,50 +2660,6 @@ public class OrganScene {
                 //System.out.println("OrganScene: " + readpresets.presetString(presetIdx * 16 + channelIdx));
             });
             gridmidcenterOrgan.add(btnplay, 0, 6, 1, 1);
-
-            Button btntest = new Button("Test Voice");
-            btntest.setStyle(btnplayOff);
-            btntest.setPrefSize(xvoicebtn, yvoicebtn);
-            btntest.setOnAction(e -> {
-                try {
-                    if (!btestnote) {
-                        btntest.setText("Stop");
-                        btntest.setStyle(btnplayOn);
-
-                        PlayMidi playmidifile = PlayMidi.getInstance();
-                        MidiPatch patch = dopatches.getMIDIPatch(patchidx);
-                        //System.out.println("OrganScene: Selecting patch " + patch.toString());
-
-                        // Note: Monitor as using CHAN 15 by default may cause unexpected behavior.
-                        playmidifile.sendMidiProgramChange((byte)(lastVoiceChannel), (byte)patch.getPC(), (byte)patch.getLSB(), (byte)patch.getMSB());
-                        playmidifile.sendMidiNote((byte)(lastVoiceChannel), (byte)60, true);
-
-/*
-                        playmidifile.sendMidiControlChange((byte)channelIdx, ccVOL, (byte)sliderVOL.getValue());
-                        playmidifile.sendMidiControlChange((byte)channelIdx, ccEXP, (byte)sliderEXP.getValue());
-                        playmidifile.sendMidiControlChange((byte)channelIdx, ccREV, (byte)sliderREV.getValue());
-                        playmidifile.sendMidiControlChange((byte)channelIdx, ccCHO, (byte)sliderCHO.getValue());
-                        playmidifile.sendMidiControlChange((byte)channelIdx, ccMOD, (byte)sliderMOD.getValue());
-                        playmidifile.sendMidiControlChange((byte)channelIdx, ccPAN, (byte)sliderPAN.getValue());
-                        playmidifile.sendMidiControlChange((byte)channelIdx, ccTRE, (byte)sliderTRE.getValue());
-*/
-                        btestnote = true;
-                    }
-                    else {
-                        btntest.setText("Test Voice");
-                        btntest.setStyle(btnplayOff);
-
-                        PlayMidi playmidifile = PlayMidi.getInstance();
-                        playmidifile.sendMidiNote((byte)lastVoiceChannel, (byte)60, false);
-
-                        btestnote = false;
-                    }
-                }
-                catch (Exception exception) {
-                    exception.printStackTrace();
-                }
-            });
-            ////gridmidcenterOrgan.add(btntest, 1, 6, 1, 1);
 
             // Backing Mode Button
             // Mode 1 = Original, 2 = Play Along, 3 = Backing
