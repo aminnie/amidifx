@@ -5,6 +5,7 @@ public class MidiButton {
     private int buttonIdx;
     private String buttonId;
     private int patchId;
+    private String patchName;
     private int layerIdx;
     private int channelIdx;
     private String channelOutIdx;
@@ -25,6 +26,7 @@ public class MidiButton {
         this.setButtonIdx(0);
         this.setButtonId("B0-0");
         this.setPatchId(0);
+        this.setPatchName("No Voice");
         this.setLayerIdx(0);
         this.setChannelIdx(0);
         this.setChannelOutIdx("0");
@@ -41,7 +43,7 @@ public class MidiButton {
     }
 
     // ButtonIdx + ButtonId + 0,12,12,0,106,121,100,0,100,100,20,0,0,0,0,3,8,Klaus sein Sax
-    public MidiButton(int buttonIdx, String buttonId, int patchId, int layerIdx,
+    public MidiButton(int buttonIdx, String buttonId, int patchId, String patchName, int layerIdx,
                       int channelIdx, String channelOutIdx, int octaveTran,
                       int PC, int LSB, int MSB, int moduleIdx,
                       int VOL, int EXP, int REV, int CHO, int PAN,int MOD, int TRE) {
@@ -50,6 +52,7 @@ public class MidiButton {
         this.buttonIdx = buttonIdx;
         this.buttonId = buttonId;
         this.patchId = patchId;
+        this.patchName = patchName;
         this.layerIdx = layerIdx;
         this.channelIdx = channelIdx;
         this.channelOutIdx = channelOutIdx;
@@ -89,6 +92,14 @@ public class MidiButton {
 
     public void setPatchId(int patchId) {
         this.patchId = patchId;
+    }
+
+    public String getPatchName() {
+        return patchName;
+    }
+
+    public void setPatchName(String patchName) {
+        this.patchName = patchName;
     }
 
     public int getLayerIdx() {
@@ -199,7 +210,8 @@ public class MidiButton {
 
     @Override
     public String toString() {
-        return "Preset String = [buttonIdx=" + buttonIdx + ", buttonId=" + buttonId + ", patchId=" + patchId
+        return "Preset String = [buttonIdx=" + buttonIdx + ", buttonId=" + buttonId
+                + ", patchId=" + patchId + ", patchName=" + patchName
                 + ", layerIdx" + layerIdx +  ", channelIdx=" + channelIdx
                 + ", channelOutIdx=" + channelOutIdx + ", moduleIdx=" + moduleIdx
                 + ", PC=" + PC + ", LSB=" + LSB + ", MSB=" + MSB

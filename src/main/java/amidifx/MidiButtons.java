@@ -144,21 +144,22 @@ public class MidiButtons {
                             Integer.parseInt(buttonDetails[0]),     // index #
                             buttonDetails[1],                       // button id
                             Integer.parseInt(buttonDetails[2]),     // patch id
-                            Integer.parseInt(buttonDetails[3]),     // layer
-                            Integer.parseInt(buttonDetails[4]),     // in chan
-                            buttonDetails[5],                       // out chan
-                            Integer.parseInt(buttonDetails[6]),     // octave
-                            Integer.parseInt(buttonDetails[7]),     // pc
-                            Integer.parseInt(buttonDetails[8]),     // lsb
-                            Integer.parseInt(buttonDetails[9]),     // msb
-                            Integer.parseInt(buttonDetails[10]),     // mod
-                            Integer.parseInt(buttonDetails[11]),    // vol
-                            Integer.parseInt(buttonDetails[12]),    // exp
-                            Integer.parseInt(buttonDetails[13]),    // rev
-                            Integer.parseInt(buttonDetails[14]),    // cho
-                            Integer.parseInt(buttonDetails[15]),    // tre
-                            Integer.parseInt(buttonDetails[16]),    // mod
-                            Integer.parseInt(buttonDetails[17]));   // pan
+                            buttonDetails[3],                       // patch name
+                            Integer.parseInt(buttonDetails[4]),     // layer
+                            Integer.parseInt(buttonDetails[5]),     // in chan
+                            buttonDetails[6],                       // out chan
+                            Integer.parseInt(buttonDetails[7]),     // octave
+                            Integer.parseInt(buttonDetails[8]),     // pc
+                            Integer.parseInt(buttonDetails[9]),     // lsb
+                            Integer.parseInt(buttonDetails[10]),     // msb
+                            Integer.parseInt(buttonDetails[11]),     // mod
+                            Integer.parseInt(buttonDetails[12]),    // vol
+                            Integer.parseInt(buttonDetails[13]),    // exp
+                            Integer.parseInt(buttonDetails[14]),    // rev
+                            Integer.parseInt(buttonDetails[15]),    // cho
+                            Integer.parseInt(buttonDetails[16]),    // tre
+                            Integer.parseInt(buttonDetails[17]),    // mod
+                            Integer.parseInt(buttonDetails[18]));   // pan
                     buttonList.add(mButton);
                 }
             }
@@ -275,6 +276,7 @@ public class MidiButtons {
                 String buttonLine = Integer.toString(button.getButtonIdx());
                 buttonLine = buttonLine.concat(",").concat(button.getButtonId());
                 buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getPatchId()));
+                buttonLine = buttonLine.concat(",").concat(button.getPatchName());
                 buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getLayerIdx()));
                 buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getChannelIdx()));
                 buttonLine = buttonLine.concat(",").concat(button.getChannelOutIdx());
@@ -379,6 +381,7 @@ public class MidiButtons {
     public void copyPresetToMidiButton(MidiPreset preset, MidiButton midibutton) {
 
         midibutton.setPatchId(preset.getPatchIdx());
+        midibutton.setPatchName(preset.getPatchName());
 
         midibutton.setPC(preset.getPC());
         midibutton.setLSB(preset.getLSB());
@@ -391,9 +394,6 @@ public class MidiButtons {
         midibutton.setMOD(preset.getMOD());
         midibutton.setTRE(preset.getTRE());
         midibutton.setPAN(preset.getPAN());
-
-        midibutton.setPatchId(preset.getPatchIdx());
-
     }
 
 }

@@ -248,6 +248,9 @@ public class OrganScene {
     boolean dpressed3 = false;
     boolean dpressed4 = false;
 
+    Button btnBacking;      // Backing mode Play configuration Button
+    int playmode = 3;       // 2 = Play ALong, 3 = Backing mode
+
     Button r1layerbtn;       // Righthand Layering Buttons
     Button r2layerbtn;
     Button r3layerbtn;
@@ -2549,7 +2552,7 @@ public class OrganScene {
                         bplaying = true;
 
                         PlayMidi playmidifile = PlayMidi.getInstance();
-                        if (!playmidifile.startMidiPlay(dosongs.getSong(idxSongList), dopresets, 3)) {
+                        if (!playmidifile.startMidiPlay(dosongs.getSong(idxSongList), dopresets, playmode)) {
                             labelstatusOrg.setText(" Status: " + sharedStatus.getStatusText());
                         }
                         else {
@@ -2655,7 +2658,38 @@ public class OrganScene {
                     exception.printStackTrace();
                 }
             });
-            gridmidcenterOrgan.add(btntest, 1, 6, 1, 1);
+            ////gridmidcenterOrgan.add(btntest, 1, 6, 1, 1);
+
+            // Backing Mode Button
+            // Mode 1 = Original, 2 = Play Along, 3 = Backing
+            playmode = 3;
+            Button btnBacking = new Button("Play Backing");
+            btnBacking.setStyle(btnplayOff);
+            btnBacking.setPrefSize(xvoicebtn, yvoicebtn);
+            btnBacking.setOnAction(e -> {
+                if (playmode == 3) {
+                    btnBacking.setText("Play Along");
+                    btnBacking.setStyle(btnplayOn);
+                    playmode = 2;
+
+                    PlayMidi playmidifile = PlayMidi.getInstance();
+                    if (playmidifile.isMidiRunning()) {
+                        playmidifile.unmuteKeyboardChannels(dosongs.getSong(idxSongList));
+                    }
+                }
+                else {
+                    btnBacking.setText("Play Backing");
+                    btnBacking.setStyle(btnplayOff);
+                    playmode = 3;
+
+                    PlayMidi playmidifile = PlayMidi.getInstance();
+                    if (playmidifile.isMidiRunning()) {
+                        playmidifile.muteKeyboardChannels(dosongs.getSong(idxSongList));
+                    }
+                }
+            });
+            gridmidcenterOrgan.add(btnBacking, 1, 6, 1, 1);
+
 
             // Add VOL, REV and CHO Sliders. Show for the most recent selected Voice Button
 
@@ -3042,10 +3076,10 @@ public class OrganScene {
         int MSB = midiButton.getMSB();
         playmidifile.sendMidiProgramChange(CHAN, PC, LSB, MSB);
 
-        //////String patchname = dopatches.getMIDIPatch(midiButton.getPatchId()).getPatchName();
-        //////labelstatusOrg.setText(" Status: Applied Patch: " + patchname + " " +  " CHAN:" + (CHAN + 1)
-        //////        + " PC:" + midiButton.getPC() + " LSB:" + midiButton.getLSB() + " MSB:" + midiButton.getMSB());
-        ////////System.out.println("OrganScene: applyMidiButton " + buttonidx + " applied " + midiButton.toString());
+        labelstatusOrg.setText(" Status: Applied Patch: " + midiButton.getPatchName() + " " +  " CHAN:" + (CHAN + 1)
+                + " PC:" + midiButton.getPC() + " LSB:" + midiButton.getLSB() + " MSB:" + midiButton.getMSB());
+
+        //System.out.println("OrganScene: applyMidiButton " + buttonidx + " applied " + midiButton.toString());
     }
 
     // Populate Every Midi Button Patchname on Screen

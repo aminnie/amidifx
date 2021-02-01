@@ -687,40 +687,40 @@ public class PlayMidi {
         return breturn;
     }
 
-    // Mute one specific Channel
-    public boolean unmuteKeyboardChannels() {
+    // Unmute All Keyboard Channels
+    public boolean unmuteKeyboardChannels(MidiSong midiSong) {
 
         boolean breturn = true;
 
         try {
-            //sequencer.setTrackMute(BASSKBD-1, false);
-            sequencer.setTrackMute(BASSKBD-1, false);
-            boolean muted = sequencer.getTrackMute(BASSKBD-1);
-            if (muted) {
-                breturn = false;        // muting failed
+            if (sequencer == null) {
+                sequencer = MidiSystem.getSequencer();
+                sequencer.getTransmitter().setReceiver(midircv);
             }
-            else System.out.println("PlayMidi: Unmuted Channel: " + BASSKBD);
 
-            sequencer.setTrackMute(LOWERKBD-1, false);
-            muted = sequencer.getTrackMute(LOWERKBD-1);
-            if (muted) {
-                breturn = false;        // muting failed
+            if (midiSong.getChanBass() != 0) {
+                sequencer.setTrackMute(midiSong.getChanBass() - 1, false);
+                boolean muted = sequencer.getTrackMute(midiSong.getChanBass() - 1);
+                if (muted) {
+                    breturn = false;        // muting failed
+                } else System.out.println("PlayMidi: Unmuted Channel: " + midiSong.getChanBass());
             }
-            else System.out.println("PlayMidi: Unmuted Channel: " + LOWERKBD);
 
-            sequencer.setTrackMute(UPPERKBD-1, true);
-            muted = sequencer.getTrackMute(UPPERKBD-1);
-            if (muted) {
-                breturn = false;        // muting failed
+            if (midiSong.getChanLower() != 0) {
+                sequencer.setTrackMute(midiSong.getChanLower() - 1, false);
+                boolean muted = sequencer.getTrackMute(midiSong.getChanLower() - 1);
+                if (muted) {
+                    breturn = false;        // muting failed
+                } else System.out.println("PlayMidi: Unmuted Channel: " + midiSong.getChanBass());
             }
-            else System.out.println("PlayMidi: Unmuted Channel: " + UPPERKBD);
 
-            sequencer.setTrackMute(SOLOKBD-1, true);
-            muted = sequencer.getTrackMute(SOLOKBD-1);
-            if (muted) {
-                breturn = false;        // muting failed
+            if (midiSong.getChanUpper() != 0) {
+                sequencer.setTrackMute(midiSong.getChanLower() - 1, true);
+                boolean muted = sequencer.getTrackMute(midiSong.getChanLower() - 1);
+                if (muted) {
+                    breturn = false;        // muting failed
+                } else System.out.println("PlayMidi: Unmuted Channel: " + midiSong.getChanLower());
             }
-            else System.out.println("PlayMidi: Unmuted Channel: " + SOLOKBD);
         }
         catch (Exception ex) {
             System.err.println("### PlayMidi: Exception Unmuting Channels");
