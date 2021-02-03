@@ -40,7 +40,7 @@ public class OrganScene {
     int xleftright = (int)(50 * xmul);
     int yleftright = (int)(25 * ymul);
 
-    int xbtnleftright = (int)(200 * xmul);
+    int xbtnleftright = (int)(190 * xmul);
     int ybtnleftright = (int)(25 * ymul);
 
     int xbtnpreset = (int)(115 * xmul);
@@ -160,8 +160,8 @@ public class OrganScene {
     boolean ppressed7 = false;
     boolean ppressed8 = false;
 
-    String lastVoiceButton;
-    int lastVoiceChannel;
+    String lastVoiceButton = "U1-1";
+    int lastVoiceChannel = 1;
 
     // Tracking Upper1 Buttons
     Button rbutton11 = new Button();
@@ -407,8 +407,8 @@ public class OrganScene {
                 }
             });
 
-            // Save Presets Button
-            buttonSave = new Button("Save Voices");
+            // Save Performance Button
+            buttonSave = new Button("Save Perform");
             buttonSave.setStyle(btnMenuSaveOn);
             buttonSave.setDisable(true);
             buttonSave.setOnAction(event -> {
@@ -634,6 +634,7 @@ public class OrganScene {
             buttonSoundFontRight.setPrefSize(xleftright, yleftright);
             buttonSoundFontRight.setOnAction(e -> {
                 if (patchidx < dopatches.getMIDIPatchSize() - 1) ++patchidx;
+
                 fontname = dopatches.getMIDIPatch(patchidx).getPatchName();
                 buttonSoundFont.setText(fontname);
 
@@ -655,6 +656,7 @@ public class OrganScene {
             btntest.setPrefSize(xbtnleftright / 2, ybtnleftright);
             btntest.setOnAction(e -> {
                 try {
+
                     if (!btestnote) {
                         btntest.setText("Stop");
                         btntest.setStyle(btnplayOn);
@@ -667,15 +669,14 @@ public class OrganScene {
                         playmidifile.sendMidiProgramChange((byte)(lastVoiceChannel), (byte)patch.getPC(), (byte)patch.getLSB(), (byte)patch.getMSB());
                         playmidifile.sendMidiNote((byte)(lastVoiceChannel), (byte)60, true);
 
-/*
-                        playmidifile.sendMidiControlChange((byte)channelIdx, ccVOL, (byte)sliderVOL.getValue());
-                        playmidifile.sendMidiControlChange((byte)channelIdx, ccEXP, (byte)sliderEXP.getValue());
-                        playmidifile.sendMidiControlChange((byte)channelIdx, ccREV, (byte)sliderREV.getValue());
-                        playmidifile.sendMidiControlChange((byte)channelIdx, ccCHO, (byte)sliderCHO.getValue());
-                        playmidifile.sendMidiControlChange((byte)channelIdx, ccMOD, (byte)sliderMOD.getValue());
-                        playmidifile.sendMidiControlChange((byte)channelIdx, ccPAN, (byte)sliderPAN.getValue());
-                        playmidifile.sendMidiControlChange((byte)channelIdx, ccTRE, (byte)sliderTRE.getValue());
-*/
+                        playmidifile.sendMidiControlChange((byte)lastVoiceChannel, ccVOL, (byte)sliderVOL.getValue());
+                        //playmidifile.sendMidiControlChange((byte)lastVoiceChannel, ccEXP, (byte)sliderEXP.getValue());
+                        playmidifile.sendMidiControlChange((byte)lastVoiceChannel, ccREV, (byte)sliderREV.getValue());
+                        playmidifile.sendMidiControlChange((byte)lastVoiceChannel, ccCHO, (byte)sliderCHO.getValue());
+                        playmidifile.sendMidiControlChange((byte)lastVoiceChannel, ccMOD, (byte)sliderMOD.getValue());
+                        playmidifile.sendMidiControlChange((byte)lastVoiceChannel, ccPAN, (byte)sliderPAN.getValue());
+                        //playmidifile.sendMidiControlChange((byte)lastVoiceChannel, ccTRE, (byte)sliderTRE.getValue());
+
                         btestnote = true;
                     }
                     else {
@@ -700,7 +701,7 @@ public class OrganScene {
 
             // Add Song, Bank and Font Select to Top Line
             GridPane gridTopLine = new GridPane();
-            gridTopLine.setHgap(10);
+            gridTopLine.setHgap(5);
             gridTopLine.setVgap(10);
             gridTopLine.add(flowSong, 0, 0, 1, 1);
             gridTopLine.add(flowBank, 1, 0, 1, 1);
@@ -921,6 +922,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     bleft1.setStyle(bcolorOn);
@@ -971,6 +973,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     bleft2.setStyle(bcolorOn);
@@ -1021,6 +1024,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     bleft3.setStyle(bcolorOn);
@@ -1071,6 +1075,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     bleft4.setStyle(bcolorOn);
@@ -1134,6 +1139,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     dleft1.setStyle(dcolorOn);
@@ -1184,6 +1190,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     dleft2.setStyle(dcolorOn);
@@ -1234,6 +1241,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     dleft3.setStyle(dcolorOn);
@@ -1285,6 +1293,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     dleft4.setStyle(dcolorOn);
@@ -1306,7 +1315,7 @@ public class OrganScene {
 
             // Lower Buttons
 
-            l1layerbtn = new Button("Lower 1 [12]  L1 ");       // Lefthand Layering Buttons
+            l1layerbtn = new Button("Lower 1 [12]");       // Lefthand Layering Buttons
             l1layerbtn.setStyle(lrpressedOn);
             l1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             l1layerbtn.setOnAction(event -> {
@@ -1321,7 +1330,7 @@ public class OrganScene {
                 arduinoUtils.lefthandLayerSysexData(l1pressed, l2pressed);
             });
 
-            l2layerbtn = new Button("Lower 2 [13]  L1 ");
+            l2layerbtn = new Button("Lower 2 [13]");
             l2layerbtn.setStyle(lrpressedOff);
             l2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             l2layerbtn.setOnAction(event -> {
@@ -1374,6 +1383,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     lbutton11.setStyle(lcolorOn);
@@ -1424,6 +1434,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     lbutton12.setStyle(lcolorOn);
@@ -1474,6 +1485,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     lbutton13.setStyle(lcolorOn);
@@ -1524,6 +1536,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     lbutton14.setStyle(lcolorOn);
@@ -1574,6 +1587,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     lbutton21.setStyle(lcolorOn);
@@ -1624,6 +1638,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     lbutton22.setStyle(lcolorOn);
@@ -1674,6 +1689,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     lbutton23.setStyle(lcolorOn);
@@ -1724,6 +1740,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     lbutton24.setStyle(lcolorOn);
@@ -1750,7 +1767,7 @@ public class OrganScene {
 
             // Upper Buttons
 
-            r1layerbtn = new Button("Upper 1 [14]  U1 ");       // Righthand Layering Buttons
+            r1layerbtn = new Button("Upper 1 [14]");       // Righthand Layering Buttons
             r1layerbtn.setStyle(lrpressedOn);
             r1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r1layerbtn.setOnAction(event -> {
@@ -1764,7 +1781,7 @@ public class OrganScene {
                 }
                 arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
             });
-            r2layerbtn = new Button("Upper 2 [15]  U1 ");
+            r2layerbtn = new Button("Upper 2 [15]");
             r2layerbtn.setStyle(lrpressedOff);
             r2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r2layerbtn.setOnAction(event -> {
@@ -1778,7 +1795,7 @@ public class OrganScene {
                 }
                 arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
             });
-            r3layerbtn = new Button("Upper 3 [16]  U1 ");
+            r3layerbtn = new Button("Upper 3 [16]");
             r3layerbtn.setStyle(lrpressedOff);
             r3layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r3layerbtn.setOnAction(event -> {
@@ -1832,6 +1849,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     rbutton11.setStyle(rcolorOn);
@@ -1883,6 +1901,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     rbutton12.setStyle(rcolorOn);
@@ -1934,6 +1953,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     rbutton13.setStyle(rcolorOn);
@@ -1985,6 +2005,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     rbutton14.setStyle(rcolorOn);
@@ -2039,6 +2060,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     rbutton15.setStyle(rcolorOn);
@@ -2091,6 +2113,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     rbutton16.setStyle(orgcolorOn);
@@ -2185,6 +2208,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     rbutton21.setStyle(rcolorOn);
@@ -2236,6 +2260,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     rbutton22.setStyle(rcolorOn);
@@ -2287,6 +2312,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     rbutton23.setStyle(rcolorOn);
@@ -2338,6 +2364,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     rbutton24.setStyle(rcolorOn);
@@ -2389,6 +2416,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     rbutton31.setStyle(rcolorOn);
@@ -2440,6 +2468,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     rbutton32.setStyle(rcolorOn);
@@ -2491,6 +2520,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     rbutton33.setStyle(rcolorOn);
@@ -2542,6 +2572,7 @@ public class OrganScene {
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
+                    sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
 
                     rbutton34.setStyle(rcolorOn);
@@ -2664,7 +2695,7 @@ public class OrganScene {
             // Backing Mode Button
             // Mode 1 = Original, 2 = Play Along, 3 = Backing
             playmode = 3;
-            Button btnBacking = new Button("Play Backing");
+            Button btnBacking = new Button("Backing");
             btnBacking.setStyle(btnplayOff);
             btnBacking.setPrefSize(xvoicebtn, yvoicebtn);
             btnBacking.setOnAction(e -> {
@@ -2679,7 +2710,7 @@ public class OrganScene {
                     }
                 }
                 else {
-                    btnBacking.setText("Play Backing");
+                    btnBacking.setText("Backing");
                     btnBacking.setStyle(btnplayOff);
                     playmode = 3;
 
@@ -3089,72 +3120,80 @@ public class OrganScene {
         //System.out.println("OrganScene: Initialized all Midi Button Patch Names");
         int patchid = 0;
 
-        patchid = midiButtons.getButtonById(rbutton11.getId(), 0).getPatchId();
-        rbutton11.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(rbutton12.getId(), 0).getPatchId();
-        rbutton12.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(rbutton13.getId(), 0).getPatchId();
-        rbutton13.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(rbutton14.getId(), 0).getPatchId();
-        rbutton14.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(rbutton15.getId(), 0).getPatchId();
-        rbutton15.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(rbutton16.getId(), 0).getPatchId();
-        rbutton16.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+        try {
+            patchid = midiButtons.getButtonById(rbutton11.getId(), 0).getPatchId();
+            rbutton11.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(rbutton12.getId(), 0).getPatchId();
+            rbutton12.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(rbutton13.getId(), 0).getPatchId();
+            rbutton13.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(rbutton14.getId(), 0).getPatchId();
+            rbutton14.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(rbutton15.getId(), 0).getPatchId();
+            rbutton15.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(rbutton16.getId(), 0).getPatchId();
+            rbutton16.setText(dopatches.getMIDIPatch(patchid).getPatchName());
 
-        patchid = midiButtons.getButtonById(rbutton21.getId(), 0).getPatchId();
-        rbutton21.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(rbutton22.getId(), 0).getPatchId();
-        rbutton22.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(rbutton23.getId(), 0).getPatchId();
-        rbutton23.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(rbutton24.getId(), 0).getPatchId();
-        rbutton24.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(rbutton21.getId(), 0).getPatchId();
+            rbutton21.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(rbutton22.getId(), 0).getPatchId();
+            rbutton22.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(rbutton23.getId(), 0).getPatchId();
+            rbutton23.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(rbutton24.getId(), 0).getPatchId();
+            rbutton24.setText(dopatches.getMIDIPatch(patchid).getPatchName());
 
-        patchid = midiButtons.getButtonById(rbutton31.getId(), 0).getPatchId();
-        rbutton31.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(rbutton32.getId(), 0).getPatchId();
-        rbutton32.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(rbutton33.getId(), 0).getPatchId();
-        rbutton33.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(rbutton34.getId(), 0).getPatchId();
-        rbutton34.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(rbutton31.getId(), 0).getPatchId();
+            rbutton31.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(rbutton32.getId(), 0).getPatchId();
+            rbutton32.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(rbutton33.getId(), 0).getPatchId();
+            rbutton33.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(rbutton34.getId(), 0).getPatchId();
+            rbutton34.setText(dopatches.getMIDIPatch(patchid).getPatchName());
 
-        patchid = midiButtons.getButtonById(lbutton11.getId(), 0).getPatchId();
-        lbutton11.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(lbutton12.getId(), 0).getPatchId();
-        lbutton12.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(lbutton13.getId(), 0).getPatchId();
-        lbutton13.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(lbutton14.getId(), 0).getPatchId();
-        lbutton14.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(lbutton11.getId(), 0).getPatchId();
+            lbutton11.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(lbutton12.getId(), 0).getPatchId();
+            lbutton12.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(lbutton13.getId(), 0).getPatchId();
+            lbutton13.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(lbutton14.getId(), 0).getPatchId();
+            lbutton14.setText(dopatches.getMIDIPatch(patchid).getPatchName());
 
-        patchid = midiButtons.getButtonById(lbutton21.getId(), 0).getPatchId();
-        lbutton21.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(lbutton22.getId(), 0).getPatchId();
-        lbutton22.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(lbutton23.getId(), 0).getPatchId();
-        lbutton23.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(lbutton24.getId(), 0).getPatchId();
-        lbutton24.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(lbutton21.getId(), 0).getPatchId();
+            lbutton21.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(lbutton22.getId(), 0).getPatchId();
+            lbutton22.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(lbutton23.getId(), 0).getPatchId();
+            lbutton23.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(lbutton24.getId(), 0).getPatchId();
+            lbutton24.setText(dopatches.getMIDIPatch(patchid).getPatchName());
 
-        patchid = midiButtons.getButtonById(bleft1.getId(), 0).getPatchId();
-        bleft1.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(bleft2.getId(), 0).getPatchId();
-        bleft2.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(bleft3.getId(), 0).getPatchId();
-        bleft3.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(bleft4.getId(), 0).getPatchId();
-        bleft4.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(bleft1.getId(), 0).getPatchId();
+            bleft1.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(bleft2.getId(), 0).getPatchId();
+            bleft2.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(bleft3.getId(), 0).getPatchId();
+            bleft3.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(bleft4.getId(), 0).getPatchId();
+            bleft4.setText(dopatches.getMIDIPatch(patchid).getPatchName());
 
-        patchid = midiButtons.getButtonById(dleft1.getId(), 0).getPatchId();
-        dleft1.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(dleft2.getId(), 0).getPatchId();
-        dleft2.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(dleft3.getId(), 0).getPatchId();
-        dleft3.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-        patchid = midiButtons.getButtonById(dleft4.getId(), 0).getPatchId();
-        dleft4.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(dleft1.getId(), 0).getPatchId();
+            dleft1.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(dleft2.getId(), 0).getPatchId();
+            dleft2.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(dleft3.getId(), 0).getPatchId();
+            dleft3.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(dleft4.getId(), 0).getPatchId();
+            dleft4.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+        }
+        catch (Exception ex) {
+            sharedStatus.setStatusText("Error reading MIDI Buttons File: " + buttonFile.toString());
+
+            System.err.println("initMidiButtonPatches: Error reading MIDI Buttons File: " + buttonFile.toString());
+            System.err.println(ex);
+        }
     }
 
     /** Returns the current Scene **/

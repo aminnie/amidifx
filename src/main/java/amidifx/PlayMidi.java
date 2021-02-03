@@ -113,6 +113,7 @@ public class PlayMidi {
             midiSeq = MidiSystem.getSequence(mfile);
             sequencer.setSequence(midiSeq);
 
+            // mode 1 = original, 2 = with presets, 3 = presets and backing
             if (mode == 3) {
                 muteKeyboardChannels(midiSong);
             }
@@ -144,23 +145,25 @@ public class PlayMidi {
                 byte cuetext[] = metaMsg.getData();
                 if (cuetext[0] == 'P') {
                     int presetidx = (cuetext[1] - 48) - 1;
-                    //System.out.println("### PlayMidi: MetaEvent Cue Preset [0] " + cuetext[0] + " [1] " + cuetext[1]);
+                    //System.out.println("### PlayMidi: MetaEvent Cue Preset " + cuetext[0] + " " + cuetext[1]);
 
                     if ((presetidx >= 0) && (presetidx <= 8)) {
-                        //System.out.println("### PlayMidi: MetaEvent Presetidx " + presetidx + 1);
+                        System.out.println("### PlayMidi: MetaEvent Presetidx " + presetidx + 1);
 
                         for (int chanidx = 0; chanidx < 16; chanidx++) {
                             MidiPreset preset = readpresets.getPreset(presetidx * 16 + chanidx);
                             readpresets.applyMidiPreset(preset, chanidx);
 
+                            //System.out.println("### Applied Channel " + chanidx + ", " + preset.toString());
                         }
+
                         sharedStatus.setStatusText("Preset " + (presetidx + 1) + " auto applied ");
                     }
                 }
                 // Bar/Beat Count Cues: Get the current sequencer tick position to properly reset Bar/Beat counter
                 // B0 = Lead in Bar, B1 = Start with no Lead in
                 else if (cuetext[0] == 'B') {
-                    //System.out.println("### PlayMidi: MetaEvent Cue: Bar [0] " + cuetext[0] + " [1] " + cuetext[1]);
+                    System.out.println("### PlayMidi: MetaEvent Cue: Bar " + cuetext[0] + "  " + cuetext[1]);
 
                     barzerotickposition = sequencer.getTickPosition();
 

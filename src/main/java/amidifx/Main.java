@@ -1163,6 +1163,7 @@ public class Main extends Application {
     Button cfgPANbutton;
 
     Button buttonSave = new Button();   // Presets save button - disabled/enabled when dirty
+    Button buttonReload = new Button(); // Reload current Presets
 
     ComboBox presetCombo;
 
@@ -1247,7 +1248,7 @@ public class Main extends Application {
         });
 
         // Save Presets Button
-        buttonSave.setText("Save Presets");
+        buttonSave.setText("Save");
         buttonSave.setStyle(btnMenuSaveOn);
         buttonSave.setDisable(true);
         buttonSave.setOnAction(event -> {
@@ -1264,6 +1265,33 @@ public class Main extends Application {
                 labelstatus.setText(" Status: Presets not changed. No need to save");
         });
 
+        // Save Presets Button
+        buttonReload.setText("Reload");
+        buttonReload.setStyle(btnMenuOff);
+        buttonReload.setDisable(false);
+        buttonReload.setOnAction(event -> {
+            dopresets = new MidiPresets();
+            dopresets.makeMidiPresets(presetFile);
+
+            // Update the newly selected Preset MIDI Channel Voice list
+            for (int idx = 0; idx < 16; idx++) {
+                midiPreset = dopresets.getPreset(presetIdx * 16 + idx);
+
+                String strName = Integer.toString(idx + 1).concat(":").concat(midiPreset.getPatchName());
+                presetListView.getItems().set(idx, strName);
+
+                //System.out.println("Main: Patch name " + strName);
+            }
+            channelIdx = 0;
+            presetListView.getSelectionModel().select(channelIdx);
+            presetListView.refresh();
+
+            presetCombo.requestFocus();
+            presetCombo.getSelectionModel().select(0);
+
+            labelstatus.setText(" Status: Reloaded Presets file " + presetFile);
+        });
+
         ToolBar toolbarLeft = new ToolBar(buttonsc1, buttonsc2, buttonsc3);
         toolbarLeft.setStyle(bgheadercolor);
         toolbarLeft.setMinWidth(xtoolbarleft);
@@ -1274,7 +1302,7 @@ public class Main extends Application {
         hboxTitle.setPadding(new Insets(10, 10, 10, xtitle));
         hboxTitle.getChildren().add(lbltitle1);
 
-        ToolBar toolbarRight = new ToolBar(buttonSave, buttonPanic, buttonExit);
+        ToolBar toolbarRight = new ToolBar(buttonSave, buttonReload, buttonPanic, buttonExit);
         toolbarRight.setStyle(bgheadercolor);
         toolbarRight.setMinWidth(xtoolbarright);
 
@@ -1559,7 +1587,7 @@ public class Main extends Application {
             sliderTRE.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getTRE());
 
             // Apply the Voice to MIDI Channel
-            playmidifile.sendMidiProgramChange(channelIdx, midiPatch.getPC(), midiPatch.getLSB(), midiPatch.getMSB());
+            playmidifile.sendMidiProgramChange(channelIdx + 1, midiPatch.getPC(), midiPatch.getLSB(), midiPatch.getMSB());
 
             //System.out.println("Main: Updated selected Preset and Channel Voice");
             labelstatus.setText(" Status: Applied CHAN Voice " + (channelIdx + 1) + " " + midiPatch.getPatchName());
@@ -1848,7 +1876,7 @@ public class Main extends Application {
             renderVoiceButtons(patchIdx - 16 > 0 ? (patchIdx = patchIdx - 16) : (patchIdx = 0), dopatches.getMIDIPatchSize());
         });
 
-        Button btntest = new Button("Test Voice");
+        Button btntest = new Button("Sound Voice");
         btntest.setStyle(btnplayOff);
         btntest.setPrefSize(xbutton, ybutton);
         btntest.setOnAction(e -> {
@@ -1901,7 +1929,7 @@ public class Main extends Application {
                     bplaying = true;
 
                     PlayMidi playmidifile = PlayMidi.getInstance();
-                    if (!playmidifile.startMidiPlay(dosongs.getSong(idxSongList), dopresets, 1)) {
+                    if (!playmidifile.startMidiPlay(dosongs.getSong(idxSongList), dopresets, 2)) {
                         labelstatus.setText(" Status: " + sharedStatus.getStatusText());
                     }
                    else {
@@ -2270,6 +2298,7 @@ public class Main extends Application {
 
         midiLayerLabel = new Label("Keyboard: Channel " + (channelIdx + 1) + " Layers");
         midiLayerLabel.setStyle(styletext);
+        midiLayerLabel.setDisable(!ArduinoUtils.getInstance().hasARMPort());
 
         chkBoxArray = new CheckBox[16];
         int x, y;
