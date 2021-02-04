@@ -1315,7 +1315,7 @@ public class OrganScene {
 
             // Lower Buttons
 
-            l1layerbtn = new Button("Lower 1 [12]");       // Lefthand Layering Buttons
+            l1layerbtn = new Button("Lower 1 [12]        ");       // Lefthand Layering Buttons
             l1layerbtn.setStyle(lrpressedOn);
             l1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             l1layerbtn.setOnAction(event -> {
@@ -1330,7 +1330,7 @@ public class OrganScene {
                 arduinoUtils.lefthandLayerSysexData(l1pressed, l2pressed);
             });
 
-            l2layerbtn = new Button("Lower 2 [13]");
+            l2layerbtn = new Button("Lower 2 [13]        ");
             l2layerbtn.setStyle(lrpressedOff);
             l2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             l2layerbtn.setOnAction(event -> {
@@ -1767,7 +1767,7 @@ public class OrganScene {
 
             // Upper Buttons
 
-            r1layerbtn = new Button("Upper 1 [14]");       // Righthand Layering Buttons
+            r1layerbtn = new Button("Upper 1 [14]       ");       // Righthand Layering Buttons
             r1layerbtn.setStyle(lrpressedOn);
             r1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r1layerbtn.setOnAction(event -> {
@@ -1781,7 +1781,7 @@ public class OrganScene {
                 }
                 arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
             });
-            r2layerbtn = new Button("Upper 2 [15]");
+            r2layerbtn = new Button("Upper 2 [15]       ");
             r2layerbtn.setStyle(lrpressedOff);
             r2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r2layerbtn.setOnAction(event -> {
@@ -1795,7 +1795,7 @@ public class OrganScene {
                 }
                 arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
             });
-            r3layerbtn = new Button("Upper 3 [16]");
+            r3layerbtn = new Button("Upper 3 [16]       ");
             r3layerbtn.setStyle(lrpressedOff);
             r3layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r3layerbtn.setOnAction(event -> {
