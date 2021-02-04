@@ -167,7 +167,7 @@ public class PlayMidi {
 
                     barzerotickposition = sequencer.getTickPosition();
 
-                    barstartnumber = (cuetext[1] - 48) - 1;
+                    barstartnumber = (cuetext[1] - 48);
                     if ((barstartnumber < 0) || (barstartnumber > 1)) {
                         barstartnumber = 1;
                     }
@@ -319,7 +319,8 @@ public class PlayMidi {
             // Proceed to apply Bank and Program changes. Do so only if not duplicate of previous
             if ((curPresetList.get(CHAN).getMSB() == MSB) &&
                     (curPresetList.get(CHAN).getLSB() == LSB) && (curPresetList.get(CHAN).getPC() == PC)) {
-                //System.out.println("PlayMidi: Duplicate Program Change on CHAN "  + (CHAN + 1) + ", PC " + PC + " ignored");
+
+                //System.out.println("PlayMidi: Duplicate Program Change on CHAN "  + (CHAN + 1) + ", PC " + PC + " MSB:" + MSB + " LSB:" + LSB + " ignored");
                 return false;
             }
 
@@ -330,32 +331,20 @@ public class PlayMidi {
 
             midiMsg.setMessage(ShortMessage.PROGRAM_CHANGE, CHAN, PC & 0XFF, 64);
             midircv.send(midiMsg, timeStamp);
+
+            // Log the newly sent PC to compare against next send
+            curPresetList.get(CHAN).setMSB(MSB);
+            curPresetList.get(CHAN).setLSB(LSB);
+            curPresetList.get(CHAN).setPC(PC);
+
+            //System.out.println("PlayMidi: Sent MIDI Program Message: CHAN: " + (CHAN + 1) + " PC:" + PC + " MSB:" + MSB + " LSB:" + LSB);
         }
         catch (Exception ex) {
             System.err.println("### PlayMidi Error: Sent MIDI Program Change: " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " PC:" + PC + " MSB:" + MSB + " LSB:" + LSB);
             System.err.println(ex);
             return false;
         }
-/*
-        try {
-            Synthesizer synth = MidiSystem.getSynthesizer();
-            MidiChannel chan[] = synth.getChannels();
-            // Check for null; maybe not all 16 channels exist.
-            if (chan[CHAN] != null) {
-                System.out.println("PlayMidi: Bypass Sent MIDI Program Change: " + midiMsg.toString() + " CHAN: " + CHAN + " PC:" + PC + " MSB:" + MSB + " LSB:" + LSB);
-                chan[CHAN].controlChange(0, MSB);
-                chan[CHAN].controlChange(32, LSB);
-                chan[CHAN].programChange(PC);
-                chan[CHAN].programChange(12);
-                chan[CHAN].noteOn(60, 93);
-                TimeUnit.SECONDS.sleep(2);
-                chan[CHAN].noteOff(60);
-            }
-        }
-        catch (Exception ex) {}
-*/
 
-        //System.out.println("PlayMidi: Sent MIDI Program Message: " + midiMsg.toString()+ " CHAN: " + CHAN + " PC:" + PC + " MSB:" + MSB + " LSB:" + LSB);
         return true;
     }
 
@@ -380,39 +369,55 @@ public class PlayMidi {
                     //System.out.println("VOL setting change requested: " + VAL);
                     if (curPresetList.get(CHAN).getVOL() != VAL) {
                         midircv.send(midiMsg, timeStamp);
+
+                        curPresetList.get(CHAN).setVOL(VAL);
                         //System.out.println("VOL setting changed! " + VAL);
-                        break;
                     }
+                    //else
+                    //    System.out.println("VOL setting NOT changed! " + VAL);
+                    break;
                 case ccEXP:
                     if (curPresetList.get(CHAN).getEXP() != VAL) {
                         midircv.send(midiMsg, timeStamp);
-                        break;
+
+                        curPresetList.get(CHAN).setEXP(VAL);
                     }
+                    break;
                 case ccREV:
                     if (curPresetList.get(CHAN).getREV() != VAL) {
                         midircv.send(midiMsg, timeStamp);
-                        break;
+
+                        curPresetList.get(CHAN).setREV(VAL);
                     }
+                    break;
                 case ccCHO:
                     if (curPresetList.get(CHAN).getCHO() != VAL) {
                         midircv.send(midiMsg, timeStamp);
-                        break;
+
+                        curPresetList.get(CHAN).setCHO(VAL);
                     }
+                    break;
                 case ccTRE:
                     if (curPresetList.get(CHAN).getTRE() != VAL) {
                         midircv.send(midiMsg, timeStamp);
-                        break;
+
+                        curPresetList.get(CHAN).setTRE(VAL);
                     }
+                    break;
                 case ccMOD:
                     if (curPresetList.get(CHAN).getMOD() != VAL) {
                         midircv.send(midiMsg, timeStamp);
-                        break;
+
+                        curPresetList.get(CHAN).setMOD(VAL);
                     }
+                    break;
                 case ccPAN:
                     if (curPresetList.get(CHAN).getPAN() != VAL) {
                         midircv.send(midiMsg, timeStamp);
-                        break;
+
+                        curPresetList.get(CHAN).setPAN(VAL);
                     }
+                    break;
             }
         }
         catch (Exception ex) {
