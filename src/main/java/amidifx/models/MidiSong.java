@@ -84,6 +84,9 @@ public class MidiSong {
     @Override
     public String toString() {
         return "Song Listing [songIdx=" + this.songIdx + ", songTitle=" + this.songTitle
-                + ", presetFile=" + this.presetFile + ", midiFile=" + this.midiFile + "]";
+                + ", presetFile=" + this.presetFile + ", midiFile=" + this.midiFile
+                + ", chanBass=" + this.getChanBass() + ", chanLower=" + this.getChanLower() + ", chanUpper=" + this.getChanUpper()
+                + ", timeSig=" + this.getTimeSig()
+                + "]";
     }
 }

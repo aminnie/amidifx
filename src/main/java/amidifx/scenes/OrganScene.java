@@ -486,6 +486,11 @@ public class OrganScene {
                 // Preset Time Signature for correct Bar Time Display
                 sharedStatus.setTimeSig(dosongs.getSong(idxSongList).getTimeSig());
 
+                // Autoload Preset 0
+                dopresets.makeMidiPresets(sharedStatus.getPresetFile());
+                buttonPresetAction(0);
+                btnpreset1.setStyle(pcolorOn);
+
                 // Enable Song Play Button
                 btnplay.setDisable(false);
 
@@ -1315,7 +1320,7 @@ public class OrganScene {
 
             // Lower Buttons
 
-            l1layerbtn = new Button("Lower 1 [12]        ");       // Lefthand Layering Buttons
+            l1layerbtn = new Button("Lower 1 [12]   ");       // Lefthand Layering Buttons
             l1layerbtn.setStyle(lrpressedOn);
             l1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             l1layerbtn.setOnAction(event -> {
@@ -1330,7 +1335,7 @@ public class OrganScene {
                 arduinoUtils.lefthandLayerSysexData(l1pressed, l2pressed);
             });
 
-            l2layerbtn = new Button("Lower 2 [13]        ");
+            l2layerbtn = new Button("Lower 2 [13]   ");
             l2layerbtn.setStyle(lrpressedOff);
             l2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             l2layerbtn.setOnAction(event -> {
@@ -1767,7 +1772,7 @@ public class OrganScene {
 
             // Upper Buttons
 
-            r1layerbtn = new Button("Upper 1 [14]       ");       // Righthand Layering Buttons
+            r1layerbtn = new Button("Upper 1 [14]   ");       // Righthand Layering Buttons
             r1layerbtn.setStyle(lrpressedOn);
             r1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r1layerbtn.setOnAction(event -> {
@@ -1781,7 +1786,7 @@ public class OrganScene {
                 }
                 arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
             });
-            r2layerbtn = new Button("Upper 2 [15]       ");
+            r2layerbtn = new Button("Upper 2 [15]   ");
             r2layerbtn.setStyle(lrpressedOff);
             r2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r2layerbtn.setOnAction(event -> {
@@ -1795,7 +1800,7 @@ public class OrganScene {
                 }
                 arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
             });
-            r3layerbtn = new Button("Upper 3 [16]       ");
+            r3layerbtn = new Button("Upper 3 [16]   ");
             r3layerbtn.setStyle(lrpressedOff);
             r3layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r3layerbtn.setOnAction(event -> {
@@ -2132,7 +2137,6 @@ public class OrganScene {
             rbutton17.setStyle(orgcolorOff);
             rbutton17.setWrapText(true);
             rbutton17.setOnAction(event -> {
-                //buttonPresetAction(6);
 
                 labelstatusOrg.setText(" Status: Rotary On/Off");
                 if (!rpressed17) {
@@ -2153,7 +2157,6 @@ public class OrganScene {
             rbutton18.setStyle(orgcolorOff);
             rbutton18.setWrapText(true);
             rbutton18.setOnAction(event -> {
-                //buttonPresetAction(6);
 
                 labelstatusOrg.setText(" Status: Rotary On/Off");
                 if (!rpressed18) {
@@ -2632,6 +2635,8 @@ public class OrganScene {
                             labelstatusOrg.setText(" Status: " + sharedStatus.getStatusText());
                         }
                         else {
+                            // Disable Songs menu switch while playing
+                            buttonsc2.setDisable(true);
 
                             // Song Play Repeating Timer: Collects Beat Timer and Play Status every 250ms
                             Timer songPlayTimer = new Timer();
@@ -2651,7 +2656,11 @@ public class OrganScene {
                                                 btnplay.setText("Play Song");
                                                 btnplay.setStyle(btnplayOff);
                                                 labelstatusOrg.setText(" Status: Song Play Ended");
-                                            });
+
+                                            // Enable Songs menu switch once stopped playing
+                                            buttonsc2.setDisable(false);
+
+                                        });
                                         songPlayTimer.cancel();
                                         return;
                                     }
@@ -2678,6 +2687,9 @@ public class OrganScene {
                         lblbeatcount.setText("Bar: 0.0");
 
                         bplaying = false;
+
+                        // Enable Songs menu switch once stopped playing
+                        buttonsc2.setDisable(false);
                     }
                 }
                 catch (Exception exception) {
@@ -2915,7 +2927,7 @@ public class OrganScene {
             // Apply selected Preset Program and Control Changes to MIDI output
             // Get this done before we catch before we catch up with UI
             for (int chanidx = 0; chanidx < 16; chanidx++) {
-                MidiPreset preset = dopresets.getPreset(presetIdx + chanidx);
+                MidiPreset preset = dopresets.getPreset(presetIdx * 16 + chanidx);
                 dopresets.applyMidiPreset(preset, chanidx);
             }
 
