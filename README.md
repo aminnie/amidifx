@@ -199,10 +199,10 @@ Next up:
   * Updating the Song screen to list all active tracks and the channels along wuth a track mute buttons for an easy play alogn mdoe
   * Building out the ARM controller
   * Deeper integraton into Deebach: Complete rotary on/off, drawbar integration, etc.
-  * More testing and usability inprovements
+  * AMIDIFX was developed in JavaFX. It is portable to numerous operating systems and devices, including IOS, Andriod, Linux, etc.
+  * Adding a USB based controller hardeware with real(!) buttons and rotary switches, and of course one or more sets of drawbars1
+  * More testing, and usability inprovements based on user feedback
 
-  * AMIDIFX was developed in JavaFX. It is portable to numerous operating systems and devices, including IOS, Andriod, Linux, etc!  * 
-  * The AMIDIFx keyboard controller can run on sinngle board computer  (such as the Seeed above), or you laptop/tablet. The exteral ARM controller us accessed over USB, and it is possible to connect this controller to a host via a second USB port if no GPIO is availavble. A basic Windows 10 host (PC/Laptop/Tablet) with 4GB of RAM and a touch screen will do for the current build.
 
  
 -- More to follow  ---
