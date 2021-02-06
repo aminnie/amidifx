@@ -45,6 +45,9 @@ public class PlayMidi {
     Boolean midirunning = false;
     long barzerotickposition = 0;
     int barstartnumber = 1;
+    int mode = 1;
+    int presetidx = -1;
+    boolean barstarted = false;
 
     long seqresolution;
 
@@ -66,17 +69,23 @@ public class PlayMidi {
     }
 
     // Play MIDI File
-    public boolean startMidiPlay(MidiSong midiSong, MidiPresets readpresets, int mode) throws Exception {
+    public boolean startMidiPlay(MidiSong midiSong, MidiPresets readpresets, int playmode) throws Exception {
 
         String midiFile = midiSong.getMidiFile();
+
+        System.out.println("Playing " + midiSong.getSongTitle() + " in mode " + mode);
 
         // We can only have on instance running!
         if (midirunning)
             return false;
 
         // Check for valid modes: 1 = demo original, 2 = demo with presets, 3 = backing only with presets
+        mode = playmode;
         if ((mode < 1) || (mode > 3))
             return false;
+
+        barstarted = false;
+        presetidx = -1;
 
         // Get default sequencer.
         if (sequencer == null) {
@@ -134,21 +143,30 @@ public class PlayMidi {
             System.err.println("PlayMidi: Sequencer Play Exception: " + ex);
         }
 
-        // Wait for and report end play
+        // Wait for and report Preset, Bar or End Play Cues
         sequencer.addMetaEventListener(metaMsg -> {
             // Returned Cue to change to Preset 1 - only if not in demo mode!
             // Inserted at the start of a MIDI file before the first note (and after any PC, etc. changes)
-            if ((metaMsg.getType() == 0x07) && (mode > 1)) {
+            if (metaMsg.getType() == 0x07) {
                 //System.out.println("### PlayMidi: MetaEvent Cue for " + midiFile);
 
-                // Preset Cues: Formatted as P1 -> P8
                 byte cuetext[] = metaMsg.getData();
-                if (cuetext[0] == 'P') {
-                    int presetidx = (cuetext[1] - 48) - 1;
-                    //System.out.println("### PlayMidi: MetaEvent Cue Preset " + cuetext[0] + " " + cuetext[1]);
 
-                    if ((presetidx >= 0) && (presetidx <= 8)) {
-                        System.out.println("### PlayMidi: MetaEvent Presetidx " + presetidx + 1);
+                // Preset Cues: Formatted as P1 -> P8
+                if ((cuetext[0] == 'P') && (mode > 1)) {
+
+                    // Avoid duplicate triggers. Need to root cause why one CUE triggers multiple times
+                    int newpresetidx = cuetext[1] - 48 - 1;
+                    if (newpresetidx == presetidx) {
+                        System.out.println("### PlayMidi: Duplicate MetaEvent Cue: Preset " + cuetext[0] + "  " + cuetext[1]);
+                        return;
+                    }
+                    else presetidx = newpresetidx;
+
+                    System.out.println("### PlayMidi: MetaEvent Cue Preset " + cuetext[0] + " " + cuetext[1]);
+
+                    if ((presetidx >= 0) && (presetidx <= 7)) {
+                        System.out.println("### PlayMidi: MetaEvent Presetidx " + presetidx);
 
                         for (int chanidx = 0; chanidx < 16; chanidx++) {
                             MidiPreset preset = readpresets.getPreset(presetidx * 16 + chanidx);
@@ -163,11 +181,19 @@ public class PlayMidi {
                 // Bar/Beat Count Cues: Get the current sequencer tick position to properly reset Bar/Beat counter
                 // B0 = Lead in Bar, B1 = Start with no Lead in
                 else if (cuetext[0] == 'B') {
+
+                    // Only one Bar Cue allowed per Song
+                    if (barstarted == true) {
+                        System.out.println("### PlayMidi: Duplicate MetaEvent Cue: Bar " + cuetext[0] + "  " + cuetext[1]);
+                        return;
+                    }
+
                     System.out.println("### PlayMidi: MetaEvent Cue: Bar " + cuetext[0] + "  " + cuetext[1]);
+                    barstarted = true;
 
                     barzerotickposition = sequencer.getTickPosition();
-
                     barstartnumber = (cuetext[1] - 48);
+
                     if ((barstartnumber < 0) || (barstartnumber > 1)) {
                         barstartnumber = 1;
                     }
@@ -523,6 +549,23 @@ public class PlayMidi {
         }
 
         sendAllControllersOff();
+
+        for (int chanidx = 0; chanidx < 16; chanidx++) {
+            curPresetList.get(chanidx).setPC(0);
+            curPresetList.get(chanidx).setMSB(0);
+            curPresetList.get(chanidx).setLSB(0);
+
+            curPresetList.get(chanidx).setVOL(0);
+            curPresetList.get(chanidx).setEXP(0);
+            curPresetList.get(chanidx).setREV(0);
+            curPresetList.get(chanidx).setCHO(0);
+            curPresetList.get(chanidx).setMOD(0);
+            curPresetList.get(chanidx).setPAN(0);
+            curPresetList.get(chanidx).setTRE(0);
+        }
+
+        int presetidx = -1;
+        boolean barstarted = false;
 
         sharedStatus.setStatusText("MIDI PANIC Sent");
 

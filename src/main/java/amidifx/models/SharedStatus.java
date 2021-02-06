@@ -33,7 +33,8 @@ public class SharedStatus {
 
     private boolean midirunning = false;    // Sequencer running true/false
 
-    private boolean presetreload = true;    // Reload presets that was changed
+    private boolean presetreload = true;    // Reload preset file that was changed
+    private boolean songreload = true;      // Reload song file that may have changed
 
     private static final String CSV_DIRECTORY = "C:\\amidifx\\midifiles\\";
 
@@ -156,6 +157,13 @@ public class SharedStatus {
         this.presetreload = presetreload;
     }
 
+    public boolean getSongReload() {
+        return songreload;
+    }
+
+    public void setSongReload(boolean presetreload) {
+        this.songreload = songreload;
+    }
 
     public int getUpper1CHAN() {
         return UPPERKBD;

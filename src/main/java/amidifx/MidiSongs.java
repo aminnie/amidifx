@@ -1,11 +1,12 @@
 package amidifx;
 
+import amidifx.models.MidiSong;
+import amidifx.models.SharedStatus;
+import amidifx.utils.SongNameSorter;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.util.ArrayList;
-
-import amidifx.models.MidiSong;
-import amidifx.utils.SongNameSorter;
 
 public class MidiSongs {
 
@@ -14,12 +15,19 @@ public class MidiSongs {
     private static final String MID_DIRECTORY = "C:/amidifx/midifiles/";
     private static final String songFile = "songs.csv";
 
+    SharedStatus sharedStatus;
+
     // List for holding Patch objects - https://edencoding.com/force-refresh-scene/
     final ArrayList<MidiSong> songList = new ArrayList<>();
 
     public void makeMidiSongs() {
 
         MidiSongs banks = new MidiSongs();
+
+        // Create instance of Shared Status to report back to Scenes
+        sharedStatus = SharedStatus.getInstance();
+
+        System.out.println("MidiSongs: Loading Song List from file " + songFile);
 
         BufferedReader br = null;
         try {
@@ -149,6 +157,9 @@ public class MidiSongs {
                 songline = songline.concat(",").concat(Integer.toString(song.getChanUpper()));
                 songline = songline.concat(",").concat(song.getTimeSig()).concat("\r");
                 bw.write(songline);
+
+                // Reload presets on screens such as Perform it has changed
+                sharedStatus.setSongReload(true);
 
                 //System.out.print("songline " + idx + ": " + songline);
             }

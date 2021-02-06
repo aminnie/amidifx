@@ -487,9 +487,9 @@ public class OrganScene {
                 sharedStatus.setTimeSig(dosongs.getSong(idxSongList).getTimeSig());
 
                 // Autoload Preset 0
-                dopresets.makeMidiPresets(sharedStatus.getPresetFile());
-                buttonPresetAction(0);
-                btnpreset1.setStyle(pcolorOn);
+                ////dopresets.makeMidiPresets(sharedStatus.getPresetFile());
+                ////buttonPresetAction(0);
+                ////btnpreset1.setStyle(pcolorOn);
 
                 // Enable Song Play Button
                 btnplay.setDisable(false);
@@ -502,6 +502,14 @@ public class OrganScene {
             buttonSongNameLeft.setStyle(selectcolorOff);
             buttonSongNameLeft.setPrefSize(xleftright, yleftright);
             buttonSongNameLeft.setOnAction(e -> {
+
+                // Check if Song List file has been updated in the Songs Scene and reload if needed
+                if (sharedStatus.getSongReload()) {
+                    dosongs.makeMidiSongs();
+
+                    sharedStatus.setSongReload(false);
+                }
+
                 if (idxSongList > 0) --idxSongList;
                 songTitle = dosongs.getSong(idxSongList).getSongTitle();
                 songFile = dosongs.getSong(idxSongList).getMidiFile();
@@ -520,6 +528,14 @@ public class OrganScene {
             buttonSongNameRight.setStyle(selectcolorOff);
             buttonSongNameRight.setPrefSize(xleftright, yleftright);
             buttonSongNameRight.setOnAction(e -> {
+
+                // Check if Song List file has been updated in the Songs Scene and reload if needed
+                if (sharedStatus.getSongReload()) {
+                    dosongs.makeMidiSongs();
+
+                    sharedStatus.setSongReload(false);
+                }
+
                 if (idxSongList < (dosongs.getSongListSize() - 1)) idxSongList++;
                 songTitle = dosongs.getSong(idxSongList).getSongTitle();
                 songFile = dosongs.getSong(idxSongList).getMidiFile();
