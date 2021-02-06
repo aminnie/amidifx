@@ -123,29 +123,29 @@ How to Use the Performance screen:
 
 How to Use Song screen:
 * Song List:
- * This is a scrollable list of all Song files loaded in the system
- * Scrolling the list updates the Song Details controls on the screen
- * Note: For the moment, a new Song added to the list will show up at the end of the list, and not supported in place - to correct this in future. When  you restart AMIDIFX the new song will appear in the sorted list.
+  * This is a scrollable list of all Song files loaded in the system
+  * Scrolling the list updates the Song Details controls on the screen
+  * Note: For the moment, a new Song added to the list will show up at the end of the list, and not supported in place - to correct this in future. When  you restart AMIDIFX the new song will appear in the sorted list.
 * Edit Preset File button
- * This button switches the Preset screen with current song selection as the Preset file to edit
+  * This button switches the Preset screen with current song selection as the Preset file to edit
 * Song Input Controls: Any Song is created with
- * A Song Name (up to 25 chaaracters
- * A MIDI file that you select from the file system. In 8.3 format with every file extension .mid
- * Track Mutes:
-  * FInd the MIDI tracks that contain the Bass, Upper and Lower MIDI channels. MIDI Tracks abd Channels are not the same! Start playing the Song and stop and see the tracks detected to assist with Track Mute input a swell as Preset configurations. Ideally change the channels to the the Drum (10) and Bass (11), Lower (12), Upper (13) MIDI channels usng e.g. MidiYodi or equvalent software.
- * Signature:
-  * At this time the system support 3/4 and 4/4. To be extended to correctly count 6/8, etc. 
- * A Preset file that you can copy form an existing during the New Song operation. In 8.3 format with the extension .csv (yes Excel text file)
+  * A Song Name (up to 25 chaaracters
+  * A MIDI file that you select from the file system. In 8.3 format with every file extension .mid
+  * Track Mutes:
+   * FInd the MIDI tracks that contain the Bass, Upper and Lower MIDI channels. MIDI Tracks abd Channels are not the same! Start playing the Song and stop and see the tracks detected to assist with Track Mute input a swell as Preset configurations. Ideally change the channels to the the Drum (10) and Bass (11), Lower (12), Upper (13) MIDI channels usng e.g. MidiYodi or equvalent software.
+  * Signature:
+   * At this time the system support 3/4 and 4/4. To be extended to correctly count 6/8, etc. 
+  * A Preset file that you can copy form an existing during the New Song operation. In 8.3 format with the extension .csv (yes Excel text file)
   * Note: All Songs and Preset files are contained in the folder: c:\amidifx\midifiles. Any new MIDI files should be added to this direct. Please take care with the file names and working with directory as overwriting the wrong files will cuase issues, and may leave the system inoperable. It is a good idea to keep a recent backup of the midifiles folder somewhere else incase you need to restore to a good state.
- * New Button
+* New Button
   * Creates a new Song with details to be entered. Has basic validation input validation.
- * Edit Button
+* Edit Button
   * Enables update of Song paramaters
- * Delete Button
+* Delete Button
   * Deletes the song from the list, but not the file system.
- * Save Song Button
+* Save Song Button
   * Use this Button to save a new Song or Updates or Deletes to the master Song List fle.
- * Sequencer Mode Radio Buttons
+* Sequencer Mode Radio Buttons
   * Original; Plays the MIDI file without auto selecting Preset 1, even if coded as Metadata Cue P1 in the MIDI file
   * With Presets: Plays all 16 channels auto selecting Preset 1 when Song play is initiated. If Song play sounds off, proceed to update Presets 1 (at least in the Presets screen)
   * Backking: Upon initiating Song Play, auto selects Preset 1, and mutes the Bass, Lower, and Upper tracks configured on the Song. 
@@ -193,7 +193,8 @@ How to use the Preset configuraton screen:
 
  
 ### Current Status: 02/06/2021
-** Next up:
+
+Next up:
   * Updating the Song screen to list all active tracks and the channels along wuth a track mute buttons for an easy play alogn mdoe
   * Building out the ARM controller
   * Deeper integraton into Deebach: Complete rotary on/off, drawbar integration, etc.
