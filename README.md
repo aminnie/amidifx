@@ -140,6 +140,10 @@ Usage Notes:
   * Deletes the song from the list, but not the file system.
  * Save Song Button
   * Use this Button to save a new Song or Updates or Deletes to the master Song List fle.
+ * Sequencer Mode Radio Buttons
+  * Original; Plays the MIDI file without auto selecting Preset 1, even if coded as Metadata Cue P1 in the MIDI file
+  * With Presets: Plays all 16 channels auto selecting Preset 1 when Song play is initiated. If Song play sounds off, proceed to update Presets 1 (at least in the Presets screen)
+  * Backking: Upon initiating Song Play, auto selects Preset 1, and mutes the Bass, Lower, and Upper tracks configured on the Song. 
 
 ### Manage Song List, MIDI SMF, and Preset Files
 
