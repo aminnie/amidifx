@@ -108,7 +108,7 @@ public class PlayMidi {
         // Sets the current sequence on which the sequencer operates.
         sequencer.open();
         try {
-            System.out.println("PlayMidi: Starting Sequencer Play " + midiFile);
+            //System.out.println("PlayMidi: Starting Sequencer Play " + midiFile);
 
             mfile = new File(MID_DIRECTORY + midiFile);
             if (!mfile.exists()) {
@@ -158,12 +158,12 @@ public class PlayMidi {
                     // Avoid duplicate triggers. Need to root cause why one CUE triggers multiple times
                     int newpresetidx = cuetext[1] - 48 - 1;
                     if (newpresetidx == presetidx) {
-                        System.out.println("### PlayMidi: Duplicate MetaEvent Cue: Preset " + cuetext[0] + "  " + cuetext[1]);
+                        //System.out.println("### PlayMidi: Duplicate MetaEvent Cue: Preset " + cuetext[0] + "  " + cuetext[1]);
                         return;
                     }
                     else presetidx = newpresetidx;
 
-                    System.out.println("### PlayMidi: MetaEvent Cue Preset " + cuetext[0] + " " + cuetext[1]);
+                    //System.out.println("### PlayMidi: MetaEvent Cue Preset " + cuetext[0] + " " + cuetext[1]);
 
                     if ((presetidx >= 0) && (presetidx <= 7)) {
                         System.out.println("### PlayMidi: MetaEvent Presetidx " + presetidx);
@@ -184,7 +184,7 @@ public class PlayMidi {
 
                     // Only one Bar Cue allowed per Song
                     if (barstarted == true) {
-                        System.out.println("### PlayMidi: Duplicate MetaEvent Cue: Bar " + cuetext[0] + "  " + cuetext[1]);
+                        //System.out.println("### PlayMidi: Duplicate MetaEvent Cue: Bar " + cuetext[0] + "  " + cuetext[1]);
                         return;
                     }
 
@@ -346,7 +346,7 @@ public class PlayMidi {
             if ((curPresetList.get(CHAN).getMSB() == MSB) &&
                     (curPresetList.get(CHAN).getLSB() == LSB) && (curPresetList.get(CHAN).getPC() == PC)) {
 
-                System.out.println("PlayMidi: Duplicate Program Change on CHAN "  + (CHAN + 1) + ", PC " + PC + " MSB:" + MSB + " LSB:" + LSB + " ignored");
+                //System.out.println("PlayMidi: Duplicate Program Change on CHAN "  + (CHAN + 1) + ", PC " + PC + " MSB:" + MSB + " LSB:" + LSB + " ignored");
                 return false;
             }
 
@@ -363,7 +363,7 @@ public class PlayMidi {
             curPresetList.get(CHAN).setLSB(LSB);
             curPresetList.get(CHAN).setPC(PC);
 
-            System.out.println("PlayMidi: Sent MIDI Program Message: CHAN: " + (CHAN + 1) + " PC:" + PC + " MSB:" + MSB + " LSB:" + LSB);
+            //System.out.println("PlayMidi: Sent MIDI Program Message: CHAN: " + (CHAN + 1) + " PC:" + PC + " MSB:" + MSB + " LSB:" + LSB);
         }
         catch (Exception ex) {
             System.err.println("### PlayMidi Error: Sent MIDI Program Change: " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " PC:" + PC + " MSB:" + MSB + " LSB:" + LSB);

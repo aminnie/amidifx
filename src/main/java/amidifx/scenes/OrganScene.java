@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
@@ -2903,13 +2904,22 @@ public class OrganScene {
             centerOrganPanel.setBottom(presetGrid);
             centerOrganPanel.setPadding(new Insets(10, 10, 10, 10));
 
+            // Assemble Status Bar
+            HBox hboxstatus = new HBox();
+            hboxstatus.getChildren().add(labelstatusOrg);
+            labelstatusOrg.setMinWidth(820 * ymul);
+            Label labelsynth = new Label(sharedStatus.getSynth().toString());
+            labelsynth.setTextAlignment(TextAlignment.JUSTIFY);
+            labelsynth.setStyle(styletext);
+            hboxstatus.getChildren().add(labelsynth);
+
             // Assemble the Scene BorderPane View
 
             borderPaneOrg.setTop(borderPaneTop);
             //borderPaneOrg.setLeft(leftseparator);
             borderPaneOrg.setCenter(centerOrganPanel);
             //borderPaneOrg.setRight(rightseparator);
-            borderPaneOrg.setBottom(labelstatusOrg);
+            borderPaneOrg.setBottom(hboxstatus);
 
             // Populate Midi Button Text with Patch names as read from file.
             initMidiButtonPatches(midiButtons);
