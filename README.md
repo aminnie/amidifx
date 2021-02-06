@@ -109,11 +109,37 @@ Usage Notes:
  * Saves the current state of the voices, not unlike powering down a keyboard and having the same setting present when you turn it on again.
 * Bar Counter:
  * I sactivated by placing a Metadate CUE B0 (lead in bar) or B1 in the midi file, just before the first note is played. A good placement tick will result in a acurate o qyarter note bar count. 
-* Note: The Hammond section is to be built out in future and the rotary buttons have not been implemented yet. The plan is to support soft and physical drawbar controllers in the future.
+* Other Notes:
+ * The Hammond section is to be built out in future and the rotary buttons have not been implemented yet. The plan is to support soft and physical drawbar controllers in the future
+ * Please connect the Deebach controller to the USB port on your computer before start AMIDIFX. If not, AMIDIFX will select the built in software synth.
 
 ### Preset Configuration for selected Song
 
 ![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/other/Presets.png)
+
+* Song List:
+ * This is a scrollable list of all Song files loaded in the system
+ * Scrolling the list updates the Song Details controls on the screen
+ * Note: For the moment, a new Song added to the list will show up at the end of the list, and not supported in place - to correct this in future. When  you restart AMIDIFX the new song will appear in the sorted list.
+* Edit Preset File button
+ * This button switches the Preset screen with current song selection as the Preset file to edit
+* Song Input Controls: Any Song is created with
+ * A Song Name (up to 25 chaaracters
+ * A MIDI file that you select from the file system. In 8.3 format with every file extension .mid
+ * Track Mutes:
+  * FInd the MIDI tracks that contain the Bass, Upper and Lower MIDI channels. MIDI Tracks abd Channels are not the same! Start playing the Song and stop and see the tracks detected to assist with Track Mute input a swell as Preset configurations. Ideally change the channels to the the Drum (10) and Bass (11), Lower (12), Upper (13) MIDI channels usng e.g. MidiYodi or equvalent software.
+ * Signature:
+  * At this time the system support 3/4 and 4/4. To be extended to correctly count 6/8, etc. 
+ * A Preset file that you can copy form an existing during the New Song operation. In 8.3 format with the extension .csv (yes Excel text file)
+  * Note: All Songs and Preset files are contained in the folder: c:\amidifx\midifiles. Any new MIDI files should be added to this direct. Please take care with the file names and working with directory as overwriting the wrong files will cuase issues, and may leave the system inoperable. It is a good idea to keep a recent backup of the midifiles folder somewhere else incase you need to restore to a good state.
+ * New Button
+  * Creates a new Song with details to be entered. Has basic validation input validation.
+ * Edit Button
+  * Enables update of Song paramaters
+ * Delete Button
+  * Deletes the song from the list, but not the file system.
+ * Save Song Button
+  * Use this Button to save a new Song or Updates or Deletes to the master Song List fle.
 
 ### Manage Song List, MIDI SMF, and Preset Files
 
