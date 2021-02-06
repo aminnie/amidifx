@@ -157,8 +157,6 @@ How to Use Song screen:
 
 ![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/other/Presets.png)
 
-This is where I started out! We have nearly 1400 sounds 'locked' up in the Deebakc BlacckBox. We need a way to get to them and make them available for realtime organ keuboard play! 
-
 How to use the Preset configuraton screen:
 * Bank List:
   * The available sounds Bans are listed in the list on the left. If the BlackBox is connected all banks are Deebach. Otherwise the system defaults to standard MIDI GM and the built in synth.
