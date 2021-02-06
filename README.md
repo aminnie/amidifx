@@ -2,7 +2,7 @@
 
 Last Update: 06 February 2021
 
-AMIDIFIX is a component based MIDI solution intended to manage one or more MIDI Sound Modules. Hardware sound modules such as the Deebach BlackBox (https://www.deebach.eu/), Roland Integra7, or Yamaha Motif Rack ES are well suited for studio applicationss. However, wiith no or limited user interfaces they require much configuration for realtime performances. With custom development, it is quite possible to use them in live music scenarios, and/or for instance assemble your own multi-keyboard solution with instant recall of all the settings for a pre-confgured song. 
+AMIDIFIX is a component based MIDI solution intended to manage one or more MIDI Sound Modules. Hardware sound modules such as the Deebach BlackBox (https://www.deebach.eu/), Roland Integra7, or Yamaha Motif Rack ES are well suited for studio applications. However, wiith no or limited user onboard interfaces they require much configuration for realtime performances. With custom development, it is quite possible to use them in live music scenarios, and/or for instance assemble your own multi-keyboard solution with instant recall of all the settings for a pre-confgured song. 
 
 AMIDIFX is a JavaFX based solution enables a musician to:
 * Integrate your keyboards into software MIDI GM or hardware sound modules such as the the Deeback Blackbox via USB or MIDI DIN
