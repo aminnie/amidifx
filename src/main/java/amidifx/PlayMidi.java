@@ -84,6 +84,8 @@ public class PlayMidi {
         if ((mode < 1) || (mode > 3))
             return false;
 
+        resetcurPresetList();
+
         barstarted = false;
         presetidx = -1;
 
@@ -550,22 +552,7 @@ public class PlayMidi {
 
         sendAllControllersOff();
 
-        for (int chanidx = 0; chanidx < 16; chanidx++) {
-            curPresetList.get(chanidx).setPC(0);
-            curPresetList.get(chanidx).setMSB(0);
-            curPresetList.get(chanidx).setLSB(0);
-
-            curPresetList.get(chanidx).setVOL(0);
-            curPresetList.get(chanidx).setEXP(0);
-            curPresetList.get(chanidx).setREV(0);
-            curPresetList.get(chanidx).setCHO(0);
-            curPresetList.get(chanidx).setMOD(0);
-            curPresetList.get(chanidx).setPAN(0);
-            curPresetList.get(chanidx).setTRE(0);
-        }
-
-        int presetidx = -1;
-        boolean barstarted = false;
+        resetcurPresetList();
 
         sharedStatus.setStatusText("MIDI PANIC Sent");
 
@@ -841,6 +828,26 @@ public class PlayMidi {
         }
         System.out.println("PlayMidi: Initialized Tracking Preset");
     }
+
+   public void resetcurPresetList() {
+
+       for (int chanidx = 0; chanidx < 16; chanidx++) {
+           curPresetList.get(chanidx).setPC(0);
+           curPresetList.get(chanidx).setMSB(0);
+           curPresetList.get(chanidx).setLSB(0);
+
+           curPresetList.get(chanidx).setVOL(0);
+           curPresetList.get(chanidx).setEXP(0);
+           curPresetList.get(chanidx).setREV(0);
+           curPresetList.get(chanidx).setCHO(0);
+           curPresetList.get(chanidx).setMOD(0);
+           curPresetList.get(chanidx).setPAN(0);
+           curPresetList.get(chanidx).setTRE(0);
+       }
+
+       int presetidx = -1;
+       boolean barstarted = false;
+   }
 
     public boolean isMidiRunning() {
 
