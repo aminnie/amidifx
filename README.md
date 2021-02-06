@@ -85,7 +85,7 @@ Current setup with Seed Odyssey, Waveshare 10.1" Touch Screen, and midibox IO mo
 
 ## AMIDIFX Screens and User Guide
 
-### Main/Live Performance Screen (WiP)
+### Main/Live Performance Screen
 
 ![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/other/Perform.png)
 
