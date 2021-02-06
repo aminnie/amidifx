@@ -1,5 +1,7 @@
 ## Introduction to AMIDIFX
 
+Last Update: 06 February 2021
+
 AMIDIFIX is a component based MIDI solution used to manage one or more MIDI Sound Modules. Hardware sound modules such as the Deebach BlackBox, Roland Integra7, or Yamaha Motif Rack ES are well suited for home or production studios. They have limited user or no user interfaces and take time to configure correctly for a new song. However with custom development, it is quite possible to use them in live music scenarios and for instance to build your own multi-keyboard solution with instant recall of all the settings for a prepared song. 
 
 AMIDIFX is a JavaFX based solution enables a keyboard user to manage:
@@ -185,23 +187,13 @@ This is where I started out! We have nearly 1400 sounds 'locked' up in the Deeba
  * This feature reiies on an external custom controller currently in development and testing. The idea is that you connect your keyboard/organ to this device and the output of this controller to the sound module. The controller is updated with layers associated with each channel. Inbound keyboard notes are mapped real-time to configured output channels - up to 16 of them. Additioanlly external VOL control changes form the organ or MIDI volume pedal is mapped to all Keyboard Bass, Lower 1+2, Upper 1+2+3 channels as well as all layers - just like the expression pedal on an Organ. The Seeed Oddesey shown above is already integrated in this manner and I am workinng on the ARM controller source code. This extenrnal ARM controller will be connected to hardware drawbars as well as additioal rotary encoders and buttons.
 
  
- 
-
- 
- 
- 
-
-
-
 ### Current Status: 01/31/2021
-* Built out three AMDIDFX screens: 
-  * Songs: Create/update new Songs with associated MIDI SMF and Preset configuration files
-  * Presets: For a selected Song, define all 16 MIDI channels, including keyboard real-time play (performance mode on channels 10 - 16), and backing tracks 
-  * Perform: Real-time keyboard/organ configuration in MIDI GM and Deebach Blackbox modes. Defaults o Deebach if detected on start-up
-  * Java MIDI Sequencer integrated and playing in demo and demo with preset more. Backing mode channels 10 - 16 mute issue to be resolved.
-  * Voice selections and effect sliders on all screens work in realtime, and adjust the current/last channel and voice selected. 
-* Next up:
+** Next up:
+  * Building out the ARM controller
   * Deeper integraton into Deebach: Complete rotary on/off, drawbar integration, etc.
-  
+  * More testing and usability inprovements
+** AMIDIFX was developed in JavaFX. It is portable to numerous operating systems and devices, including IOS, Andriod, Linux, etc!
+** AMIDIFx cn run on a dedicated controller (such as the Seeed above), or you laptop/tabled. The exteral ARM controller us accessed over USB, and it is possible to connect this controller to a host via a second USB port if no GPIO is availavble.
 
+ 
 -- More to follow  ---
