@@ -193,7 +193,7 @@ This is where I started out! We have nearly 1400 sounds 'locked' up in the Deeba
   * Deeper integraton into Deebach: Complete rotary on/off, drawbar integration, etc.
   * More testing and usability inprovements
 ** AMIDIFX was developed in JavaFX. It is portable to numerous operating systems and devices, including IOS, Andriod, Linux, etc!
-** AMIDIFx cn run on a dedicated controller (such as the Seeed above), or you laptop/tabled. The exteral ARM controller us accessed over USB, and it is possible to connect this controller to a host via a second USB port if no GPIO is availavble.
+** The AMIDIFx keyboard controller can run on sinngle board computer  (such as the Seeed above), or you laptop/tablet. The exteral ARM controller us accessed over USB, and it is possible to connect this controller to a host via a second USB port if no GPIO is availavble. A basic Windows 10 host (PC/Laptop/Tablet) with 4GB of RAM and a touch screen will do for the current build.
 
  
 -- More to follow  ---
