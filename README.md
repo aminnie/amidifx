@@ -86,7 +86,7 @@ Current setup with Seed Odyssey, Waveshare 10.1" Touch Screen, and midibox IO mo
 
 ![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/other/Perform.png)
 
-How to Use:
+How to Use the Performance screen:
 * Navigation buttons: Select Song, Select Bank and Select Voice
   * Each control consists of three seperate buttons left << and >> navigate, and a text area that is used to select the current option.
   * Selecting a Bank, resets the Bacnk Voices to the first vocie in the Bank
@@ -111,7 +111,7 @@ How to Use:
 * Save Perform buttoon
   * Saves the current state of the voices, not unlike powering down a keyboard and having the same setting present when you turn it on again.
 * Bar Counter:
- * I sactivated by placing a Metadate CUE B0 (lead in bar) or B1 in the midi file, just before the first note is played. A good placement tick will result in a acurate o qyarter note bar count. 
+  * I sactivated by placing a Metadate CUE B0 (lead in bar) or B1 in the midi file, just before the first note is played. A good placement tick will result in a acurate o qyarter note bar count. 
 * Other Notes:
   * The Organ section is to be built out in future and the rotary buttons have not been implemented yet. The plan is to support soft and physical drawbar controllers in the future
   * You will notice that the Lower 1, Upper 1, 2 and 3 labels are in effect disbled buttons. These buttons activate once it seens an external ARM controller that is used to manage keyboard layering configured in the Preset screen - see below for more 
@@ -121,6 +121,7 @@ How to Use:
 
 ![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/other/Songs.png)
 
+How to Use Song screen:
 * Song List:
  * This is a scrollable list of all Song files loaded in the system
  * Scrolling the list updates the Song Details controls on the screen
@@ -154,47 +155,52 @@ How to Use:
 ![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/other/Presets.png)
 
 This is where I started out! We have nearly 1400 sounds 'locked' up in the Deebakc BlacckBox. We need a way to get to them and make them available for realtime organ keuboard play! 
- * Bank List:
+
+How to use the Preset configuraton screen:
+* Bank List:
   * The available sounds Bans are listed in the list on the left. If the BlackBox is connected all banks are Deebach. Otherwise the system defaults to standard MIDI GM and the built in synth.
   * Clicking on a voice bank loads the voices for this bank into the 16 voice buttons in the center of the screen
- * Voice Buttons
+* Voice Buttons
   * 16 Voice Buttons for the last selected Bank is shown with a << left and >> right buttons to scroll.
   * The Sound Voice button can be used to play a single note in the voice button last selected.
 * Play Song button
- * Initiates Song play in Preset 0 autoselect mode enabling you to lsten to voice and effect changes (in realtime using the appropriate buttons)
+  * Initiates Song play in Preset 0 autoselect mode enabling you to lsten to voice and effect changes (in realtime using the appropriate buttons)
 * Effect Sliders:
- * Operates in realtime and is set individually for each of the 16 MIDI channels on a Preset.
- * The buttons below the sliders can be used to defualt each slider as a starting point to tune a voice
- * NoteL The REV, CHO and MOD slider will be developed into a pop-up with additional paramter settings in future.
+  * Operates in realtime and is set individually for each of the 16 MIDI channels on a Preset.
+  * The he buttons below the sliders can be used to defualt each slider as a starting point to tune a voice
+   * Note: The REV, CHO and MOD slider will be developed into a pop-up with additional paramter settings in future.
+
 * Preset Channels: How do I program a new voice into a channel?
- * Do this: 1) Select voice bank, 2) then proceed to select a Voice from this Bank, then 3) click on any of Channels 1 through 16. The voice has not registered on the Channel yet - in case you clicked on the wrong channel. Once you have yoru preferred channel, then 4) proceed to click on the Set Voice Button.
+  * Do this: 1) Select voice bank, 2) then proceed to select a Voice from this Bank, then 3) click on any of Channels 1 through 16. The voice has not registered on the Channel yet - in case you clicked on the wrong channel. Once you have yoru preferred channel, then 4) proceed to click on the Set Voice Button.
+  
 * Select Voice Button:
- * Programs the selected Voice into a CHannel, and forward the PC, MSB and LSB to the sound module. If you keyboard is connected the channel in the sound module it should sound.
- * Effect sLiders (again): Once you have the vocie programmed into a channelm continue to adjust the VOL etc. effects on this CHannel. All Effects are saved with its respective MIDI channel and every MIDI channel can be configured differently.
+  * Programs the selected Voice into a CHannel, and forward the PC, MSB and LSB to the sound module. If you keyboard is connected the channel in the sound module it should sound.
+* Effect sLiders (again): Once you have the vocie programmed into a channelm continue to adjust the VOL etc. effects on this CHannel. All Effects are saved with its respective MIDI channel and every MIDI channel can be configured differently.
 * Preset 1 through 1 selector:
- * At the top of the Preset List the, Preset 1 (default) dropdown can used to select different Preset to configure all 16 channels for.
+  * At the top of the Preset List the, Preset 1 (default) dropdown can used to select different Preset to configure all 16 channels for.
 * Copy Next Button:
- * Configuring all 8 presets and 16 channels is quite a task, especially if you are looking for incremental changes on just one or a few channels from one Preset to another.
- * This button takes the current Preset selected and copies it in full to the next Preset, including all program and effects configured.
- * After Copy Next, select the next Preset from the dropdown. It should be identical to the previous. Now proceed to update the channel you need to with new voices ad effecs.
-* Apply Channel or All Channels Buttons:
- * Send the selected channel or all channel program abd effect changes to the sound module if oy want to test in realtime.
+  * Configuring all 8 presets and 16 channels is quite a task, especially if you are looking for incremental changes on just one or a few channels from one Preset to another.
+  * This button takes the current Preset selected and copies it in full to the next Preset, including all program and effects configured.
+ * After Copy Next, select the next Preset from the dropdown. It should be identical to the previous. Now proceed to update the channel you need to with new voices ad effecs  * * Apply Channel or All Channels Buttons:
+  * Send the selected channel or all channel program abd effect changes to the sound module if oy want to test in realtime.
 * Save Button:
- * Save the open Preset file. DO NOT forget to save your updates, otherwise you will have to redo all work since the last save.
+  * Save the open Preset file. DO NOT forget to save your updates, otherwise you will have to redo all work since the last save.
 * Reload Button:
- * If you realize you have misconfigered the voice or effetcs in file, the Reload buttons will abort the current edit and reload the Preset file base don the last save.
+  * If you realize you have misconfigered the voice or effetcs in file, the Reload buttons will abort the current edit and reload the Preset file base don the last save.
 * Layers Option:
- * Every MIDI channel can be mapped to up to 10 other channels to layer additional MIDI sounds onto it.
- * This feature reiies on an external custom controller currently in development and testing. The idea is that you connect your keyboard/organ to this device and the output of this controller to the sound module. The controller is updated with layers associated with each channel. Inbound keyboard notes are mapped real-time to configured output channels - up to 16 of them. Additioanlly external VOL control changes form the organ or MIDI volume pedal is mapped to all Keyboard Bass, Lower 1+2, Upper 1+2+3 channels as well as all layers - just like the expression pedal on an Organ. The Seeed Oddesey shown above is already integrated in this manner and I am workinng on the ARM controller source code. This extenrnal ARM controller will be connected to hardware drawbars as well as additioal rotary encoders and buttons.
+  * Every MIDI channel can be mapped to up to 10 other channels to layer additional MIDI sounds onto it.
+  * This feature reiies on an external custom controller currently in development and testing. The idea is that you connect your keyboard/organ to this device and the output of this controller to the sound module. The controller is updated with layers associated with each channel. Inbound keyboard notes are mapped real-time to configured output channels - up to 16 of them. Additioanlly external VOL control changes form the organ or MIDI volume pedal is mapped to all Keyboard Bass, Lower 1+2, Upper 1+2+3 channels as well as all layers - just like the expression pedal on an Organ. The Seeed Oddesey shown above is already integrated in this manner and I am workinng on the ARM controller source code. This extenrnal ARM controller will be connected to hardware drawbars as well as additioal rotary encoders and buttons.
 
  
-### Current Status: 01/31/2021
+### Current Status: 02/06/2021
 ** Next up:
+  * Updating the Song screen to list all active tracks and the channels along wuth a track mute buttons for an easy play alogn mdoe
   * Building out the ARM controller
   * Deeper integraton into Deebach: Complete rotary on/off, drawbar integration, etc.
   * More testing and usability inprovements
-** AMIDIFX was developed in JavaFX. It is portable to numerous operating systems and devices, including IOS, Andriod, Linux, etc!
-** The AMIDIFx keyboard controller can run on sinngle board computer  (such as the Seeed above), or you laptop/tablet. The exteral ARM controller us accessed over USB, and it is possible to connect this controller to a host via a second USB port if no GPIO is availavble. A basic Windows 10 host (PC/Laptop/Tablet) with 4GB of RAM and a touch screen will do for the current build.
+
+  * AMIDIFX was developed in JavaFX. It is portable to numerous operating systems and devices, including IOS, Andriod, Linux, etc!  * 
+  * The AMIDIFx keyboard controller can run on sinngle board computer  (such as the Seeed above), or you laptop/tablet. The exteral ARM controller us accessed over USB, and it is possible to connect this controller to a host via a second USB port if no GPIO is availavble. A basic Windows 10 host (PC/Laptop/Tablet) with 4GB of RAM and a touch screen will do for the current build.
 
  
 -- More to follow  ---
