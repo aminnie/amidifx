@@ -341,6 +341,36 @@ public class Main extends Application {
             Platform.exit();
         });
 
+        // Reload Presets Button
+        buttonReload.setText("Reload");
+        buttonReload.setStyle(btnMenuOff);
+        buttonReload.setDisable(false);
+        buttonReload.setOnAction(event -> {
+            ////dopresets = new MidiPresets();
+            dopresets.makeMidiPresets(presetFile);
+
+            // Update the newly selected Preset MIDI Channel Voice list
+            for (int idx = 0; idx < 16; idx++) {
+                midiPreset = dopresets.getPreset(presetIdx * 16 + idx);
+
+                String strName = Integer.toString(idx + 1).concat(":").concat(midiPreset.getPatchName());
+                presetListView.getItems().set(idx, strName);
+
+                //System.out.println("Main: Patch name " + strName);
+            }
+            channelIdx = 0;
+            presetListView.getSelectionModel().select(channelIdx);
+            presetListView.refresh();
+
+            presetCombo.requestFocus();
+            presetCombo.getSelectionModel().select(0);
+
+            // Force reload of all channels
+            playmidifile.resetcurPresetList();
+
+            labelstatus.setText(" Status: Reloaded Presets file " + presetFile);
+        });
+
         ToolBar toolbarLeft = new ToolBar(buttonsc1, buttonsc2, buttonsc3);
         toolbarLeft.setStyle(bgheadercolor);
         toolbarLeft.setMinWidth(xtoolbarleft);
@@ -357,7 +387,7 @@ public class Main extends Application {
         //labelicon.setMaxSize(10, 10);
         //hboxTitle.getChildren().add(view);
 
-        ToolBar toolbarRight = new ToolBar(buttonupdate, buttonPanic, buttonExit);
+        ToolBar toolbarRight = new ToolBar(buttonupdate, buttonReload, buttonPanic, buttonExit);
         toolbarRight.setStyle(bgheadercolor);
         toolbarRight.setMinWidth(xtoolbarright);
 
@@ -446,6 +476,10 @@ public class Main extends Application {
 
                     // Preset Time Signature for correct Bar Time Display
                     sharedStatus.setTimeSig(midiSong.getTimeSig());
+
+                    sharedStatus.setPresetFile(midiSong.getSongTitle());
+                    sharedStatus.setPresetFile(midiSong.getMidiFile());
+                    sharedStatus.setPresetFile(midiSong.getPresetFile());
 
                     // Enable Preset File Save As text entry
                     txtSongTitle.setDisable(true);
@@ -947,6 +981,10 @@ public class Main extends Application {
                     bplaying = true;
                     boolean bsettimer = false;
 
+                    // Reload the Preset file for current Song in case it has changed
+                    presetFile = sharedStatus.getPresetFile();
+                    dopresets.makeMidiPresets(presetFile);
+
                     buttondemo.setText("Stop Play");
                     buttondemo.setStyle(btnplayOn);
 
@@ -1265,12 +1303,12 @@ public class Main extends Application {
                 labelstatus.setText(" Status: Presets not changed. No need to save");
         });
 
-        // Save Presets Button
+        // Reload Presets Button
         buttonReload.setText("Reload");
         buttonReload.setStyle(btnMenuOff);
         buttonReload.setDisable(false);
         buttonReload.setOnAction(event -> {
-            dopresets = new MidiPresets();
+            ////dopresets = new MidiPresets();
             dopresets.makeMidiPresets(presetFile);
 
             // Update the newly selected Preset MIDI Channel Voice list
@@ -1288,6 +1326,9 @@ public class Main extends Application {
 
             presetCombo.requestFocus();
             presetCombo.getSelectionModel().select(0);
+
+            // Force reload of all channels
+            playmidifile.resetcurPresetList();
 
             labelstatus.setText(" Status: Reloaded Presets file " + presetFile);
         });
