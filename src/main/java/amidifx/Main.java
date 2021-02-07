@@ -342,7 +342,7 @@ public class Main extends Application {
         });
 
         // Reload Presets Button
-        buttonReload.setText("Reload");
+        Button buttonReload = new Button("Reload");
         buttonReload.setStyle(btnMenuOff);
         buttonReload.setDisable(false);
         buttonReload.setOnAction(event -> {
