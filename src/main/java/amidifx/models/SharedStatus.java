@@ -1,5 +1,6 @@
 package amidifx.models;
 
+import amidifx.MidiSongs;
 import javafx.scene.Scene;
 
 public class SharedStatus {
@@ -28,6 +29,8 @@ public class SharedStatus {
     private Scene sceneOrgan;
     private Scene sceneSongs;
     private Scene scenePresets;
+
+    private MidiSongs dosongs;
 
     private String instruments = "";
 
@@ -83,6 +86,14 @@ public class SharedStatus {
     public void setPresetsScene(Scene scenePresets) {
         this.scenePresets = scenePresets;
         System.out.println("SharedStatus: Setting Songs Scene: " + scenePresets.toString());
+    }
+
+    public void setDoSongs(MidiSongs dosongs) {
+        this.dosongs = dosongs;
+    }
+
+    public MidiSongs getDoSongs() {
+        return this.dosongs;
     }
 
     public void setSynth(String synth) {

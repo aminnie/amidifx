@@ -44,6 +44,7 @@ public class PlayMidi {
 
     String midiFile;
     String presetFile;
+    MidiPresets readpresets;
 
     int mode = 1;
     Boolean midirunning = false;
@@ -74,10 +75,12 @@ public class PlayMidi {
     }
 
     // Play MIDI File
-    public boolean startMidiPlay(MidiSong midiSong, MidiPresets readpresets, int playmode) throws Exception {
+    public boolean startMidiPlay(MidiSong midiSong, MidiPresets dopresets, int playmode) throws Exception {
 
         midiFile = midiSong.getMidiFile();
         presetFile = midiSong.getPresetFile();
+
+        readpresets = new MidiPresets();
         readpresets.makeMidiPresets(presetFile);
 
         System.out.println("*** PlayMidi: Playing Song " + midiSong.getSongTitle() + " in mode " + mode);
@@ -181,7 +184,7 @@ public class PlayMidi {
                             MidiPreset preset = readpresets.getPreset(presetidx * 16 + chanidx);
                             readpresets.applyMidiPreset(preset, chanidx);
 
-                            //System.out.println("### Applied Channel " + chanidx + ", " + preset.toString());
+                            System.out.println("### Applied Channel " + chanidx + ", " + preset.toString());
                         }
 
                         sharedStatus.setStatusText("Preset " + (presetidx + 1) + " auto applied ");

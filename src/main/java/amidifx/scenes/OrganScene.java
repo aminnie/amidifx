@@ -312,7 +312,8 @@ public class OrganScene {
             System.out.println("OrganScene Init: Loaded new Preset file: " + presetFile);
 
             // Load Song List
-            dosongs = new MidiSongs();
+            //dosongs = new MidiSongs();
+            dosongs = sharedStatus.getDoSongs();
             dosongs.makeMidiSongs();
             songTitle = dosongs.getSong(0).getSongTitle();
             System.out.println("OrganScene Init: Song Title: " + songTitle);

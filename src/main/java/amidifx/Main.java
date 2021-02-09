@@ -202,6 +202,7 @@ public class Main extends Application {
             System.exit(-1);
         }
         dosongs.makeMidiSongs();
+        sharedStatus.setDoSongs(dosongs);
 
         // Load MIDI Patch files on start up based on detected and preferred sound module
         dopatches = new MidiPatches();
