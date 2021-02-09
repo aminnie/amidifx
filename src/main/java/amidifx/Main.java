@@ -346,7 +346,8 @@ public class Main extends Application {
         buttonReload.setStyle(btnMenuOff);
         buttonReload.setDisable(false);
         buttonReload.setOnAction(event -> {
-            ////dopresets = new MidiPresets();
+            //dopresets = new MidiPresets();
+            presetFile = sharedStatus.getPresetFile();
             dopresets.makeMidiPresets(presetFile);
 
             // Update the newly selected Preset MIDI Channel Voice list
@@ -455,6 +456,13 @@ public class Main extends Application {
             txtUpper.setText(Integer.toString(midiSong.getChanUpper()));
             txtTimeSig.setText(midiSong.getTimeSig());
 
+            sharedStatus.setSongTitle(midiSong.getSongTitle());
+            sharedStatus.setMidiFile(midiSong.getMidiFile());
+            sharedStatus.setPresetFile(midiSong.getPresetFile());
+
+            // Preset Time Signature for correct Bar Time Display
+            sharedStatus.setTimeSig(midiSong.getTimeSig());
+
             songFile = txtSmfFile.getText();
 
         });
@@ -469,17 +477,18 @@ public class Main extends Application {
                     txtSongTitle.setText(midiSong.getSongTitle());
                     txtSmfFile.setText(midiSong.getMidiFile());
                     txtPresetFile.setText(midiSong.getPresetFile());
+
                     txtBass.setText(Integer.toString(midiSong.getChanBass()));
                     txtLower.setText(Integer.toString(midiSong.getChanLower()));
                     txtUpper.setText(Integer.toString(midiSong.getChanUpper()));
                     txtTimeSig.setText(midiSong.getTimeSig());
 
+                    sharedStatus.setSongTitle(midiSong.getSongTitle());
+                    sharedStatus.setMidiFile(midiSong.getMidiFile());
+                    sharedStatus.setPresetFile(midiSong.getPresetFile());
+
                     // Preset Time Signature for correct Bar Time Display
                     sharedStatus.setTimeSig(midiSong.getTimeSig());
-
-                    sharedStatus.setPresetFile(midiSong.getSongTitle());
-                    sharedStatus.setPresetFile(midiSong.getMidiFile());
-                    sharedStatus.setPresetFile(midiSong.getPresetFile());
 
                     // Enable Preset File Save As text entry
                     txtSongTitle.setDisable(true);
@@ -1308,7 +1317,8 @@ public class Main extends Application {
         buttonReload.setStyle(btnMenuOff);
         buttonReload.setDisable(false);
         buttonReload.setOnAction(event -> {
-            ////dopresets = new MidiPresets();
+            //dopresets = new MidiPresets();
+            presetFile = sharedStatus.getPresetFile();
             dopresets.makeMidiPresets(presetFile);
 
             // Update the newly selected Preset MIDI Channel Voice list

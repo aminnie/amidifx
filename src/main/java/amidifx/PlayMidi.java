@@ -42,18 +42,23 @@ public class PlayMidi {
     MidiDevice selectedDevice;
     Receiver midircv;
 
+    String midiFile;
+    String presetFile;
+
+    int mode = 1;
     Boolean midirunning = false;
+
     long barzerotickposition = 0;
     int barstartnumber = 1;
-    int mode = 1;
-    int presetidx = -1;
     boolean barstarted = false;
-
     long seqresolution;
 
+    int presetidx = 0;
+    int newpresetidx = -1;
+
+
     // Static method to create singleton instance of PlayMidi class
-    public synchronized static PlayMidi getInstance()
-    {
+    public synchronized static PlayMidi getInstance() {
         if (single_PlayMidiInstance == null) {
             single_PlayMidiInstance = new PlayMidi();
 
@@ -71,9 +76,12 @@ public class PlayMidi {
     // Play MIDI File
     public boolean startMidiPlay(MidiSong midiSong, MidiPresets readpresets, int playmode) throws Exception {
 
-        String midiFile = midiSong.getMidiFile();
+        midiFile = midiSong.getMidiFile();
+        presetFile = midiSong.getPresetFile();
+        readpresets.makeMidiPresets(presetFile);
 
-        System.out.println("Playing " + midiSong.getSongTitle() + " in mode " + mode);
+        System.out.println("*** PlayMidi: Playing Song " + midiSong.getSongTitle() + " in mode " + mode);
+        System.out.println("*** PlayMidi: Using Preset " + midiSong.getPresetFile());
 
         // We can only have on instance running!
         if (midirunning)
@@ -85,6 +93,7 @@ public class PlayMidi {
             return false;
 
         resetcurPresetList();
+        unmuteAllTracks();
 
         barstarted = false;
         presetidx = -1;
@@ -140,8 +149,7 @@ public class PlayMidi {
             seqresolution = midiSeq.getResolution();
             System.out.println("MidiPlay - Resolution: " + midiSeq.getResolution());
 
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.err.println("PlayMidi: Sequencer Play Exception: " + ex);
         }
 
@@ -150,7 +158,7 @@ public class PlayMidi {
             // Returned Cue to change to Preset 1 - only if not in demo mode!
             // Inserted at the start of a MIDI file before the first note (and after any PC, etc. changes)
             if (metaMsg.getType() == 0x07) {
-                //System.out.println("### PlayMidi: MetaEvent Cue for " + midiFile);
+                System.out.println("### PlayMidi: MetaEvent Cue for " + midiFile);
 
                 byte cuetext[] = metaMsg.getData();
 
@@ -158,14 +166,13 @@ public class PlayMidi {
                 if ((cuetext[0] == 'P') && (mode > 1)) {
 
                     // Avoid duplicate triggers. Need to root cause why one CUE triggers multiple times
-                    int newpresetidx = cuetext[1] - 48 - 1;
+                    newpresetidx = cuetext[1] - 48 - 1;
                     if (newpresetidx == presetidx) {
-                        //System.out.println("### PlayMidi: Duplicate MetaEvent Cue: Preset " + cuetext[0] + "  " + cuetext[1]);
+                        System.out.println("### PlayMidi: Duplicate MetaEvent Cue: Preset " + cuetext[0] + "  " + cuetext[1]);
                         return;
-                    }
-                    else presetidx = newpresetidx;
+                    } else presetidx = newpresetidx;
 
-                    //System.out.println("### PlayMidi: MetaEvent Cue Preset " + cuetext[0] + " " + cuetext[1]);
+                    System.out.println("### PlayMidi: MetaEvent Cue Preset " + cuetext[0] + " " + cuetext[1]);
 
                     if ((presetidx >= 0) && (presetidx <= 7)) {
                         System.out.println("### PlayMidi: MetaEvent Presetidx " + presetidx);
@@ -186,7 +193,7 @@ public class PlayMidi {
 
                     // Only one Bar Cue allowed per Song
                     if (barstarted == true) {
-                        //System.out.println("### PlayMidi: Duplicate MetaEvent Cue: Bar " + cuetext[0] + "  " + cuetext[1]);
+                        System.out.println("### PlayMidi: Duplicate MetaEvent Cue: Bar " + cuetext[0] + "  " + cuetext[1]);
                         return;
                     }
 
@@ -207,6 +214,8 @@ public class PlayMidi {
 
                 midirunning = false;
                 sharedStatus.isMidirunning(false);
+
+                newpresetidx = -1;
 
                 // Reset all MIDI Controllers as we start out
                 sendAllControllersOff();
@@ -249,19 +258,18 @@ public class PlayMidi {
         long beatposition = 0;
 
         long ticklen = sequencer.getTickLength() / (seqresolution * TimeSigNum);
-        long barzerolen = barzerotickposition /  (seqresolution * TimeSigNum);
+        long barzerolen = barzerotickposition / (seqresolution * TimeSigNum);
 
         long tickposition = sequencer.getTickPosition();
         if ((tickposition > barzerotickposition) && (barzerotickposition) > 0) {
             tickposition = tickposition - barzerotickposition;
 
             barposition = tickposition / (seqresolution * TimeSigNum);
-            beatposition = (tickposition - (barposition * (seqresolution * TimeSigNum) )) / (seqresolution * 1);
+            beatposition = (tickposition - (barposition * (seqresolution * TimeSigNum))) / (seqresolution * 1);
 
             //System.out.println("PlayMidi: Bar.Beat Position " + (barposition + 1) + "." + (beatposition + 1));
             return (barposition + barstartnumber) + "." + (beatposition + 1) + " | " + (ticklen - barzerolen);
-        }
-        else {
+        } else {
             //System.out.println("PlayMidi: Bar.Beat Position " + barposition + "." + beatposition);
             return barposition + "." + beatposition;
         }
@@ -270,6 +278,8 @@ public class PlayMidi {
 
     public boolean stopMidiPlay(String midiFile) {
         //System.out.println("PlayMidi: Stopping Sequencer play " + midiFile);
+
+        newpresetidx = -1;
 
         midirunning = false;
         try {
@@ -286,8 +296,7 @@ public class PlayMidi {
                 sequencer.close();
             }
 
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             //System.err.println("### PlayMidi: Error attempting to stop sequencer play: " + ex);
             return false;
         }
@@ -299,7 +308,7 @@ public class PlayMidi {
     public boolean sendMidiNote(byte CHAN, byte NOTE, boolean NOTEON) {
         ShortMessage midiMsg = new ShortMessage();
 
-        CHAN = (byte)(CHAN - 1);
+        CHAN = (byte) (CHAN - 1);
 
         try {
             //midircv = MidiSystem.getReceiver();
@@ -309,14 +318,12 @@ public class PlayMidi {
                 midiMsg.setMessage(ShortMessage.NOTE_ON, CHAN, NOTE, 48);
                 midircv.send(midiMsg, timeStamp);
                 //System.out.println("PlayMidi: Sent MIDI Note ON " + midiMsg.toString());
-            }
-            else {
+            } else {
                 midiMsg.setMessage(ShortMessage.NOTE_OFF, CHAN, NOTE, 0);
                 midircv.send(midiMsg, timeStamp);
                 //System.out.println("PlayMidi: Sent MIDI Note OFF " + midiMsg.toString());
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.err.println("### PlayMidi Error: MIDI Note Send Exception " + midiMsg.toString());
             System.err.println(ex);
             return false;
@@ -330,7 +337,7 @@ public class PlayMidi {
 
         CHAN = CHAN - 1;
         if (CHAN < 0) {
-            System.err.println("PlayMidi: sendMidiProgramChange Error CHAN: " + (CHAN + 1)  + " PC:" + (PC + 1) + " LSB:" + LSB + " MSB:"+ MSB);
+            System.err.println("PlayMidi: sendMidiProgramChange Error CHAN: " + (CHAN + 1) + " PC:" + (PC + 1) + " LSB:" + LSB + " MSB:" + MSB);
             return false;
         }
 
@@ -361,13 +368,12 @@ public class PlayMidi {
             midircv.send(midiMsg, timeStamp);
 
             // Log the newly sent PC to compare against next send
-            curPresetList.get(CHAN).setMSB(MSB);
-            curPresetList.get(CHAN).setLSB(LSB);
-            curPresetList.get(CHAN).setPC(PC);
+            ////curPresetList.get(CHAN).setMSB(MSB);
+            ////curPresetList.get(CHAN).setLSB(LSB);
+            ////curPresetList.get(CHAN).setPC(PC);
 
             //System.out.println("PlayMidi: Sent MIDI Program Message: CHAN: " + (CHAN + 1) + " PC:" + PC + " MSB:" + MSB + " LSB:" + LSB);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.err.println("### PlayMidi Error: Sent MIDI Program Change: " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " PC:" + PC + " MSB:" + MSB + " LSB:" + LSB);
             System.err.println(ex);
             return false;
@@ -381,7 +387,7 @@ public class PlayMidi {
 
         CHAN = CHAN - 1;
         if (CHAN < 0) {
-            System.err.println("### PlayMidi: sendMidiControlChange Error:  CHAN: " + (CHAN + 1)  + " CTRL:" + CTRL + " VAL:" + VAL);
+            System.err.println("### PlayMidi: sendMidiControlChange Error:  CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
             return false;
         }
 
@@ -390,65 +396,64 @@ public class PlayMidi {
 
             // Start playing note
             long timeStamp = -1;
-            midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, CTRL &0XFF, VAL &0XFF);
+            midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, CTRL & 0XFF, VAL & 0XFF);
 
             switch (CTRL) {
                 case ccVOL:
                     //System.out.println("VOL setting change requested: " + VAL);
-                    if (curPresetList.get(CHAN).getVOL() != VAL) {
-                        midircv.send(midiMsg, timeStamp);
+                    //if (curPresetList.get(CHAN).getVOL() != VAL) {
+                    midircv.send(midiMsg, timeStamp);
 
-                        curPresetList.get(CHAN).setVOL(VAL);
-                        //System.out.println("VOL setting changed! " + VAL);
-                    }
+                    ////curPresetList.get(CHAN).setVOL(VAL);
+                    //System.out.println("VOL setting changed! " + VAL);
+                    //}
                     //else
                     //    System.out.println("VOL setting NOT changed! " + VAL);
                     break;
                 case ccEXP:
-                    if (curPresetList.get(CHAN).getEXP() != VAL) {
-                        midircv.send(midiMsg, timeStamp);
+                    //if (curPresetList.get(CHAN).getEXP() != VAL) {
+                    midircv.send(midiMsg, timeStamp);
 
-                        curPresetList.get(CHAN).setEXP(VAL);
-                    }
+                    ////curPresetList.get(CHAN).setEXP(VAL);
+                    //}
                     break;
                 case ccREV:
-                    if (curPresetList.get(CHAN).getREV() != VAL) {
-                        midircv.send(midiMsg, timeStamp);
+                    //if (curPresetList.get(CHAN).getREV() != VAL) {
+                    midircv.send(midiMsg, timeStamp);
 
-                        curPresetList.get(CHAN).setREV(VAL);
-                    }
+                    ////curPresetList.get(CHAN).setREV(VAL);
+                    //}
                     break;
                 case ccCHO:
-                    if (curPresetList.get(CHAN).getCHO() != VAL) {
-                        midircv.send(midiMsg, timeStamp);
+                    //if (curPresetList.get(CHAN).getCHO() != VAL) {
+                    midircv.send(midiMsg, timeStamp);
 
-                        curPresetList.get(CHAN).setCHO(VAL);
-                    }
+                    ////curPresetList.get(CHAN).setCHO(VAL);
+                    //}
                     break;
                 case ccTRE:
-                    if (curPresetList.get(CHAN).getTRE() != VAL) {
-                        midircv.send(midiMsg, timeStamp);
+                    //if (curPresetList.get(CHAN).getTRE() != VAL) {
+                    midircv.send(midiMsg, timeStamp);
 
-                        curPresetList.get(CHAN).setTRE(VAL);
-                    }
+                    ////curPresetList.get(CHAN).setTRE(VAL);
+                    //}
                     break;
                 case ccMOD:
-                    if (curPresetList.get(CHAN).getMOD() != VAL) {
-                        midircv.send(midiMsg, timeStamp);
+                    //if (curPresetList.get(CHAN).getMOD() != VAL) {
+                    midircv.send(midiMsg, timeStamp);
 
-                        curPresetList.get(CHAN).setMOD(VAL);
-                    }
+                    ////curPresetList.get(CHAN).setMOD(VAL);
+                    //}
                     break;
                 case ccPAN:
-                    if (curPresetList.get(CHAN).getPAN() != VAL) {
-                        midircv.send(midiMsg, timeStamp);
+                    //if (curPresetList.get(CHAN).getPAN() != VAL) {
+                    midircv.send(midiMsg, timeStamp);
 
-                        curPresetList.get(CHAN).setPAN(VAL);
-                    }
+                    ////curPresetList.get(CHAN).setPAN(VAL);
+                    //}
                     break;
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.err.println("### PlayMidi Error: Sent MIDI Control Change " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
             System.err.println(ex);
             return false;
@@ -461,11 +466,11 @@ public class PlayMidi {
     public boolean sendSysEx(byte[] SysExMsg) {
 
         // Example SysEx Message
-        byte[] testmessage ={
-                (byte)0xF0, (byte)0x52, (byte)0x00,
-                (byte)0x5A, (byte)0x50, (byte)0xF7,
-                (byte)0xF0, (byte)0x52, (byte)0x00,
-                (byte)0x5A, (byte)0x16, (byte)0xF7
+        byte[] testmessage = {
+                (byte) 0xF0, (byte) 0x52, (byte) 0x00,
+                (byte) 0x5A, (byte) 0x50, (byte) 0xF7,
+                (byte) 0xF0, (byte) 0x52, (byte) 0x00,
+                (byte) 0x5A, (byte) 0x16, (byte) 0xF7
         };
 
         System.out.println("PlayMidi: Sending MIDI SysEx " + SysExMsg);
@@ -479,14 +484,14 @@ public class PlayMidi {
             }
 
             //  Obtain a MIDI track from the sequence  ****
-            Track t = sequencer.getSequence().createTrack();;
+            Track t = sequencer.getSequence().createTrack();
+            ;
 
             SysexMessage sm = new SysexMessage();
             sm.setMessage(SysExMsg, SysExMsg.length);
-            MidiEvent msg = new MidiEvent(sm,(long)0);
+            MidiEvent msg = new MidiEvent(sm, (long) 0);
             t.add(msg);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             //System.err.println("### PlayMidi Error: Sent MIDI Program Change " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " PC:" + PC + MSB + " LSB:" + LSB + " MSB:");
             System.err.println(ex);
             return false;
@@ -507,11 +512,10 @@ public class PlayMidi {
 
         try {
             for (CHAN = 0; CHAN < 16; CHAN++) {
-                midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, allControllersoff & 0XFF, 0 &0XFF);
+                midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, allControllersoff & 0XFF, 0 & 0XFF);
                 midircv.send(midiMsg, timeStamp);
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.err.println("### PlayMidi Error: Sent MIDI Program Change: All Controllers Reset:  CHAN: " + (CHAN + 1));
             System.err.println(ex);
             return false;
@@ -543,8 +547,7 @@ public class PlayMidi {
 
                 //System.out.println("PlayMidi: PANIC Sound, Controllers, Notes off sent on channel: " + chanidx);
             }
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.err.println("### PlayMidi Error: Sent MIDI PANIC Control Changes " + midiMsg.toString());
             System.err.println(ex);
             return false;
@@ -574,8 +577,7 @@ public class PlayMidi {
             if (devices.length == 0) {
                 System.err.println("### PlayMidi Error: No MIDI devices found");
                 return false;
-            }
-            else {
+            } else {
                 boolean binit = true;
 
                 for (MidiDevice.Info dev : devices) {
@@ -591,11 +593,11 @@ public class PlayMidi {
                     System.out.println("PlayMidi: Found MIDI Device " + dev.getName());
 
                     //if (dev.getName().contains("Gervill") && dev instanceof Synthesizer)  {
-                    if (dev.getName().contains("Deebach-Blackbox") /*&& dev instanceof Synthesizer*/)  {
+                    if (dev.getName().contains("Deebach-Blackbox") /*&& dev instanceof Synthesizer*/) {
                         selectedDevice = MidiSystem.getMidiDevice(dev);
                         sharedstatus.setModuleidx(0);
 
-                        System.out.println("PlayMidi: MIDI Device Info " + dev.toString() );
+                        System.out.println("PlayMidi: MIDI Device Info " + dev.toString());
                         break;
                     }
                 }
@@ -608,8 +610,7 @@ public class PlayMidi {
                     sharedStatus.setSynth(selectedDevice.getDeviceInfo().getName());
 
                     System.out.println("PlayMidi: Selected MIDI device *** " + selectedDevice.getDeviceInfo().getName() + " ***");
-                }
-                catch (MidiUnavailableException e) {
+                } catch (MidiUnavailableException e) {
                     System.err.println("### PlayMidi: Error selecting MIDI device " + e);
                     return false;
                 }
@@ -617,8 +618,7 @@ public class PlayMidi {
 
                 result = true;
             }
-        }
-        catch (MidiUnavailableException ex) {
+        } catch (MidiUnavailableException ex) {
             System.err.println("### PlayMidi Error: Could not open MIDI synthesizer: " + ex);
         }
 
@@ -637,16 +637,29 @@ public class PlayMidi {
             boolean muted = sequencer.getTrackMute(CHAN);
             if (!muted) {
                 System.err.println("### PlayMidi: Muting failed on Channel: " + CHAN);
-                return false;		// muting failed
+                return false;        // muting failed
             }
             System.out.println("PlayMidi: Muted Channel: " + CHAN);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.err.println("### PlayMidi: Exception muting Channel: " + CHAN);
             return false;
         }
 
         return true;
+    }
+
+    // Unmute all potential Tracks
+    public void unmuteAllTracks() {
+
+        try {
+
+            for (int CHAN = 0; CHAN < 16; CHAN++) {
+                sequencer.setTrackMute(CHAN, false);
+            }
+        }
+        catch (Exception ex) {
+            System.err.println("### PlayMidi: Exception muting all Tracks");
+        }
     }
 
     // Unmute one specific Channel
