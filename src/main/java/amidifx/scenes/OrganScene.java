@@ -2909,7 +2909,7 @@ public class OrganScene {
             HBox hboxstatus = new HBox();
             hboxstatus.getChildren().add(labelstatusOrg);
             labelstatusOrg.setMinWidth(820 * ymul);
-            Label labelsynth = new Label(sharedStatus.getSynth().toString());
+            Label labelsynth = new Label(sharedStatus.getRxDevice().toString());
             labelsynth.setTextAlignment(TextAlignment.JUSTIFY);
             labelsynth.setStyle(styletext);
             hboxstatus.getChildren().add(labelsynth);

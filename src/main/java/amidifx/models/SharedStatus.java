@@ -14,6 +14,11 @@ public class SharedStatus {
     private String performdb = "deebach.prf";
     private String performin = "integra.prf";
 
+    //private String selindevice = "2- Seaboard RISE 49";
+    //private String seloutdevice = "Deebach-Blackbox";
+    private String selindevice = "default";
+    private String seloutdevice = "default";
+
     // Hardcoded keyboard channels for now. Note channels are coded from 0 - 15!
     private static final int DRUMS = 10;
     private static final int BASSKBD = 11;
@@ -23,7 +28,8 @@ public class SharedStatus {
 
     private String timeSig = "4/4";
 
-    private String Synth = "None";              // Selected MIDI Device
+    private String RxDevice = "None";           // Selected MIDI Device
+    private String TxDevice = "None";           // Selected MIDI Device
     private int moduleidx = 1;                  // Sound Module index (defaults to Deebach, unless not found)
 
     private Scene sceneOrgan;
@@ -96,12 +102,20 @@ public class SharedStatus {
         return this.dosongs;
     }
 
-    public void setSynth(String synth) {
-        this.Synth = synth;
+    public void setRxDevice(String synth) {
+        this.RxDevice = RxDevice;
     }
 
-    public String getSynth() {
-        return this.Synth;
+    public String getRxDevice() {
+        return this.RxDevice;
+    }
+
+    public void setTxDevice(String synth) {
+        this.TxDevice = TxDevice;
+    }
+
+    public String getTxDevice() {
+        return this.TxDevice;
     }
 
     public void setMidiFile(String midiFile) {
@@ -215,6 +229,22 @@ public class SharedStatus {
         //    return performin;
         else
             return performgm;
+    }
+
+    public void setSelInDevice(String selindevice) {
+        this.selindevice = selindevice;
+    }
+
+    public String getSelInDevice() {
+        return this.selindevice;
+    }
+
+    public void setSelOutDevice(String seloutdevice) {
+        this.seloutdevice = seloutdevice;
+    }
+
+    public String getSelOutDevice() {
+        return this.seloutdevice;
     }
 
     public void isMidirunning(boolean midirunning) {

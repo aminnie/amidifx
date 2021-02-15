@@ -11,6 +11,8 @@ import java.util.List;
 
 import static amidifx.MidiPresets.*;
 
+// https://www.cs.princeton.edu/courses/archive/spring18/cos126/assignments/guitar-hero/guitarmidi/MidiSource.java
+
 
 // Implementing PlayMidi as Singleton class with getInstance() method to ensure only one MIDI play at a time
 public class PlayMidi {
@@ -39,8 +41,12 @@ public class PlayMidi {
     Synthesizer synthesizer;
     Sequence midiSeq;
     Sequencer sequencer;
-    MidiDevice selectedDevice;
+
+    MidiDevice.Info[] devices;
+    MidiDevice selectedRxDevice;
     Receiver midircv;
+    MidiDevice selectedTxDevice;
+    Transmitter miditxm;
 
     String midiFile;
     String presetFile;
@@ -574,59 +580,131 @@ public class PlayMidi {
         sharedstatus.setModuleidx(1);
 
         try {
-            selectedDevice = MidiSystem.getSynthesizer();
-            MidiDevice.Info[] devices = MidiSystem.getMidiDeviceInfo();
+            ////selectedDevice = MidiSystem.getSynthesizer();
+            devices = MidiSystem.getMidiDeviceInfo();
 
             if (devices.length == 0) {
                 System.err.println("### PlayMidi Error: No MIDI devices found");
                 return false;
-            } else {
+            }
+            else {
                 boolean binit = true;
 
                 for (MidiDevice.Info dev : devices) {
+
                     if (MidiSystem.getMidiDevice(dev).getMaxReceivers() == 0) {
                         continue;
                     }
+
                     if (binit) {
                         // Default to first device and override with preferred
-                        selectedDevice = MidiSystem.getMidiDevice(dev);
+                        selectedRxDevice = MidiSystem.getMidiDevice(dev);
                         binit = false;
                     }
 
                     System.out.println("PlayMidi: Found MIDI Device " + dev.getName());
 
-                    //if (dev.getName().contains("Gervill") && dev instanceof Synthesizer)  {
-                    if (dev.getName().contains("Deebach-Blackbox") /*&& dev instanceof Synthesizer*/) {
-                        selectedDevice = MidiSystem.getMidiDevice(dev);
+                    if (dev.getName().contains("Gervill")) { // && dev instanceof Synthesizer)  {
+                        selectedRxDevice = MidiSystem.getMidiDevice(dev);
+                        sharedstatus.setModuleidx(1);
+
+                        System.out.println("PlayMidi: RX MIDI Device Info " + dev.toString());
+                        //break;
+                    }
+
+                    if (dev.getName().contains("Deebach-Blackbox")) { // && dev instanceof Receiver) {
+                        selectedRxDevice = MidiSystem.getMidiDevice(dev);
                         sharedstatus.setModuleidx(0);
 
-                        System.out.println("PlayMidi: MIDI Device Info " + dev.toString());
-                        break;
+                        System.out.println("PlayMidi: RX MIDI Device Info " + dev.toString());
+                        //break;
                     }
+
+                    if (dev.getName().contains("iConnectMIDI4")) { // && dev instanceof Receiver) {
+                        selectedRxDevice = MidiSystem.getMidiDevice(dev);
+                        sharedstatus.setModuleidx(0);
+
+                        System.out.println("PlayMidi: RX MIDI Device Info " + dev.toString());
+                        //break;
+                    }
+
+                    if (dev.getName().contains("Seaboard RISE")) { // && dev instanceof Transmitter) {
+                        selectedTxDevice = MidiSystem.getMidiDevice(dev);
+                        //sharedstatus.setModuleidx(0);
+
+                        System.out.println("PlayMidi: TX MIDI Device Info " + dev.toString());
+                        //break;
+                    }
+
                 }
             }
 
-            if (!selectedDevice.isOpen()) {
+            if (!selectedRxDevice.isOpen()) {
                 try {
-                    selectedDevice.open();
+                    selectedRxDevice.open();
 
-                    sharedStatus.setSynth(selectedDevice.getDeviceInfo().getName());
+                    sharedStatus.setRxDevice(selectedRxDevice.getDeviceInfo().getName());
 
-                    System.out.println("PlayMidi: Selected MIDI device *** " + selectedDevice.getDeviceInfo().getName() + " ***");
+                    System.out.println("PlayMidi: Selected RX MIDI device *** " + selectedRxDevice.getDeviceInfo().getName() + " ***");
                 } catch (MidiUnavailableException e) {
-                    System.err.println("### PlayMidi: Error selecting MIDI device " + e);
+                    System.err.println("### PlayMidi: Error selecting MIDI RX device " + e);
                     return false;
                 }
-                midircv = selectedDevice.getReceiver();
+                midircv = selectedRxDevice.getReceiver();
 
                 result = true;
             }
+
+            if ((selectedTxDevice != null) && !selectedTxDevice.isOpen()) {
+                try {
+                    selectedTxDevice.open();
+
+                    sharedStatus.setTxDevice(selectedTxDevice.getDeviceInfo().getName());
+
+                    System.out.println("PlayMidi: Selected TX MIDI device *** " + selectedTxDevice.getDeviceInfo().getName() + " ***");
+                } catch (MidiUnavailableException e) {
+                    System.err.println("### PlayMidi: Error selecting MIDI TX device " + e);
+                    return false;
+                }
+                miditxm = selectedTxDevice.getTransmitter();
+
+                // Route midi keybpard in to sound module output
+                miditxm.setReceiver(midircv);
+
+                result = true;
+            }
+
         } catch (MidiUnavailableException ex) {
             System.err.println("### PlayMidi Error: Could not open MIDI synthesizer: " + ex);
         }
 
         return result;
     }
+
+    // List all MIDI (port) devices connected
+    public boolean listMidiDevices() {
+        boolean result = true;
+
+        try {
+            devices = MidiSystem.getMidiDeviceInfo();
+
+            if (devices.length == 0) {
+                System.err.println("### PlayMidi Error: No MIDI devices found to list!");
+                return false;
+            }
+            else {
+                for (MidiDevice.Info dev : devices) {
+                    System.out.println("PlayMidi: Found MIDI Device " + dev.getName());
+                }
+            }
+        }
+        catch (Exception ex) {
+            System.err.println("### PlayMidi Error: Unable to list  MIDI devices: " + ex);
+        }
+
+        return result;
+    }
+
 
     // Mute one specific Channel
     public boolean muteChannel(int CHAN) {

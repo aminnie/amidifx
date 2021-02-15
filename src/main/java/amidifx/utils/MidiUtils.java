@@ -1,52 +1,134 @@
 package amidifx.utils;
 
+import amidifx.models.SharedStatus;
+
 import javax.sound.midi.*;
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MidiUtils {
 
-    // http://www.docjar.com/html/api/com/sun/media/sound/MidiUtils.java.html
-    // https://openmidiproject.osdn.jp/index_en.html
+    //private String selindevice = "2- Seaboard RISE 49";
+    //private String seloutdevice = "Deebach-Blackbox";
+    private String selindevice = "default";
+    private String seloutdevice = "default";
 
-    // https://stackoverflow.com/questions/13169941/using-the-midi-tick-position-to-control-movement-of-a-graphic-marker-in-a-sequen/13169972#13169972
+    final List<StatusMidiDevice> InDeviceList = new ArrayList<>();
+    final List<StatusMidiDevice> OutDeviceList = new ArrayList<>();
 
-    // https://jan.newmarch.name/LinuxSound/MIDI/JavaSound/
+    public class StatusMidiDevice {
+        boolean isactive;
+        MidiDevice device;
 
-    // https://docs.oracle.com/javase/7/docs/api/javax/sound/midi/MidiSystem.html
-    // https://www.geeksforgeeks.org/java-midi/
-    // https://stackoverflow.com/questions/58469147/javax-sound-midi-example-of-how-include-meta-event-t
-    // https://docs.oracle.com/javase/tutorial/sound/MIDI-messages.html
-    // https://www.javatips.net/api/javax.sound.midi.shortmessage
-    // https://gist.github.com/tkojitu/1751867
-    // https://stackoverflow.com/questions/55228242/java-midi-controllereventlistener-how-to-change-the-instrument/58469198#58469198
+        StatusMidiDevice(MidiDevice device, boolean isactive) {
+            this.device = device;
+            this.isactive = isactive;
 
-    // https://github.com/DerekCook/CoreMidi4J
-    // https://alvinalexander.com/java/jwarehouse/openjdk-8/jdk/src/share/classes/javax/sound/midi/SysexMessage.java.shtml
-    // http://www.automatic-pilot.com/midifile.html
+            System.out.println("Adding MIDI Device: " + toString());
+        }
 
-    // https://www.codota.com/code/java/classes/javax.sound.midi.Sequencer
-    // http://ungrid.unal.edu.co/Java8/tutorial/sound/MIDI-seq-adv.html
+        public String getDevice() {
+            return device.getDeviceInfo().getName();
+        }
 
-    // http://www.docjar.com/html/api/com/sun/media/sound/MidiUtils.java.html
+        @Override
+        public String toString() {
+            String devicestring = "Device Status Active:" + isactive + " Device:" + device.getDeviceInfo().toString();
+            return devicestring;
+        }
+    }
 
+    // List all Midi Devices detected
+    public void loadMidiDevices() {
+        MidiDevice.Info[] deviceInfo = MidiSystem.getMidiDeviceInfo();
+        if (deviceInfo.length == 0) {
+            System.out.println("No MIDI devices found");
+            return;
+        }
 
-/*
+        for (MidiDevice.Info info : deviceInfo) {
+            System.out.println("**********************");
+            System.out.println("Device name: " + info.getName());
+            System.out.println("Description: " + info.getDescription());
+            System.out.println("Vendor: " + info.getVendor());
+            System.out.println("Version: " + info.getVersion());
 
-    http://docs.oracle.com/javase/tutorial/sound/MIDI-seq-adv.html
+            try {
+                MidiDevice device = MidiSystem.getMidiDevice(info);
+                addDeviceType(device, false);
 
-    There are a couple different things that may be of use: tools for synchronizing with other devices and special event listeners.
-    The following (about the slave) looks particularly promising: Sequencer has an inner class called Sequencer.SyncMode.
-    A SyncMode object represents one of the ways in which a MIDI sequencer's notion of time can be synchronized with a master or slave device.
-    If the sequencer is being synchronized to a master, the sequencer revises its current time in response to certain MIDI messages from the master.
-    If the sequencer has a slave, the sequencer similarly sends MIDI messages to control the slave's timing.
-    If you write a "MidiSlaveDevice" that's sole job is to send triggers to your redraw, you could have the solution to your desired scenario.
+                System.out.println("Maximum receivers: " + maxToString(device.getMaxReceivers()));
+                System.out.println("Maximum transmitters: " + maxToString(device.getMaxTransmitters()));
+            }
+            catch (MidiUnavailableException e) {
+                System.out.println("Can't get MIDI device");
+                e.printStackTrace();
+            }
+        }
+    }
 
-    https://alvinalexander.com/java/jwarehouse/openjdk-8/jdk/src/share/classes/com/sun/media/sound/RealTimeSequencer.java.shtml
+    /*
+     * Add MIDI In and Out Devices to respective lists for future lookup
+     * Flag (override) named 1x IN and 1 x Out Device as active
+     */
+    private void addDeviceType(MidiDevice device, boolean isactive) {
 
-*/
+        // Create instance of Shared Status to report back to Scenes
+        SharedStatus sharedStatus = SharedStatus.getInstance();
+        selindevice = sharedStatus.getSelInDevice();
+        seloutdevice = sharedStatus.getSelOutDevice();
 
+        if (device instanceof Sequencer) {
+            System.out.println("This is a sequencer");
+            InDeviceList.add(new StatusMidiDevice(device, false));
+        }
+        else if (device instanceof Synthesizer) {
+            System.out.println("This is a synthesizer");
+            OutDeviceList.add(new StatusMidiDevice(device, false));
+        }
+        else {
+            System.out.print("This is a MIDI port ");
+            if (device.getMaxReceivers() != 0) {
+                System.out.println("IN ");
+
+                //boolean isactive = false;
+                if ( device.getDeviceInfo().getName().contains(selindevice) ) {
+                    isactive = true;
+                }
+                InDeviceList.add(new StatusMidiDevice(device, isactive));
+            }
+            if (device.getMaxTransmitters() != 0) {
+                System.out.println("OUT ");
+
+                //boolean isactive = false;
+                if ( device.getDeviceInfo().getName().contains(seloutdevice) ) {
+                    isactive = true;
+                }
+                OutDeviceList.add(new StatusMidiDevice(device, isactive));
+            }
+        }
+    }
+
+    private String maxToString(int max) {
+        return max == -1 ? "Unlimited" : String.valueOf(max);
+    }
+
+    public List<StatusMidiDevice> listInDevices() {
+        System.out.println("**********************");
+        for (StatusMidiDevice statusdevice : InDeviceList ) {
+            System.out.println("MIDI In:" + statusdevice.toString());
+        }
+
+        return InDeviceList;
+    }
+
+    public List<StatusMidiDevice> listOutDevices() {
+        System.out.println("**********************");
+        for (StatusMidiDevice statusdevice : OutDeviceList ) {
+            System.out.println("MIDI Out:" + statusdevice.toString());
+        }
+
+        return OutDeviceList;
+    }
 
 }

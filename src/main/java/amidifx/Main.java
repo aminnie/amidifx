@@ -2,6 +2,7 @@ package amidifx;
 
 import amidifx.models.*;
 import amidifx.scenes.OrganScene;
+import amidifx.scenes.HomeScene;
 import amidifx.utils.ArduinoUtils;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -106,7 +107,7 @@ public class Main extends Application {
     final String styletext = "-fx-font-size: " + fsize ;
     final String smallstyletext = "-fx-background-color: #69A8CC; -fx-font-size: " + fsmallsize ;
 
-    Scene sceneOrgan, scenePresets, sceneSongs, sceneMonitor;
+    Scene sceneOrgan, scenePresets, sceneSongs, sceneWelcome, sceneMonitor;
     MidiPatches dopatches;
     MidiPresets dopresets;
     MidiSongs dosongs;
@@ -165,11 +166,19 @@ public class Main extends Application {
         applicationIcon = new Image(getClass().getResourceAsStream("/music-48.png"));
         stage.getIcons().add(applicationIcon);
 
+        ////Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        ////stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 3);
+        ////stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 3);
+
         // Create instance of Shared Status to report back to Scenes
         sharedStatus = SharedStatus.getInstance();
 
-        // Prepare MIDI Player and Select Deebach Blackbox as output
+        // List all Midi Devices to enable TX and RX select
         playmidifile = PlayMidi.getInstance();
+        System.out.println("Finding Connected Devices");
+        playmidifile.listMidiDevices();
+
+        // Prepare MIDI Player and Select Deebach Blackbox as output
         if (!playmidifile.selectMidiDevice()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("AMIDIFX Startup Error");
@@ -179,7 +188,7 @@ public class Main extends Application {
             System.exit(-1);
         }
         else {
-            sharedStatus.setStatusText("Selected MIDI Device " + sharedStatus.getSynth());
+            sharedStatus.setStatusText("Selected MIDI Device " + sharedStatus.getRxDevice());
         }
 
         // Prepare the Channel Program and Effects tracking list
@@ -221,7 +230,6 @@ public class Main extends Application {
         // *** Prepare the Organ, Song and Preset Screens
 
         sceneSongs = new Scene(createSongScene(stage), xscene, yscene);
-
         sceneSongs.getStylesheets().clear();
         sceneSongs.getStylesheets().add("style.css");
         sharedStatus.setSongsScene(sceneSongs);
@@ -231,12 +239,12 @@ public class Main extends Application {
         scenePresets.getStylesheets().add("style.css");
         sharedStatus.setPresetsScene(scenePresets);
 
-        ////Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-        ////stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 3);
-        ////stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 3);
-
         OrganScene organScene = new OrganScene(stage, sceneSongs);
-        stage.setScene(organScene.getScene());
+        //stage.setScene(organScene.getScene());
+
+        //sceneWelcome = new Scene(createWelcomeScene(stage), xscene, yscene);
+        HomeScene welcomeScene = new HomeScene(stage, organScene.getScene());
+        stage.setScene(welcomeScene.getScene());
 
         stage.show();
     }
