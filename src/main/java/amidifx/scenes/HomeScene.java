@@ -7,13 +7,14 @@ import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public class HomeScene {
@@ -72,7 +73,10 @@ public class HomeScene {
     final String btnplayOn = "-fx-background-color: #DB6B6B; -fx-font-size: " + fsize ;
 
     final String styletext = "-fx-font-size: " + fsize ;
+    final String styletextwhite = "-fx-text-fill: white; -fx-font-size: " + fsize ;
     final String styletextred = "-fx-text-fill: red; -fx-font-size: " + fsize ;
+
+    private static final String IMG_DIRECTORY = "C:/amidifx/config/";
 
     SharedStatus sharedStatus;
 
@@ -124,14 +128,14 @@ public class HomeScene {
             midiutils.loadMidiDevices();
 
             List<MidiUtils.StatusMidiDevice> inlist = midiutils.listInDevices();
-            for (MidiUtils.StatusMidiDevice statusdevice : inlist ) {
+            for (MidiUtils.StatusMidiDevice statusdevice : inlist) {
                 comboInDevice.getItems().add(statusdevice.getDevice());
 
                 System.out.println("MIDI In:" + statusdevice.getDevice());
             }
 
-            List<MidiUtils.StatusMidiDevice> outlist =midiutils.listOutDevices();
-            for (MidiUtils.StatusMidiDevice statusdevice : outlist ) {
+            List<MidiUtils.StatusMidiDevice> outlist = midiutils.listOutDevices();
+            for (MidiUtils.StatusMidiDevice statusdevice : outlist) {
                 comboOutDevice.getItems().add(statusdevice.getDevice());
 
                 System.out.println("MIDI Out:" + statusdevice.getDevice());
@@ -206,8 +210,7 @@ public class HomeScene {
                     labelstatusOrg.setText(" Status: Application config save failed!");
                     System.err.println("Failed to save AppConfig file!");
                     System.exit(-1);
-                }
-                else {
+                } else {
                     System.out.println("Failed to save AppConfig file!");
                 }
 
@@ -244,23 +247,27 @@ public class HomeScene {
             borderPaneTop.setCenter(hboxTitle);
             borderPaneTop.setRight(toolbarRight);
 
-            TextArea txtIntro = new TextArea("AMIDIFX integrates MIDI sound modules with keyboards enabling live play with backing tracks. " +
+            Label lbltopspacer = new Label("");
+            lbltopspacer.setPrefSize(300, 50);
+
+            TextArea txtIntro = new TextArea("Welcome to AMIDIFX! AMIDIFX integrates MIDI sound modules with keyboards enabling live play with backing tracks. " +
                     "At this time we support the Deebach BlackBox as well as MIDI GM compliant modules with more planned.");
             txtIntro.setStyle("-fx-background-color: #999999; ");
+            txtIntro.setPrefSize(300, 200);
             txtIntro.setWrapText(true);
             txtIntro.setDisable(true);
             HBox vboxIntro = new HBox();
-            //vboxIntro.setPadding(new Insets(10, 10, 10, 10));
+            vboxIntro.setPadding(new Insets(10, 10, 10, 10));
             vboxIntro.getChildren().add(txtIntro);
 
             Label lblindevice = new Label(sharedStatus.getSelInDevice());
-            lblindevice.setStyle(styletext + "; -fx-font-style:italic");
+            lblindevice.setStyle(styletextwhite + "; -fx-font-style:italic");
             VBox vboxindevice = new VBox();
             vboxindevice.getChildren().add(lblindevice);
             vboxindevice.setPadding(new Insets(5, 0, 5, 0));
 
             Label lbloutdevice = new Label(sharedStatus.getSelOutDevice());
-            lbloutdevice.setStyle(styletext + "; -fx-font-style:italic");
+            lbloutdevice.setStyle(styletextwhite + "; -fx-font-style:italic");
             VBox vboxoutdevice = new VBox();
             vboxoutdevice.getChildren().add(lbloutdevice);
             vboxoutdevice.setPadding(new Insets(5, 0, 5, 0));
@@ -278,7 +285,7 @@ public class HomeScene {
             hboxbtnstart.getChildren().add(btnStart);
 
             comboInDevice.setPrefWidth(300);
-            comboInDevice.setPadding(new Insets(5,0,5,0));
+            comboInDevice.setPadding(new Insets(5, 0, 5, 0));
             comboInDevice.setOnAction((event) -> {
                 int selectedIndex = comboInDevice.getSelectionModel().getSelectedIndex();
                 Object selectedItem = comboInDevice.getSelectionModel().getSelectedItem();
@@ -295,7 +302,7 @@ public class HomeScene {
                 //System.out.println("   ComboBox.getValue(): " + comboInDevice.getValue());
             });
             Label lblinselect = new Label("Select MIDI IN:");
-            lblinselect.setStyle(styletext);
+            lblinselect.setStyle(styletextwhite);
 
             VBox vboxcomboindevice = new VBox();
             vboxcomboindevice.setPadding(new Insets(20, 10, 10, 10));
@@ -304,7 +311,7 @@ public class HomeScene {
             vboxcomboindevice.getChildren().add(vboxindevice);
 
             comboOutDevice.setPrefWidth(300);
-            comboOutDevice.setPadding(new Insets(5,0,5,0));
+            comboOutDevice.setPadding(new Insets(5, 0, 5, 0));
             comboOutDevice.setOnAction((event) -> {
                 int selectedIndex = comboOutDevice.getSelectionModel().getSelectedIndex();
                 Object selectedItem = comboOutDevice.getSelectionModel().getSelectedItem();
@@ -321,7 +328,7 @@ public class HomeScene {
                 //System.out.println("   ComboBox.getValue(): " + comboOutDevice.getValue());
             });
             Label lbloutselect = new Label("Select MIDI OUT:");
-            lbloutselect.setStyle(styletext);
+            lbloutselect.setStyle(styletextwhite);
 
             VBox vboxcombooutdevice = new VBox();
             vboxcombooutdevice.setPadding(new Insets(20, 10, 10, 10));
@@ -331,6 +338,7 @@ public class HomeScene {
 
             VBox vboxMidCenter = new VBox();
             vboxMidCenter.setPadding(new Insets(10, 10, 10, 10));
+            vboxMidCenter.getChildren().add(lbltopspacer);
             vboxMidCenter.getChildren().add(vboxIntro);
             vboxMidCenter.getChildren().add(vboxcomboindevice);
             vboxMidCenter.getChildren().add(vboxcombooutdevice);
@@ -351,6 +359,24 @@ public class HomeScene {
             labelsynth.setTextAlignment(TextAlignment.JUSTIFY);
             labelsynth.setStyle(styletext);
             hboxstatus.getChildren().add(labelsynth);
+
+            // Prepare background Image
+            try {
+                FileInputStream input = new FileInputStream(IMG_DIRECTORY + "backimage2.png");
+                Image image = new Image(input);
+                BackgroundImage backgroundimage = new BackgroundImage(image,
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.DEFAULT,
+                        BackgroundSize.DEFAULT);
+
+                // Create and set background
+                Background background = new Background(backgroundimage);
+                centerHomePanel.setBackground(background);
+            }
+            catch(FileNotFoundException ex) {
+                System.err.println("Background image not found! ");
+            }
 
             // Assemble the Scene BorderPane View
 
