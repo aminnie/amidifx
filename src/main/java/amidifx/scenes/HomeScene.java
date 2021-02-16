@@ -2,6 +2,7 @@ package amidifx.scenes;
 
 import amidifx.models.SharedStatus;
 import amidifx.utils.AppConfig;
+import amidifx.utils.MidiDevices;
 import amidifx.utils.MidiUtils;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -86,6 +87,9 @@ public class HomeScene {
     //private String seloutdevice = "Deebach-Blackbox";
     private String selindevice = "default";
     private String seloutdevice = "default";
+
+    Label lblindevice;
+    Label lbloutdevice;
 
     Label labelstatusOrg;
 
@@ -210,8 +214,13 @@ public class HomeScene {
                     labelstatusOrg.setText(" Status: Application config save failed!");
                     System.err.println("Failed to save AppConfig file!");
                     System.exit(-1);
-                } else {
-                    System.out.println("Failed to save AppConfig file!");
+                }
+                else {
+                    labelstatusOrg.setText(" Status: Application config saved!");
+                    System.out.println("Application config file saved!");
+
+                    lblindevice.setStyle(styletextwhite);
+                    lbloutdevice.setStyle(styletextwhite);
                 }
 
                 buttonSave.setDisable(true);
@@ -250,8 +259,11 @@ public class HomeScene {
             Label lbltopspacer = new Label("");
             lbltopspacer.setPrefSize(300, 50);
 
-            TextArea txtIntro = new TextArea("Welcome to AMIDIFX! AMIDIFX integrates MIDI sound modules with keyboards enabling live play with backing tracks. " +
-                    "At this time we support the Deebach BlackBox as well as MIDI GM compliant modules with more planned.");
+            String introline1 = "Welcome to AMIDIFX!";
+            String introline2 = "AMIDIFX integrates MIDI sound modules with keyboards enabling live play with backing tracks.";
+            String introline3 = "At this time we support the Deebach BlackBox as well as MIDI GM compliant modules with more planned.";
+            String introlines = introline1 + System.getProperty("line.separator") + System.getProperty("line.separator") + introline2 + System.getProperty("line.separator") + introline3;
+            TextArea txtIntro = new TextArea(introlines);
             txtIntro.setStyle("-fx-background-color: #999999; ");
             txtIntro.setPrefSize(300, 200);
             txtIntro.setWrapText(true);
@@ -260,28 +272,41 @@ public class HomeScene {
             vboxIntro.setPadding(new Insets(10, 10, 10, 10));
             vboxIntro.getChildren().add(txtIntro);
 
-            Label lblindevice = new Label(sharedStatus.getSelInDevice());
+            lblindevice = new Label(sharedStatus.getSelInDevice());
             lblindevice.setStyle(styletextwhite + "; -fx-font-style:italic");
             VBox vboxindevice = new VBox();
             vboxindevice.getChildren().add(lblindevice);
             vboxindevice.setPadding(new Insets(5, 0, 5, 0));
 
-            Label lbloutdevice = new Label(sharedStatus.getSelOutDevice());
+            lbloutdevice = new Label(sharedStatus.getSelOutDevice());
             lbloutdevice.setStyle(styletextwhite + "; -fx-font-style:italic");
             VBox vboxoutdevice = new VBox();
             vboxoutdevice.getChildren().add(lbloutdevice);
             vboxoutdevice.setPadding(new Insets(5, 0, 5, 0));
 
+            // Proceed to setup MIDI IN, OUT and SYNTH
+            MidiDevices mididevices = MidiDevices.getInstance();
+            Button btnConfig = new Button("Configure");
+            btnConfig.setStyle(btnplayOff);
+            btnConfig.setOnAction(e -> {
+                mididevices.createMidiDevices(config.getInDevice(), config.getOutDevice());
+
+            });
+            // Proceed to setup MIDI IN, OUT and SYNTH
             btnStart = new Button("To Perform");
             btnStart.setStyle(selectcolorOn);
             btnStart.setOnAction(e -> {
                 primaryStage.setScene(returnScene);
                 try {
                     Thread.sleep(600);
-                } catch (Exception ex) {
                 }
+                catch (Exception ex) {
+                }
+
             });
             HBox hboxbtnstart = new HBox();
+            hboxbtnstart.setSpacing(20);
+            hboxbtnstart.getChildren().add(btnConfig);
             hboxbtnstart.getChildren().add(btnStart);
 
             comboInDevice.setPrefWidth(300);
@@ -294,6 +319,8 @@ public class HomeScene {
 
                 config.setInDevice(comboInDevice.getValue().toString());
                 sharedStatus.setSelInDevice(comboInDevice.getValue().toString());
+
+                selindevice = comboInDevice.getValue().toString();
 
                 buttonSave.setDisable(false);
                 System.out.println("MIDI In:" + comboInDevice.getValue().toString());
@@ -321,6 +348,9 @@ public class HomeScene {
                 config.setOutDevice(comboOutDevice.getValue().toString());
                 sharedStatus.setSelOutDevice(comboOutDevice.getValue().toString());
 
+                seloutdevice = comboOutDevice.getValue().toString();
+
+                seloutdevice = comboOutDevice.getValue().toString();
                 buttonSave.setDisable(false);
                 System.out.println("MIDI Out:" + comboOutDevice.getValue().toString());
 
