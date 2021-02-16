@@ -385,24 +385,18 @@ public class MidiDevices {
 
     // Set MIDI events to play "Mary Had a Little Lamb"
     private void setMidiEvents(Track track) {
-        int channel = 0;
+        int channel = 9;
         int velocity = 64;
-        int note = 61;
+        int note = 35;
         int tick = 0;
         addMidiEvent(track, ShortMessage.NOTE_ON, channel, note, velocity, tick);
-        addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note, 0, tick + 3);
-        addMidiEvent(track, ShortMessage.NOTE_ON, channel, note - 2, velocity, tick + 4);
-        addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note - 2, 0, tick + 7);
-        addMidiEvent(track, ShortMessage.NOTE_ON, channel, note - 4, velocity, tick + 8);
-        addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note - 4, 0, tick + 11);
-        addMidiEvent(track, ShortMessage.NOTE_ON, channel, note - 2, velocity, tick + 12);
-        addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note - 2, 0, tick + 15);
-        addMidiEvent(track, ShortMessage.NOTE_ON, channel, note, velocity, tick + 16);
-        addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note, 0, tick + 19);
-        addMidiEvent(track, ShortMessage.NOTE_ON, channel, note, velocity, tick + 20);
-        addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note, 0, tick + 23);
-        addMidiEvent(track, ShortMessage.NOTE_ON, channel, note, velocity, tick + 24);
-        addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note, 0, tick + 31);
+        addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note, 0, tick + 2);
+        addMidiEvent(track, ShortMessage.NOTE_ON, channel, note, velocity, tick + 4);
+        addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note, 0, tick + 7);
+        addMidiEvent(track, ShortMessage.NOTE_ON, channel, note, velocity, tick + 8);
+        addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note, 0, tick + 11);
+        addMidiEvent(track, ShortMessage.NOTE_ON, channel, note, velocity, tick + 12);
+        addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note, 0, tick + 17);
     }
 
     // Create a MIDI event and add it to the track

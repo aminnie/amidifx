@@ -11,9 +11,6 @@ import java.util.List;
 
 import static amidifx.MidiPresets.*;
 
-// https://www.cs.princeton.edu/courses/archive/spring18/cos126/assignments/guitar-hero/guitarmidi/MidiSource.java
-
-
 // Implementing PlayMidi as Singleton class with getInstance() method to ensure only one MIDI play at a time
 public class PlayMidi {
 
@@ -45,8 +42,6 @@ public class PlayMidi {
     MidiDevice.Info[] devices;
     MidiDevice selectedRxDevice;
     Receiver midircv;
-    MidiDevice selectedTxDevice;
-    Transmitter miditxm;
 
     String midiFile;
     String presetFile;
@@ -472,6 +467,18 @@ public class PlayMidi {
         return true;
     }
 
+    public void sendRotaryFast() {
+        sendMidiControlChange(14, 74, 127);
+    }
+
+    public void sendRotarySlow() {
+        sendMidiControlChange(14, 74, 31);
+    }
+
+    public void sendRotaryOff() {
+        sendMidiControlChange(14, 74, 0);
+    }
+
     public boolean sendSysEx(byte[] SysExMsg) {
 
         // Example SysEx Message
@@ -580,7 +587,6 @@ public class PlayMidi {
         sharedstatus.setModuleidx(1);
 
         try {
-            ////selectedDevice = MidiSystem.getSynthesizer();
             devices = MidiSystem.getMidiDeviceInfo();
 
             if (devices.length == 0) {
@@ -620,22 +626,6 @@ public class PlayMidi {
                         //break;
                     }
 
-                    if (dev.getName().contains("iConnectMIDI4")) { // && dev instanceof Receiver) {
-                        selectedRxDevice = MidiSystem.getMidiDevice(dev);
-                        sharedstatus.setModuleidx(0);
-
-                        System.out.println("PlayMidi: RX MIDI Device Info " + dev.toString());
-                        //break;
-                    }
-
-                    if (dev.getName().contains("Seaboard RISE")) { // && dev instanceof Transmitter) {
-                        selectedTxDevice = MidiSystem.getMidiDevice(dev);
-                        //sharedstatus.setModuleidx(0);
-
-                        System.out.println("PlayMidi: TX MIDI Device Info " + dev.toString());
-                        //break;
-                    }
-
                 }
             }
 
@@ -651,25 +641,6 @@ public class PlayMidi {
                     return false;
                 }
                 midircv = selectedRxDevice.getReceiver();
-
-                result = true;
-            }
-
-            if ((selectedTxDevice != null) && !selectedTxDevice.isOpen()) {
-                try {
-                    selectedTxDevice.open();
-
-                    sharedStatus.setTxDevice(selectedTxDevice.getDeviceInfo().getName());
-
-                    System.out.println("PlayMidi: Selected TX MIDI device *** " + selectedTxDevice.getDeviceInfo().getName() + " ***");
-                } catch (MidiUnavailableException e) {
-                    System.err.println("### PlayMidi: Error selecting MIDI TX device " + e);
-                    return false;
-                }
-                miditxm = selectedTxDevice.getTransmitter();
-
-                // Route midi keybpard in to sound module output
-                miditxm.setReceiver(midircv);
 
                 result = true;
             }

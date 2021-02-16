@@ -2149,6 +2149,7 @@ public class OrganScene {
                 labelstatusOrg.setText(" Status: Applied Upper 1-6");
             });
 
+            playmidifile.sendRotaryOff();
             rbutton17.setText("Rotary Brake");
             rbutton17.setId("U1-7");
             rbutton17.setMinSize(xvoicebtn, yvoicebtn);
@@ -2160,16 +2161,21 @@ public class OrganScene {
                 if (!rpressed17) {
                     rbutton17.setStyle(orgcolorOn);
 
-                    labelstatusOrg.setText(" Status: Rotary Brake On");
+                    playmidifile.sendRotarySlow();
+
+                    labelstatusOrg.setText(" Status: Rotary Brake Slow");
                 } else {
                     rbutton17.setStyle(orgcolorOff);
+
+                    playmidifile.sendRotaryOff();
 
                     labelstatusOrg.setText(" Status: Rotary Brake Off");
                 }
                 rpressed17 = !rpressed17;
             });
 
-            rbutton18.setText(" Rotary On");
+            playmidifile.sendRotarySlow();
+            rbutton18.setText(" Rotary Slow");
             rbutton18.setId("U1-8");
             rbutton18.setMinSize(xvoicebtn, yvoicebtn);
             rbutton18.setStyle(orgcolorOff);
@@ -2180,11 +2186,15 @@ public class OrganScene {
                 if (!rpressed18) {
                     rbutton18.setStyle(orgcolorOn);
 
-                    labelstatusOrg.setText(" Status: Rotary On");
+                    playmidifile.sendRotaryFast();
+
+                    labelstatusOrg.setText(" Status: Rotary Fast");
                 } else {
                     rbutton18.setStyle(orgcolorOff);
 
-                    labelstatusOrg.setText(" Status: Rotary Off");
+                    playmidifile.sendRotarySlow();
+
+                    labelstatusOrg.setText(" Status: Rotary Slow");
                 }
                 rpressed18 = !rpressed18;
             });

@@ -291,10 +291,14 @@ public class HomeScene {
             btnConfig.setOnAction(e -> {
                 mididevices.createMidiDevices(config.getInDevice(), config.getOutDevice());
 
+                btnStart.setDisable(false);
+
+                labelstatusOrg.setText(" Status: Ready to Play!");
             });
             // Proceed to setup MIDI IN, OUT and SYNTH
             btnStart = new Button("To Perform");
             btnStart.setStyle(selectcolorOn);
+            btnStart.setDisable(true);
             btnStart.setOnAction(e -> {
                 primaryStage.setScene(returnScene);
                 try {

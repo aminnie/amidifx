@@ -8,8 +8,6 @@ import java.util.List;
 
 public class MidiUtils {
 
-    //private String selindevice = "2- Seaboard RISE 49";
-    //private String seloutdevice = "Deebach-Blackbox";
     private String selindevice = "default";
     private String seloutdevice = "default";
 
