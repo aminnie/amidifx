@@ -289,11 +289,18 @@ public class HomeScene {
             Button btnConfig = new Button("Configure");
             btnConfig.setStyle(btnplayOff);
             btnConfig.setOnAction(e -> {
-                mididevices.createMidiDevices(config.getInDevice(), config.getOutDevice());
+                int result = mididevices.createMidiDevices(config.getInDevice(), config.getOutDevice());
+                if (result == -1) {
+                    labelstatusOrg.setText(" Error creating MIDI OUT Device: " + config.getOutDevice());
+                }
+                else if (result == -2) {
+                    labelstatusOrg.setText(" Error creating MIDI Sequencer!");
+                }
+                else {
+                    btnStart.setDisable(false);
 
-                btnStart.setDisable(false);
-
-                labelstatusOrg.setText(" Status: Ready to Play!");
+                    labelstatusOrg.setText(" Status: Ready to Play!");
+                }
             });
             // Proceed to setup MIDI IN, OUT and SYNTH
             btnStart = new Button("To Perform");
@@ -389,14 +396,14 @@ public class HomeScene {
             HBox hboxstatus = new HBox();
             hboxstatus.getChildren().add(labelstatusOrg);
             labelstatusOrg.setMinWidth(820 * ymul);
-            Label labelsynth = new Label(sharedStatus.getRxDevice().toString());
+            Label labelsynth = new Label(config.getOutDevice());
             labelsynth.setTextAlignment(TextAlignment.JUSTIFY);
             labelsynth.setStyle(styletext);
             hboxstatus.getChildren().add(labelsynth);
 
             // Prepare background Image
             try {
-                FileInputStream input = new FileInputStream(IMG_DIRECTORY + "backimage2.png");
+                FileInputStream input = new FileInputStream(IMG_DIRECTORY + "backimage.png");
                 Image image = new Image(input);
                 BackgroundImage backgroundimage = new BackgroundImage(image,
                         BackgroundRepeat.NO_REPEAT,

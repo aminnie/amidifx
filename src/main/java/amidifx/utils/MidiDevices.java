@@ -1,5 +1,7 @@
 package amidifx.utils;
 
+import amidifx.models.SharedStatus;
+
 import javax.sound.midi.*;
 
 public class MidiDevices {
@@ -20,6 +22,7 @@ public class MidiDevices {
     AMidiFXReceiver displayReceiver;
 
     AppConfig config;
+    SharedStatus sharedstatus;
 
     private String selindevice = "default";
     private String seloutdevice = "default";
@@ -44,7 +47,7 @@ public class MidiDevices {
     // *** Make constructor private for Singleton ***
     private MidiDevices() { }
 
-    public void createMidiDevices(String selindevice, String seloutdevice) {
+    public int createMidiDevices(String selindevice, String seloutdevice) {
 
         this.selindevice = selindevice;
         this.seloutdevice = seloutdevice;
@@ -54,21 +57,28 @@ public class MidiDevices {
         config.setInDevice(selindevice);
         config.setOutDevice(seloutdevice);
 
+        sharedstatus = SharedStatus.getInstance();
+
         try {
             // Get output Synth or external Sound Module
             midircv = openMidiReceiver(seloutdevice);
             if (midircv == null) {
-                return;
+                System.err.print("Error: Unable to open selected MIDI OUT device: " + seloutdevice);
+
+                sharedstatus.setStatusText("Error opening selected MIDI OUT device");
+                return -1;
             }
 
             // Get receiver from the synthesizer, then set it in transmitter.
             // Get a transmitter and synthesizer from their device names using system properties or defaults
             //trans.setReceiver(midircv);
             displayReceiver = new AMidiFXReceiver(midircv);
+            sharedstatus.setRxDevice(displayReceiver);
 
             miditrans = getTransmitter();
             if (miditrans != null) {
                 miditrans.setReceiver(displayReceiver); // or just "receiver"
+                sharedstatus.setTxDevice(miditrans);
 
                 System.out.println("Ready to play your USB keyboard...");
             }
@@ -78,7 +88,10 @@ public class MidiDevices {
             // Get default sequencer, if it exists
             sequencer = getSequencer();
             if (sequencer == null) {
-                return;
+                System.err.print("Error: Unable to open Sequencer device: " + sequencer.getDeviceInfo().getName());
+
+                sharedstatus.setStatusText("Error: Unable to open Sequencer device: " + sequencer.getDeviceInfo().getName());
+                return -2;
             }
 
             sequencer.open();
@@ -93,6 +106,8 @@ public class MidiDevices {
             System.err.println("Error getting receiver from synthesizer");
             e.printStackTrace();
         }
+
+        return 0;
     }
 
     // Play Song on Sequencer
@@ -305,22 +320,27 @@ public class MidiDevices {
 
     }
 
-    // Check if at least one MIDI (port) device is correctly installed
+    // Check if at least one MIDI OUT device is correctly installed
     public Receiver openMidiReceiver(String seloutdevice) {
 
-        Receiver midircv = null;
+        midircv = null;
         MidiDevice selectedDevice;
 
-        System.out.println("** openMidiReceiver **");
+        // Default to MIDI GM Out device, and wait for Deeback to override if present
+        sharedstatus.setModuleidx(0);
+        config.setSoundModuleIdx(0);
+
+        System.out.println("** openMidiReceiver " + seloutdevice + " **");
 
         try {
             selectedDevice = MidiSystem.getSynthesizer();
             MidiDevice.Info[] devices = MidiSystem.getMidiDeviceInfo();
 
             if (devices.length == 0) {
-                System.err.println("Error: No MIDI devices found");
+                System.err.println("Error: No MIDI OUT sound modules found");
                 return midircv;
-            } else {
+            }
+            else {
                 boolean binit = true;
 
                 // Loop through all devices looking to Synth or Sound Modules
@@ -334,35 +354,45 @@ public class MidiDevices {
                         selectedDevice = MidiSystem.getMidiDevice(dev);
                         binit = false;
 
-                        System.out.println("Default MIDI Out Device: " + dev.toString());
+                        System.out.println("First MIDI OUT Device: " + dev.toString());
                     } else
-                        System.out.println("Found MIDI Out Device " + dev.getName());
+                        System.out.println("Found MIDI OUT Device " + dev.getName());
 
+                    // Check for selected Device match
                     if (dev.getName().contains(seloutdevice)) {
                         selectedDevice = MidiSystem.getMidiDevice(dev);
 
-                        System.out.println("Matched preferred MIDI Device: " + dev.toString());
+                        // Note Deebach as more than MIDI GM with own Cubase file
+                        if (selectedDevice.getDeviceInfo().getName().contains("Deebach-Blackbox")) {
+                            sharedstatus.setModuleidx(1);
+                            config.setSoundModuleIdx(1);
+                        }
+
+                        System.out.println("Matched preferred MIDI OUT Device: " + dev.toString());
                         break;
                     }
                 }
             }
 
+            // Open preferred MIDI OUT device
             try {
                 if (!selectedDevice.isOpen()) {
                     selectedDevice.open();
 
-                    System.out.println("Opened MIDI Out Device *** " + selectedDevice.getDeviceInfo().getName() + " ***");
+                    // Found output Device or Synth
+                    midircv = selectedDevice.getReceiver();
+                    sharedstatus.setRxDevice(midircv);
+
+                    System.out.println("Opened MIDI OUT Device *** " + selectedDevice.getDeviceInfo().getName() + " ***");
                 }
             }
             catch(Exception ex) {
-                System.out.println("Error Opening MIDI Out Device *** " + selectedDevice.getDeviceInfo().getName() + " ***");
+                System.out.println("Error Opening MIDI OUT Device *** " + selectedDevice.getDeviceInfo().getName() + " ***");
             }
-            // Found output Device or Synth
-            midircv = selectedDevice.getReceiver();
 
         }
         catch (MidiUnavailableException ex) {
-            System.err.println("Error: Could not open MIDI synthesizer: " + ex);
+            System.err.println("Error: Could not open MIDI OUT device: " + ex);
         }
 
         return midircv;

@@ -123,6 +123,27 @@ public class AppConfig {
         return strmodule;
     }
 
+    public void setSoundModuleIdx(int moduleidx) {
+        configProps.setProperty("moduleidx", Integer.toString(moduleidx));
+
+        System.out.println("Property moduleidx set to:" + configProps.getProperty("moduleidx"));
+    }
+
+    public int getSoundModuleIdx() {
+        Integer moduleidx = 0;
+
+        try {
+            String moduleidxstr = configProps.getProperty("moduleidx");
+            moduleidx = new Integer(moduleidxstr);
+        }
+        catch (Exception ex) {
+            System.err.println("Error read moduleidx from AppConfig file");
+            System.err.println(ex);
+        }
+
+        return moduleidx;
+    }
+
     public String getSongsFile() {
         return configProps.getProperty("songsfile");
     }

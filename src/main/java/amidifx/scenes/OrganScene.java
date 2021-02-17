@@ -2,6 +2,7 @@ package amidifx.scenes;
 
 import amidifx.*;
 import amidifx.models.*;
+import amidifx.utils.AppConfig;
 import amidifx.utils.ArduinoUtils;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -293,14 +294,11 @@ public class OrganScene {
         System.out.println("OrganScene: AMIDIFX Organ Scene Starting");
 
         try {
-
             // Create instance of Shared Status to report back to Scenes
             sharedStatus = SharedStatus.getInstance();
 
-            // Prepare MIDI Player and Select Deebach Blackbox as output
-            // Prepare the Channel Program and Effects tracking list
-            playmidifile = PlayMidi.getInstance();
-            playmidifile.initCurPresetList();
+            AppConfig config = AppConfig.getInstance();
+            config.loadProperties();
 
             // Get instance of Arduino Utilities
             arduinoUtils = ArduinoUtils.getInstance();
@@ -312,7 +310,6 @@ public class OrganScene {
             System.out.println("OrganScene Init: Loaded new Preset file: " + presetFile);
 
             // Load Song List
-            //dosongs = new MidiSongs();
             dosongs = sharedStatus.getDoSongs();
             dosongs.makeMidiSongs();
             songTitle = dosongs.getSong(0).getSongTitle();
@@ -323,11 +320,11 @@ public class OrganScene {
             midimodules = new MidiModules();
 
             dopatches = new MidiPatches();
-            int moduleidx = sharedStatus.getModuleidx();
+            int moduleidx = config.getSoundModuleIdx();
             String modulefile = midimodules.getModuleFile(moduleidx);
             if (!dopatches.fileExist(modulefile)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("AMIDIFX Startup Error");
+                alert.setTitle("AMIDIFX Perform Scene Error");
                 alert.setHeaderText("Module Patch file " + MID_DIRECTORY + modulefile + " not found!");
                 Optional<ButtonType> result = alert.showAndWait();
 
@@ -340,6 +337,11 @@ public class OrganScene {
             buttonSoundBank.setText(bankname);
             fontname = dopatches.getMIDIPatch(patchidx).getPatchName();
             buttonSoundFont.setText(fontname);
+
+            // Prepare MIDI Player and Select Deebach Blackbox as output
+            // Prepare the Channel Program and Effects tracking list
+            playmidifile = PlayMidi.getInstance();
+            playmidifile.initCurPresetList();
 
             // Prepare Voice Buttons Mappings by loading either Deebach or MidiGM Organ Files
             midiButtons = new MidiButtons();
@@ -2919,7 +2921,7 @@ public class OrganScene {
             HBox hboxstatus = new HBox();
             hboxstatus.getChildren().add(labelstatusOrg);
             labelstatusOrg.setMinWidth(820 * ymul);
-            Label labelsynth = new Label(sharedStatus.getRxDevice().toString());
+            Label labelsynth = new Label(config.getOutDevice());
             labelsynth.setTextAlignment(TextAlignment.JUSTIFY);
             labelsynth.setStyle(styletext);
             hboxstatus.getChildren().add(labelsynth);

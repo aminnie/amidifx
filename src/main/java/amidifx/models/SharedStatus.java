@@ -3,6 +3,9 @@ package amidifx.models;
 import amidifx.MidiSongs;
 import javafx.scene.Scene;
 
+import javax.sound.midi.Receiver;
+import javax.sound.midi.Transmitter;
+
 public class SharedStatus {
 
     private String SongTitle = "Organ";          // Current Song Details
@@ -14,8 +17,6 @@ public class SharedStatus {
     private String performdb = "deebach.prf";
     private String performin = "integra.prf";
 
-    //private String selindevice = "2- Seaboard RISE 49";
-    //private String seloutdevice = "Deebach-Blackbox";
     private String selindevice = "default";
     private String seloutdevice = "default";
 
@@ -28,9 +29,9 @@ public class SharedStatus {
 
     private String timeSig = "4/4";
 
-    private String RxDevice = "None";           // Selected MIDI Device
-    private String TxDevice = "None";           // Selected MIDI Device
-    private int moduleidx = 1;                  // Sound Module index (defaults to Deebach, unless not found)
+    private Receiver RxDevice;          // Selected MIDI Device
+    private Transmitter TxDevice;       // Selected MIDI Device
+    private int moduleidx = 1;          // Sound Module index (defaults to Deebach, unless not found)
 
     private Scene sceneOrgan;
     private Scene sceneSongs;
@@ -102,19 +103,19 @@ public class SharedStatus {
         return this.dosongs;
     }
 
-    public void setRxDevice(String synth) {
+    public void setRxDevice(Receiver RxDevice) {
         this.RxDevice = RxDevice;
     }
 
-    public String getRxDevice() {
+    public Receiver getRxDevice() {
         return this.RxDevice;
     }
 
-    public void setTxDevice(String synth) {
+    public void setTxDevice(Transmitter TxDevice) {
         this.TxDevice = TxDevice;
     }
 
-    public String getTxDevice() {
+    public Transmitter getTxDevice() {
         return this.TxDevice;
     }
 

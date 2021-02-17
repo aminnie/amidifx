@@ -12,4 +12,5 @@
     <entry key="sndmodfile1">maxplus.dat</entry>
     <entry key="dirmidi">c:\amidifx\midi</entry>
     <entry key="dirconfig">c:\amidifx\config</entry>
+    <entry key="moduleidx">0</entry>
 </properties>

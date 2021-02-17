@@ -103,14 +103,26 @@ public class PlayMidi {
         presetidx = -1;
 
         // Get default sequencer.
-        if (sequencer == null) {
-            sequencer = MidiSystem.getSequencer();
-            sequencer.getTransmitter().setReceiver(midircv);
-        }
+        try {
+            if (sequencer == null) {
+                sequencer = MidiSystem.getSequencer();
+                if (!sequencer.isOpen()) {
+                    sequencer.open();
+                }
 
-        if (sequencer == null) {
-            System.err.println("PlayMidi Error: Sequencer device not supported. Unable to start play!");
-            return false;
+                midircv = sharedStatus.getRxDevice();
+                sequencer.getTransmitter().setReceiver(midircv);
+            }
+
+            if (sequencer == null) {
+                sharedStatus.setStatusText("No Sequencer device available. Unable to start MIDI file play!");
+                System.err.println("PlayMidi Error: No Sequencer device available. Unable to start play!");
+                return false;
+            }
+
+        }
+        catch(Exception ex) {
+
         }
 
         // Reset all MIDI Controllers as we start out
@@ -121,9 +133,13 @@ public class PlayMidi {
 
         // Construct a Sequence object, and load it into sequencer.
         // Sets the current sequence on which the sequencer operates.
-        sequencer.open();
         try {
-            //System.out.println("PlayMidi: Starting Sequencer Play " + midiFile);
+            if (!sequencer.isOpen()) {
+                sequencer.open();
+                System.out.println("PlayMidi: Sequencer opened: " + sequencer.toString());
+            }
+
+            System.out.println("PlayMidi: Starting Sequencer Play " + midiFile);
 
             mfile = new File(MID_DIRECTORY + midiFile);
             if (!mfile.exists()) {
@@ -295,10 +311,10 @@ public class PlayMidi {
                 //System.out.println("PlayMidi: stopMidiPlay stopping running Sequencer");
                 sequencer.stop();
             }
-            if (sequencer.isOpen()) {
-                //System.out.println("PlayMidi: stopMidiPlay closing open Sequencer");
-                sequencer.close();
-            }
+            ////if (sequencer.isOpen()) {
+            ////    //System.out.println("PlayMidi: stopMidiPlay closing open Sequencer");
+            ////    sequencer.close();
+            ////}
 
         } catch (Exception ex) {
             //System.err.println("### PlayMidi: Error attempting to stop sequencer play: " + ex);
@@ -576,104 +592,6 @@ public class PlayMidi {
         sharedStatus.setStatusText("MIDI PANIC Sent");
 
         return true;
-    }
-
-    // Check if at least one MIDI (port) device is correctly installed
-    public boolean selectMidiDevice() {
-        boolean result = false;
-
-        // Default to MIDI GM module supported on this system
-        SharedStatus sharedstatus = SharedStatus.getInstance();
-        sharedstatus.setModuleidx(1);
-
-        try {
-            devices = MidiSystem.getMidiDeviceInfo();
-
-            if (devices.length == 0) {
-                System.err.println("### PlayMidi Error: No MIDI devices found");
-                return false;
-            }
-            else {
-                boolean binit = true;
-
-                for (MidiDevice.Info dev : devices) {
-
-                    if (MidiSystem.getMidiDevice(dev).getMaxReceivers() == 0) {
-                        continue;
-                    }
-
-                    if (binit) {
-                        // Default to first device and override with preferred
-                        selectedRxDevice = MidiSystem.getMidiDevice(dev);
-                        binit = false;
-                    }
-
-                    System.out.println("PlayMidi: Found MIDI Device " + dev.getName());
-
-                    if (dev.getName().contains("Gervill")) { // && dev instanceof Synthesizer)  {
-                        selectedRxDevice = MidiSystem.getMidiDevice(dev);
-                        sharedstatus.setModuleidx(1);
-
-                        System.out.println("PlayMidi: RX MIDI Device Info " + dev.toString());
-                        //break;
-                    }
-
-                    if (dev.getName().contains("Deebach-Blackbox")) { // && dev instanceof Receiver) {
-                        selectedRxDevice = MidiSystem.getMidiDevice(dev);
-                        sharedstatus.setModuleidx(0);
-
-                        System.out.println("PlayMidi: RX MIDI Device Info " + dev.toString());
-                        //break;
-                    }
-
-                }
-            }
-
-            if (!selectedRxDevice.isOpen()) {
-                try {
-                    selectedRxDevice.open();
-
-                    sharedStatus.setRxDevice(selectedRxDevice.getDeviceInfo().getName());
-
-                    System.out.println("PlayMidi: Selected RX MIDI device *** " + selectedRxDevice.getDeviceInfo().getName() + " ***");
-                } catch (MidiUnavailableException e) {
-                    System.err.println("### PlayMidi: Error selecting MIDI RX device " + e);
-                    return false;
-                }
-                midircv = selectedRxDevice.getReceiver();
-
-                result = true;
-            }
-
-        } catch (MidiUnavailableException ex) {
-            System.err.println("### PlayMidi Error: Could not open MIDI synthesizer: " + ex);
-        }
-
-        return result;
-    }
-
-    // List all MIDI (port) devices connected
-    public boolean listMidiDevices() {
-        boolean result = true;
-
-        try {
-            devices = MidiSystem.getMidiDeviceInfo();
-
-            if (devices.length == 0) {
-                System.err.println("### PlayMidi Error: No MIDI devices found to list!");
-                return false;
-            }
-            else {
-                for (MidiDevice.Info dev : devices) {
-                    System.out.println("PlayMidi: Found MIDI Device " + dev.getName());
-                }
-            }
-        }
-        catch (Exception ex) {
-            System.err.println("### PlayMidi Error: Unable to list  MIDI devices: " + ex);
-        }
-
-        return result;
     }
 
 

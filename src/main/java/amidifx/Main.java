@@ -1,8 +1,9 @@
 package amidifx;
 
 import amidifx.models.*;
-import amidifx.scenes.OrganScene;
 import amidifx.scenes.HomeScene;
+import amidifx.scenes.OrganScene;
+import amidifx.utils.AppConfig;
 import amidifx.utils.ArduinoUtils;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -173,26 +174,8 @@ public class Main extends Application {
         // Create instance of Shared Status to report back to Scenes
         sharedStatus = SharedStatus.getInstance();
 
-        // List all Midi Devices to enable TX and RX select
-        playmidifile = PlayMidi.getInstance();
-        System.out.println("Finding Connected Devices");
-        playmidifile.listMidiDevices();
-
-        // Prepare MIDI Player and Select Deebach Blackbox as output
-        if (!playmidifile.selectMidiDevice()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("AMIDIFX Startup Error");
-            alert.setHeaderText("PlayMidi Error: No MIDI Device installed. Please check!");
-            Optional<ButtonType> result = alert.showAndWait();
-
-            System.exit(-1);
-        }
-        else {
-            sharedStatus.setStatusText("Selected MIDI Device " + sharedStatus.getRxDevice());
-        }
-
-        // Prepare the Channel Program and Effects tracking list
-        playmidifile.initCurPresetList();
+        AppConfig config = AppConfig.getInstance();
+        config.loadProperties();
 
         // Prepare Arduino Interface
         arduinoUtils = ArduinoUtils.getInstance();
@@ -214,8 +197,11 @@ public class Main extends Application {
         sharedStatus.setDoSongs(dosongs);
 
         // Load MIDI Patch files on start up based on detected and preferred sound module
+        int moduleidx = config.getSoundModuleIdx();
+        sharedStatus.setModuleidx(moduleidx);
+
         dopatches = new MidiPatches();
-        int moduleidx = sharedStatus.getModuleidx();
+        moduleidx = sharedStatus.getModuleidx();
         String modulefile = midimodules.getModuleFile(moduleidx);
         if (!dopatches.fileExist(modulefile)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -240,7 +226,7 @@ public class Main extends Application {
         sharedStatus.setPresetsScene(scenePresets);
 
         OrganScene organScene = new OrganScene(stage, sceneSongs);
-        //stage.setScene(organScene.getScene());
+        sharedStatus.setOrganScene(organScene.getScene());
 
         //sceneWelcome = new Scene(createWelcomeScene(stage), xscene, yscene);
         HomeScene welcomeScene = new HomeScene(stage, organScene.getScene());
@@ -344,8 +330,14 @@ public class Main extends Application {
         Button buttonExit = new Button("  Exit  ");
         buttonExit.setStyle(btnMenuOff);
         buttonExit.setOnAction(e -> {
-            playmidifile.stopMidiPlay("End Play");
-            arduinoUtils.closePort();
+            try {
+                PlayMidi playmidifile = PlayMidi.getInstance();
+                playmidifile.stopMidiPlay("End Play");
+                arduinoUtils.closePort();
+            }
+            catch (Exception ex) {
+
+            }
 
             Platform.exit();
         });
@@ -993,7 +985,6 @@ public class Main extends Application {
         buttondemo.setStyle(btnplayOff);
         buttondemo.setPrefSize(xsmallbtn * 2, ysmallbtn);
         buttondemo.setOnAction(e -> {
-            //PlayMidi playmidifile = new PlayMidi();
             try {
                 if (!bplaying) {
                     bplaying = true;
@@ -1297,8 +1288,14 @@ public class Main extends Application {
         Button buttonExit = new Button("  Exit  ");
         buttonExit.setStyle(btnMenuOff);
         buttonExit.setOnAction(e -> {
-            playmidifile.stopMidiPlay("End Play");
-            arduinoUtils.closePort();
+            try {
+                PlayMidi playmidifile = PlayMidi.getInstance();
+                playmidifile.stopMidiPlay("End Play");
+                arduinoUtils.closePort();
+            }
+            catch (Exception ex) {
+
+            }
 
             Platform.exit();
         });
