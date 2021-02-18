@@ -21,7 +21,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class OrganScene {
+public class PerformScene {
 
     // Scaling based on default 1024 x 600 resolution.
     // Anything other resolution overrides and may require additional tuning of screen layout
@@ -103,9 +103,9 @@ public class OrganScene {
     PlayMidi playmidifile;
     ArduinoUtils arduinoUtils;
 
-    // Main pane for the Organ scene
+    // Main pane for the Perform scene
     private BorderPane paneWelcome;
-    Scene sceneOrgan;
+    Scene scenePerform;
 
     MidiPresets dopresets;
     MidiSongs dosongs;
@@ -286,19 +286,18 @@ public class OrganScene {
 
 
     /*********************************************************
-     * Creates a Organ Scene.
+     * Creates a Perform Scene.
      *********************************************************/
 
-    public OrganScene(Stage primaryStage, Scene returnScene) {
+    public PerformScene(Stage primaryStage, Scene returnScene) {
 
-        System.out.println("OrganScene: AMIDIFX Organ Scene Starting");
+        System.out.println("PerformScene: AMIDIFX Perform Scene Starting");
 
         try {
             // Create instance of Shared Status to report back to Scenes
             sharedStatus = SharedStatus.getInstance();
 
             AppConfig config = AppConfig.getInstance();
-            config.loadProperties();
 
             // Get instance of Arduino Utilities
             arduinoUtils = ArduinoUtils.getInstance();
@@ -307,13 +306,13 @@ public class OrganScene {
             dopresets = new MidiPresets();
             presetFile = sharedStatus.getPresetFile();
             dopresets.makeMidiPresets(presetFile);
-            System.out.println("OrganScene Init: Loaded new Preset file: " + presetFile);
+            System.out.println("PerformScene Init: Loaded new Preset file: " + presetFile);
 
             // Load Song List
             dosongs = sharedStatus.getDoSongs();
             dosongs.makeMidiSongs();
             songTitle = dosongs.getSong(0).getSongTitle();
-            System.out.println("OrganScene Init: Song Title: " + songTitle);
+            System.out.println("PerformScene Init: Song Title: " + songTitle);
 
             // Load MIDI Patch files on start up based on detected and preferred sound module
             // Load MIDI Sound Module List on start up
@@ -350,22 +349,22 @@ public class OrganScene {
                 buttonFile = sharedStatus.getPerformFile();
             }
             else {
-                System.err.println("### OrganScene Error: Organ file not found. Selected default: " + buttonFile);
+                System.err.println("### PerformScene Error: Perform file not found. Selected default: " + buttonFile);
             }
             midiButtons.makeMidiButtons(buttonFile);
 
             // Start Building the Scene
 
-            System.out.println("OrganScene: Scene OrganScene!");
+            System.out.println("PerformScene: Scene PerformScene!");
 
             BorderPane borderPaneOrg = new BorderPane();
             borderPaneOrg.setStyle(bgpanecolor);
 
-            sceneOrgan = new Scene(borderPaneOrg, xscene, yscene);
-            sceneOrgan.getStylesheets().clear();
-            sceneOrgan.getStylesheets().add("style.css");
+            scenePerform = new Scene(borderPaneOrg, xscene, yscene);
+            scenePerform.getStylesheets().clear();
+            scenePerform.getStylesheets().add("style.css");
 
-            sharedStatus.setOrganScene(sceneOrgan);
+            sharedStatus.setPerformScene(scenePerform);
 
             labelstatusOrg = new Label(" Status: Ready");
             labelstatusOrg.setStyle(styletext);
@@ -377,24 +376,24 @@ public class OrganScene {
             Button buttonsc1 = new Button("Perform");
             buttonsc1.setStyle(btnMenuOn);
             buttonsc1.setOnAction(e -> {
-                //System.out.println(("OrganScene: Changing to Organ Scene " + sharedStatus.getOrganScene().toString()));
-                primaryStage.setScene(sharedStatus.getOrganScene());
+                //System.out.println(("PerformScene: Changing to Perform Scene " + sharedStatus.getPerformScene().toString()));
+                primaryStage.setScene(sharedStatus.getPerformScene());
                 try {
                     Thread.sleep(250);
                 } catch (Exception ex) {
-                    System.err.println("### OrganScene: Unable to set Organ Scene!");
+                    System.err.println("PerformScene: Unable to set Perform Scene!");
                 }
             });
 
             Button buttonsc2 = new Button("Songs");
             buttonsc2.setStyle(btnMenuOff);
             buttonsc2.setOnAction(e -> {
-                //System.out.println(("OrganScene: Changing to Songs Scene " + sharedStatus.getSongsScene().toString()));
+                //System.out.println(("PerformScene: Changing to Song Scene " + sharedStatus.getSongScene().toString()));
                 primaryStage.setScene(sharedStatus.getSongsScene());
                 try {
                     Thread.sleep(250);
                 } catch (Exception ex) {
-                    System.err.println("### OrganScene: Unable to set Songs Scene!");
+                    System.err.println("PerformScene: Unable to set Songs Scene!");
                 }
             });
 
@@ -402,12 +401,12 @@ public class OrganScene {
             buttonsc3.setStyle(btnMenuOff);
             buttonsc3.setDisable(true);
             buttonsc3.setOnAction(e -> {
-                //System.out.println(("OrganScene: Changing to Presets Scene " + sharedStatus.getPresetsScene().toString()));
+                //System.out.println(("PerformScene: Changing to Presets Scene " + sharedStatus.getPresetsScene().toString()));
                 primaryStage.setScene(sharedStatus.getPresetsScene());
                 try {
                     Thread.sleep(250);
                 } catch (Exception ex) {
-                    System.err.println("### OrganScene: Unable to set Presets Scene!");
+                    System.err.println("PerformScene: Unable to set Presets Scene!");
                 }
             });
 
@@ -453,7 +452,7 @@ public class OrganScene {
             toolbarLeft.setStyle(bgheadercolor);
             toolbarLeft.setMinWidth(xtoolbarleft);
 
-            Label lbltitle1 = new Label("AMIDIFX Sound Module Controller");
+            Label lbltitle1 = new Label(config.getControllerTitle());
             lbltitle1.setStyle(styletext);
             HBox hboxTitle = new HBox();
             hboxTitle.setPadding(new Insets(10, 10, 10, xtitle));
@@ -499,7 +498,7 @@ public class OrganScene {
                 btnplay.setDisable(false);
 
                 labelstatusOrg.setText(" Status: Loaded Presets for " + dosongs.getSong(idxSongList).getSongTitle());
-                //System.out.println("OrganScene: Loaded Presets " + dosongs.getSong(idxSongList).getPresetFile());
+                //System.out.println("PerformScene: Loaded Presets " + dosongs.getSong(idxSongList).getPresetFile());
             });
 
             Button buttonSongNameLeft = new Button("<<");
@@ -525,7 +524,7 @@ public class OrganScene {
 
                 offAllPresetButtons();
 
-                //System.out.println("OrganScene: Previous Song " + songTitle);
+                //System.out.println("PerformScene: Previous Song " + songTitle);
             });
 
             Button buttonSongNameRight = new Button(">>");
@@ -551,7 +550,7 @@ public class OrganScene {
 
                 offAllPresetButtons();
 
-                //System.out.println("OrganScene: Next Song " + songTitle);
+                //System.out.println("PerformScene: Next Song " + songTitle);
             });
 
             // Assemble the Song Navigation Controls
@@ -595,7 +594,7 @@ public class OrganScene {
                 buttonSoundFont.setStyle(selectcolorOff);
                 bnewpatchselected = false;
 
-                //System.out.println("OrganScene: Previous Bank " + bankname);
+                //System.out.println("PerformScene: Previous Bank " + bankname);
             });
 
             Button buttonSoundBankRight = new Button(">>");
@@ -610,7 +609,7 @@ public class OrganScene {
                 buttonSoundFont.setStyle(selectcolorOff);
                 bnewpatchselected = false;
 
-                //System.out.println("OrganScene: Previous Bank " + bankname);
+                //System.out.println("PerformScene: Previous Bank " + bankname);
             });
 
             // Assemble the Song Navigation Controls
@@ -637,7 +636,7 @@ public class OrganScene {
 
                 bnewpatchselected = true;
 
-                //System.out.println("OrganScene: Loaded Voice " + fontname);
+                //System.out.println("PerformScene: Loaded Voice " + fontname);
             });
 
             Button buttonSoundFontLeft = new Button("<<");
@@ -651,7 +650,7 @@ public class OrganScene {
                 ///// Get the Patch index so we can test voice
                 ////patchidx = dopatches.getMIDIPatch(patchidx).getPatchId();
 
-                //System.out.println("OrganScene: Previous Voice " + fontname);
+                //System.out.println("PerformScene: Previous Voice " + fontname);
             });
 
             Button buttonSoundFontRight = new Button(">>");
@@ -666,7 +665,7 @@ public class OrganScene {
                 ///// Get the Patch index so we can test voice
                 ////patchidx = dopatches.getMIDIPatch(patchidx).getPatchId();
 
-                //System.out.println("OrganScene: Next Voice " + fontname);
+                //System.out.println("PerformScene: Next Voice " + fontname);
             });
 
             // Assemble the Sound Font Navigation Controls
@@ -688,7 +687,7 @@ public class OrganScene {
 
                         PlayMidi playmidifile = PlayMidi.getInstance();
                         MidiPatch patch = dopatches.getMIDIPatch(patchidx);
-                        //System.out.println("OrganScene: Selecting patch " + patch.toString());
+                        //System.out.println("PerformScene: Selecting patch " + patch.toString());
 
                         // Note: Monitor as using CHAN 15 by default may cause unexpected behavior.
                         playmidifile.sendMidiProgramChange((byte)(lastVoiceChannel), (byte)patch.getPC(), (byte)patch.getLSB(), (byte)patch.getMSB());
@@ -901,9 +900,9 @@ public class OrganScene {
 
             // Assemble Keyboard Voice Panels
 
-            GridPane gridmidcenterOrgan = new GridPane();
-            gridmidcenterOrgan.setHgap(15);
-            gridmidcenterOrgan.setVgap(10);
+            GridPane gridmidcenterPerform = new GridPane();
+            gridmidcenterPerform.setHgap(15);
+            gridmidcenterPerform.setVgap(10);
 
             Label blabel1 = new Label("Bass [11]");
             blabel1.setStyle(styletext);
@@ -1113,11 +1112,11 @@ public class OrganScene {
                 labelstatusOrg.setText(" Status: Applied Bass 4");
             });
 
-            gridmidcenterOrgan.add(blabel1, 0, 0, 1, 1);
-            gridmidcenterOrgan.add(bleft1, 0, 1, 1, 1);
-            gridmidcenterOrgan.add(bleft2, 1, 1, 1, 1);
-            gridmidcenterOrgan.add(bleft3, 0, 2, 1, 1);
-            gridmidcenterOrgan.add(bleft4, 1, 2, 1, 1);
+            gridmidcenterPerform.add(blabel1, 0, 0, 1, 1);
+            gridmidcenterPerform.add(bleft1, 0, 1, 1, 1);
+            gridmidcenterPerform.add(bleft2, 1, 1, 1, 1);
+            gridmidcenterPerform.add(bleft3, 0, 2, 1, 1);
+            gridmidcenterPerform.add(bleft4, 1, 2, 1, 1);
 
             Label dlabel1 = new Label("Drums [10]");
             dlabel1.setStyle(styletext);
@@ -1331,12 +1330,12 @@ public class OrganScene {
                 labelstatusOrg.setText(" Status: Applied Drum 4");
             });
 
-            gridmidcenterOrgan.add(dlabel1, 0, 3, 1, 1);
-            gridmidcenterOrgan.add(lblbeatcount, 1, 3, 1, 1);
-            gridmidcenterOrgan.add(dleft1, 0, 4, 1, 1);
-            gridmidcenterOrgan.add(dleft2, 1, 4, 1, 1);
-            gridmidcenterOrgan.add(dleft3, 0, 5, 1, 1);
-            gridmidcenterOrgan.add(dleft4, 1, 5, 1, 1);
+            gridmidcenterPerform.add(dlabel1, 0, 3, 1, 1);
+            gridmidcenterPerform.add(lblbeatcount, 1, 3, 1, 1);
+            gridmidcenterPerform.add(dleft1, 0, 4, 1, 1);
+            gridmidcenterPerform.add(dleft2, 1, 4, 1, 1);
+            gridmidcenterPerform.add(dleft3, 0, 5, 1, 1);
+            gridmidcenterPerform.add(dleft4, 1, 5, 1, 1);
 
             // Lower Buttons
 
@@ -1778,17 +1777,17 @@ public class OrganScene {
                 labelstatusOrg.setText(" Status: Applied Lower 2-4");
             });
 
-            gridmidcenterOrgan.add(l1layerbtn, 3, 0, 1, 1);
-            gridmidcenterOrgan.add(l2layerbtn, 4, 0, 1, 1);
+            gridmidcenterPerform.add(l1layerbtn, 3, 0, 1, 1);
+            gridmidcenterPerform.add(l2layerbtn, 4, 0, 1, 1);
 
-            gridmidcenterOrgan.add(lbutton11, 3, 1, 1, 1);
-            gridmidcenterOrgan.add(lbutton12, 3, 2, 1, 1);
-            gridmidcenterOrgan.add(lbutton13, 3, 3, 1, 1);
-            gridmidcenterOrgan.add(lbutton14, 3, 4, 1, 1);
-            gridmidcenterOrgan.add(lbutton21, 4, 1, 1, 1);
-            gridmidcenterOrgan.add(lbutton22, 4, 2, 1, 1);
-            gridmidcenterOrgan.add(lbutton23, 4, 3, 1, 1);
-            gridmidcenterOrgan.add(lbutton24, 4, 4, 1, 1);
+            gridmidcenterPerform.add(lbutton11, 3, 1, 1, 1);
+            gridmidcenterPerform.add(lbutton12, 3, 2, 1, 1);
+            gridmidcenterPerform.add(lbutton13, 3, 3, 1, 1);
+            gridmidcenterPerform.add(lbutton14, 3, 4, 1, 1);
+            gridmidcenterPerform.add(lbutton21, 4, 1, 1, 1);
+            gridmidcenterPerform.add(lbutton22, 4, 2, 1, 1);
+            gridmidcenterPerform.add(lbutton23, 4, 3, 1, 1);
+            gridmidcenterPerform.add(lbutton24, 4, 4, 1, 1);
 
             // Upper Buttons
 
@@ -2618,28 +2617,28 @@ public class OrganScene {
                 labelstatusOrg.setText(" Status: Applied Upper 3-4");
             });
 
-            gridmidcenterOrgan.add(r1layerbtn, 6, 0, 1, 1);
-            gridmidcenterOrgan.add(r2layerbtn, 7, 0, 1, 1);
-            gridmidcenterOrgan.add(r3layerbtn, 8, 0, 1, 1);
+            gridmidcenterPerform.add(r1layerbtn, 6, 0, 1, 1);
+            gridmidcenterPerform.add(r2layerbtn, 7, 0, 1, 1);
+            gridmidcenterPerform.add(r3layerbtn, 8, 0, 1, 1);
 
-            gridmidcenterOrgan.add(rbutton11, 6, 1, 1, 1);
-            gridmidcenterOrgan.add(rbutton12, 6, 2, 1, 1);
-            gridmidcenterOrgan.add(rbutton13, 6, 3, 1, 1);
-            gridmidcenterOrgan.add(rbutton14, 6, 4, 1, 1);
-            gridmidcenterOrgan.add(rbutton15, 6, 5, 1, 1);
+            gridmidcenterPerform.add(rbutton11, 6, 1, 1, 1);
+            gridmidcenterPerform.add(rbutton12, 6, 2, 1, 1);
+            gridmidcenterPerform.add(rbutton13, 6, 3, 1, 1);
+            gridmidcenterPerform.add(rbutton14, 6, 4, 1, 1);
+            gridmidcenterPerform.add(rbutton15, 6, 5, 1, 1);
 
-            gridmidcenterOrgan.add(rbutton16, 6, 6, 1, 1);
-            gridmidcenterOrgan.add(rbutton17, 7, 6, 1, 1);
-            gridmidcenterOrgan.add(rbutton18, 8, 6, 1, 1);
+            gridmidcenterPerform.add(rbutton16, 6, 6, 1, 1);
+            gridmidcenterPerform.add(rbutton17, 7, 6, 1, 1);
+            gridmidcenterPerform.add(rbutton18, 8, 6, 1, 1);
 
-            gridmidcenterOrgan.add(rbutton21, 7, 1, 1, 1);
-            gridmidcenterOrgan.add(rbutton22, 7, 2, 1, 1);
-            gridmidcenterOrgan.add(rbutton23, 7, 3, 1, 1);
-            gridmidcenterOrgan.add(rbutton24, 7, 4, 1, 1);
-            gridmidcenterOrgan.add(rbutton31, 8, 1, 1, 1);
-            gridmidcenterOrgan.add(rbutton32, 8, 2, 1, 1);
-            gridmidcenterOrgan.add(rbutton33, 8, 3, 1, 1);
-            gridmidcenterOrgan.add(rbutton34, 8, 4, 1, 1);
+            gridmidcenterPerform.add(rbutton21, 7, 1, 1, 1);
+            gridmidcenterPerform.add(rbutton22, 7, 2, 1, 1);
+            gridmidcenterPerform.add(rbutton23, 7, 3, 1, 1);
+            gridmidcenterPerform.add(rbutton24, 7, 4, 1, 1);
+            gridmidcenterPerform.add(rbutton31, 8, 1, 1, 1);
+            gridmidcenterPerform.add(rbutton32, 8, 2, 1, 1);
+            gridmidcenterPerform.add(rbutton33, 8, 3, 1, 1);
+            gridmidcenterPerform.add(rbutton34, 8, 4, 1, 1);
 
             // Assemble MIDI Play Buttons
 
@@ -2700,7 +2699,7 @@ public class OrganScene {
                                             lblbeatcount.setText("Bar: " + playmidifile.getSequencerBeat());
                                     });
 
-                                    //System.out.println("OrganScene: Sequencer Bar.Beat " + playmidifile.getSequencerTickPosition());
+                                    //System.out.println("PerformScene: Sequencer Bar.Beat " + playmidifile.getSequencerTickPosition());
                                 }
                             }, 0, 100);
 
@@ -2730,9 +2729,9 @@ public class OrganScene {
 
                     exception.printStackTrace();
                 }
-                //System.out.println("OrganScene: " + readpresets.presetString(presetIdx * 16 + channelIdx));
+                //System.out.println("PerformScene: " + readpresets.presetString(presetIdx * 16 + channelIdx));
             });
-            gridmidcenterOrgan.add(btnplay, 0, 6, 1, 1);
+            gridmidcenterPerform.add(btnplay, 0, 6, 1, 1);
 
             // Backing Mode Button
             // Mode 1 = Original, 2 = Play Along, 3 = Backing
@@ -2762,7 +2761,7 @@ public class OrganScene {
                     }
                 }
             });
-            gridmidcenterOrgan.add(btnBacking, 1, 6, 1, 1);
+            gridmidcenterPerform.add(btnBacking, 1, 6, 1, 1);
 
 
             // Add VOL, REV and CHO Sliders. Show for the most recent selected Voice Button
@@ -2900,22 +2899,22 @@ public class OrganScene {
             gridEffects.add(new VBox(new Label("MOD"), sliderMOD), 3, 1, 1, 1);
             gridEffects.add(new VBox(new Label("PAN"), sliderPAN), 4, 1, 1, 1);
             gridEffects.setHgap(25);
-            gridmidcenterOrgan.add(gridEffects, 3, 5, 3, 2);
-            gridmidcenterOrgan.setStyle(styletext);
+            gridmidcenterPerform.add(gridEffects, 3, 5, 3, 2);
+            gridmidcenterPerform.setStyle(styletext);
 
-            // Finalize Organ Center Panel
+            // Finalize Perform Center Panel
 
-            BorderPane midcenterOrganPanel = new BorderPane();
-            midcenterOrganPanel.setCenter(gridmidcenterOrgan);
-            midcenterOrganPanel.setPadding(new Insets(10, 0, 10, 0));
+            BorderPane midcenterPerformPanel = new BorderPane();
+            midcenterPerformPanel.setCenter(gridmidcenterPerform);
+            midcenterPerformPanel.setPadding(new Insets(10, 0, 10, 0));
 
-            // Final assembly the Organ Center Panel
+            // Final assembly the Perform Center Panel
 
-            BorderPane centerOrganPanel = new BorderPane();
-            centerOrganPanel.setTop(gridTopLine);
-            centerOrganPanel.setCenter(midcenterOrganPanel);
-            centerOrganPanel.setBottom(presetGrid);
-            centerOrganPanel.setPadding(new Insets(10, 10, 10, 10));
+            BorderPane centerPerformPanel = new BorderPane();
+            centerPerformPanel.setTop(gridTopLine);
+            centerPerformPanel.setCenter(midcenterPerformPanel);
+            centerPerformPanel.setBottom(presetGrid);
+            centerPerformPanel.setPadding(new Insets(10, 10, 10, 10));
 
             // Assemble Status Bar
             HBox hboxstatus = new HBox();
@@ -2930,7 +2929,7 @@ public class OrganScene {
 
             borderPaneOrg.setTop(borderPaneTop);
             //borderPaneOrg.setLeft(leftseparator);
-            borderPaneOrg.setCenter(centerOrganPanel);
+            borderPaneOrg.setCenter(centerPerformPanel);
             //borderPaneOrg.setRight(rightseparator);
             borderPaneOrg.setBottom(hboxstatus);
 
@@ -2942,7 +2941,7 @@ public class OrganScene {
             flgDirtyPreset = false;
         }
         catch (Exception ex) {
-            System.err.println("### OrganScene Exception: Unable to read Stylesheets!");
+            System.err.println("### PerformScene Exception: Unable to read Stylesheets!");
             System.err.println(ex);
         }
     }
@@ -3249,7 +3248,7 @@ public class OrganScene {
 
     /** Returns the current Scene **/
     public Scene getScene() {
-        return sceneOrgan;
+        return scenePerform;
     }
 
 }

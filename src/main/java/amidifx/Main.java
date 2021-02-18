@@ -2,7 +2,7 @@ package amidifx;
 
 import amidifx.models.*;
 import amidifx.scenes.HomeScene;
-import amidifx.scenes.OrganScene;
+import amidifx.scenes.PerformScene;
 import amidifx.utils.AppConfig;
 import amidifx.utils.ArduinoUtils;
 import javafx.application.Application;
@@ -108,7 +108,7 @@ public class Main extends Application {
     final String styletext = "-fx-font-size: " + fsize ;
     final String smallstyletext = "-fx-background-color: #69A8CC; -fx-font-size: " + fsmallsize ;
 
-    Scene sceneOrgan, scenePresets, sceneSongs, sceneWelcome, sceneMonitor;
+    Scene scenePerform, scenePresets, sceneSongs, sceneHome;
     MidiPatches dopatches;
     MidiPresets dopresets;
     MidiSongs dosongs;
@@ -152,6 +152,7 @@ public class Main extends Application {
 
     Image applicationIcon;
 
+    AppConfig config;
     SharedStatus sharedStatus;
     ArduinoUtils arduinoUtils;
 
@@ -171,13 +172,21 @@ public class Main extends Application {
         ////stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 3);
         ////stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 3);
 
-        // Create instance of Shared Status to report back to Scenes
+        // Create single instance of Shared Status to report back to Scenes
         sharedStatus = SharedStatus.getInstance();
 
-        AppConfig config = AppConfig.getInstance();
-        config.loadProperties();
+        // Load single instance of XML App Config
+        config = AppConfig.getInstance();
 
-        // Prepare Arduino Interface
+        ////MidiDevices mididevices = MidiDevices.getInstance();
+        ////mididevices.createMidiDevices(config.getInDevice(), config.getOutDevice());
+        ////sharedStatus.setSelInDevice(config.getInDevice());
+        ////sharedStatus.setSelOutDevice(config.getOutDevice());
+
+        // Prepare single instance ofPlay Midi
+        PlayMidi playmidifile = PlayMidi.getInstance();
+
+        // Prepare single instance of Arduino Interface
         arduinoUtils = ArduinoUtils.getInstance();
 
         // Load MIDI Sound Module List on start up
@@ -225,11 +234,14 @@ public class Main extends Application {
         scenePresets.getStylesheets().add("style.css");
         sharedStatus.setPresetsScene(scenePresets);
 
-        OrganScene organScene = new OrganScene(stage, sceneSongs);
-        sharedStatus.setOrganScene(organScene.getScene());
+        PerformScene performScene = new PerformScene(stage, sceneSongs);
+        sharedStatus.setPerformScene(performScene.getScene());
+        //stage.setScene(performScene.getScene());
 
         //sceneWelcome = new Scene(createWelcomeScene(stage), xscene, yscene);
-        HomeScene welcomeScene = new HomeScene(stage, organScene.getScene());
+        HomeScene welcomeScene = new HomeScene(stage, performScene.getScene());
+        sharedStatus.setHomeScene(performScene.getScene());
+
         stage.setScene(welcomeScene.getScene());
 
         stage.show();
@@ -282,12 +294,12 @@ public class Main extends Application {
         Button buttonsc1 = new Button("Perform");
         buttonsc1.setStyle(btnMenuOff);
         buttonsc1.setOnAction(e -> {
-            System.out.println(("Main: Changing to Organ Scene: " + sharedStatus.getOrganScene().toString()));
-            stage.setScene(sharedStatus.getOrganScene());
+            System.out.println(("Main: Changing to Organ Scene: " + sharedStatus.getPerformScene().toString()));
+            stage.setScene(sharedStatus.getPerformScene());
             try {
                 Thread.sleep(250);
             } catch (Exception ex) {
-                System.err.println("### nMain: Unable to set Organ Scene!");
+                System.err.println("### Main: Unable to set Perform Scene!");
             }
         });
 
@@ -377,7 +389,7 @@ public class Main extends Application {
         toolbarLeft.setStyle(bgheadercolor);
         toolbarLeft.setMinWidth(xtoolbarleft);
 
-        Label lbltitle1 = new Label("AMIDIFX Sound Module Controller");
+        Label lbltitle1 = new Label(config.getControllerTitle());
         lbltitle1.setStyle(styletext);
         HBox hboxTitle = new HBox();
         hboxTitle.setPadding(new Insets(10, 10, 10, xtitle));
@@ -1247,8 +1259,8 @@ public class Main extends Application {
         buttonsc1.setStyle(btnMenuOff);
         //buttonsc1.setOnAction(e -> stage.setScene(sceneOrgan));
         buttonsc1.setOnAction(e -> {
-            System.out.println(("Main: Changing to Organ Scene: " + sharedStatus.getOrganScene().toString()));
-            stage.setScene(sharedStatus.getOrganScene());
+            System.out.println(("Main: Changing to Organ Scene: " + sharedStatus.getPerformScene().toString()));
+            stage.setScene(sharedStatus.getPerformScene());
             try {
                 Thread.sleep(250);
             } catch (Exception ex) { }
@@ -1353,7 +1365,7 @@ public class Main extends Application {
         toolbarLeft.setStyle(bgheadercolor);
         toolbarLeft.setMinWidth(xtoolbarleft);
 
-        Label lbltitle1 = new Label("AMIDIFX Sound Module Controller");
+        Label lbltitle1 = new Label(config.getControllerTitle());
         lbltitle1.setStyle(styletext);
         HBox hboxTitle = new HBox();
         hboxTitle.setPadding(new Insets(10, 10, 10, xtitle));

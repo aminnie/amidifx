@@ -39,8 +39,6 @@ public class PlayMidi {
     Sequence midiSeq;
     Sequencer sequencer;
 
-    MidiDevice.Info[] devices;
-    MidiDevice selectedRxDevice;
     Receiver midircv;
 
     String midiFile;
@@ -73,6 +71,8 @@ public class PlayMidi {
     // *** Make constructor private for Singleton ***
     private PlayMidi() {
 
+        // Preset MIDI OUT Device
+        midircv = sharedStatus.getRxDevice();
     }
 
     // Play MIDI File
@@ -169,7 +169,8 @@ public class PlayMidi {
             seqresolution = midiSeq.getResolution();
             System.out.println("MidiPlay - Resolution: " + midiSeq.getResolution());
 
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             System.err.println("PlayMidi: Sequencer Play Exception: " + ex);
         }
 
@@ -316,7 +317,8 @@ public class PlayMidi {
             ////    sequencer.close();
             ////}
 
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             //System.err.println("### PlayMidi: Error attempting to stop sequencer play: " + ex);
             return false;
         }
@@ -344,7 +346,7 @@ public class PlayMidi {
                 //System.out.println("PlayMidi: Sent MIDI Note OFF " + midiMsg.toString());
             }
         } catch (Exception ex) {
-            System.err.println("### PlayMidi Error: MIDI Note Send Exception " + midiMsg.toString());
+            System.err.println("PlayMidi Error: MIDI Note Send Exception " + midiMsg.toString());
             System.err.println(ex);
             return false;
         }
@@ -394,7 +396,7 @@ public class PlayMidi {
 
             //System.out.println("PlayMidi: Sent MIDI Program Message: CHAN: " + (CHAN + 1) + " PC:" + PC + " MSB:" + MSB + " LSB:" + LSB);
         } catch (Exception ex) {
-            System.err.println("### PlayMidi Error: Sent MIDI Program Change: " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " PC:" + PC + " MSB:" + MSB + " LSB:" + LSB);
+            System.err.println("PlayMidi Error: Sent MIDI Program Change: " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " PC:" + PC + " MSB:" + MSB + " LSB:" + LSB);
             System.err.println(ex);
             return false;
         }
@@ -407,7 +409,7 @@ public class PlayMidi {
 
         CHAN = CHAN - 1;
         if (CHAN < 0) {
-            System.err.println("### PlayMidi: sendMidiControlChange Error:  CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
+            System.err.println("PlayMidi: sendMidiControlChange Error:  CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
             return false;
         }
 
@@ -474,7 +476,7 @@ public class PlayMidi {
                     break;
             }
         } catch (Exception ex) {
-            System.err.println("### PlayMidi Error: Sent MIDI Control Change " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
+            System.err.println("PlayMidi Error: Sent MIDI Control Change " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
             System.err.println(ex);
             return false;
         }
@@ -548,7 +550,7 @@ public class PlayMidi {
                 midircv.send(midiMsg, timeStamp);
             }
         } catch (Exception ex) {
-            System.err.println("### PlayMidi Error: Sent MIDI Program Change: All Controllers Reset:  CHAN: " + (CHAN + 1));
+            System.err.println("PlayMidi Error: Sent MIDI Program Change: All Controllers Reset:  CHAN: " + (CHAN + 1));
             System.err.println(ex);
             return false;
         }
@@ -580,7 +582,7 @@ public class PlayMidi {
                 //System.out.println("PlayMidi: PANIC Sound, Controllers, Notes off sent on channel: " + chanidx);
             }
         } catch (Exception ex) {
-            System.err.println("### PlayMidi Error: Sent MIDI PANIC Control Changes " + midiMsg.toString());
+            System.err.println("PlayMidi Error: Sent MIDI PANIC Control Changes " + midiMsg.toString());
             System.err.println(ex);
             return false;
         }
@@ -606,12 +608,13 @@ public class PlayMidi {
 
             boolean muted = sequencer.getTrackMute(CHAN);
             if (!muted) {
-                System.err.println("### PlayMidi: Muting failed on Channel: " + CHAN);
+                System.err.println("PlayMidi: Muting failed on Channel: " + CHAN);
                 return false;        // muting failed
             }
             System.out.println("PlayMidi: Muted Channel: " + CHAN);
-        } catch (Exception ex) {
-            System.err.println("### PlayMidi: Exception muting Channel: " + CHAN);
+        }
+        catch (Exception ex) {
+            System.err.println("PlayMidi: Exception muting Channel: " + CHAN);
             return false;
         }
 
@@ -628,7 +631,7 @@ public class PlayMidi {
             }
         }
         catch (Exception ex) {
-            System.err.println("### PlayMidi: Exception muting all Tracks");
+            System.err.println("PlayMidi: Exception muting all Tracks");
         }
     }
 
@@ -643,13 +646,13 @@ public class PlayMidi {
 
             boolean muted = sequencer.getTrackMute(CHAN);
             if (muted) {
-                System.err.println("### PlayMidi: Unmute failed on Channel: " + CHAN);
+                System.err.println("PlayMidi: Unmute failed on Channel: " + CHAN);
                 return false;        // Unmuting failed
             }
             System.out.println("PlayMidi: Unmuted Channel: " + CHAN);
         }
         catch (Exception ex) {
-            System.err.println("### PlayMidi: Exception Unmuting Channel: " + CHAN);
+            System.err.println("PlayMidi: Exception Unmuting Channel: " + CHAN);
             return false;
         }
 
@@ -666,10 +669,10 @@ public class PlayMidi {
 
         boolean breturn = true;
 
-        System.out.println("### PlayMidi: MidiSong: " + midiSong.toString());
-        System.out.println("### PlayMidi: Muted Bass Channel: " + midiSong.getChanBass());
-        System.out.println("### PlayMidi: Muted Lower Channel: " + midiSong.getChanLower());
-        System.out.println("### PlayMidi: Muted Upper Channel: " + midiSong.getChanUpper());
+        System.out.println("PlayMidi: MidiSong: " + midiSong.toString());
+        System.out.println("PlayMidi: Muted Bass Channel: " + midiSong.getChanBass());
+        System.out.println("PlayMidi: Muted Lower Channel: " + midiSong.getChanLower());
+        System.out.println("PlayMidi: Muted Upper Channel: " + midiSong.getChanUpper());
 
         try {
             if (sequencer == null) {
@@ -683,7 +686,8 @@ public class PlayMidi {
                 if (!muted) {
                     System.out.println("PlayMidi: Mute failed Channel " + midiSong.getChanBass());
                     breturn = false;        // muting failed
-                } else System.out.println("PlayMidi: Muted Channel Bass " + midiSong.getChanBass());
+                }
+                else System.out.println("PlayMidi: Muted Channel Bass " + midiSong.getChanBass());
             }
 
             if (midiSong.getChanLower() != 0) {
@@ -692,7 +696,8 @@ public class PlayMidi {
                 if (!muted) {
                     System.out.println("PlayMidi: Mute failed Channel " + midiSong.getChanLower());
                     breturn = false;        // muting failed
-                } else System.out.println("PlayMidi: Muted Channel Lower " + midiSong.getChanLower());
+                }
+                else System.out.println("PlayMidi: Muted Channel Lower " + midiSong.getChanLower());
             }
 
             if (midiSong.getChanUpper() != 0) {
@@ -701,12 +706,13 @@ public class PlayMidi {
                 if (!muted) {
                     System.out.println("PlayMidi: Mute failed Channel " + midiSong.getChanUpper());
                     breturn = false;        // muting failed
-                } else System.out.println("PlayMidi: Muted Channel Upper " + midiSong.getChanUpper());
+                }
+                else System.out.println("PlayMidi: Muted Channel Upper " + midiSong.getChanUpper());
             }
 
         }
         catch (Exception ex) {
-            System.err.println("### PlayMidi: Exception muting Channels");
+            System.err.println("PlayMidi: Exception muting Channels");
             return false;
         }
 
@@ -719,10 +725,10 @@ public class PlayMidi {
         boolean breturn = true;
         boolean muted;
 
-        System.out.println("### PlayMidi: MidiSong: " + midiSong.toString());
-        System.out.println("### PlayMidi: Unmuted Bass Channel: " + midiSong.getChanBass());
-        System.out.println("### PlayMidi: Unmuted Lower Channel: " + midiSong.getChanLower());
-        System.out.println("### PlayMidi: Unmuted Upper Channel: " + midiSong.getChanUpper());
+        System.out.println("PlayMidi: MidiSong: " + midiSong.toString());
+        System.out.println("PlayMidi: Unmuted Bass Channel: " + midiSong.getChanBass());
+        System.out.println("PlayMidi: Unmuted Lower Channel: " + midiSong.getChanLower());
+        System.out.println("PlayMidi: Unmuted Upper Channel: " + midiSong.getChanUpper());
 
         try {
             if (sequencer == null) {
@@ -758,7 +764,7 @@ public class PlayMidi {
             }
         }
         catch (Exception ex) {
-            System.out.println("### PlayMidi: Error unmuting channels1");
+            System.out.println("PlayMidi: Error unmuting channels!");
             System.out.println(ex);
             return false;
         }
@@ -777,7 +783,7 @@ public class PlayMidi {
             System.out.println("PlayMidi: Solo CHannel: " + CHAN);
         }
         catch (Exception ex) {
-            System.err.println("### PlayMidi: Exception Solo-ing Channel: " + CHAN);
+            System.err.println("PlayMidi: Exception Solo-ing Channel: " + CHAN);
             return false;
         }
 
@@ -795,7 +801,7 @@ public class PlayMidi {
             System.out.println("PlayMidi: Solo CHannel: " + CHAN);
         }
         catch (Exception ex) {
-            System.err.println("### PlayMidi: Exception removing Solo Channel: " + CHAN);
+            System.err.println("PlayMidi: Exception removing Solo Channel: " + CHAN);
             return false;
         }
 
@@ -841,12 +847,12 @@ public class PlayMidi {
             //System.out.println("PlayMidi: Checking sequencer is running");
         }
         catch (Exception ex) {
-            System.err.println("### PlayMidi Exception: Checking sequencer is running");
+            System.err.println("PlayMidi Exception: Checking sequencer is running");
         }
         return bisrunning;
     }
 
-    // String listinstruments = playmidifile.listInstruments(MidiSystem.getSynthesizer(), MidiSystem.getSequence(mfile));
+
     public String listInstruments() {
 
         Instrument instruments[];
@@ -906,7 +912,6 @@ public class PlayMidi {
         TimeSigDen = Integer.parseInt(timeSigDetails[1]);
 
         //System.out.println("MidiPlay: TimeSigNum " + TimeSigNum + ", TimeSigDen " + TimeSigDen);
-
     }
 
 }

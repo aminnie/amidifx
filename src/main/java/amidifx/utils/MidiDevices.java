@@ -38,7 +38,7 @@ public class MidiDevices {
         if (single_MidiDevices_Instance == null) {
             single_MidiDevices_Instance = new MidiDevices();
 
-            System.out.println("PlayMidi: Creating instance StatusBar");
+            System.out.println("MidiDevices: Creating instance MidiDevices");
         }
 
         return single_MidiDevices_Instance;
@@ -63,7 +63,7 @@ public class MidiDevices {
             // Get output Synth or external Sound Module
             midircv = openMidiReceiver(seloutdevice);
             if (midircv == null) {
-                System.err.print("Error: Unable to open selected MIDI OUT device: " + seloutdevice);
+                System.err.print("**** Error: Unable to open selected MIDI OUT device: " + seloutdevice);
 
                 sharedstatus.setStatusText("Error opening selected MIDI OUT device");
                 return -1;
@@ -80,15 +80,15 @@ public class MidiDevices {
                 miditrans.setReceiver(displayReceiver); // or just "receiver"
                 sharedstatus.setTxDevice(miditrans);
 
-                System.out.println("Ready to play your USB keyboard...");
+                System.out.println("Ready to play MIDI keyboard...");
             }
             else
-                System.out.println("No musical keyboard connected! Please connect USB keyboard proceed.");
+                System.out.println("**** No MIDI keyboard connected! Connect USB MIDI keyboard proceed.");
 
             // Get default sequencer, if it exists
             sequencer = getSequencer();
             if (sequencer == null) {
-                System.err.print("Error: Unable to open Sequencer device: " + sequencer.getDeviceInfo().getName());
+                System.err.print("**** Error: Unable to open Sequencer device: " + sequencer.getDeviceInfo().getName());
 
                 sharedstatus.setStatusText("Error: Unable to open Sequencer device: " + sequencer.getDeviceInfo().getName());
                 return -2;
@@ -379,12 +379,12 @@ public class MidiDevices {
                 if (!selectedDevice.isOpen()) {
                     selectedDevice.open();
 
-                    // Found output Device or Synth
-                    midircv = selectedDevice.getReceiver();
-                    sharedstatus.setRxDevice(midircv);
-
                     System.out.println("Opened MIDI OUT Device *** " + selectedDevice.getDeviceInfo().getName() + " ***");
                 }
+
+                // Found output Device or Synth
+                midircv = selectedDevice.getReceiver();
+                sharedstatus.setRxDevice(midircv);
             }
             catch(Exception ex) {
                 System.out.println("Error Opening MIDI OUT Device *** " + selectedDevice.getDeviceInfo().getName() + " ***");

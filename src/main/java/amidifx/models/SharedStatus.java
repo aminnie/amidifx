@@ -33,9 +33,10 @@ public class SharedStatus {
     private Transmitter TxDevice;       // Selected MIDI Device
     private int moduleidx = 1;          // Sound Module index (defaults to Deebach, unless not found)
 
-    private Scene sceneOrgan;
+    private Scene scenePerform;
     private Scene sceneSongs;
     private Scene scenePresets;
+    private Scene sceneHome;
 
     private MidiSongs dosongs;
 
@@ -65,14 +66,14 @@ public class SharedStatus {
     // *** Make constructor private for Singleton ***
     private SharedStatus() { }
 
-    public Scene getOrganScene() {
-        System.out.println("SharedStatus: Getting Songs Scene: " + sceneOrgan.toString());
-        return this.sceneOrgan;
+    public Scene getPerformScene() {
+        System.out.println("SharedStatus: Getting Songs Scene: " + scenePerform.toString());
+        return this.scenePerform;
     }
 
-    public void setOrganScene(Scene sceneOrgan) {
-        this.sceneOrgan = sceneOrgan;
-        System.out.println("SharedStatus: Setting Songs Scene: " + sceneOrgan.toString());
+    public void setPerformScene(Scene sceneOrgan) {
+        this.scenePerform = sceneOrgan;
+        System.out.println("SharedStatus: Setting Songs Scene: " + scenePerform.toString());
     }
 
     public Scene getSongsScene() {
@@ -94,6 +95,18 @@ public class SharedStatus {
         this.scenePresets = scenePresets;
         System.out.println("SharedStatus: Setting Songs Scene: " + scenePresets.toString());
     }
+
+    public void setHomeScene(Scene sceneHome) {
+        this.sceneHome = sceneHome;
+        System.out.println("SharedStatus: Setting Home Scene: " + sceneHome.toString());
+    }
+
+    public Scene getHomeScene() {
+        System.out.println("SharedStatus: Getting Home Scene: " + sceneHome.toString());
+        return this.sceneHome;
+    }
+
+
 
     public void setDoSongs(MidiSongs dosongs) {
         this.dosongs = dosongs;

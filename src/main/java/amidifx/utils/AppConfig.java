@@ -32,25 +32,31 @@ public class AppConfig {
     }
 
     // *** Make constructor private for Singleton ***
-    private AppConfig() { }
+    private AppConfig() {
 
-    public boolean loadProperties() {
+        if (!this.loadProperties()) {
+            System.err.println("AppConfig: Failed to load AppConfig file!");
+            System.exit(-1);
+        }
+    }
 
-        System.out.println("Loading Properties from disk: " + configPath);
+    private boolean loadProperties() {
+
+        System.out.println("AppConfig: Loading Properties from disk: " + configPath);
 
         try {
             configProps.loadFromXML(new FileInputStream(configPath));
 
             // get the property value and print it out
-            System.out.println("Config: In device is " +  configProps.getProperty("indevice"));
-            System.out.println("Config: Out device is " +  configProps.getProperty("outdevice"));
+            System.out.println("AppConfig: In device is " +  configProps.getProperty("indevice"));
+            System.out.println("AppConfig: Out device is " +  configProps.getProperty("outdevice"));
         }
         catch (FileNotFoundException ex) {
-            System.out.println("File not found exception: " + configPath);
+            System.err.println("AppConfig: File not found exception: " + configPath);
             return false;
         }
         catch (IOException ex) {
-            System.out.println("File read exception: " + configPath);
+            System.err.println("AppConfig: File read exception: " + configPath);
             return false;
         }
 
@@ -63,17 +69,13 @@ public class AppConfig {
             configProps.storeToXML(new FileOutputStream(configPath), "Saved to XML file");
 
             // get the property value and print it out
-            System.out.println("Saving Properties to disk: " + configPath);
-            System.out.println("Config: App Name " +  configProps.getProperty("appname"));
-            System.out.println("Config: App Version " +  configProps.getProperty("appversion"));
-            System.out.println("Config: App Date " +  configProps.getProperty("appdate"));
-            System.out.println("Config: In device is " +  configProps.getProperty("indevice"));
-            System.out.println("Config: Out device is " +  configProps.getProperty("outdevice"));
-
+            System.out.println("AppConfig: Saving Properties to disk: " + configPath);
+            System.out.println("AppConfig: In device is " +  configProps.getProperty("indevice"));
+            System.out.println("AppConfig: Out device is " +  configProps.getProperty("outdevice"));
 
         }
         catch (IOException ex) {
-            System.out.println("Config File write failed: " + configPath);
+            System.err.println("AppConfig: File write failed: " + configPath);
             return false;
         }
 
@@ -89,7 +91,7 @@ public class AppConfig {
     public void setInDevice(String indevice) {
         configProps.setProperty("indevice", indevice);
 
-        System.out.println("Property indevice set to:" + configProps.getProperty("indevice"));
+        System.out.println("AppConfig: Property indevice set to " + configProps.getProperty("indevice"));
     }
 
     // Get selected Out Midi device - Sound Module
@@ -101,7 +103,7 @@ public class AppConfig {
     public void setOutDevice(String outdevice) {
         configProps.setProperty("outdevice", outdevice);
 
-        System.out.println("Property outdevice set to:" + configProps.getProperty("outdevice"));
+        System.out.println("AppConfig: Property outdevice set to " + configProps.getProperty("outdevice"));
     }
 
     // Get selected Out Midi device - Sound Module
@@ -117,16 +119,25 @@ public class AppConfig {
             case 1:
                 strmodule = configProps.getProperty("sndmodfil1");
             default:
+                // Default to Midi GM file
                 strmodule = configProps.getProperty("sndmodfil0");
         }
 
         return strmodule;
     }
 
+    public void setControllerTitle(String controllertitle) {
+        configProps.setProperty("controllertitle", controllertitle);
+    }
+
+    public String getControllerTitle() {
+        return configProps.getProperty("controllertitle");
+    }
+
     public void setSoundModuleIdx(int moduleidx) {
         configProps.setProperty("moduleidx", Integer.toString(moduleidx));
 
-        System.out.println("Property moduleidx set to:" + configProps.getProperty("moduleidx"));
+        System.out.println("AppConfig: Property moduleidx set to" + configProps.getProperty("moduleidx"));
     }
 
     public int getSoundModuleIdx() {
@@ -137,7 +148,7 @@ public class AppConfig {
             moduleidx = new Integer(moduleidxstr);
         }
         catch (Exception ex) {
-            System.err.println("Error read moduleidx from AppConfig file");
+            System.err.println("AppConfig: Error read moduleidx from AppConfig file");
             System.err.println(ex);
         }
 

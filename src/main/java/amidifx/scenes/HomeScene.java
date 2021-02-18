@@ -76,6 +76,7 @@ public class HomeScene {
     final String styletext = "-fx-font-size: " + fsize ;
     final String styletextwhite = "-fx-text-fill: white; -fx-font-size: " + fsize ;
     final String styletextred = "-fx-text-fill: red; -fx-font-size: " + fsize ;
+    final String styletextgreen = "-fx-text-fill: #8ED072; -fx-font-size: " + fsize ;
 
     private static final String IMG_DIRECTORY = "C:/amidifx/config/";
 
@@ -119,11 +120,6 @@ public class HomeScene {
 
             // Load Config File Properties and preset IN and OUT devices to last config
             config = AppConfig.getInstance();
-            if (!config.loadProperties()) {
-                System.err.println("Failed to load AppConfig file!");
-                System.exit(-1);
-            }
-
             sharedStatus.setSelInDevice(config.getInDevice());
             sharedStatus.setSelOutDevice(config.getOutDevice());
 
@@ -131,16 +127,22 @@ public class HomeScene {
             MidiUtils midiutils = new MidiUtils();
             midiutils.loadMidiDevices();
 
+            boolean fselindeviceok = false;
             List<MidiUtils.StatusMidiDevice> inlist = midiutils.listInDevices();
             for (MidiUtils.StatusMidiDevice statusdevice : inlist) {
                 comboInDevice.getItems().add(statusdevice.getDevice());
 
+                if (statusdevice.getDevice().equals(config.getInDevice())) fselindeviceok = true;
+
                 System.out.println("MIDI In:" + statusdevice.getDevice());
             }
 
+            boolean fseloutdeviceok = false;
             List<MidiUtils.StatusMidiDevice> outlist = midiutils.listOutDevices();
             for (MidiUtils.StatusMidiDevice statusdevice : outlist) {
                 comboOutDevice.getItems().add(statusdevice.getDevice());
+
+                if (statusdevice.getDevice().equals(config.getOutDevice())) fseloutdeviceok = true;
 
                 System.out.println("MIDI Out:" + statusdevice.getDevice());
             }
@@ -154,7 +156,7 @@ public class HomeScene {
             sceneHome.getStylesheets().clear();
             sceneHome.getStylesheets().add("style.css");
 
-            sharedStatus.setOrganScene(sceneHome);
+            sharedStatus.setHomeScene(sceneHome);
 
             // Create top bar navigation buttons
 
@@ -170,11 +172,11 @@ public class HomeScene {
             buttonsc1.setDisable(true);
             buttonsc1.setOnAction(e -> {
                 //System.out.println(("OrganScene: Changing to Organ Scene " + sharedStatus.getOrganScene().toString()));
-                primaryStage.setScene(sharedStatus.getOrganScene());
+                primaryStage.setScene(sharedStatus.getPerformScene());
                 try {
                     Thread.sleep(250);
                 } catch (Exception ex) {
-                    System.err.println("### HomeScene: Unable to set Organ Scene!");
+                    System.err.println("### HomeScene: Unable to set Perform Scene!");
                 }
             });
 
@@ -237,7 +239,7 @@ public class HomeScene {
             toolbarLeft.setStyle(bgheadercolor);
             toolbarLeft.setMinWidth(xtoolbarleft);
 
-            Label lbltitle1 = new Label("AMIDIFX Sound Module Controller");
+            Label lbltitle1 = new Label(config.getControllerTitle());
             lbltitle1.setStyle(styletext);
             HBox hboxTitle = new HBox();
             hboxTitle.setPadding(new Insets(10, 10, 10, xtitle));
@@ -273,13 +275,19 @@ public class HomeScene {
             vboxIntro.getChildren().add(txtIntro);
 
             lblindevice = new Label(sharedStatus.getSelInDevice());
-            lblindevice.setStyle(styletextwhite + "; -fx-font-style:italic");
+            if (fselindeviceok == true)
+                lblindevice.setStyle(styletextgreen + "; -fx-font-style:italic");
+            else
+                lblindevice.setStyle(styletextred + "; -fx-font-style:italic");
             VBox vboxindevice = new VBox();
             vboxindevice.getChildren().add(lblindevice);
             vboxindevice.setPadding(new Insets(5, 0, 5, 0));
 
             lbloutdevice = new Label(sharedStatus.getSelOutDevice());
-            lbloutdevice.setStyle(styletextwhite + "; -fx-font-style:italic");
+            if (fseloutdeviceok == true)
+                lbloutdevice.setStyle(styletextgreen + "; -fx-font-style:italic");
+            else
+                lbloutdevice.setStyle(styletextred + "; -fx-font-style:italic");
             VBox vboxoutdevice = new VBox();
             vboxoutdevice.getChildren().add(lbloutdevice);
             vboxoutdevice.setPadding(new Insets(5, 0, 5, 0));
@@ -322,11 +330,12 @@ public class HomeScene {
 
             comboInDevice.setPrefWidth(300);
             comboInDevice.setPadding(new Insets(5, 0, 5, 0));
+            comboInDevice.setVisibleRowCount(3);
             comboInDevice.setOnAction((event) -> {
                 int selectedIndex = comboInDevice.getSelectionModel().getSelectedIndex();
                 Object selectedItem = comboInDevice.getSelectionModel().getSelectedItem();
                 lblindevice.setText(comboInDevice.getValue().toString());
-                lblindevice.setStyle(styletextred);
+                lblindevice.setStyle(styletextgreen);
 
                 config.setInDevice(comboInDevice.getValue().toString());
                 sharedStatus.setSelInDevice(comboInDevice.getValue().toString());
@@ -350,11 +359,12 @@ public class HomeScene {
 
             comboOutDevice.setPrefWidth(300);
             comboOutDevice.setPadding(new Insets(5, 0, 5, 0));
+            comboOutDevice.setVisibleRowCount(3);
             comboOutDevice.setOnAction((event) -> {
                 int selectedIndex = comboOutDevice.getSelectionModel().getSelectedIndex();
                 Object selectedItem = comboOutDevice.getSelectionModel().getSelectedItem();
                 lbloutdevice.setText(comboOutDevice.getValue().toString());
-                lbloutdevice.setStyle(styletextred);
+                lbloutdevice.setStyle(styletextgreen);
 
                 config.setOutDevice(comboOutDevice.getValue().toString());
                 sharedStatus.setSelOutDevice(comboOutDevice.getValue().toString());
