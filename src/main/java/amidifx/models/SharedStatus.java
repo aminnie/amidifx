@@ -31,7 +31,7 @@ public class SharedStatus {
 
     private Receiver RxDevice;          // Selected MIDI Device
     private Transmitter TxDevice;       // Selected MIDI Device
-    private int moduleidx = 1;          // Sound Module index (defaults to Deebach, unless not found)
+    private int moduleidx = 0;          // Sound Module index (defaults to Deebach, unless not found)
 
     private Scene scenePerform;
     private Scene sceneSongs;
@@ -106,8 +106,6 @@ public class SharedStatus {
         return this.sceneHome;
     }
 
-
-
     public void setDoSongs(MidiSongs dosongs) {
         this.dosongs = dosongs;
     }
@@ -167,7 +165,6 @@ public class SharedStatus {
     }
 
     public void setModuleidx(int moduleidx) {
-
         this.moduleidx = moduleidx;
         System.out.println("Setting moduleIdx = " + this.moduleidx);
     }
@@ -238,11 +235,11 @@ public class SharedStatus {
 
     public String getPerformFile() {
         if (moduleidx == 0)
-            return performdb;
+            return performgm;
         //else if (moduleidx == 1)
         //    return performin;
         else
-            return performgm;
+            return performdb;
     }
 
     public void setSelInDevice(String selindevice) {
@@ -268,4 +265,5 @@ public class SharedStatus {
     public boolean isMidirunning() {
         return this.midirunning;
     }
+
 }

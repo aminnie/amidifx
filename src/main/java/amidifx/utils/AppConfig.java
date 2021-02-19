@@ -137,7 +137,7 @@ public class AppConfig {
     public void setSoundModuleIdx(int moduleidx) {
         configProps.setProperty("moduleidx", Integer.toString(moduleidx));
 
-        System.out.println("AppConfig: Property moduleidx set to" + configProps.getProperty("moduleidx"));
+        System.out.println("AppConfig: Property moduleidx set to " + configProps.getProperty("moduleidx"));
     }
 
     public int getSoundModuleIdx() {

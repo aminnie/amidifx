@@ -3,6 +3,7 @@ package amidifx;
 import amidifx.models.MidiPreset;
 import amidifx.models.MidiSong;
 import amidifx.models.SharedStatus;
+import amidifx.utils.AppConfig;
 
 import javax.sound.midi.*;
 import java.io.File;
@@ -70,9 +71,17 @@ public class PlayMidi {
 
     // *** Make constructor private for Singleton ***
     private PlayMidi() {
+        AppConfig config = AppConfig.getInstance();
 
-        // Preset MIDI OUT Device
-        midircv = sharedStatus.getRxDevice();
+        try {
+            System.out.println("PlayMidi: Retrieving Receiver device");
+
+            midircv = MidiSystem.getReceiver();
+        }
+        catch (Exception ex) {
+            System.out.println("PlayMidi: Error Retrieving Receiver device");
+        }
+
     }
 
     // Play MIDI File
@@ -110,19 +119,20 @@ public class PlayMidi {
                     sequencer.open();
                 }
 
-                midircv = sharedStatus.getRxDevice();
+                ////midircv = sharedStatus.getRxDevice();
+                midircv = MidiSystem.getReceiver();
                 sequencer.getTransmitter().setReceiver(midircv);
             }
 
-            if (sequencer == null) {
-                sharedStatus.setStatusText("No Sequencer device available. Unable to start MIDI file play!");
-                System.err.println("PlayMidi Error: No Sequencer device available. Unable to start play!");
-                return false;
-            }
+            //if (sequencer == null) {
+            //    sharedStatus.setStatusText("No Sequencer device available. Unable to start MIDI file play!");
+            //    System.err.println("PlayMidi Error: No Sequencer device available. Unable to start play!");
+            //    return false;
+            //}
 
         }
         catch(Exception ex) {
-
+            System.out.println("PlayMidi Error: Sequencer initialization failed!");
         }
 
         // Reset all MIDI Controllers as we start out
@@ -333,8 +343,13 @@ public class PlayMidi {
         CHAN = (byte) (CHAN - 1);
 
         try {
-            //midircv = MidiSystem.getReceiver();
             long timeStamp = -1;
+
+            //if (midircv == null) {
+                //midircv = MidiSystem.getReceiver();
+                Receiver midircv = sharedStatus.getRxDevice();
+                //System.out.println("PlayMidi: Created getReceiver: " + midircv.toString());
+            //}
 
             if (NOTEON) {
                 midiMsg.setMessage(ShortMessage.NOTE_ON, CHAN, NOTE, 48);
@@ -363,15 +378,16 @@ public class PlayMidi {
             return false;
         }
 
-        //System.out.println("PlayMidi: Sending MIDI Program Change  CHAN: " + (CHAN +1 )  + " PC:" + PC + " MSB:" + MSB + " LSB:"+ LSB);
+        System.out.println("PlayMidi: Sending MIDI Program Change  CHAN: " + (CHAN +1 )  + " PC:" + PC + " MSB:" + MSB + " LSB:"+ LSB);
 
         long timeStamp = -1;
         ShortMessage midiMsg = new ShortMessage();
         try {
-            if (midircv == null) {
-                Receiver midircv = MidiSystem.getReceiver();
-                //System.out.println("PlayMidi: Created getReceiver: " + midircv.toString());
-            }
+            //if (midircv == null) {
+                //midircv = MidiSystem.getReceiver();
+                midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
+                System.out.println("PlayMidi: getReceiver: " + midircv.toString());
+            //}
 
             // Proceed to apply Bank and Program changes. Do so only if not duplicate of previous
             if ((curPresetList.get(CHAN).getMSB() == MSB) &&
@@ -414,7 +430,13 @@ public class PlayMidi {
         }
 
         try {
-            //System.out.println("PlayMidi: sendMidiControlChange sending MIDI Control Change:  CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
+            System.out.println("PlayMidi: sendMidiControlChange sending MIDI Control Change:  CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
+
+            //if (midircv == null) {
+                //midircv = MidiSystem.getReceiver();
+                Receiver midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
+                //System.out.println("PlayMidi: Created getReceiver: " + midircv.toString());
+            //}
 
             // Start playing note
             long timeStamp = -1;
@@ -490,7 +512,7 @@ public class PlayMidi {
     }
 
     public void sendRotarySlow() {
-        sendMidiControlChange(14, 74, 31);
+        sendMidiControlChange(14, 74, 0);
     }
 
     public void sendRotaryOff() {
@@ -512,10 +534,11 @@ public class PlayMidi {
         long timeStamp = -1;
         ShortMessage midiMsg = new ShortMessage();
         try {
-            if (midircv == null) {
-                Receiver midircv = MidiSystem.getReceiver();
+            //if (midircv == null) {
+                //midircv = MidiSystem.getReceiver();
+                midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
                 //System.out.println("PlayMidi: Created getReceiver " + midircv.toString());
-            }
+            //}
 
             //  Obtain a MIDI track from the sequence  ****
             Track t = sequencer.getSequence().createTrack();
@@ -545,6 +568,12 @@ public class PlayMidi {
         ShortMessage midiMsg = new ShortMessage();
 
         try {
+            //if (midircv == null) {
+                //midircv = MidiSystem.getReceiver();
+                midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
+                //System.out.println("PlayMidi: Created getReceiver: " + midircv.toString());
+            //}
+
             for (CHAN = 0; CHAN < 16; CHAN++) {
                 midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, allControllersoff & 0XFF, 0 & 0XFF);
                 midircv.send(midiMsg, timeStamp);
@@ -568,6 +597,12 @@ public class PlayMidi {
             byte ccAllControllersOff = 121;
             byte ccAllNotesOff = 123;
             byte VAL = 0;
+
+            //if (midircv == null) {
+                //midircv = MidiSystem.getReceiver();
+                midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
+                //System.out.println("PlayMidi: Created getReceiver: " + midircv.toString());
+            //}
 
             for (int chanidx = 0; chanidx < 16; chanidx++) {
                 midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, chanidx, ccALLSoundOFF, VAL);
@@ -604,6 +639,8 @@ public class PlayMidi {
         if (CHAN < 0) return false;
 
         try {
+            sequencer = MidiSystem.getSequencer();
+
             sequencer.setTrackMute(CHAN, true);
 
             boolean muted = sequencer.getTrackMute(CHAN);
@@ -625,6 +662,7 @@ public class PlayMidi {
     public void unmuteAllTracks() {
 
         try {
+            sequencer = MidiSystem.getSequencer();
 
             for (int CHAN = 0; CHAN < 16; CHAN++) {
                 sequencer.setTrackMute(CHAN, false);
@@ -642,6 +680,8 @@ public class PlayMidi {
         if (CHAN < 0) return false;
 
         try {
+            sequencer = MidiSystem.getSequencer();
+
             sequencer.setTrackMute(CHAN, false);
 
             boolean muted = sequencer.getTrackMute(CHAN);
@@ -676,6 +716,9 @@ public class PlayMidi {
 
         try {
             if (sequencer == null) {
+                ////midircv = MidiSystem.getReceiver();
+                midircv = sharedStatus.getRxDevice();
+
                 sequencer = MidiSystem.getSequencer();
                 sequencer.getTransmitter().setReceiver(midircv);
             }
@@ -732,6 +775,9 @@ public class PlayMidi {
 
         try {
             if (sequencer == null) {
+                ////midircv = MidiSystem.getReceiver();
+                midircv = sharedStatus.getRxDevice();
+
                 sequencer = MidiSystem.getSequencer();
                 sequencer.getTransmitter().setReceiver(midircv);
             }

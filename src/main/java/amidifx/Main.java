@@ -168,20 +168,15 @@ public class Main extends Application {
         applicationIcon = new Image(getClass().getResourceAsStream("/music-48.png"));
         stage.getIcons().add(applicationIcon);
 
-        ////Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-        ////stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 3);
-        ////stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 3);
+        //Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        //stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 3);
+        //stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 3);
 
         // Create single instance of Shared Status to report back to Scenes
         sharedStatus = SharedStatus.getInstance();
 
         // Load single instance of XML App Config
         config = AppConfig.getInstance();
-
-        ////MidiDevices mididevices = MidiDevices.getInstance();
-        ////mididevices.createMidiDevices(config.getInDevice(), config.getOutDevice());
-        ////sharedStatus.setSelInDevice(config.getInDevice());
-        ////sharedStatus.setSelOutDevice(config.getOutDevice());
 
         // Prepare single instance ofPlay Midi
         PlayMidi playmidifile = PlayMidi.getInstance();

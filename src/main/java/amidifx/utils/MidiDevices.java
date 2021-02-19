@@ -85,33 +85,39 @@ public class MidiDevices {
             else
                 System.out.println("**** No MIDI keyboard connected! Connect USB MIDI keyboard proceed.");
 
-            // Get default sequencer, if it exists
-            sequencer = getSequencer();
-            if (sequencer == null) {
-                System.err.print("**** Error: Unable to open Sequencer device: " + sequencer.getDeviceInfo().getName());
-
-                sharedstatus.setStatusText("Error: Unable to open Sequencer device: " + sequencer.getDeviceInfo().getName());
-                return -2;
-            }
-
-            sequencer.open();
-            sequencer.getTransmitter().setReceiver(midircv);
-
             // Demo Play Sequencer Song in parallel with Keyboard input
-            playDemoSequence(1);
-
-            sequencer.close();
+            ////playDemoSequence(1);
         }
         catch (Exception e) {     //// MidiUnavailableException
             System.err.println("Error getting receiver from synthesizer");
             e.printStackTrace();
         }
 
+        System.out.println("MIDIDevices: Device Configuration Complete");
+
         return 0;
     }
 
+
     // Play Song on Sequencer
     private void playDemoSequence(int replaycnt) {
+
+        // Get default sequencer, if it exists
+        sequencer = getSequencer();
+        if (sequencer == null) {
+            System.err.print("**** Error: Unable to open Sequencer device: " + sequencer.getDeviceInfo().getName());
+
+            sharedstatus.setStatusText("Error: Unable to open Sequencer device: " + sequencer.getDeviceInfo().getName());
+            return;
+        }
+
+        try {
+            sequencer.open();
+            sequencer.getTransmitter().setReceiver(midircv);
+        }
+        catch (Exception ex) {
+            System.out.println("Error: Open Demo Sequencer");
+        }
 
         for (int i = 1; i <= replaycnt; i++) {
             System.out.println("Starting Demo Sequencer Play:" + i);
@@ -135,7 +141,10 @@ public class MidiDevices {
 
             // Sleep or last note is clipped
             sleep(200);
+
+            sequencer.close();
         }
+
     }
 
 
@@ -330,7 +339,7 @@ public class MidiDevices {
         sharedstatus.setModuleidx(0);
         config.setSoundModuleIdx(0);
 
-        System.out.println("** openMidiReceiver " + seloutdevice + " **");
+        System.out.println("*** openMidiReceiver " + seloutdevice + " ***");
 
         try {
             selectedDevice = MidiSystem.getSynthesizer();
@@ -376,15 +385,19 @@ public class MidiDevices {
 
             // Open preferred MIDI OUT device
             try {
+                System.out.println("MidiDevices: Closing potentially open MIDI Receiver.");
+                selectedDevice.close();
+
                 if (!selectedDevice.isOpen()) {
                     selectedDevice.open();
+
+                    // Found output Device or Synth
+                    midircv = selectedDevice.getReceiver();
+                    sharedstatus.setRxDevice(midircv);
 
                     System.out.println("Opened MIDI OUT Device *** " + selectedDevice.getDeviceInfo().getName() + " ***");
                 }
 
-                // Found output Device or Synth
-                midircv = selectedDevice.getReceiver();
-                sharedstatus.setRxDevice(midircv);
             }
             catch(Exception ex) {
                 System.out.println("Error Opening MIDI OUT Device *** " + selectedDevice.getDeviceInfo().getName() + " ***");

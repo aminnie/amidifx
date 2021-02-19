@@ -300,6 +300,7 @@ public class HomeScene {
                 int result = mididevices.createMidiDevices(config.getInDevice(), config.getOutDevice());
                 if (result == -1) {
                     labelstatusOrg.setText(" Error creating MIDI OUT Device: " + config.getOutDevice());
+
                 }
                 else if (result == -2) {
                     labelstatusOrg.setText(" Error creating MIDI Sequencer!");
@@ -371,7 +372,6 @@ public class HomeScene {
 
                 seloutdevice = comboOutDevice.getValue().toString();
 
-                seloutdevice = comboOutDevice.getValue().toString();
                 buttonSave.setDisable(false);
                 System.out.println("MIDI Out:" + comboOutDevice.getValue().toString());
 
