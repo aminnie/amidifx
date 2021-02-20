@@ -106,6 +106,7 @@ public class Main extends Application {
     final String stlInstrumentList =  "-fx-control-inner-background:#CCCCCC; -fx-font-size: " + fsize;
 
     final String styletext = "-fx-font-size: " + fsize ;
+    final String styletextred = "-fx-text-fill: red; -fx-font-size: " + fsize ;
     final String smallstyletext = "-fx-background-color: #69A8CC; -fx-font-size: " + fsmallsize ;
 
     Scene scenePerform, scenePresets, sceneSongs, sceneHome;
@@ -200,7 +201,7 @@ public class Main extends Application {
         ////dosongs.makeMidiSongs();
         sharedStatus.setDoSongs(dosongs);
 
-        // Load MIDI Patch files on start up based on detected and preferred sound module
+        // Load MIDI Patch files on start up based on AppConfig set sound module
         int moduleidx = config.getSoundModuleIdx();
         sharedStatus.setModuleidx(moduleidx);
 
@@ -217,26 +218,30 @@ public class Main extends Application {
         }
         dopatches.loadMidiPatches(modulefile);
 
-        // *** Prepare the Organ, Song and Preset Screens
+        // *** Prepare the Home Organ, Song and Preset Screens
 
+        // Song Scene
         sceneSongs = new Scene(createSongScene(stage), xscene, yscene);
         sceneSongs.getStylesheets().clear();
         sceneSongs.getStylesheets().add("style.css");
         sharedStatus.setSongsScene(sceneSongs);
 
+        // Preset Scene
         scenePresets = new Scene(createPresetScene(stage), xscene, yscene);
         scenePresets.getStylesheets().clear();
         scenePresets.getStylesheets().add("style.css");
         sharedStatus.setPresetsScene(scenePresets);
 
+        // Song Perform/Keyboard/Organ Scene
         PerformScene performScene = new PerformScene(stage, sceneSongs);
         sharedStatus.setPerformScene(performScene.getScene());
         //stage.setScene(performScene.getScene());
 
-        //sceneWelcome = new Scene(createWelcomeScene(stage), xscene, yscene);
+        // Device Config Scene
         HomeScene welcomeScene = new HomeScene(stage, performScene.getScene());
         sharedStatus.setHomeScene(performScene.getScene());
 
+        // Switch to Device Configuration (Home) Screen for start up
         stage.setScene(welcomeScene.getScene());
 
         stage.show();
@@ -256,6 +261,9 @@ public class Main extends Application {
     TextField txtUpper = new TextField("14");
     TextField txtTimeSig = new TextField("4/4");
     TextArea txtInstrumentList = new TextArea("Play Song to update Song MIDI Track Instruments");
+
+    Label lblCurSongMidiModule = new Label("MIDI GM");
+    int cursongmoduleidx = 0;
 
     Button buttonupdate = new Button(" Save List ");
 
@@ -375,6 +383,7 @@ public class Main extends Application {
             presetCombo.getSelectionModel().select(0);
 
             // Force reload of all channels
+            playmidifile = PlayMidi.getInstance();
             playmidifile.resetcurPresetList();
 
             labelstatus.setText(" Status: Reloaded Presets file " + presetFile);
@@ -492,6 +501,10 @@ public class Main extends Application {
                     txtUpper.setText(Integer.toString(midiSong.getChanUpper()));
                     txtTimeSig.setText(midiSong.getTimeSig());
 
+                    MidiModules midimodule = new MidiModules();
+                    cursongmoduleidx = midiSong.getModuleIdx();
+                    lblCurSongMidiModule.setText(midimodule.getModuleName(cursongmoduleidx));
+
                     sharedStatus.setSongTitle(midiSong.getSongTitle());
                     sharedStatus.setMidiFile(midiSong.getMidiFile());
                     sharedStatus.setPresetFile(midiSong.getPresetFile());
@@ -532,6 +545,19 @@ public class Main extends Application {
         ////String songFile = "amloop.mid";
         buttonpreset.setPrefSize(xbutton, ybutton);
         buttonpreset.setOnAction(event -> {
+
+            // Only allow edits on connect sound module
+            if (cursongmoduleidx != sharedStatus.getModuleidx()) {
+                MidiModules midimodule = new MidiModules();
+                labelstatusSng.setText(" Status: To edit, connect module " + midimodule.getModuleName(cursongmoduleidx));
+                labelstatusSng.setStyle(styletextred);
+
+                System.out.println("To edit, connect sound module " + midimodule.getModuleName(cursongmoduleidx));
+                return;
+            }
+            else {
+                labelstatusSng.setStyle(styletext);
+            }
 
             presetFile = txtPresetFile.getText();
             dopresets.makeMidiPresets(presetFile);
@@ -679,6 +705,10 @@ public class Main extends Application {
         txtPresetSaveAsFile.setTooltip(new Tooltip(
                 "Save as Preset name (Name in 8.3 Alphanum format)"));
         txtPresetSaveAsFile.setStyle("-fx-control-inner-background: #E7ECEC;");
+
+        Label lblCurMidiModule = new Label("Module:");
+        lblCurMidiModule.setStyle(styletext);
+        lblCurSongMidiModule.setStyle(styletext);
 
         buttonupdate.setDisable(true);
         buttonupdate.setStyle(btnMenuSaveOn);
@@ -1125,9 +1155,11 @@ public class Main extends Application {
         songgrid.add(presetchooser, 3, 3);
         songgrid.add(lblpresetsaveas, 1, 4);
         songgrid.add(txtPresetSaveAsFile, 2, 4);
+        songgrid.add(lblCurMidiModule, 1, 5);
+        songgrid.add(lblCurSongMidiModule, 2, 5);
 
-        songgrid.add(lblSongChannels, 1, 5, 2, 1);
-        songgrid.add(hboxChan, 1, 6, 3, 1);
+        songgrid.add(lblSongChannels, 1, 6, 2, 1);
+        songgrid.add(hboxChan, 1, 7, 3, 1);
 
         songvboxS.getChildren().add(songgrid);
 
@@ -1659,6 +1691,7 @@ public class Main extends Application {
             sliderTRE.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getTRE());
 
             // Apply the Voice to MIDI Channel
+            PlayMidi playmidifile = PlayMidi.getInstance();
             playmidifile.sendMidiProgramChange(channelIdx + 1, midiPatch.getPC(), midiPatch.getLSB(), midiPatch.getMSB());
 
             //System.out.println("Main: Updated selected Preset and Channel Voice");
