@@ -9,12 +9,13 @@ public class MidiSong {
     private int chanBass;       // Bass MIDI Channel
     private int chanLower;      // Lower MIDI Channel
     private int chanUpper;      // Upper MIDI Channel
+    private int moduleIdx;      // MIDI Module
     private String timeSig;     // Time Signature
 
     public MidiSong () {
     }
 
-    public MidiSong(int songIdx, String songTitle, String presetFile, String midiFile, int chanBass, int chanLower, int chanUpper, String timeSig) {
+    public MidiSong(int songIdx, String songTitle, String presetFile, String midiFile, int chanBass, int chanLower, int chanUpper, int moduleIdx, String timeSig) {
         this.songIdx = songIdx;
         this.songTitle = songTitle;
         this.presetFile = presetFile;
@@ -22,6 +23,7 @@ public class MidiSong {
         this.chanBass = chanBass;
         this.chanLower = chanLower;
         this.chanUpper = chanUpper;
+        this.moduleIdx = moduleIdx;
         this.timeSig = timeSig;
     }
 
@@ -81,12 +83,19 @@ public class MidiSong {
         this.timeSig = timeSig;
     }
 
+    public int getModuleIdx() {
+        return moduleIdx;
+    }
+    public void setModuleIdx(int moduleIdx) {
+        this.moduleIdx = moduleIdx;
+    }
+
     @Override
     public String toString() {
         return "Song Listing [songIdx=" + this.songIdx + ", songTitle=" + this.songTitle
                 + ", presetFile=" + this.presetFile + ", midiFile=" + this.midiFile
                 + ", chanBass=" + this.getChanBass() + ", chanLower=" + this.getChanLower() + ", chanUpper=" + this.getChanUpper()
-                + ", timeSig=" + this.getTimeSig()
+                + ", timeSig=" + this.getTimeSig() + ", module=" + moduleIdx
                 + "]";
     }
 }

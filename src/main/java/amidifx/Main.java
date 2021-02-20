@@ -188,7 +188,7 @@ public class Main extends Application {
         midimodules = new MidiModules();
 
         // Load Song List. If not exists, abort load AMIDIFX
-        dosongs = new MidiSongs();
+        dosongs = MidiSongs.getInstance();
         if (!dosongs.fileExist("songs.csv")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("AMIDIFX Startup Error");
@@ -197,14 +197,14 @@ public class Main extends Application {
 
             System.exit(-1);
         }
-        dosongs.makeMidiSongs();
+        ////dosongs.makeMidiSongs();
         sharedStatus.setDoSongs(dosongs);
 
         // Load MIDI Patch files on start up based on detected and preferred sound module
         int moduleidx = config.getSoundModuleIdx();
         sharedStatus.setModuleidx(moduleidx);
 
-        dopatches = new MidiPatches();
+        dopatches = MidiPatches.getInstance();
         moduleidx = sharedStatus.getModuleidx();
         String modulefile = midimodules.getModuleFile(moduleidx);
         if (!dopatches.fileExist(modulefile)) {
@@ -257,7 +257,7 @@ public class Main extends Application {
     TextField txtTimeSig = new TextField("4/4");
     TextArea txtInstrumentList = new TextArea("Play Song to update Song MIDI Track Instruments");
 
-    Button buttonupdate = new Button(" Save Song ");
+    Button buttonupdate = new Button(" Save List ");
 
     Button buttonedit = new Button("  Edit ");
     Button buttonnew = new Button("  New ");
@@ -485,6 +485,7 @@ public class Main extends Application {
                     txtSongTitle.setText(midiSong.getSongTitle());
                     txtSmfFile.setText(midiSong.getMidiFile());
                     txtPresetFile.setText(midiSong.getPresetFile());
+                    txtPresetSaveAsFile.setText("");
 
                     txtBass.setText(Integer.toString(midiSong.getChanBass()));
                     txtLower.setText(Integer.toString(midiSong.getChanLower()));
@@ -734,6 +735,7 @@ public class Main extends Application {
                         midiSong.setChanBass(Integer.parseInt(txtBass.getText()));
                         midiSong.setChanLower(Integer.parseInt(txtLower.getText()));
                         midiSong.setChanUpper(Integer.parseInt(txtUpper.getText()));
+                        midiSong.setModuleIdx(0);
                         midiSong.setTimeSig(txtTimeSig.getText());
 
                         // Preset Time Signature for correct Bar Time Display
@@ -741,9 +743,10 @@ public class Main extends Application {
 
                         midiSongs.add(midiSong);
                         songlistView.getItems().add(midiSong.getSongTitle());
-                        songlistView.refresh();
 
-                        dosongs.saveSongs();
+                        dosongs.saveSongs(false);
+
+                        songlistView.refresh();
 
                         bnewSong = false;
 
@@ -764,6 +767,7 @@ public class Main extends Application {
                         midiSong.setChanBass(Integer.parseInt(txtBass.getText()));
                         midiSong.setChanLower(Integer.parseInt(txtLower.getText()));
                         midiSong.setChanUpper(Integer.parseInt(txtUpper.getText()));
+                        midiSong.setModuleIdx(0);
                         midiSong.setTimeSig(txtTimeSig.getText());
 
                         midiSongs.set(idx, midiSong);
@@ -771,7 +775,7 @@ public class Main extends Application {
                         songlistView.refresh();
                         songlistView.scrollTo(songlistView.getItems().size());
 
-                        dosongs.saveSongs();
+                        dosongs.saveSongs(false);
 
                         labelstatusSng.setText(" Status: Updated Song " +  txtSongTitle.getText() + " (" + songIdx + ")");
                     }
@@ -779,7 +783,7 @@ public class Main extends Application {
             }
 
             // Prevent repeat saves or new entries
-            ////buttonupdate.setDisable(true);
+            buttonupdate.setDisable(true);
 
             // Default the "Saved As" new file name after save
             txtPresetSaveAsFile.setPromptText("New Preset File (required for New)");
@@ -968,6 +972,10 @@ public class Main extends Application {
                     // Never delete the initial default organ preset file.
                     if (idx == 0) {
                         labelstatusSng.setText(" Status: Deleting Song " + songtitle + " not allowed");
+
+                        // Enable user save of UI deleted Song form List
+                        buttonupdate.setDisable(true);
+
                         return;
                     }
 
@@ -1310,7 +1318,7 @@ public class Main extends Application {
         // Save Presets Button
         buttonSave.setText("Save");
         buttonSave.setStyle(btnMenuSaveOn);
-        buttonSave.setDisable(true);
+        ////buttonSave.setDisable(true);
         buttonSave.setOnAction(event -> {
             if (flgDirtyPreset) {
                 boolean bsave = dopresets.savePresets(presetFile);
@@ -1501,7 +1509,7 @@ public class Main extends Application {
         vboxLeft.getChildren().add(vboxbut);
 
         // Load MIDI Default MIDI Preset file on start up
-        dopresets = new MidiPresets();
+        dopresets = MidiPresets.getInstance();
         dopresets.makeMidiPresets(presetFile);
         System.out.println("Main Init: Loaded new Preset file: " + presetFile);
 

@@ -90,7 +90,7 @@ public class PlayMidi {
         midiFile = midiSong.getMidiFile();
         presetFile = midiSong.getPresetFile();
 
-        readpresets = new MidiPresets();
+        readpresets = MidiPresets.getInstance();
         readpresets.makeMidiPresets(presetFile);
 
         System.out.println("*** PlayMidi: Playing Song " + midiSong.getSongTitle() + " in mode " + mode);
@@ -113,16 +113,16 @@ public class PlayMidi {
 
         // Get default sequencer.
         try {
-            if (sequencer == null) {
-                sequencer = MidiSystem.getSequencer();
-                if (!sequencer.isOpen()) {
-                    sequencer.open();
-                }
+        ////    if (sequencer == null) {
+        ////        sequencer = MidiSystem.getSequencer();
+        ////        if (!sequencer.isOpen()) {
+        ////            sequencer.open();
+        ////        }
 
-                ////midircv = sharedStatus.getRxDevice();
-                midircv = MidiSystem.getReceiver();
-                sequencer.getTransmitter().setReceiver(midircv);
-            }
+                ////midircv = MidiSystem.getReceiver();
+       ////         Receiver midircv = sharedStatus.getRxDevice();
+       ////         sequencer.getTransmitter().setReceiver(midircv);
+        ////    }
 
             //if (sequencer == null) {
             //    sharedStatus.setStatusText("No Sequencer device available. Unable to start MIDI file play!");
@@ -130,9 +130,13 @@ public class PlayMidi {
             //    return false;
             //}
 
+            Receiver midircv = sharedStatus.getRxDevice();
+            sequencer.getTransmitter().setReceiver(midircv);
+
         }
         catch(Exception ex) {
             System.out.println("PlayMidi Error: Sequencer initialization failed!");
+            return false;
         }
 
         // Reset all MIDI Controllers as we start out
@@ -548,7 +552,8 @@ public class PlayMidi {
             sm.setMessage(SysExMsg, SysExMsg.length);
             MidiEvent msg = new MidiEvent(sm, (long) 0);
             t.add(msg);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             //System.err.println("### PlayMidi Error: Sent MIDI Program Change " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " PC:" + PC + MSB + " LSB:" + LSB + " MSB:");
             System.err.println(ex);
             return false;
@@ -616,7 +621,8 @@ public class PlayMidi {
 
                 //System.out.println("PlayMidi: PANIC Sound, Controllers, Notes off sent on channel: " + chanidx);
             }
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             System.err.println("PlayMidi Error: Sent MIDI PANIC Control Changes " + midiMsg.toString());
             System.err.println(ex);
             return false;

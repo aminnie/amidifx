@@ -12,6 +12,9 @@ import java.util.List;
 
 public class MidiPresets {
 
+    // Static variable single_instance of type PlayMidi
+    private static MidiPresets single_MidiPresetsInstance = null;
+
     // CSV file delimiter
     private static final String CSV_DELIMITER = ",";
     private static final String MID_DIRECTORY = "C:/amidifx/midifiles/";
@@ -32,6 +35,22 @@ public class MidiPresets {
     public static final byte ccMOD = 1;
     public static final byte ccPAN = 10;
 
+
+    // Static method to create singleton instance of PlayMidi class
+    public synchronized static MidiPresets getInstance() {
+        if (single_MidiPresetsInstance == null) {
+            single_MidiPresetsInstance = new MidiPresets();
+
+            System.out.println("PlayMidi: Creating instance MidiPresets");
+        }
+
+        return single_MidiPresetsInstance;
+    }
+
+    // *** Make constructor private for Singleton ***
+    private MidiPresets() {
+
+    }
 
     // Load specific Preset file
     public void makeMidiPresets(String presetFile) {

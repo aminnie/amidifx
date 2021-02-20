@@ -10,6 +10,9 @@ import java.util.ArrayList;
 
 public class MidiSongs {
 
+    // Static variable single_instance of type PlayMidi
+    private static MidiSongs single_MidiSongsInstance = null;
+
     // CSV file delimiter
     private static final String CSV_DELIMITER = ",";
     private static final String MID_DIRECTORY = "C:/amidifx/midifiles/";
@@ -20,9 +23,25 @@ public class MidiSongs {
     // List for holding Patch objects - https://edencoding.com/force-refresh-scene/
     final ArrayList<MidiSong> songList = new ArrayList<>();
 
-    public void makeMidiSongs() {
+    // Static method to create singleton instance of PlayMidi class
+    public synchronized static MidiSongs getInstance() {
+        if (single_MidiSongsInstance == null) {
+            single_MidiSongsInstance = new MidiSongs();
 
-        MidiSongs banks = new MidiSongs();
+            System.out.println("MidiSongs: Creating instance MidiSongs");
+        }
+
+        return single_MidiSongsInstance;
+    }
+
+    // *** Make constructor private for Singleton ***
+    private MidiSongs() {
+
+        // Preload the Song List
+        loadMidiSongs();
+    }
+
+    public void loadMidiSongs() {
 
         // Create instance of Shared Status to report back to Scenes
         sharedStatus = SharedStatus.getInstance();
@@ -49,14 +68,15 @@ public class MidiSongs {
                     // Save the patch details in patch object
                     // int patchId, int patchType, int PC, int MSB, int LSB, String patchName
                     MidiSong mSong = new MidiSong(
-                            Integer.parseInt((songDetails[0])),
+                            Integer.parseInt(songDetails[0]),
                             songDetails[1],
                             songDetails[2],
                             songDetails[3],
-                            Integer.parseInt((songDetails[4])),
-                            Integer.parseInt((songDetails[5])),
-                            Integer.parseInt((songDetails[6])),
-                            songDetails[7]);
+                            Integer.parseInt(songDetails[4]),
+                            Integer.parseInt(songDetails[5]),
+                            Integer.parseInt(songDetails[6]),
+                            Integer.parseInt(songDetails[7]),
+                            songDetails[8]);
                     songList.add(mSong);
                 }
             }
@@ -65,7 +85,7 @@ public class MidiSongs {
             //for (MidiSong e : songList) {
             //    System.out.println(e.getSongId() + "   " + e.getSongTitle() + "   "
             //            + e.getMidiFile() + "   " + e.getPresetFile() + "   "
-            //            + e.getTimeSig());
+            //            + e.getModuleIdx() + "    "  + e.getTimeSig());
             //}
 
         }
@@ -76,6 +96,8 @@ public class MidiSongs {
         finally {
             try {
                 br.close();
+
+                songList.sort(new SongNameSorter().reversed());
             }
             catch (IOException ie) {
                 System.out.println("Error occured while closing the MIDI Song BufferedReader");
@@ -122,10 +144,11 @@ public class MidiSongs {
 
 
     // Save current Song List to Disk
-    public void saveSongs() {
+    public void saveSongs(boolean sort) {
 
         // Ensure that Song List is saved in alphabetical order in case new New Songs has been added
-        songList.sort(new SongNameSorter().reversed());
+        if (sort)
+            songList.sort(new SongNameSorter().reversed());
 
         // Print Song List
         //for (MidiSong msong : songList) {
@@ -155,16 +178,17 @@ public class MidiSongs {
                 songline = songline.concat(",").concat(Integer.toString(song.getChanBass()));
                 songline = songline.concat(",").concat(Integer.toString(song.getChanLower()));
                 songline = songline.concat(",").concat(Integer.toString(song.getChanUpper()));
+                songline = songline.concat(",").concat(Integer.toString(song.getModuleIdx()));
                 songline = songline.concat(",").concat(song.getTimeSig()).concat("\r");
                 bw.write(songline);
 
                 // Reload presets on screens such as Perform it has changed
                 sharedStatus.setSongReload(true);
 
-                //System.out.print("songline " + idx + ": " + songline);
+                System.out.print("songline " + idx + ": " + songline);
             }
 
-            System.out.println("Song file written Successfully");
+            System.out.println("Song file written successfully");
         }
         catch (IOException ioe) {
             ioe.printStackTrace();

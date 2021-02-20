@@ -1,5 +1,8 @@
 package amidifx.scenes;
 
+import amidifx.MidiPatches;
+import amidifx.MidiPresets;
+import amidifx.models.MidiModules;
 import amidifx.models.SharedStatus;
 import amidifx.utils.AppConfig;
 import amidifx.utils.MidiDevices;
@@ -17,6 +20,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 public class HomeScene {
 
@@ -78,11 +82,16 @@ public class HomeScene {
     final String styletextred = "-fx-text-fill: red; -fx-font-size: " + fsize ;
     final String styletextgreen = "-fx-text-fill: #8ED072; -fx-font-size: " + fsize ;
 
+    private static final String MID_DIRECTORY = "C:/amidifx/midifiles/";
     private static final String IMG_DIRECTORY = "C:/amidifx/config/";
 
     SharedStatus sharedStatus;
 
     AppConfig config;
+
+    MidiPatches dopatches;
+    MidiPresets dopresets;
+    MidiModules midimodules;
 
     //private String selindevice = "2- Seaboard RISE 49";
     //private String seloutdevice = "Deebach-Blackbox";
@@ -308,6 +317,22 @@ public class HomeScene {
                 else {
                     btnStart.setDisable(false);
 
+                    // Save the updated Devices and load the associated Patch file
+                    config.saveProperties();
+
+                    midimodules = new MidiModules();
+                    dopatches = MidiPatches.getInstance();
+                    String modulefile = midimodules.getModuleFile(config.getSoundModuleIdx());
+                    if (!dopatches.fileExist(modulefile)) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("AMIDIFX Device Config Error");
+                        alert.setHeaderText("Module Patch file " + MID_DIRECTORY + modulefile + " not found!");
+                        Optional<ButtonType> presult = alert.showAndWait();
+
+                        System.exit(-1);
+                    }
+                    dopatches.loadMidiPatches(modulefile);
+
                     labelstatusOrg.setText(" Status: Ready to Play!");
                 }
             });
@@ -318,6 +343,7 @@ public class HomeScene {
             btnStart.setOnAction(e -> {
                 primaryStage.setScene(returnScene);
                 try {
+
                     Thread.sleep(600);
                 }
                 catch (Exception ex) {

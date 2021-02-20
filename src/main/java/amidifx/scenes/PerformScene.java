@@ -136,6 +136,7 @@ public class PerformScene {
     boolean btestnote = false;
 
     Label labelstatusOrg;
+    Label labelsynth;
 
     // Midi Play Button
     Button btnplay;
@@ -303,14 +304,13 @@ public class PerformScene {
             arduinoUtils = ArduinoUtils.getInstance();
 
             // Load MIDI Default MIDI Preset file on start up
-            dopresets = new MidiPresets();
+            dopresets = MidiPresets.getInstance();
             presetFile = sharedStatus.getPresetFile();
             dopresets.makeMidiPresets(presetFile);
             System.out.println("PerformScene Init: Loaded new Preset file: " + presetFile);
 
             // Load Song List
             dosongs = sharedStatus.getDoSongs();
-            dosongs.makeMidiSongs();
             songTitle = dosongs.getSong(0).getSongTitle();
             System.out.println("PerformScene Init: Song Title: " + songTitle);
 
@@ -318,7 +318,7 @@ public class PerformScene {
             // Load MIDI Sound Module List on start up
             midimodules = new MidiModules();
 
-            dopatches = new MidiPatches();
+            dopatches = MidiPatches.getInstance();
             int moduleidx = config.getSoundModuleIdx();
             String modulefile = midimodules.getModuleFile(moduleidx);
             if (!dopatches.fileExist(modulefile)) {
@@ -507,11 +507,11 @@ public class PerformScene {
             buttonSongNameLeft.setOnAction(e -> {
 
                 // Check if Song List file has been updated in the Songs Scene and reload if needed
-                if (sharedStatus.getSongReload()) {
-                    dosongs.makeMidiSongs();
+                ////if (sharedStatus.getSongReload()) {
+                    ///// dosongs.makeMidiSongs();
 
-                    sharedStatus.setSongReload(false);
-                }
+                /////    sharedStatus.setSongReload(false);
+                ////}
 
                 if (idxSongList > 0) --idxSongList;
                 songTitle = dosongs.getSong(idxSongList).getSongTitle();
@@ -533,11 +533,11 @@ public class PerformScene {
             buttonSongNameRight.setOnAction(e -> {
 
                 // Check if Song List file has been updated in the Songs Scene and reload if needed
-                if (sharedStatus.getSongReload()) {
-                    dosongs.makeMidiSongs();
+                ////if (sharedStatus.getSongReload()) {
+                    ////dosongs.makeMidiSongs();
 
-                    sharedStatus.setSongReload(false);
-                }
+                    ////sharedStatus.setSongReload(false);
+                ////}
 
                 if (idxSongList < (dosongs.getSongListSize() - 1)) idxSongList++;
                 songTitle = dosongs.getSong(idxSongList).getSongTitle();
@@ -578,8 +578,9 @@ public class PerformScene {
                 fontname = dopatches.getMIDIPatch(patchidx).getPatchName();
                 buttonSoundFont.setText(fontname);
 
+                labelsynth.setText(config.getOutDevice());
+
                 buttonSoundBank.setStyle(selectcolorOn);
-                //bnewpatchselected = true;
             });
 
             Button buttonSoundBankLeft = new Button("<<");
@@ -2920,7 +2921,7 @@ public class PerformScene {
             HBox hboxstatus = new HBox();
             hboxstatus.getChildren().add(labelstatusOrg);
             labelstatusOrg.setMinWidth(820 * ymul);
-            Label labelsynth = new Label(config.getOutDevice());
+            labelsynth = new Label("Module");
             labelsynth.setTextAlignment(TextAlignment.JUSTIFY);
             labelsynth.setStyle(styletext);
             hboxstatus.getChildren().add(labelsynth);

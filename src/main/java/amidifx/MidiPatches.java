@@ -12,6 +12,9 @@ import java.util.List;
 
 public class MidiPatches {
 
+    // Static variable single_instance of type PlayMidi
+    private static MidiPatches single_MidiPatchesInstance = null;
+
     // CSV file delimiter
     private static final String CSV_DELIMITER = ",";
     private static final String MID_DIRECTORY = "C:/amidifx/midifiles/";
@@ -23,7 +26,19 @@ public class MidiPatches {
     final List<MidiPatch> patchList = new ArrayList<>();
     final MidiBanks banks = new MidiBanks();
 
-    public void makeMidiPatches() {
+    // Static method to create singleton instance of PlayMidi class
+    public synchronized static MidiPatches getInstance() {
+        if (single_MidiPatchesInstance == null) {
+            single_MidiPatchesInstance = new MidiPatches();
+
+            System.out.println("PlayMidi: Creating instance MidiPatches");
+        }
+
+        return single_MidiPatchesInstance;
+    }
+
+    // *** Make constructor private for Singleton ***
+    private MidiPatches() {
 
     }
 
