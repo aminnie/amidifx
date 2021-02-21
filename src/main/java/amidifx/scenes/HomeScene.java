@@ -60,6 +60,7 @@ public class HomeScene {
 
     // Calculate font size based on screen dimensions. Default = 15 for 1024 * 600
     final String fsize = Integer.toString((int)(ifsize * xmul)) + "; ";
+    final String fsizetitle = Integer.toString((int)(ifsize * xmul * 1.1)) + "; ";
 
     // Button Colors
     // https://yagisanatode.com/2019/08/06/google-apps-script-hexadecimal-color-codes-for-google-docs-sheets-and-slides-standart-palette/
@@ -82,6 +83,7 @@ public class HomeScene {
     final String styletextwhite = "-fx-text-fill: white; -fx-font-size: " + fsize ;
     final String styletextred = "-fx-text-fill: red; -fx-font-size: " + fsize ;
     final String styletextgreen = "-fx-text-fill: #8ED072; -fx-font-size: " + fsize ;
+    final String styletexttitle = "-fx-font-size: " + fsizetitle;
 
     private static final String MID_DIRECTORY = "C:/amidifx/midifiles/";
     private static final String IMG_DIRECTORY = "C:/amidifx/config/";
@@ -258,7 +260,7 @@ public class HomeScene {
             toolbarLeft.setMinWidth(xtoolbarleft);
 
             Label lbltitle1 = new Label(config.getControllerTitle());
-            lbltitle1.setStyle(styletext);
+            lbltitle1.setStyle(styletexttitle);
             HBox hboxTitle = new HBox();
             hboxTitle.setPadding(new Insets(10, 10, 10, xtitle));
             hboxTitle.getChildren().add(lbltitle1);
@@ -445,6 +447,7 @@ public class HomeScene {
             labelsynth.setTextAlignment(TextAlignment.JUSTIFY);
             labelsynth.setStyle(styletext);
             hboxstatus.getChildren().add(labelsynth);
+            hboxstatus.setStyle(bgheadercolor);
 
             // Prepare background Image
             try {

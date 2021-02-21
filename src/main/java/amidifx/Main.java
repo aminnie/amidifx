@@ -87,6 +87,7 @@ public class Main extends Application {
     // Calculate font size based on screen dimensions. Default = 15 for 1024 * 600
     final String fsize = Integer.toString((int)(ifsize * xmul)) + "; ";
     final String fsmallsize = Integer.toString((int)(ifsize / 1.30 * xmul)) + "; ";
+    final String fsizetitle = Integer.toString((int)(ifsize * xmul * 1.1)) + "; ";
 
     // Button Colors
     // https://yagisanatode.com/2019/08/06/google-apps-script-hexadecimal-color-codes-for-google-docs-sheets-and-slides-standart-palette/
@@ -112,6 +113,7 @@ public class Main extends Application {
     final String styletext = "-fx-text-fill: black; -fx-font-size: " + fsize ;
     final String styletextred = "-fx-text-fill: red; -fx-font-size: " + fsize ;
     final String smallstyletext = "-fx-background-color: #69A8CC; -fx-font-size: " + fsmallsize ;
+    final String styletexttitle = "-fx-font-size: " + fsizetitle;
 
     Scene scenePerform, scenePresets, sceneSongs, sceneHome;
     MidiPatches dopatches;
@@ -463,6 +465,7 @@ public class Main extends Application {
         // Assemble Status BorderPane View
         borderStatusSng.setLeft(vboxstatusLeftSng);
         borderStatusSng.setCenter(panefilesSng);
+        borderStatusSng.setStyle(bgheadercolor);
 
         // Show Left Pane: MIDI Song List
         presetchooser = new Button("...");
@@ -555,6 +558,7 @@ public class Main extends Application {
                     buttonupdate.setDisable(true);
 
                     labelstatusSng.setText(" Status: Selected song " + songTitle);
+                    labelstatusSng.setStyle(styletext);
                 });
         songlistView.getSelectionModel().selectFirst();
         songlistView.setStyle(styletext);
@@ -565,17 +569,14 @@ public class Main extends Application {
         buttonpreset.setOnAction(event -> {
 
             // Only allow edits on connect sound module
-            //if (cursongmoduleidx != sharedStatus.getModuleidx()) {
-            //    MidiModules midimodule = new MidiModules();
-            //    labelstatusSng.setText(" Status: To edit, connect to module " + midimodule.getModuleName(cursongmoduleidx));
-            //    labelstatusSng.setStyle(styletextred);
+            if (cursongmoduleidx != sharedStatus.getModuleidx()) {
+                MidiModules midimodule = new MidiModules();
+                labelstatusSng.setText(" Status: To correctly edit, connect module " + midimodule.getModuleName(cursongmoduleidx));
+                labelstatusSng.setStyle(styletextred);
 
-            //    System.out.println("To edit, connect sound module " + midimodule.getModuleName(cursongmoduleidx));
-            //    return;
-            //}
-            //else {
-            //    labelstatusSng.setStyle(styletext);
-            //}
+                System.out.println("To edit, connect sound module " + midimodule.getModuleName(cursongmoduleidx));
+                return;
+            }
 
             presetFile = txtPresetFile.getText();
             dopresets.makeMidiPresets(presetFile);
@@ -1218,13 +1219,17 @@ public class Main extends Application {
         songbuttons.getChildren().addAll(songbuttons1, songbuttons2, songbuttons3, songbuttons4);
         songvboxS.getChildren().addAll(songbuttons, hboxPlayMode, vboxInstrumentList);
 
+        HBox boxstatussong = new HBox();
+        boxstatussong.getChildren().add(labelstatusSng);
+        boxstatussong.setStyle(bgheadercolor);
+
         // Assemble the BorderPane View
         borderPaneSng.setTop(borderPaneTopSng);
         borderPaneSng.setLeft(vboxLeftS);
         borderPaneSng.setCenter(songvboxS);
         //borderPane1.setRight(vboxRight);
         //borderPaneS.setBottom(borderStatusS);
-        borderPaneSng.setBottom(labelstatusSng);
+        borderPaneSng.setBottom(boxstatussong);
 
         return borderPaneSng;
     }
@@ -1454,7 +1459,7 @@ public class Main extends Application {
         // *** Start Bottom Status Bar
 
         BorderPane borderStatus = new BorderPane();
-        borderStatus.setStyle("-fx-background-color: #999999; "); //#B2B5B1; ");
+        borderStatus.setStyle(bgheadercolor);
 
         labelstatus.setText(" Status: " + sharedStatus.getStatusText());
         labelstatus.setStyle(styletext);
@@ -1478,7 +1483,7 @@ public class Main extends Application {
         // Assemble the Status BorderPane View
         borderStatus.setLeft(vboxstatusLeft);
         borderStatus.setCenter(panefiles);
-        //borderPane2.setRight(vboxstatusright);
+        //borderStatus.setRight(vboxstatusright);
 
         // **** Show Left Pane: MIDI Sound Bank List
 
@@ -1673,7 +1678,6 @@ public class Main extends Application {
                     sliderCHO.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getCHO());
                     sliderMOD.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getMOD());
                     sliderPAN.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
-                    sliderTRE.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getROT());
 
                     // **** Update the MIDI Channel Out Layer checkboxes
                     String strChannelOut = dopresets.getPreset(presetIdx * 16 + channelIdx).getChannelOutIdx();
@@ -1721,7 +1725,6 @@ public class Main extends Application {
             sliderCHO.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getCHO());
             sliderMOD.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getMOD());
             sliderPAN.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
-            sliderTRE.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getROT());
 
             // Apply the Voice to MIDI Channel
             PlayMidi playmidifile = PlayMidi.getInstance();
@@ -2301,31 +2304,6 @@ public class Main extends Application {
             labelstatus.setText(" Status: CHAN " + (channelIdx + 1) + " PAN: " + newValue.intValue());
         });
         sliderPAN.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
-
-        // Create PAN slider
-        sliderTRE = new Slider(0, 127, 0);
-        sliderTRE.setOrientation(Orientation.VERTICAL);
-        sliderTRE.setShowTickLabels(true);
-        sliderTRE.setShowTickMarks(true);
-        sliderTRE.setMajorTickUnit(16);
-        sliderTRE.setBlockIncrement(4);
-        sliderTRE.setPrefHeight(yslider);
-        Rotate rotateTre = new Rotate();
-        sliderTRE.valueProperty().addListener((observable, oldValue, newValue) -> {
-            //Setting the angle for the rotation
-            rotateTre.setAngle((double) newValue);
-
-            PlayMidi playmidifile = PlayMidi.getInstance();
-            playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccTRE, (byte) sliderTRE.getValue());
-
-            dopresets.getPreset(presetIdx * 16 + channelIdx).setROT(newValue.intValue());
-
-            buttonSave.setDisable(false);
-            flgDirtyPreset = true;      // Need to save updated Preset
-
-            labelstatus.setText(" Status: Channel " + (channelIdx + 1) + " TRE: " + newValue.intValue());
-        });
-        sliderTRE.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getROT());
 
         flowpane.getChildren().add(pstbutton1);
         flowpane.getChildren().add(pstbutton2);

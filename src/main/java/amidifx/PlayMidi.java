@@ -922,7 +922,6 @@ public class PlayMidi {
            curPresetList.get(chanidx).setCHO(0);
            curPresetList.get(chanidx).setMOD(0);
            curPresetList.get(chanidx).setPAN(0);
-           curPresetList.get(chanidx).setROT(0);
        }
 
        int presetidx = -1;

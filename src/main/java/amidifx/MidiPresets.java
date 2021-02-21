@@ -95,13 +95,13 @@ public class MidiPresets {
                             Integer.parseInt(presetDetails[5]),
                             Integer.parseInt(presetDetails[6]),
                             Integer.parseInt(presetDetails[7]),
-                            Integer.parseInt(presetDetails[8]),
-                            Integer.parseInt(presetDetails[9]),
-                            Integer.parseInt(presetDetails[10]),
-                            Integer.parseInt(presetDetails[11]),
-                            Integer.parseInt(presetDetails[12]),
-                            Integer.parseInt(presetDetails[13]),
-                            0, //Integer.parseInt(presetDetails[13]), // TRE not saved in Preset file. Defaulted to zero
+                            Integer.parseInt(presetDetails[8]),     // VOL
+                            Integer.parseInt(presetDetails[9]),     // EXP
+                            Integer.parseInt(presetDetails[10]),    // REV
+                            Integer.parseInt(presetDetails[11]),    // CHO
+                            Integer.parseInt(presetDetails[12]),    // MOD
+                            Integer.parseInt(presetDetails[13]),    // PAN
+                            //Integer.parseInt(presetDetails[14]),    // ROT
                             Integer.parseInt(presetDetails[14]),
                             Integer.parseInt(presetDetails[15]),
                             Integer.parseInt(presetDetails[16]),
@@ -191,7 +191,7 @@ public class MidiPresets {
         presetList.get(nextpresetIdx).setCHO(midipreset.getCHO());
         presetList.get(nextpresetIdx).setPAN(midipreset.getPAN());
         presetList.get(nextpresetIdx).setMOD(midipreset.getMOD());
-        presetList.get(nextpresetIdx).setROT(midipreset.getROT());
+        //presetList.get(nextpresetIdx).setROT(midipreset.getROT());
 
         presetList.get(nextpresetIdx).setBankIdx(midipreset.getBankIdx());
         presetList.get(nextpresetIdx).setFontIdx(midipreset.getFontIdx());
@@ -331,9 +331,6 @@ public class MidiPresets {
 
             int CHO = preset.getCHO() & 0x7F;
             playmidifile.sendMidiControlChange((byte) CHANOUT, ccCHO, (byte) CHO);
-
-            int ROT = preset.getROT() & 0x7F;
-            playmidifile.sendMidiControlChange((byte) CHANOUT, ccROT, (byte) ROT);
 
             int MOD = preset.getMOD() & 0x7F;
             playmidifile.sendMidiControlChange((byte) CHANOUT, ccMOD, (byte) MOD);

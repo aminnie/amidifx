@@ -20,10 +20,6 @@ public class MidiModules {
 
         modulesfiles.add(MID_PATCHFILE0);
         modulesfiles.add(MID_PATCHFILE1);
-
-        // Default to MIDI GM Module
-        SharedStatus sharedstatus = SharedStatus.getInstance();
-        sharedstatus.setModuleidx(0);
     }
 
     public ArrayList getModuleslist() {

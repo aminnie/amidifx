@@ -392,7 +392,6 @@ public class MidiButtons {
         midibutton.setREV(preset.getREV());
         midibutton.setCHO(preset.getCHO());
         midibutton.setMOD(preset.getMOD());
-        midibutton.setROT(preset.getROT());
         midibutton.setPAN(preset.getPAN());
     }
 

@@ -261,8 +261,8 @@ public class MidiDevices {
             switch (leftNibble) {
                 case 0x80: //displayNoteOff(message);
                 case 0x90: //displayNoteOn(message);
-                    //receiver.send(message, timeStamp);
-                    layerOutMessages(message, timeStamp);
+                    receiver.send(message, timeStamp);
+                    //layerOutMessages(message, timeStamp);
                     break;
                 case 0xa0: //displayKeyPressure(message);
                 case 0xb0: //displayControllerChange(message);

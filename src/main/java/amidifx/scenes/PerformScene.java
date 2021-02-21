@@ -52,13 +52,14 @@ public class PerformScene {
     int xbtnpreset = (int)(115 * xmul);
     int ybtnpreset = (int)(50 * ymul);
 
-    int xvoicebtn = (int)(135 * xmul);
+    int xvoicebtn = (int)(127 * xmul);
     int yvoicebtn = (int)(50 * ymul);
 
     int xstatusleft = (int)(400 * xmul);
 
     // Calculate font size based on screen dimensions. Default = 15 for 1024 * 600
     final String fsize = Integer.toString((int)(ifsize * xmul)) + "; ";
+    final String fsizetitle = Integer.toString((int)(ifsize * xmul * 1.1)) + "; ";
 
     // Button Colors
     // https://yagisanatode.com/2019/08/06/google-apps-script-hexadecimal-color-codes-for-google-docs-sheets-and-slides-standart-palette/
@@ -100,6 +101,7 @@ public class PerformScene {
 
     final String styletext = "-fx-text-fill: black; -fx-font-size: " + fsize ;
     final String styletextred = "-fx-text-fill: red; -fx-font-size: " + fsize ;
+    final String styletexttitle = "-fx-font-size: " + fsizetitle;
 
     Stage primaryStage;
     Scene returnScene;
@@ -1424,6 +1426,7 @@ public class PerformScene {
             lbutton11.setText(" Lower 1-1");
             lbutton11.setId("L1-1");
             lbutton11.setMaxSize(xvoicebtn, yvoicebtn);
+            lbutton11.setMinSize(xvoicebtn, yvoicebtn);
             lbutton11.setStyle(lcolorOff);
             lbutton11.setWrapText(true);
             lbutton11.setTextAlignment(TextAlignment.CENTER);
@@ -1476,6 +1479,7 @@ public class PerformScene {
             lbutton12.setText(" Lower 1-2");
             lbutton12.setId("L1-2");
             lbutton12.setMaxSize(xvoicebtn, yvoicebtn);
+            lbutton12.setMinSize(xvoicebtn, yvoicebtn);
             lbutton12.setStyle(lcolorOff);
             lbutton12.setWrapText(true);
             lbutton12.setTextAlignment(TextAlignment.CENTER);
@@ -1528,6 +1532,7 @@ public class PerformScene {
             lbutton13.setText(" Lower 1-3");
             lbutton13.setId("L1-3");
             lbutton13.setMaxSize(xvoicebtn, yvoicebtn);
+            lbutton13.setMinSize(xvoicebtn, yvoicebtn);
             lbutton13.setStyle(lcolorOff);
             lbutton13.setWrapText(true);
             lbutton13.setTextAlignment(TextAlignment.CENTER);
@@ -1580,6 +1585,7 @@ public class PerformScene {
             lbutton14.setText(" Lower 1-4");
             lbutton14.setId("L1-4");
             lbutton14.setMaxSize(xvoicebtn, yvoicebtn);
+            lbutton14.setMinSize(xvoicebtn, yvoicebtn);
             lbutton14.setStyle(lcolorOff);
             lbutton14.setWrapText(true);
             lbutton14.setTextAlignment(TextAlignment.CENTER);
@@ -1632,6 +1638,7 @@ public class PerformScene {
             lbutton21 = new Button(" Lower 2-1");
             lbutton21.setId("L2-1");
             lbutton21.setMaxSize(xvoicebtn, yvoicebtn);
+            lbutton21.setMinSize(xvoicebtn, yvoicebtn);
             lbutton21.setStyle(lcolorOff);
             lbutton21.setWrapText(true);
             lbutton21.setTextAlignment(TextAlignment.CENTER);
@@ -1684,6 +1691,7 @@ public class PerformScene {
             lbutton22 = new Button(" Lower 2-2");
             lbutton22.setId("L2-2");
             lbutton22.setMaxSize(xvoicebtn, yvoicebtn);
+            lbutton22.setMinSize(xvoicebtn, yvoicebtn);
             lbutton22.setStyle(lcolorOff);
             lbutton22.setWrapText(true);
             lbutton22.setTextAlignment(TextAlignment.CENTER);
@@ -1736,6 +1744,7 @@ public class PerformScene {
             lbutton23 = new Button(" Lower 2-3");
             lbutton23.setId("L2-3");
             lbutton23.setMaxSize(xvoicebtn, yvoicebtn);
+            lbutton23.setMinSize(xvoicebtn, yvoicebtn);
             lbutton23.setStyle(lcolorOff);
             lbutton23.setWrapText(true);
             lbutton23.setTextAlignment(TextAlignment.CENTER);
@@ -1788,6 +1797,7 @@ public class PerformScene {
             lbutton24 = new Button(" Lower 2-4");
             lbutton24.setId("L2-4");
             lbutton24.setMaxSize(xvoicebtn, yvoicebtn);
+            lbutton24.setMinSize(xvoicebtn, yvoicebtn);
             lbutton24.setStyle(lcolorOff);
             lbutton24.setWrapText(true);
             lbutton24.setTextAlignment(TextAlignment.CENTER);
@@ -1918,6 +1928,7 @@ public class PerformScene {
             rbutton11.setText(" Upper 1-1");
             rbutton11.setId("U1-1");
             rbutton11.setMaxSize(xvoicebtn, yvoicebtn);
+            rbutton11.setMinSize(xvoicebtn, yvoicebtn);
             rbutton11.setStyle(rcolorOff);
             rbutton11.setWrapText(true);
             rbutton11.setTextAlignment(TextAlignment.CENTER);
@@ -1971,6 +1982,7 @@ public class PerformScene {
             rbutton12.setText(" Upper 1-2");
             rbutton12.setId("U1-2");
             rbutton12.setMaxSize(xvoicebtn, yvoicebtn);
+            rbutton12.setMinSize(xvoicebtn, yvoicebtn);
             rbutton12.setStyle(rcolorOff);
             rbutton12.setWrapText(true);
             rbutton12.setTextAlignment(TextAlignment.CENTER);
@@ -2024,6 +2036,7 @@ public class PerformScene {
             rbutton13.setText(" Upper 1-3");
             rbutton13.setId("U1-3");
             rbutton13.setMaxSize(xvoicebtn, yvoicebtn);
+            rbutton13.setMinSize(xvoicebtn, yvoicebtn);
             rbutton13.setStyle(rcolorOff);
             rbutton13.setWrapText(true);
             rbutton13.setTextAlignment(TextAlignment.CENTER);
@@ -2077,6 +2090,7 @@ public class PerformScene {
             rbutton14.setText(" Upper 1-4");
             rbutton14.setId("U1-4");
             rbutton14.setMaxSize(xvoicebtn, yvoicebtn);
+            rbutton14.setMinSize(xvoicebtn, yvoicebtn);
             rbutton14.setStyle(rcolorOff);
             rbutton14.setWrapText(true);
             rbutton14.setTextAlignment(TextAlignment.CENTER);
@@ -2133,6 +2147,7 @@ public class PerformScene {
             rbutton15.setText(" Upper 1-5");
             rbutton15.setId("U1-5");
             rbutton15.setMaxSize(xvoicebtn, yvoicebtn);
+            rbutton15.setMinSize(xvoicebtn, yvoicebtn);
             rbutton15.setStyle(rcolorOff);
             rbutton15.setWrapText(true);
             rbutton15.setTextAlignment(TextAlignment.CENTER);
@@ -2187,6 +2202,7 @@ public class PerformScene {
             rbutton16.setText(" Upper 1-6");
             rbutton16.setId("U1-6");
             rbutton16.setMaxSize(xvoicebtn, yvoicebtn);
+            rbutton16.setMinSize(xvoicebtn, yvoicebtn);
             rbutton16.setStyle(orgcolorOff);
             rbutton16.setWrapText(true);
             rbutton16.setTextAlignment(TextAlignment.CENTER);
@@ -2241,6 +2257,7 @@ public class PerformScene {
             rbutton17.setText("Rotary Off");
             rbutton17.setId("U1-7");
             rbutton17.setMaxSize(xvoicebtn, yvoicebtn);
+            rbutton17.setMinSize(xvoicebtn, yvoicebtn);
             rbutton17.setStyle(orgcolorOff);
             rbutton17.setWrapText(true);
             rbutton17.setTextAlignment(TextAlignment.CENTER);
@@ -2269,6 +2286,7 @@ public class PerformScene {
             rbutton18.setText(" Rotary Slow");
             rbutton18.setId("U1-8");
             rbutton18.setMaxSize(xvoicebtn, yvoicebtn);
+            rbutton18.setMinSize(xvoicebtn, yvoicebtn);
             rbutton18.setStyle(orgcolorOff);
             rbutton18.setWrapText(true);
             rbutton18.setTextAlignment(TextAlignment.CENTER);
@@ -2297,6 +2315,7 @@ public class PerformScene {
             rbutton21.setText(" Upper 2-1");
             rbutton21.setId("U2-1");
             rbutton21.setMaxSize(xvoicebtn, yvoicebtn);
+            rbutton21.setMinSize(xvoicebtn, yvoicebtn);
             rbutton21.setStyle(rcolorOff);
             rbutton21.setWrapText(true);
             rbutton21.setTextAlignment(TextAlignment.CENTER);
@@ -2350,6 +2369,7 @@ public class PerformScene {
             rbutton22.setText(" Upper 2-2");
             rbutton22.setId("U2-2");
             rbutton22.setMaxSize(xvoicebtn, yvoicebtn);
+            rbutton22.setMinSize(xvoicebtn, yvoicebtn);
             rbutton22.setStyle(rcolorOff);
             rbutton22.setWrapText(true);
             rbutton22.setTextAlignment(TextAlignment.CENTER);
@@ -2403,6 +2423,7 @@ public class PerformScene {
             rbutton23.setText(" Upper 2-3");
             rbutton23.setId("U2-3");
             rbutton23.setMaxSize(xvoicebtn, yvoicebtn);
+            rbutton23.setMinSize(xvoicebtn, yvoicebtn);
             rbutton23.setStyle(rcolorOff);
             rbutton23.setWrapText(true);
             rbutton23.setTextAlignment(TextAlignment.CENTER);
@@ -2456,6 +2477,7 @@ public class PerformScene {
             rbutton24.setText(" Upper 2-4");
             rbutton24.setId("U2-4");
             rbutton24.setMaxSize(xvoicebtn, yvoicebtn);
+            rbutton24.setMinSize(xvoicebtn, yvoicebtn);
             rbutton24.setStyle(rcolorOff);
             rbutton24.setWrapText(true);
             rbutton24.setTextAlignment(TextAlignment.CENTER);
@@ -2509,6 +2531,7 @@ public class PerformScene {
             rbutton31.setText(" Upper 3-1");
             rbutton31.setId("U3-1");
             rbutton31.setMaxSize(xvoicebtn, yvoicebtn);
+            rbutton31.setMinSize(xvoicebtn, yvoicebtn);
             rbutton31.setStyle(rcolorOff);
             rbutton31.setWrapText(true);
             rbutton31.setTextAlignment(TextAlignment.CENTER);
@@ -2562,6 +2585,7 @@ public class PerformScene {
             rbutton32.setText(" Upper 3-2");
             rbutton32.setId("U3-2");
             rbutton32.setMaxSize(xvoicebtn, yvoicebtn);
+            rbutton32.setMinSize(xvoicebtn, yvoicebtn);
             rbutton32.setStyle(rcolorOff);
             rbutton32.setWrapText(true);
             rbutton32.setTextAlignment(TextAlignment.CENTER);
@@ -2615,6 +2639,7 @@ public class PerformScene {
             rbutton33.setText(" Upper 3-3");
             rbutton33.setId("U3-3");
             rbutton33.setMaxSize(xvoicebtn, yvoicebtn);
+            rbutton33.setMinSize(xvoicebtn, yvoicebtn);
             rbutton33.setStyle(rcolorOff);
             rbutton33.setWrapText(true);
             rbutton33.setTextAlignment(TextAlignment.CENTER);
@@ -2668,6 +2693,7 @@ public class PerformScene {
             rbutton34.setText(" Upper 3-4");
             rbutton34.setId("U3-4");
             rbutton34.setMaxSize(xvoicebtn, yvoicebtn);
+            rbutton34.setMinSize(xvoicebtn, yvoicebtn);
             rbutton34.setStyle(rcolorOff);
             rbutton34.setWrapText(true);
             rbutton34.setTextAlignment(TextAlignment.CENTER);
@@ -3029,7 +3055,7 @@ public class PerformScene {
             gridEffects.add(new VBox(new Label("CHO"), sliderCHO), 2, 1, 1, 1);
             gridEffects.add(new VBox(new Label("MOD"), sliderMOD), 3, 1, 1, 1);
             gridEffects.add(new VBox(new Label("PAN"), sliderPAN), 4, 1, 1, 1);
-            gridEffects.add(new VBox(new Label("ROT"), sliderROT), 5, 1, 1, 1);
+            //gridEffects.add(new VBox(new Label("ROT"), sliderROT), 5, 1, 1, 1);
             gridEffects.setHgap(10);
             gridmidcenterPerform.add(gridEffects, 3, 5, 3, 2);
             gridmidcenterPerform.setStyle(styletext);
@@ -3056,6 +3082,7 @@ public class PerformScene {
             labelsynth.setTextAlignment(TextAlignment.JUSTIFY);
             labelsynth.setStyle(styletext);
             hboxstatus.getChildren().add(labelsynth);
+            hboxstatus.setStyle(bgheadercolor);
 
             // Assemble the Scene BorderPane View
 
