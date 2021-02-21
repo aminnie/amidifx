@@ -52,7 +52,7 @@ public class PerformScene {
     int xbtnpreset = (int)(115 * xmul);
     int ybtnpreset = (int)(50 * ymul);
 
-    int xvoicebtn = (int)(120 * xmul);
+    int xvoicebtn = (int)(135 * xmul);
     int yvoicebtn = (int)(50 * ymul);
 
     int xstatusleft = (int)(400 * xmul);
@@ -280,6 +280,7 @@ public class PerformScene {
     Slider sliderMOD;
     Slider sliderPAN;
     Slider sliderROT;
+    int rotvalue = 0;
 
     // https://professionalcomposers.com/midi-cc-list/
     public static byte ccVOL = 7;
@@ -930,10 +931,12 @@ public class PerformScene {
 
             bleft1 = new Button(" Bass 1");
             bleft1.setId("B1-1");
+            bleft1.setMaxSize(xvoicebtn, yvoicebtn);
             bleft1.setMinSize(xvoicebtn, yvoicebtn);
             bleft1.setStyle(bcolorOff);
             bleft1.setWrapText(true);
             bleft1.setWrapText(true);
+            bleft1.setTextAlignment(TextAlignment.CENTER);
             bleft1.setOnAction(event -> {
                 offAllBassButtons();
                 int buttonidx = midiButtons.lookupButtonIdx(bleft1.getId());
@@ -981,10 +984,12 @@ public class PerformScene {
             });
 
             bleft2.setText(" Bass 2");
+            bleft2.setMaxSize(xvoicebtn, yvoicebtn);
             bleft2.setMinSize(xvoicebtn, yvoicebtn);
             bleft2.setId("B1-2");
             bleft2.setStyle(bcolorOff);
             bleft2.setWrapText(true);
+            bleft2.setTextAlignment(TextAlignment.CENTER);
             bleft2.setOnAction(event -> {
                 offAllBassButtons();
                 int buttonidx = midiButtons.lookupButtonIdx(bleft2.getId());
@@ -1032,10 +1037,12 @@ public class PerformScene {
             });
 
             bleft3.setText(" Bass 3");
+            bleft3.setMaxSize(xvoicebtn, yvoicebtn);
             bleft3.setMinSize(xvoicebtn, yvoicebtn);
             bleft3.setId("B1-3");
             bleft3.setStyle(bcolorOff);
             bleft3.setWrapText(true);
+            bleft3.setTextAlignment(TextAlignment.CENTER);
             bleft3.setOnAction(event -> {
                 offAllBassButtons();
                 int buttonidx = midiButtons.lookupButtonIdx(bleft3.getId());
@@ -1084,9 +1091,11 @@ public class PerformScene {
             
             bleft4.setText(" Bass 4");
             bleft4.setId("B1-4");
+            bleft4.setMaxSize(xvoicebtn, yvoicebtn);
             bleft4.setMinSize(xvoicebtn, yvoicebtn);
             bleft4.setStyle(bcolorOff);
             bleft4.setWrapText(true);
+            bleft4.setTextAlignment(TextAlignment.CENTER);
             bleft4.setOnAction(event -> {
                 offAllBassButtons();
                 int buttonidx = midiButtons.lookupButtonIdx(bleft4.getId());
@@ -1148,9 +1157,11 @@ public class PerformScene {
 
             dleft1.setText(" Drums 1");
             dleft1.setId("D1-1");
+            dleft1.setMaxSize(xvoicebtn, yvoicebtn);
             dleft1.setMinSize(xvoicebtn, yvoicebtn);
             dleft1.setStyle(dcolorOff);
             dleft1.setWrapText(true);
+            dleft1.setTextAlignment(TextAlignment.CENTER);
             dleft1.setOnAction(event -> {
                 offAllDrumButtons();
                 int buttonidx = midiButtons.lookupButtonIdx(dleft1.getId());
@@ -1199,9 +1210,11 @@ public class PerformScene {
 
             dleft2.setText(" Drums 2");
             dleft2.setId("D1-2");
+            dleft2.setMaxSize(xvoicebtn, yvoicebtn);
             dleft2.setMinSize(xvoicebtn, yvoicebtn);
             dleft2.setStyle(dcolorOff);
             dleft2.setWrapText(true);
+            dleft2.setTextAlignment(TextAlignment.CENTER);
             dleft2.setOnAction(event -> {
                 offAllDrumButtons();
                 int buttonidx = midiButtons.lookupButtonIdx(dleft2.getId());
@@ -1250,9 +1263,11 @@ public class PerformScene {
 
             dleft3.setText(" Drums 3");
             dleft3.setId("D1-3");
+            dleft3.setMaxSize(xvoicebtn, yvoicebtn);
             dleft3.setMinSize(xvoicebtn, yvoicebtn);
             dleft3.setStyle(dcolorOff);
             dleft3.setWrapText(true);
+            dleft3.setTextAlignment(TextAlignment.CENTER);
             dleft3.setOnAction(event -> {
                 offAllDrumButtons();
                 int buttonidx = midiButtons.lookupButtonIdx(dleft3.getId());
@@ -1301,9 +1316,11 @@ public class PerformScene {
 
             dleft4.setText(" Drums 4");
             dleft4.setId("D1-4");
+            dleft4.setMaxSize(xvoicebtn, yvoicebtn);
             dleft4.setMinSize(xvoicebtn, yvoicebtn);
             dleft4.setStyle(dcolorOff);
             dleft4.setWrapText(true);
+            dleft4.setTextAlignment(TextAlignment.CENTER);
             dleft4.setOnAction(event -> {
                 offAllDrumButtons();
 
@@ -1362,6 +1379,7 @@ public class PerformScene {
 
             l1layerbtn = new Button("Lower 1 [12]   ");       // Lefthand Layering Buttons
             l1layerbtn.setStyle(lrpressedOn);
+            l1layerbtn.setMaxWidth(xvoicebtn);
             //l1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             l1layerbtn.setOnAction(event -> {
                 if (l1pressed == false) {
@@ -1383,6 +1401,7 @@ public class PerformScene {
 
             l2layerbtn = new Button("Lower 2 [13]   ");
             l2layerbtn.setStyle(lrpressedOff);
+            l2layerbtn.setMaxWidth(xvoicebtn);
             //l2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             l2layerbtn.setOnAction(event -> {
                 if (l2pressed == false) {
@@ -1404,9 +1423,10 @@ public class PerformScene {
 
             lbutton11.setText(" Lower 1-1");
             lbutton11.setId("L1-1");
-            lbutton11.setMinSize(xvoicebtn, yvoicebtn);
+            lbutton11.setMaxSize(xvoicebtn, yvoicebtn);
             lbutton11.setStyle(lcolorOff);
             lbutton11.setWrapText(true);
+            lbutton11.setTextAlignment(TextAlignment.CENTER);
             lbutton11.setOnAction(event -> {
                 offAllLower1Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(lbutton11.getId());
@@ -1455,9 +1475,10 @@ public class PerformScene {
 
             lbutton12.setText(" Lower 1-2");
             lbutton12.setId("L1-2");
-            lbutton12.setMinSize(xvoicebtn, yvoicebtn);
+            lbutton12.setMaxSize(xvoicebtn, yvoicebtn);
             lbutton12.setStyle(lcolorOff);
             lbutton12.setWrapText(true);
+            lbutton12.setTextAlignment(TextAlignment.CENTER);
             lbutton12.setOnAction(event -> {
                 offAllLower1Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(lbutton12.getId());
@@ -1506,9 +1527,10 @@ public class PerformScene {
 
             lbutton13.setText(" Lower 1-3");
             lbutton13.setId("L1-3");
-            lbutton13.setMinSize(xvoicebtn, yvoicebtn);
+            lbutton13.setMaxSize(xvoicebtn, yvoicebtn);
             lbutton13.setStyle(lcolorOff);
             lbutton13.setWrapText(true);
+            lbutton13.setTextAlignment(TextAlignment.CENTER);
             lbutton13.setOnAction(event -> {
                 offAllLower1Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(lbutton13.getId());
@@ -1557,9 +1579,10 @@ public class PerformScene {
 
             lbutton14.setText(" Lower 1-4");
             lbutton14.setId("L1-4");
-            lbutton14.setMinSize(xvoicebtn, yvoicebtn);
+            lbutton14.setMaxSize(xvoicebtn, yvoicebtn);
             lbutton14.setStyle(lcolorOff);
             lbutton14.setWrapText(true);
+            lbutton14.setTextAlignment(TextAlignment.CENTER);
             lbutton14.setOnAction(event -> {
                 offAllLower1Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(lbutton13.getId());
@@ -1608,9 +1631,10 @@ public class PerformScene {
 
             lbutton21 = new Button(" Lower 2-1");
             lbutton21.setId("L2-1");
-            lbutton21.setMinSize(xvoicebtn, yvoicebtn);
+            lbutton21.setMaxSize(xvoicebtn, yvoicebtn);
             lbutton21.setStyle(lcolorOff);
             lbutton21.setWrapText(true);
+            lbutton21.setTextAlignment(TextAlignment.CENTER);
             lbutton21.setOnAction(event -> {
                 offAllLower2Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(lbutton21.getId());
@@ -1659,9 +1683,10 @@ public class PerformScene {
 
             lbutton22 = new Button(" Lower 2-2");
             lbutton22.setId("L2-2");
-            lbutton22.setMinSize(xvoicebtn, yvoicebtn);
+            lbutton22.setMaxSize(xvoicebtn, yvoicebtn);
             lbutton22.setStyle(lcolorOff);
             lbutton22.setWrapText(true);
+            lbutton22.setTextAlignment(TextAlignment.CENTER);
             lbutton22.setOnAction(event -> {
                 offAllLower2Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(lbutton22.getId());
@@ -1710,9 +1735,10 @@ public class PerformScene {
 
             lbutton23 = new Button(" Lower 2-3");
             lbutton23.setId("L2-3");
-            lbutton23.setMinSize(xvoicebtn, yvoicebtn);
+            lbutton23.setMaxSize(xvoicebtn, yvoicebtn);
             lbutton23.setStyle(lcolorOff);
             lbutton23.setWrapText(true);
+            lbutton23.setTextAlignment(TextAlignment.CENTER);
             lbutton23.setOnAction(event -> {
                 offAllLower2Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(lbutton23.getId());
@@ -1761,9 +1787,10 @@ public class PerformScene {
 
             lbutton24 = new Button(" Lower 2-4");
             lbutton24.setId("L2-4");
-            lbutton24.setMinSize(xvoicebtn, yvoicebtn);
+            lbutton24.setMaxSize(xvoicebtn, yvoicebtn);
             lbutton24.setStyle(lcolorOff);
             lbutton24.setWrapText(true);
+            lbutton24.setTextAlignment(TextAlignment.CENTER);
             lbutton24.setOnAction(event -> {
                 offAllLower2Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(lbutton24.getId());
@@ -1826,6 +1853,7 @@ public class PerformScene {
 
             r1layerbtn = new Button("Upper 1 [14]   ");       // Righthand Layering Buttons
             r1layerbtn.setStyle(lrpressedOn);
+            r1layerbtn.setMaxWidth(xvoicebtn);
             //r1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r1layerbtn.setOnAction(event -> {
                 if (r1pressed == false) {
@@ -1846,6 +1874,7 @@ public class PerformScene {
             });
             r2layerbtn = new Button("Upper 2 [15]   ");
             r2layerbtn.setStyle(lrpressedOff);
+            r2layerbtn.setMaxWidth(xvoicebtn);
             //r2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r2layerbtn.setOnAction(event -> {
                 if (r2pressed == false) {
@@ -1866,6 +1895,7 @@ public class PerformScene {
             });
             r3layerbtn = new Button("Upper 3 [16]   ");
             r3layerbtn.setStyle(lrpressedOff);
+            r3layerbtn.setMaxWidth(xvoicebtn);
             //r3layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r3layerbtn.setOnAction(event -> {
                 if (r3pressed == false) {
@@ -1887,9 +1917,10 @@ public class PerformScene {
 
             rbutton11.setText(" Upper 1-1");
             rbutton11.setId("U1-1");
-            rbutton11.setMinSize(xvoicebtn, yvoicebtn);
+            rbutton11.setMaxSize(xvoicebtn, yvoicebtn);
             rbutton11.setStyle(rcolorOff);
             rbutton11.setWrapText(true);
+            rbutton11.setTextAlignment(TextAlignment.CENTER);
             rbutton11.setOnAction(event -> {
                 offAllUpper1Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(rbutton11.getId());
@@ -1939,9 +1970,10 @@ public class PerformScene {
 
             rbutton12.setText(" Upper 1-2");
             rbutton12.setId("U1-2");
-            rbutton12.setMinSize(xvoicebtn, yvoicebtn);
+            rbutton12.setMaxSize(xvoicebtn, yvoicebtn);
             rbutton12.setStyle(rcolorOff);
             rbutton12.setWrapText(true);
+            rbutton12.setTextAlignment(TextAlignment.CENTER);
             rbutton12.setOnAction(event -> {
                 offAllUpper1Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(rbutton12.getId());
@@ -1991,9 +2023,10 @@ public class PerformScene {
 
             rbutton13.setText(" Upper 1-3");
             rbutton13.setId("U1-3");
-            rbutton13.setMinSize(xvoicebtn, yvoicebtn);
+            rbutton13.setMaxSize(xvoicebtn, yvoicebtn);
             rbutton13.setStyle(rcolorOff);
             rbutton13.setWrapText(true);
+            rbutton13.setTextAlignment(TextAlignment.CENTER);
             rbutton13.setOnAction(event -> {
                 offAllUpper1Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(rbutton13.getId());
@@ -2043,9 +2076,10 @@ public class PerformScene {
 
             rbutton14.setText(" Upper 1-4");
             rbutton14.setId("U1-4");
-            rbutton14.setMinSize(xvoicebtn, yvoicebtn);
+            rbutton14.setMaxSize(xvoicebtn, yvoicebtn);
             rbutton14.setStyle(rcolorOff);
             rbutton14.setWrapText(true);
+            rbutton14.setTextAlignment(TextAlignment.CENTER);
             rbutton14.setOnAction(event -> {
                 offAllUpper1Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(rbutton14.getId());
@@ -2098,9 +2132,10 @@ public class PerformScene {
 
             rbutton15.setText(" Upper 1-5");
             rbutton15.setId("U1-5");
-            rbutton15.setMinSize(xvoicebtn, yvoicebtn);
+            rbutton15.setMaxSize(xvoicebtn, yvoicebtn);
             rbutton15.setStyle(rcolorOff);
             rbutton15.setWrapText(true);
+            rbutton15.setTextAlignment(TextAlignment.CENTER);
             rbutton15.setOnAction(event -> {
                 offAllUpper1Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(rbutton15.getId());
@@ -2151,9 +2186,10 @@ public class PerformScene {
             // Organ Button + Rotary On/Off and Brake
             rbutton16.setText(" Upper 1-6");
             rbutton16.setId("U1-6");
-            rbutton16.setMinSize(xvoicebtn, yvoicebtn);
+            rbutton16.setMaxSize(xvoicebtn, yvoicebtn);
             rbutton16.setStyle(orgcolorOff);
             rbutton16.setWrapText(true);
+            rbutton16.setTextAlignment(TextAlignment.CENTER);
             rbutton16.setOnAction(event -> {
                 offAllUpper1Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(rbutton16.getId());
@@ -2204,9 +2240,10 @@ public class PerformScene {
             //playmidifile.sendRotaryOn(false);
             rbutton17.setText("Rotary Off");
             rbutton17.setId("U1-7");
-            rbutton17.setMinSize(xvoicebtn, yvoicebtn);
+            rbutton17.setMaxSize(xvoicebtn, yvoicebtn);
             rbutton17.setStyle(orgcolorOff);
             rbutton17.setWrapText(true);
+            rbutton17.setTextAlignment(TextAlignment.CENTER);
             rbutton17.setOnAction(event -> {
 
                 labelstatusOrg.setText(" Status: Rotary On/Off");
@@ -2231,9 +2268,10 @@ public class PerformScene {
             //playmidifile.sendRotaryFast(false);
             rbutton18.setText(" Rotary Slow");
             rbutton18.setId("U1-8");
-            rbutton18.setMinSize(xvoicebtn, yvoicebtn);
+            rbutton18.setMaxSize(xvoicebtn, yvoicebtn);
             rbutton18.setStyle(orgcolorOff);
             rbutton18.setWrapText(true);
+            rbutton18.setTextAlignment(TextAlignment.CENTER);
             rbutton18.setOnAction(event -> {
 
                 labelstatusOrg.setText(" Status: Rotary On/Off");
@@ -2258,9 +2296,10 @@ public class PerformScene {
             // Upper 2 CHAN 15 + 16 Buttons
             rbutton21.setText(" Upper 2-1");
             rbutton21.setId("U2-1");
-            rbutton21.setMinSize(xvoicebtn, yvoicebtn);
+            rbutton21.setMaxSize(xvoicebtn, yvoicebtn);
             rbutton21.setStyle(rcolorOff);
             rbutton21.setWrapText(true);
+            rbutton21.setTextAlignment(TextAlignment.CENTER);
             rbutton21.setOnAction(event -> {
                 offAllUpper2Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(rbutton21.getId());
@@ -2310,9 +2349,10 @@ public class PerformScene {
 
             rbutton22.setText(" Upper 2-2");
             rbutton22.setId("U2-2");
-            rbutton22.setMinSize(xvoicebtn, yvoicebtn);
+            rbutton22.setMaxSize(xvoicebtn, yvoicebtn);
             rbutton22.setStyle(rcolorOff);
             rbutton22.setWrapText(true);
+            rbutton22.setTextAlignment(TextAlignment.CENTER);
             rbutton22.setOnAction(event -> {
                 offAllUpper2Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(rbutton22.getId());
@@ -2362,9 +2402,10 @@ public class PerformScene {
 
             rbutton23.setText(" Upper 2-3");
             rbutton23.setId("U2-3");
-            rbutton23.setMinSize(xvoicebtn, yvoicebtn);
+            rbutton23.setMaxSize(xvoicebtn, yvoicebtn);
             rbutton23.setStyle(rcolorOff);
             rbutton23.setWrapText(true);
+            rbutton23.setTextAlignment(TextAlignment.CENTER);
             rbutton23.setOnAction(event -> {
                 offAllUpper2Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(rbutton23.getId());
@@ -2414,9 +2455,10 @@ public class PerformScene {
 
             rbutton24.setText(" Upper 2-4");
             rbutton24.setId("U2-4");
-            rbutton24.setMinSize(xvoicebtn, yvoicebtn);
+            rbutton24.setMaxSize(xvoicebtn, yvoicebtn);
             rbutton24.setStyle(rcolorOff);
             rbutton24.setWrapText(true);
+            rbutton24.setTextAlignment(TextAlignment.CENTER);
             rbutton24.setOnAction(event -> {
                 offAllUpper2Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(rbutton24.getId());
@@ -2466,9 +2508,10 @@ public class PerformScene {
 
             rbutton31.setText(" Upper 3-1");
             rbutton31.setId("U3-1");
-            rbutton31.setMinSize(xvoicebtn, yvoicebtn);
+            rbutton31.setMaxSize(xvoicebtn, yvoicebtn);
             rbutton31.setStyle(rcolorOff);
             rbutton31.setWrapText(true);
+            rbutton31.setTextAlignment(TextAlignment.CENTER);
             rbutton31.setOnAction(event -> {
                 offAllUpper3Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(rbutton31.getId());
@@ -2518,9 +2561,10 @@ public class PerformScene {
 
             rbutton32.setText(" Upper 3-2");
             rbutton32.setId("U3-2");
-            rbutton32.setMinSize(xvoicebtn, yvoicebtn);
+            rbutton32.setMaxSize(xvoicebtn, yvoicebtn);
             rbutton32.setStyle(rcolorOff);
             rbutton32.setWrapText(true);
+            rbutton32.setTextAlignment(TextAlignment.CENTER);
             rbutton32.setOnAction(event -> {
                 offAllUpper3Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(rbutton32.getId());
@@ -2570,9 +2614,10 @@ public class PerformScene {
 
             rbutton33.setText(" Upper 3-3");
             rbutton33.setId("U3-3");
-            rbutton33.setMinSize(xvoicebtn, yvoicebtn);
+            rbutton33.setMaxSize(xvoicebtn, yvoicebtn);
             rbutton33.setStyle(rcolorOff);
             rbutton33.setWrapText(true);
+            rbutton33.setTextAlignment(TextAlignment.CENTER);
             rbutton33.setOnAction(event -> {
                 offAllUpper3Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(rbutton33.getId());
@@ -2622,9 +2667,10 @@ public class PerformScene {
 
             rbutton34.setText(" Upper 3-4");
             rbutton34.setId("U3-4");
-            rbutton34.setMinSize(xvoicebtn, yvoicebtn);
+            rbutton34.setMaxSize(xvoicebtn, yvoicebtn);
             rbutton34.setStyle(rcolorOff);
             rbutton34.setWrapText(true);
+            rbutton34.setTextAlignment(TextAlignment.CENTER);
             rbutton34.setOnAction(event -> {
                 offAllUpper3Buttons();
                 int buttonidx = midiButtons.lookupButtonIdx(rbutton34.getId());
@@ -2700,7 +2746,7 @@ public class PerformScene {
             btnplay = new Button("Play Song");
             btnplay.setDisable(true);
             btnplay.setStyle(btnplayOff);
-            btnplay.setMinSize(xvoicebtn, yvoicebtn);
+            btnplay.setMaxSize(xvoicebtn, yvoicebtn);
             btnplay.setOnAction(e -> {
                 try {
                     if (songFile == null) {
@@ -2793,7 +2839,7 @@ public class PerformScene {
             playmode = 3;
             Button btnBacking = new Button("Backing");
             btnBacking.setStyle(btnplayOff);
-            btnBacking.setPrefSize(xvoicebtn, yvoicebtn);
+            btnBacking.setMaxSize(xvoicebtn, yvoicebtn);
             btnBacking.setOnAction(e -> {
                 if (playmode == 3) {
                     btnBacking.setText("Play Along");
@@ -2934,16 +2980,21 @@ public class PerformScene {
                 //Setting the angle for the rotation
                 rotateRot.setAngle((double) newValue);
 
-                PlayMidi playmidifile = PlayMidi.getInstance();
-                playmidifile.sendMidiControlChange((byte) lastVoiceChannel, ccROT, (byte) sliderROT.getValue());
+                // Rotary Slider CC74 value range = 0 - 7. Ignore duplicate values
+                if (rotvalue == (int)sliderROT.getValue()) return;
 
-                midiButtons.getButtonById(lastVoiceButton, 0).setROT((int)sliderROT.getValue());
+                rotvalue = (int)sliderROT.getValue();
+
+                PlayMidi playmidifile = PlayMidi.getInstance();
+                playmidifile.sendMidiControlChange((byte) lastVoiceChannel, ccROT, (byte)rotvalue);
+
+                midiButtons.getButtonById(lastVoiceButton, 0).setROT(rotvalue);
 
                 buttonSave.setDisable(false);
                 flgDirtyPreset = true;      // Need to save updated Preset
 
                 if (lastVoiceButton != null)
-                    labelstatusOrg.setText(" Status: Button " + lastVoiceButton + " ROT= " + newValue.intValue());
+                    labelstatusOrg.setText(" Status: Button " + lastVoiceButton + " ROT= " + (byte)rotvalue);
             });
             sliderROT.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getROT());
 
@@ -2979,7 +3030,7 @@ public class PerformScene {
             gridEffects.add(new VBox(new Label("MOD"), sliderMOD), 3, 1, 1, 1);
             gridEffects.add(new VBox(new Label("PAN"), sliderPAN), 4, 1, 1, 1);
             gridEffects.add(new VBox(new Label("ROT"), sliderROT), 5, 1, 1, 1);
-            gridEffects.setHgap(25);
+            gridEffects.setHgap(10);
             gridmidcenterPerform.add(gridEffects, 3, 5, 3, 2);
             gridmidcenterPerform.setStyle(styletext);
 

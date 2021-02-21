@@ -21,6 +21,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Rotate;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -564,17 +565,17 @@ public class Main extends Application {
         buttonpreset.setOnAction(event -> {
 
             // Only allow edits on connect sound module
-            if (cursongmoduleidx != sharedStatus.getModuleidx()) {
-                MidiModules midimodule = new MidiModules();
-                labelstatusSng.setText(" Status: To edit, connect to module " + midimodule.getModuleName(cursongmoduleidx));
-                labelstatusSng.setStyle(styletextred);
+            //if (cursongmoduleidx != sharedStatus.getModuleidx()) {
+            //    MidiModules midimodule = new MidiModules();
+            //    labelstatusSng.setText(" Status: To edit, connect to module " + midimodule.getModuleName(cursongmoduleidx));
+            //    labelstatusSng.setStyle(styletextred);
 
-                System.out.println("To edit, connect sound module " + midimodule.getModuleName(cursongmoduleidx));
-                return;
-            }
-            else {
-                labelstatusSng.setStyle(styletext);
-            }
+            //    System.out.println("To edit, connect sound module " + midimodule.getModuleName(cursongmoduleidx));
+            //    return;
+            //}
+            //else {
+            //    labelstatusSng.setStyle(styletext);
+            //}
 
             presetFile = txtPresetFile.getText();
             dopresets.makeMidiPresets(presetFile);
@@ -1753,6 +1754,7 @@ public class Main extends Application {
         pstbutton1 = new Button("Button 1");
         pstbutton1.setStyle(btnPresetOff);
         pstbutton1.setWrapText(true);
+        pstbutton1.setTextAlignment(TextAlignment.CENTER);
         pstbutton1.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx);
@@ -1769,6 +1771,7 @@ public class Main extends Application {
         pstbutton2 = new Button("Button 2");
         pstbutton2.setStyle(btnPresetOff);
         pstbutton2.setWrapText(true);
+        pstbutton2.setTextAlignment(TextAlignment.CENTER);
         pstbutton2.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+1);
@@ -1785,6 +1788,7 @@ public class Main extends Application {
         pstbutton3 = new Button("Button 3");
         pstbutton3.setStyle(btnPresetOff);
         pstbutton3.setWrapText(true);
+        pstbutton3.setTextAlignment(TextAlignment.CENTER);
         pstbutton3.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+2);
@@ -1801,6 +1805,7 @@ public class Main extends Application {
         pstbutton4 = new Button("Button 4");
         pstbutton4.setStyle(btnPresetOff);
         pstbutton4.setWrapText(true);
+        pstbutton4.setTextAlignment(TextAlignment.CENTER);
         pstbutton4.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+3);
@@ -1817,6 +1822,7 @@ public class Main extends Application {
         pstbutton5 = new Button("Button 5");
         pstbutton5.setStyle(btnPresetOff);
         pstbutton5.setWrapText(true);
+        pstbutton5.setTextAlignment(TextAlignment.CENTER);
         pstbutton5.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+4);
@@ -1833,6 +1839,7 @@ public class Main extends Application {
         pstbutton6 = new Button("Button 6");
         pstbutton6.setStyle(btnPresetOff);
         pstbutton6.setWrapText(true);
+        pstbutton6.setTextAlignment(TextAlignment.CENTER);
         pstbutton6.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+5);
@@ -1849,6 +1856,7 @@ public class Main extends Application {
         pstbutton7 = new Button("Button 7");
         pstbutton7.setStyle(btnPresetOff);
         pstbutton7.setWrapText(true);
+        pstbutton7.setTextAlignment(TextAlignment.CENTER);
         pstbutton7.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+6);
@@ -1865,6 +1873,7 @@ public class Main extends Application {
         pstbutton8 = new Button("Button 8");
         pstbutton8.setStyle(btnPresetOff);
         pstbutton8.setWrapText(true);
+        pstbutton8.setTextAlignment(TextAlignment.CENTER);
         pstbutton8.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+7);
@@ -1881,6 +1890,7 @@ public class Main extends Application {
         pstbutton9 = new Button("Button 9");
         pstbutton9.setStyle(btnPresetOff);
         pstbutton9.setWrapText(true);
+        pstbutton9.setTextAlignment(TextAlignment.CENTER);
         pstbutton9.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+8);
@@ -1897,6 +1907,7 @@ public class Main extends Application {
         pstbutton10 = new Button("Button 10");
         pstbutton10.setStyle(btnPresetOff);
         pstbutton10.setWrapText(true);
+        pstbutton10.setTextAlignment(TextAlignment.CENTER);
         pstbutton10.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+9);
@@ -1913,6 +1924,7 @@ public class Main extends Application {
         pstbutton11 = new Button("Button 11");
         pstbutton11.setStyle(btnPresetOff);
         pstbutton11.setWrapText(true);
+        pstbutton11.setTextAlignment(TextAlignment.CENTER);
         pstbutton11.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+10);
@@ -1929,6 +1941,7 @@ public class Main extends Application {
         pstbutton12 = new Button("Button 12");
         pstbutton12.setStyle(btnPresetOff);
         pstbutton12.setWrapText(true);
+        pstbutton12.setTextAlignment(TextAlignment.CENTER);
         pstbutton12.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+11);
@@ -1945,6 +1958,7 @@ public class Main extends Application {
         pstbutton13 = new Button("Button 13");
         pstbutton13.setStyle(btnPresetOff);
         pstbutton13.setWrapText(true);
+        pstbutton13.setTextAlignment(TextAlignment.CENTER);
         pstbutton13.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+12);
@@ -1961,6 +1975,7 @@ public class Main extends Application {
         pstbutton14 = new Button("Button 14");
         pstbutton14.setStyle(btnPresetOff);
         pstbutton14.setWrapText(true);
+        pstbutton14.setTextAlignment(TextAlignment.CENTER);
         pstbutton14.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+13);
@@ -1977,6 +1992,7 @@ public class Main extends Application {
         pstbutton15 = new Button("Button 15");
         pstbutton15.setStyle(btnPresetOff);
         pstbutton15.setWrapText(true);
+        pstbutton15.setTextAlignment(TextAlignment.CENTER);
         pstbutton15.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+14);
@@ -1993,6 +2009,7 @@ public class Main extends Application {
         pstbutton16 = new Button("Button 16");
         pstbutton16.setStyle(btnPresetOff);
         pstbutton16.setWrapText(true);
+        pstbutton16.setTextAlignment(TextAlignment.CENTER);
         pstbutton16.setOnAction(event -> {
             offAllButtons();
             buttonAction(selpatchIdx = patchIdx+15);

@@ -484,8 +484,9 @@ public class PlayMidi {
                 case ccROT:
                     //if (curPresetList.get(CHAN).getROT() != VAL) {
                     midircv.send(midiMsg, timeStamp);
+                    System.out.println("PlayMidi: Sent MIDI Control Message: " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
 
-                    ////curPresetList.get(CHAN).setROT(VAL);
+                    //curPresetList.get(CHAN).setROT(VAL);
                     //}
                     break;
                 case ccMOD:
