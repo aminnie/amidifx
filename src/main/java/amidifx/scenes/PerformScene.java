@@ -4,6 +4,7 @@ import amidifx.*;
 import amidifx.models.*;
 import amidifx.utils.AppConfig;
 import amidifx.utils.ArduinoUtils;
+import amidifx.utils.MidiDevices;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -15,6 +16,9 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
+import javax.sound.midi.Receiver;
+import javax.sound.midi.Sequencer;
+import javax.sound.midi.Transmitter;
 import java.io.File;
 import java.util.Optional;
 import java.util.Timer;
@@ -94,7 +98,8 @@ public class PerformScene {
     final String lrpressedOff = "-fx-background-color: #8ED072; -fx-font-size: " + fsize ;
     final String lrpressedOn = "-fx-background-color: #DB6B6B; -fx-font-size: " + fsize ;
 
-    final String styletext = "-fx-font-size: " + fsize ;
+    final String styletext = "-fx-text-fill: black; -fx-font-size: " + fsize ;
+    final String styletextred = "-fx-text-fill: red; -fx-font-size: " + fsize ;
 
     Stage primaryStage;
     Scene returnScene;
@@ -274,13 +279,13 @@ public class PerformScene {
     Slider sliderCHO;
     Slider sliderMOD;
     Slider sliderPAN;
-    Slider sliderTRE;
+    Slider sliderROT;
 
     // https://professionalcomposers.com/midi-cc-list/
     public static byte ccVOL = 7;
     public static byte ccEXP = 11;
+    public static byte ccROT = 74;
     public static byte ccREV = 91;
-    public static byte ccTRE = 92;
     public static byte ccCHO = 93;
     public static byte ccMOD = 1;
     public static byte ccPAN = 10;
@@ -443,6 +448,21 @@ public class PerformScene {
             buttonExit.setStyle(btnMenuOff);
             buttonExit.setOnAction(e -> {
                 playmidifile.stopMidiPlay("End Play");
+
+                try {
+                    Transmitter midixmt = sharedStatus.getTxDevice();
+                    midixmt.close();
+
+                    Receiver midircv = sharedStatus.getRxDevice();
+                    midircv.close();
+
+                    Sequencer midiseq = sharedStatus.getSeqDevice();
+                    midiseq.close();
+                }
+                catch (Exception ex) {
+                    System.out.println("Info: Exiting: No receiver set yet");
+                }
+
                 arduinoUtils.closePort();
 
                 Platform.exit();
@@ -1342,32 +1362,44 @@ public class PerformScene {
 
             l1layerbtn = new Button("Lower 1 [12]   ");       // Lefthand Layering Buttons
             l1layerbtn.setStyle(lrpressedOn);
-            l1layerbtn.setDisable(!arduinoUtils.hasARMPort());
+            //l1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             l1layerbtn.setOnAction(event -> {
                 if (l1pressed == false) {
+                    MidiDevices mididevices = MidiDevices.getInstance();
+                    mididevices.layerChannel(12, true);
+
                     l1layerbtn.setStyle(lrpressedOn);
                     l1pressed = true;
                 }
                 else {
+                    MidiDevices mididevices = MidiDevices.getInstance();
+                    mididevices.layerChannel(12, false);
+
                     l1layerbtn.setStyle(lrpressedOff);
                     l1pressed = false;
                 }
-                arduinoUtils.lefthandLayerSysexData(l1pressed, l2pressed);
+                ////arduinoUtils.lefthandLayerSysexData(l1pressed, l2pressed);
             });
 
             l2layerbtn = new Button("Lower 2 [13]   ");
             l2layerbtn.setStyle(lrpressedOff);
-            l2layerbtn.setDisable(!arduinoUtils.hasARMPort());
+            //l2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             l2layerbtn.setOnAction(event -> {
                 if (l2pressed == false) {
+                    MidiDevices mididevices = MidiDevices.getInstance();
+                    mididevices.layerChannel(13, true);
+
                     l2layerbtn.setStyle(lrpressedOn);
                     l2pressed = true;
                 }
                 else {
+                    MidiDevices mididevices = MidiDevices.getInstance();
+                    mididevices.layerChannel(13, false);
+
                     l2layerbtn.setStyle(lrpressedOff);
                     l2pressed = false;
                 }
-                arduinoUtils.lefthandLayerSysexData(l1pressed, l2pressed);
+                ////arduinoUtils.lefthandLayerSysexData(l1pressed, l2pressed);
             });
 
             lbutton11.setText(" Lower 1-1");
@@ -1794,45 +1826,63 @@ public class PerformScene {
 
             r1layerbtn = new Button("Upper 1 [14]   ");       // Righthand Layering Buttons
             r1layerbtn.setStyle(lrpressedOn);
-            r1layerbtn.setDisable(!arduinoUtils.hasARMPort());
+            //r1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r1layerbtn.setOnAction(event -> {
                 if (r1pressed == false) {
+                    MidiDevices mididevices = MidiDevices.getInstance();
+                    mididevices.layerChannel(14, true);
+
                     r1layerbtn.setStyle(lrpressedOn);
                     r1pressed = true;
                 }
                 else {
+                    MidiDevices mididevices = MidiDevices.getInstance();
+                    mididevices.layerChannel(14, false);
+
                     r1layerbtn.setStyle(lrpressedOff);
                     r1pressed = false;
                 }
-                arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
+                ////arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
             });
             r2layerbtn = new Button("Upper 2 [15]   ");
             r2layerbtn.setStyle(lrpressedOff);
-            r2layerbtn.setDisable(!arduinoUtils.hasARMPort());
+            //r2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r2layerbtn.setOnAction(event -> {
                 if (r2pressed == false) {
+                    MidiDevices mididevices = MidiDevices.getInstance();
+                    mididevices.layerChannel(15, true);
+
                     r2layerbtn.setStyle(lrpressedOn);
                     r2pressed = true;
                 }
                 else {
+                    MidiDevices mididevices = MidiDevices.getInstance();
+                    mididevices.layerChannel(15, false);
+
                     r2layerbtn.setStyle(lrpressedOff);
                     r2pressed = false;
                 }
-                arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
+                ////arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
             });
             r3layerbtn = new Button("Upper 3 [16]   ");
             r3layerbtn.setStyle(lrpressedOff);
-            r3layerbtn.setDisable(!arduinoUtils.hasARMPort());
+            //r3layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r3layerbtn.setOnAction(event -> {
                 if (r3pressed == false) {
+                    MidiDevices mididevices = MidiDevices.getInstance();
+                    mididevices.layerChannel(16, true);
+
                     r3layerbtn.setStyle(lrpressedOn);
                     r3pressed = true;
                 }
                 else {
+                    MidiDevices mididevices = MidiDevices.getInstance();
+                    mididevices.layerChannel(16, false);
+
                     r3layerbtn.setStyle(lrpressedOff);
                     r3pressed = false;
                 }
-                arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
+                ////arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
             });
 
             rbutton11.setText(" Upper 1-1");
@@ -2151,8 +2201,8 @@ public class PerformScene {
                 labelstatusOrg.setText(" Status: Applied Upper 1-6");
             });
 
-            playmidifile.sendRotaryOff();
-            rbutton17.setText("Rotary Brake");
+            //playmidifile.sendRotaryOn(false);
+            rbutton17.setText("Rotary Off");
             rbutton17.setId("U1-7");
             rbutton17.setMinSize(xvoicebtn, yvoicebtn);
             rbutton17.setStyle(orgcolorOff);
@@ -2162,21 +2212,23 @@ public class PerformScene {
                 labelstatusOrg.setText(" Status: Rotary On/Off");
                 if (!rpressed17) {
                     rbutton17.setStyle(orgcolorOn);
+                    rbutton17.setText("Rotary On");
 
-                    playmidifile.sendRotarySlow();
+                    playmidifile.sendRotaryOn(true);
 
-                    labelstatusOrg.setText(" Status: Rotary Brake Slow");
+                    labelstatusOrg.setText(" Status: Rotary On");
                 } else {
                     rbutton17.setStyle(orgcolorOff);
+                    rbutton17.setText("Rotary Off");
 
-                    playmidifile.sendRotaryOff();
+                    playmidifile.sendRotaryOn(false);
 
-                    labelstatusOrg.setText(" Status: Rotary Brake Off");
+                    labelstatusOrg.setText(" Status: Rotary Off");
                 }
                 rpressed17 = !rpressed17;
             });
 
-            playmidifile.sendRotarySlow();
+            //playmidifile.sendRotaryFast(false);
             rbutton18.setText(" Rotary Slow");
             rbutton18.setId("U1-8");
             rbutton18.setMinSize(xvoicebtn, yvoicebtn);
@@ -2187,14 +2239,16 @@ public class PerformScene {
                 labelstatusOrg.setText(" Status: Rotary On/Off");
                 if (!rpressed18) {
                     rbutton18.setStyle(orgcolorOn);
+                    rbutton18.setText(" Rotary Fast");
 
-                    playmidifile.sendRotaryFast();
+                    playmidifile.sendRotaryFast(true);
 
                     labelstatusOrg.setText(" Status: Rotary Fast");
                 } else {
                     rbutton18.setStyle(orgcolorOff);
+                    rbutton18.setText(" Rotary Slow");
 
-                    playmidifile.sendRotarySlow();
+                    playmidifile.sendRotaryFast(false);
 
                     labelstatusOrg.setText(" Status: Rotary Slow");
                 }
@@ -2868,6 +2922,31 @@ public class PerformScene {
             });
             sliderMOD.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getMOD());
 
+            // Create ROT slider
+            sliderROT = new Slider(0, 7, 0);
+            sliderROT.setOrientation(Orientation.VERTICAL);
+            sliderROT.setShowTickLabels(true);
+            sliderROT.setShowTickMarks(true);
+            sliderROT.setMajorTickUnit(1);
+            sliderROT.setBlockIncrement(1);
+            Rotate rotateRot = new Rotate();
+            sliderROT.valueProperty().addListener((observable, oldValue, newValue) -> {
+                //Setting the angle for the rotation
+                rotateRot.setAngle((double) newValue);
+
+                PlayMidi playmidifile = PlayMidi.getInstance();
+                playmidifile.sendMidiControlChange((byte) lastVoiceChannel, ccROT, (byte) sliderROT.getValue());
+
+                midiButtons.getButtonById(lastVoiceButton, 0).setROT((int)sliderROT.getValue());
+
+                buttonSave.setDisable(false);
+                flgDirtyPreset = true;      // Need to save updated Preset
+
+                if (lastVoiceButton != null)
+                    labelstatusOrg.setText(" Status: Button " + lastVoiceButton + " ROT= " + newValue.intValue());
+            });
+            sliderROT.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getROT());
+
             // Create PAN slider
             sliderPAN = new Slider(0, 127, 0);
             sliderPAN.setOrientation(Orientation.VERTICAL);
@@ -2899,6 +2978,7 @@ public class PerformScene {
             gridEffects.add(new VBox(new Label("CHO"), sliderCHO), 2, 1, 1, 1);
             gridEffects.add(new VBox(new Label("MOD"), sliderMOD), 3, 1, 1, 1);
             gridEffects.add(new VBox(new Label("PAN"), sliderPAN), 4, 1, 1, 1);
+            gridEffects.add(new VBox(new Label("ROT"), sliderROT), 5, 1, 1, 1);
             gridEffects.setHgap(25);
             gridmidcenterPerform.add(gridEffects, 3, 5, 3, 2);
             gridmidcenterPerform.setStyle(styletext);

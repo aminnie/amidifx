@@ -18,8 +18,8 @@ public class MidiButton {
     private int EXP;
     private int REV;
     private int CHO;
-    private int TRE;
     private int PAN;
+    private int ROT;
     private int MOD;
 
     public MidiButton() {
@@ -37,8 +37,8 @@ public class MidiButton {
         this.setEXP(0);
         this.setREV(0);
         this.setCHO(0);
-        this.setTRE(0);
         this.setMOD(0);
+        this.setROT(0);
         this.setPAN(0);
     }
 
@@ -46,7 +46,7 @@ public class MidiButton {
     public MidiButton(int buttonIdx, String buttonId, int patchId, String patchName, int layerIdx,
                       int channelIdx, String channelOutIdx, int octaveTran,
                       int PC, int LSB, int MSB, int moduleIdx,
-                      int VOL, int EXP, int REV, int CHO, int PAN,int MOD, int TRE) {
+                      int VOL, int EXP, int REV, int CHO, int PAN,int MOD, int ROT) {
         super();
 
         this.buttonIdx = buttonIdx;
@@ -66,8 +66,8 @@ public class MidiButton {
         this.REV = REV;
         this.CHO = CHO;
         this.PAN = PAN;
+        this.ROT = ROT;
         this.MOD = MOD;
-        this.TRE = TRE;
     }
 
     public int getButtonIdx() {
@@ -201,11 +201,11 @@ public class MidiButton {
         this.PAN = PAN;
     }
 
-    public int getTRE() {
-        return TRE;
+    public int getROT() {
+        return ROT;
     }
-    public void setTRE(int TRE) {
-        this.TRE = TRE;
+    public void setROT(int ROT) {
+        this.ROT = ROT;
     }
 
     @Override
@@ -216,7 +216,7 @@ public class MidiButton {
                 + ", channelOutIdx=" + channelOutIdx + ", moduleIdx=" + moduleIdx
                 + ", PC=" + PC + ", LSB=" + LSB + ", MSB=" + MSB
                 + ", VOL=" + VOL + ", EXP=" + EXP + ", REV=" + REV
-                + ", CHO=" + CHO + ", PAN=" + PAN + ", MOD=" + MOD + ", TRE=" + TRE + "]";
+                + ", CHO=" + CHO + ", PAN=" + PAN + ", MOD=" + MOD + ", ROT=" + ROT + "]";
     }
 }
 

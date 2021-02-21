@@ -16,6 +16,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import javax.sound.midi.Receiver;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -240,6 +241,14 @@ public class HomeScene {
             Button buttonExit = new Button("  Exit  ");
             buttonExit.setStyle(btnMenuOff);
             buttonExit.setOnAction(e -> {
+
+                try {
+                    Receiver midircv = sharedStatus.getRxDevice();
+                    midircv.close();
+                }
+                catch (Exception ex) {
+                    System.out.println("Info: Exiting: No receiver set yet");
+                }
 
                 Platform.exit();
             });

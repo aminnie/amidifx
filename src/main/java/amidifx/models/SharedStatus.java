@@ -4,6 +4,7 @@ import amidifx.MidiSongs;
 import javafx.scene.Scene;
 
 import javax.sound.midi.Receiver;
+import javax.sound.midi.Sequencer;
 import javax.sound.midi.Transmitter;
 
 public class SharedStatus {
@@ -31,6 +32,7 @@ public class SharedStatus {
 
     private Receiver RxDevice;          // Selected MIDI Device
     private Transmitter TxDevice;       // Selected MIDI Device
+    private Sequencer SeqDevice;
     private int moduleidx = 0;          // Sound Module index (defaults to Deebach, unless not found)
 
     private Scene scenePerform;
@@ -128,6 +130,14 @@ public class SharedStatus {
 
     public Transmitter getTxDevice() {
         return this.TxDevice;
+    }
+
+    public void setSeqDevice(Sequencer SeqDevice) {
+        this.SeqDevice = SeqDevice;
+    }
+
+    public Sequencer getSeqDevice() {
+        return this.SeqDevice;
     }
 
     public void setMidiFile(String midiFile) {

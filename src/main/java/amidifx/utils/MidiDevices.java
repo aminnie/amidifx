@@ -10,7 +10,9 @@ public class MidiDevices {
     private static String SYNTH_DEV_NAME = "javax.sound.midi.Synthesizer#Microsoft MIDI Mapper";
     private static String SEQ_DEV_NAME = "default";
 
-    /** See {@link MidiSystem} for other classes */
+    /**
+     * See {@link MidiSystem} for other classes
+     */
     private static final String TRANS_PROP_KEY = "javax.sound.midi.Transmitter";
     private static final String SYNTH_PROP_KEY = "javax.sound.midi.Synthesizer";
     private static final String SEQ_PROP_KEY = "javax.sound.midi.Sequence";
@@ -30,6 +32,16 @@ public class MidiDevices {
     // Layered channels out (defaulted): presetIdx, channelInIdx, (ChannelOutIdx & ModuleIdx) * 10, OctaveTran
     private byte[] channelOutStruct = {0, 13, 0, 0, 14, 0, 15, 0, 16, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
 
+    private static final int chan14idx = 4;
+    private static final int chan15idx = 6;
+    private static final int chan16idx = 8;
+
+    private static final int chan12idx = 4;
+    private static final int chan13idx = 6;
+
+    private byte[] layerUpper = {0, 14, 0, 0, 14, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
+    private byte[] layerLower = {0, 12, 0, 0, 12, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
+
     // Static variable single_instance of type PlayMidi
     private static MidiDevices single_MidiDevices_Instance = null;
 
@@ -38,14 +50,15 @@ public class MidiDevices {
         if (single_MidiDevices_Instance == null) {
             single_MidiDevices_Instance = new MidiDevices();
 
-            System.out.println("MidiDevices: Creating instance MidiDevices");
+            //System.out.println("MidiDevices: Creating instance MidiDevices");
         }
 
         return single_MidiDevices_Instance;
     }
 
     // *** Make constructor private for Singleton ***
-    private MidiDevices() { }
+    private MidiDevices() {
+    }
 
     public int createMidiDevices(String selindevice, String seloutdevice) {
 
@@ -81,14 +94,12 @@ public class MidiDevices {
                 sharedstatus.setTxDevice(miditrans);
 
                 System.out.println("Ready to play MIDI keyboard...");
-            }
-            else
+            } else
                 System.out.println("**** No MIDI keyboard connected! Connect USB MIDI keyboard proceed.");
 
             // Demo Play Sequencer Song in parallel with Keyboard input
             ////playDemoSequence(1);
-        }
-        catch (Exception e) {     //// MidiUnavailableException
+        } catch (Exception e) {     //// MidiUnavailableException
             System.err.println("Error getting receiver from synthesizer");
             e.printStackTrace();
         }
@@ -114,8 +125,7 @@ public class MidiDevices {
         try {
             sequencer.open();
             sequencer.getTransmitter().setReceiver(midircv);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("Error: Open Demo Sequencer");
         }
 
@@ -126,8 +136,7 @@ public class MidiDevices {
 
             try {
                 sequencer.setSequence(getMidiInputData());
-            }
-            catch (InvalidMidiDataException e1) {
+            } catch (InvalidMidiDataException e1) {
                 e1.printStackTrace();
                 return;
             }
@@ -152,14 +161,13 @@ public class MidiDevices {
      * Return a specific synthesizer object by setting the system property, otherwise the default
      */
     private Synthesizer getSynthesizer() {
-        if (! SYNTH_DEV_NAME.isEmpty() || ! "default".equalsIgnoreCase(SYNTH_DEV_NAME)) {
+        if (!SYNTH_DEV_NAME.isEmpty() || !"default".equalsIgnoreCase(SYNTH_DEV_NAME)) {
             System.setProperty(SYNTH_PROP_KEY, SYNTH_DEV_NAME);
         }
 
         try {
             return MidiSystem.getSynthesizer();
-        }
-        catch (MidiUnavailableException e) {
+        } catch (MidiUnavailableException e) {
             System.err.println("Error getting synthesizer");
             e.printStackTrace();
             return null;
@@ -177,14 +185,13 @@ public class MidiDevices {
             System.out.println("TRANS_DEV_NAME set to: " + TRANS_DEV_NAME);
         }
 
-        if (! TRANS_DEV_NAME.isEmpty() && ! "default".equalsIgnoreCase(TRANS_DEV_NAME)) {
+        if (!TRANS_DEV_NAME.isEmpty() && !"default".equalsIgnoreCase(TRANS_DEV_NAME)) {
             System.setProperty(TRANS_PROP_KEY, TRANS_DEV_NAME);
         }
 
         try {
             return MidiSystem.getTransmitter();
-        }
-        catch (MidiUnavailableException e) {
+        } catch (MidiUnavailableException e) {
             System.err.println("No External MIDI keyboard available! Please connect a USB keyboard.");
             //e.printStackTrace();
             return null;
@@ -202,8 +209,7 @@ public class MidiDevices {
 
         try {
             return MidiSystem.getSequencer();
-        }
-        catch (MidiUnavailableException e) {
+        } catch (MidiUnavailableException e) {
             System.err.println("Error getting sequencer");
             e.printStackTrace();
             return null;
@@ -242,7 +248,7 @@ public class MidiDevices {
             int status = message.getStatus();
 
             // Do not route status and timing messages
-            if (( status == 0xf8 ) || ( status == 0xfe )) {
+            if ((status == 0xf8) || (status == 0xfe)) {
                 receiver.send(message, timeStamp);
                 return;
             }
@@ -255,8 +261,8 @@ public class MidiDevices {
             switch (leftNibble) {
                 case 0x80: //displayNoteOff(message);
                 case 0x90: //displayNoteOn(message);
-                    receiver.send(message, timeStamp);
-                    //layerOutMessages(message, timeStamp);
+                    //receiver.send(message, timeStamp);
+                    layerOutMessages(message, timeStamp);
                     break;
                 case 0xa0: //displayKeyPressure(message);
                 case 0xb0: //displayControllerChange(message);
@@ -265,6 +271,7 @@ public class MidiDevices {
                 case 0xe0: //displayPitchBend(message);
                 case 0xf0:
                     receiver.send(message, timeStamp);
+                    //layerOutMessages(message, timeStamp);
                     break;
                 default:
                     // Not recognized, but forward
@@ -272,15 +279,16 @@ public class MidiDevices {
             }
         }
 
-        // Play Keyboard IN messages and perform all Channel OUT layering as needed
-        private void layerOutMessages(MidiMessage message, long timeStamp) {
+
+        // Play Keyboard IN messages and perform all Channel OUT layering per Preset definition
+        private void layerPresetOutMessages(MidiMessage message, long timeStamp) {
 
             ShortMessage shortmessage;
 
-            if (message.getLength() < 3 || message.getLength() % 2 == 0) {
-                System.out.println("Unable to Layer/Output Bad MIDI message");
-                return;
-            }
+            //if (message.getLength() < 3 || message.getLength() % 2 == 0) {
+            //    System.out.println("Unable to Layer/Output Bad MIDI message");
+            //    return;
+            //}
 
             // Now dissect to determine if Layering is needed and forward in layered channels
             byte[] bytes = message.getMessage();
@@ -289,20 +297,20 @@ public class MidiDevices {
 
             try {
                 // Layer the first/origin Channel
-                int chan = channelOutStruct[2];
+                int chan = layerUpper[2];
                 if (chan != 0) {
                     shortmessage = new ShortMessage();
                     shortmessage.setMessage(command, chan - 1, byteToInt(bytes[1]) + 4, byteToInt(bytes[2]));
                     receiver.send(shortmessage, timeStamp);
 
-                    //System.out.println("Layer Channel index[0]: " + chan);
+                    //System.out.println("Layer Upper index[0]: " + chan);
                 }
 
                 // Lookup and layer the remaining up to 9 channels until a 0 out is found
                 int startidx = 4;
                 int idx = 0;
 
-                chan = channelOutStruct[startidx];
+                chan = layerUpper[startidx];
                 if ((chan < 0) || (chan > 16)) return;
 
                 while ((chan != 0) && (idx < 10)) {
@@ -312,21 +320,70 @@ public class MidiDevices {
 
                     // Read next channel mapping
                     int offsetidx = startidx + (idx++ * 2);
-                    if (offsetidx > (channelOutStruct.length - 1))
+                    if (offsetidx > (layerUpper.length - 1))
                         break;
 
-                    chan = channelOutStruct[offsetidx];
+                    chan = layerUpper[offsetidx];
                     if ((chan <= 0) || (chan > 16)) return;
 
-                    //System.out.println("Layer Channel index[" + idx + "]: " + chan);
+                    //System.out.println("Layer Upper index[" + idx + "]: " + chan);
                 }
+            } catch (InvalidMidiDataException ex) {
+                System.out.print("Invalid Channel Layer Message" + channel);
+                System.out.print(ex);
+            }
+        }
+
+        // Play Keyboard IN messages and perform all Channel OUT layering as needed
+        private void layerOutMessages(MidiMessage message, long timeStamp) {
+
+            ShortMessage shortmessage;
+
+            //if (message.getLength() < 3 || message.getLength() % 2 == 0) {
+            //    System.out.println("Unable to Layer/Output Bad MIDI message");
+            //    return;
+            //}
+
+            // Now dissect to determine if Layering is needed and forward in layered channels
+            byte[] bytes = message.getMessage();
+            int command = message.getStatus() & 0xf0;
+            int channel = message.getStatus() & 0x0f;
+
+            try {
+                // Layer the first/origin Channel
+                int chan = layerUpper[chan14idx];
+                if (chan != 0) {
+                    shortmessage = new ShortMessage();
+                    shortmessage.setMessage(command, chan - 1, byteToInt(bytes[1]) + 4, byteToInt(bytes[2]));
+                    receiver.send(shortmessage, timeStamp);
+
+                    //System.out.println("Layer Upper index[0]: " + chan);
+                }
+
+                chan = layerUpper[chan15idx];
+                if (chan != 0) {
+                    shortmessage = new ShortMessage();
+                    shortmessage.setMessage(command, chan - 1, byteToInt(bytes[1]) + 4, byteToInt(bytes[2]));
+                    receiver.send(shortmessage, timeStamp);
+
+                    //System.out.println("Layer Upper index[0]: " + chan);
+                }
+
+                chan = layerUpper[chan16idx];
+                if (chan != 0) {
+                    shortmessage = new ShortMessage();
+                    shortmessage.setMessage(command, chan - 1, byteToInt(bytes[1]) + 4, byteToInt(bytes[2]));
+                    receiver.send(shortmessage, timeStamp);
+
+                    //System.out.println("Layer Upper index[0]: " + chan);
+                }
+
             }
             catch (InvalidMidiDataException ex) {
                 System.out.print("Invalid Channel Layer Message" + channel);
                 System.out.print(ex);
             }
         }
-
     }
 
     // Check if at least one MIDI OUT device is correctly installed
@@ -474,6 +531,49 @@ public class MidiDevices {
 
     private int midiChannelToInt(MidiMessage message) {
         return (message.getStatus() & 0x0f) + 1;
+    }
+
+    // Set Channel Layering from Button in Performance Scene
+    public void layerChannel(int chan, boolean onoff) {
+
+        // Layer Upper Keyboard Channels
+        if (chan == sharedstatus.getUpper1CHAN()) {
+            if (onoff)
+                layerUpper[chan14idx] = (byte)(chan & 0xFF);
+            else
+                layerUpper[chan14idx] = (byte)(0);
+            return;
+        }
+        else if (chan == sharedstatus.getUpper2CHAN()) {
+            if (onoff)
+                layerUpper[chan15idx] = (byte)(chan & 0xFF);
+            else
+                layerUpper[chan15idx] = (byte)(0);
+            return;
+        }
+        else if (chan == sharedstatus.getUpper3CHAN()) {
+            if (onoff)
+                layerUpper[chan16idx] = (byte)(chan & 0xFF);
+            else
+                layerUpper[chan16idx] = (byte)(0);
+            return;
+        }
+
+        // Layer Lower Keyboard Channels
+        else if (chan == sharedstatus.getLower1CHAN()) {
+            if (onoff)
+                layerLower[chan12idx] = (byte)(chan & 0xFF);
+            else
+                layerLower[chan12idx] = (byte)(0);
+            return;
+        }
+        else if (chan == sharedstatus.getLower2CHAN()) {
+            if (onoff)
+                layerLower[chan13idx] = (byte)(chan & 0xFF);
+            else
+                layerLower[chan13idx] = (byte)(0);
+            return;
+        }
     }
 
 }

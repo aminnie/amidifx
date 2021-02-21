@@ -26,6 +26,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javax.sound.midi.Receiver;
+import javax.sound.midi.Sequencer;
+import javax.sound.midi.Transmitter;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -105,7 +108,7 @@ public class Main extends Application {
 
     final String stlInstrumentList =  "-fx-control-inner-background:#CCCCCC; -fx-font-size: " + fsize;
 
-    final String styletext = "-fx-font-size: " + fsize ;
+    final String styletext = "-fx-text-fill: black; -fx-font-size: " + fsize ;
     final String styletextred = "-fx-text-fill: red; -fx-font-size: " + fsize ;
     final String smallstyletext = "-fx-background-color: #69A8CC; -fx-font-size: " + fsmallsize ;
 
@@ -348,6 +351,21 @@ public class Main extends Application {
             try {
                 PlayMidi playmidifile = PlayMidi.getInstance();
                 playmidifile.stopMidiPlay("End Play");
+
+                try {
+                    Transmitter midixmt = sharedStatus.getTxDevice();
+                    midixmt.close();
+
+                    Receiver midircv = sharedStatus.getRxDevice();
+                    midircv.close();
+
+                    Sequencer midiseq = sharedStatus.getSeqDevice();
+                    midiseq.close();
+                }
+                catch (Exception ex) {
+                    System.out.println("Info: Exiting: No receiver set yet");
+                }
+
                 arduinoUtils.closePort();
             }
             catch (Exception ex) {
@@ -542,14 +560,13 @@ public class Main extends Application {
 
         Button buttonpreset = new Button("Edit Song Presets");
         buttonpreset.setStyle(selectcolorOff);
-        ////String songFile = "amloop.mid";
         buttonpreset.setPrefSize(xbutton, ybutton);
         buttonpreset.setOnAction(event -> {
 
             // Only allow edits on connect sound module
             if (cursongmoduleidx != sharedStatus.getModuleidx()) {
                 MidiModules midimodule = new MidiModules();
-                labelstatusSng.setText(" Status: To edit, connect module " + midimodule.getModuleName(cursongmoduleidx));
+                labelstatusSng.setText(" Status: To edit, connect to module " + midimodule.getModuleName(cursongmoduleidx));
                 labelstatusSng.setStyle(styletextred);
 
                 System.out.println("To edit, connect sound module " + midimodule.getModuleName(cursongmoduleidx));
@@ -1338,6 +1355,21 @@ public class Main extends Application {
             try {
                 PlayMidi playmidifile = PlayMidi.getInstance();
                 playmidifile.stopMidiPlay("End Play");
+
+                try {
+                    Transmitter midixmt = sharedStatus.getTxDevice();
+                    midixmt.close();
+
+                    Receiver midircv = sharedStatus.getRxDevice();
+                    midircv.close();
+
+                    Sequencer midiseq = sharedStatus.getSeqDevice();
+                    midiseq.close();
+                }
+                catch (Exception ex) {
+                    System.out.println("Info: Exiting: No receiver set yet");
+                }
+
                 arduinoUtils.closePort();
             }
             catch (Exception ex) {
@@ -1640,7 +1672,7 @@ public class Main extends Application {
                     sliderCHO.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getCHO());
                     sliderMOD.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getMOD());
                     sliderPAN.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
-                    sliderTRE.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getTRE());
+                    sliderTRE.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getROT());
 
                     // **** Update the MIDI Channel Out Layer checkboxes
                     String strChannelOut = dopresets.getPreset(presetIdx * 16 + channelIdx).getChannelOutIdx();
@@ -1688,7 +1720,7 @@ public class Main extends Application {
             sliderCHO.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getCHO());
             sliderMOD.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getMOD());
             sliderPAN.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
-            sliderTRE.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getTRE());
+            sliderTRE.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getROT());
 
             // Apply the Voice to MIDI Channel
             PlayMidi playmidifile = PlayMidi.getInstance();
@@ -2269,14 +2301,14 @@ public class Main extends Application {
             PlayMidi playmidifile = PlayMidi.getInstance();
             playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccTRE, (byte) sliderTRE.getValue());
 
-            dopresets.getPreset(presetIdx * 16 + channelIdx).setTRE(newValue.intValue());
+            dopresets.getPreset(presetIdx * 16 + channelIdx).setROT(newValue.intValue());
 
             buttonSave.setDisable(false);
             flgDirtyPreset = true;      // Need to save updated Preset
 
             labelstatus.setText(" Status: Channel " + (channelIdx + 1) + " TRE: " + newValue.intValue());
         });
-        sliderTRE.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getTRE());
+        sliderTRE.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getROT());
 
         flowpane.getChildren().add(pstbutton1);
         flowpane.getChildren().add(pstbutton2);

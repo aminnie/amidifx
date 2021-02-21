@@ -30,7 +30,7 @@ public class MidiPresets {
     public static final byte ccVOL = 7;
     public static final byte ccEXP = 11;
     public static final byte ccREV = 91;
-    public static final byte ccTRE = 92;
+    public static final byte ccROT = 74;
     public static final byte ccCHO = 93;
     public static final byte ccMOD = 1;
     public static final byte ccPAN = 10;
@@ -191,7 +191,7 @@ public class MidiPresets {
         presetList.get(nextpresetIdx).setCHO(midipreset.getCHO());
         presetList.get(nextpresetIdx).setPAN(midipreset.getPAN());
         presetList.get(nextpresetIdx).setMOD(midipreset.getMOD());
-        presetList.get(nextpresetIdx).setTRE(midipreset.getTRE());
+        presetList.get(nextpresetIdx).setROT(midipreset.getROT());
 
         presetList.get(nextpresetIdx).setBankIdx(midipreset.getBankIdx());
         presetList.get(nextpresetIdx).setFontIdx(midipreset.getFontIdx());
@@ -332,8 +332,8 @@ public class MidiPresets {
             int CHO = preset.getCHO() & 0x7F;
             playmidifile.sendMidiControlChange((byte) CHANOUT, ccCHO, (byte) CHO);
 
-            int TRE = preset.getTRE() & 0x7F;
-            playmidifile.sendMidiControlChange((byte) CHANOUT, ccTRE, (byte) TRE);
+            int ROT = preset.getROT() & 0x7F;
+            playmidifile.sendMidiControlChange((byte) CHANOUT, ccROT, (byte) ROT);
 
             int MOD = preset.getMOD() & 0x7F;
             playmidifile.sendMidiControlChange((byte) CHANOUT, ccMOD, (byte) MOD);

@@ -63,7 +63,7 @@ public class PlayMidi {
         if (single_PlayMidiInstance == null) {
             single_PlayMidiInstance = new PlayMidi();
 
-            System.out.println("PlayMidi: Creating instance PlayMidi");
+            //System.out.println("PlayMidi: Creating instance PlayMidi");
         }
 
         return single_PlayMidiInstance;
@@ -150,6 +150,8 @@ public class PlayMidi {
         try {
             if (!sequencer.isOpen()) {
                 sequencer.open();
+                sharedStatus.setSeqDevice(sequencer);
+
                 System.out.println("PlayMidi: Sequencer opened: " + sequencer.toString());
             }
 
@@ -181,7 +183,7 @@ public class PlayMidi {
             System.out.println("MidiPlay - Division Type: " + midiSeq.getDivisionType());
 
             seqresolution = midiSeq.getResolution();
-            System.out.println("MidiPlay - Resolution: " + midiSeq.getResolution());
+            //System.out.println("MidiPlay - Resolution: " + midiSeq.getResolution());
 
         }
         catch (Exception ex) {
@@ -382,7 +384,7 @@ public class PlayMidi {
             return false;
         }
 
-        System.out.println("PlayMidi: Sending MIDI Program Change  CHAN: " + (CHAN +1 )  + " PC:" + PC + " MSB:" + MSB + " LSB:"+ LSB);
+        //System.out.println("PlayMidi: Sending MIDI Program Change  CHAN: " + (CHAN +1 )  + " PC:" + PC + " MSB:" + MSB + " LSB:"+ LSB);
 
         long timeStamp = -1;
         ShortMessage midiMsg = new ShortMessage();
@@ -390,7 +392,7 @@ public class PlayMidi {
             //if (midircv == null) {
                 //midircv = MidiSystem.getReceiver();
                 midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
-                System.out.println("PlayMidi: getReceiver: " + midircv.toString());
+                //System.out.println("PlayMidi: getReceiver: " + midircv.toString());
             //}
 
             // Proceed to apply Bank and Program changes. Do so only if not duplicate of previous
@@ -434,7 +436,7 @@ public class PlayMidi {
         }
 
         try {
-            System.out.println("PlayMidi: sendMidiControlChange sending MIDI Control Change:  CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
+            //System.out.println("PlayMidi: sendMidiControlChange sending MIDI Control Change:  CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
 
             //if (midircv == null) {
                 //midircv = MidiSystem.getReceiver();
@@ -479,11 +481,11 @@ public class PlayMidi {
                     ////curPresetList.get(CHAN).setCHO(VAL);
                     //}
                     break;
-                case ccTRE:
-                    //if (curPresetList.get(CHAN).getTRE() != VAL) {
+                case ccROT:
+                    //if (curPresetList.get(CHAN).getROT() != VAL) {
                     midircv.send(midiMsg, timeStamp);
 
-                    ////curPresetList.get(CHAN).setTRE(VAL);
+                    ////curPresetList.get(CHAN).setROT(VAL);
                     //}
                     break;
                 case ccMOD:
@@ -511,47 +513,83 @@ public class PlayMidi {
         return true;
     }
 
-    public void sendRotaryFast() {
-        sendMidiControlChange(14, 74, 127);
-    }
+    ////public void sendRotaryFast() {
+    ////    sendMidiControlChange(14, 74, 63);
+    ////}
 
-    public void sendRotarySlow() {
-        sendMidiControlChange(14, 74, 0);
-    }
+    ////public void sendRotarySlow() {
+    ////    sendMidiControlChange(14, 74, 15);
+    ////}
 
-    public void sendRotaryOff() {
-        sendMidiControlChange(14, 74, 0);
-    }
+    ////public void sendRotaryOff() {
+    ////    sendMidiControlChange(14, 74, 0);
+    ////}
 
-    public boolean sendSysEx(byte[] SysExMsg) {
+    public void sendRotaryOn(boolean brotoaryon) {
 
-        // Example SysEx Message
-        byte[] testmessage = {
-                (byte) 0xF0, (byte) 0x52, (byte) 0x00,
-                (byte) 0x5A, (byte) 0x50, (byte) 0xF7,
-                (byte) 0xF0, (byte) 0x52, (byte) 0x00,
-                (byte) 0x5A, (byte) 0x16, (byte) 0xF7
+        byte[] rotaryoff = {
+                (byte) 0xF0,
+                (byte) 0xB0, (byte) 0x63, (byte) 0x33, (byte) 0x62, (byte) 0x66, (byte) 0x06, (byte) 0x00,
+                (byte) 0xF7
         };
 
-        System.out.println("PlayMidi: Sending MIDI SysEx " + SysExMsg);
+        byte[] rotaryon = {
+                (byte) 0xF0,
+                (byte) 0xB0, (byte) 0x63, (byte) 0x33, (byte) 0x62, (byte) 0x66, (byte) 0x06, (byte) 0x71,
+                (byte) 0xF7
+        };
+
+        if (brotoaryon) {
+            //sendSysEx(rotaryon);
+            sendMidiControlChange(14, 0x74, 127);
+        }
+        else {
+            //sendSysEx(rotaryoff);
+            sendMidiControlChange(14, 0x74, 0);
+        }
+    }
+
+    public void sendRotaryFast(boolean brotaryfast) {
+
+        byte[] rotaryslow = {
+                (byte) 0xF0,
+                (byte) 0xB0, (byte) 0x63, (byte) 0x33, (byte) 0x62, (byte) 0x69, (byte) 0x06, (byte) 0x02,
+                (byte) 0xF7
+        };
+
+        byte[] rotaryfast = {
+                (byte) 0xF0,
+                (byte) 0xB0, (byte) 0x63, (byte) 0x33, (byte) 0x62, (byte) 0x66, (byte) 0x06, (byte) 0x07,
+                (byte) 0xF7
+        };
+
+        if (brotaryfast) {
+            //sendSysEx(rotaryfast);
+            sendMidiControlChange(14, 74, 7);
+        }
+        else {
+            //sendSysEx(rotaryslow);
+            sendMidiControlChange(14, 74, 0);
+        }
+    }
+
+
+    // Sending SysExMessages
+    public boolean sendSysEx(byte[] sysexmsg) {
+
+        System.out.println("PlayMidi: Sending MIDI SysEx " + sysexmsg);
 
         long timeStamp = -1;
         ShortMessage midiMsg = new ShortMessage();
         try {
-            //if (midircv == null) {
-                //midircv = MidiSystem.getReceiver();
-                midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
-                //System.out.println("PlayMidi: Created getReceiver " + midircv.toString());
-            //}
+            //midircv = MidiSystem.getReceiver();
+            midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
+            //System.out.println("PlayMidi: Created getReceiver " + midircv.toString());
 
-            //  Obtain a MIDI track from the sequence  ****
-            Track t = sequencer.getSequence().createTrack();
-            ;
+            SysexMessage sysmmg = new SysexMessage();
+            sysmmg.setMessage(sysexmsg, sysexmsg.length);
+            midircv.send(sysmmg, -1);
 
-            SysexMessage sm = new SysexMessage();
-            sm.setMessage(SysExMsg, SysExMsg.length);
-            MidiEvent msg = new MidiEvent(sm, (long) 0);
-            t.add(msg);
         }
         catch (Exception ex) {
             //System.err.println("### PlayMidi Error: Sent MIDI Program Change " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " PC:" + PC + MSB + " LSB:" + LSB + " MSB:");
@@ -883,7 +921,7 @@ public class PlayMidi {
            curPresetList.get(chanidx).setCHO(0);
            curPresetList.get(chanidx).setMOD(0);
            curPresetList.get(chanidx).setPAN(0);
-           curPresetList.get(chanidx).setTRE(0);
+           curPresetList.get(chanidx).setROT(0);
        }
 
        int presetidx = -1;

@@ -24,7 +24,7 @@ public class MidiButtons {
     public static final byte ccVOL = 7;
     public static final byte ccEXP = 11;
     public static final byte ccREV = 91;
-    public static final byte ccTRE = 92;
+    public static final byte ccROT = 74;
     public static final byte ccCHO = 93;
     public static final byte ccMOD = 1;
     public static final byte ccPAN = 10;
@@ -358,8 +358,8 @@ public class MidiButtons {
             int CHO = button.getCHO() & 0x7F;
             playmidifile.sendMidiControlChange((byte) CHANOUT, ccCHO, (byte) CHO);
 
-            int TRE = button.getTRE() & 0x7F;
-            playmidifile.sendMidiControlChange((byte) CHANOUT, ccTRE, (byte) TRE);
+            int ROT = button.getROT() & 0x7F;
+            playmidifile.sendMidiControlChange((byte) CHANOUT, ccROT, (byte) ROT);
 
             int MOD = button.getMOD() & 0x7F;
             playmidifile.sendMidiControlChange((byte) CHANOUT, ccMOD, (byte) MOD);
@@ -392,7 +392,7 @@ public class MidiButtons {
         midibutton.setREV(preset.getREV());
         midibutton.setCHO(preset.getCHO());
         midibutton.setMOD(preset.getMOD());
-        midibutton.setTRE(preset.getTRE());
+        midibutton.setROT(preset.getROT());
         midibutton.setPAN(preset.getPAN());
     }
 
