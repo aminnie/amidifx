@@ -19,7 +19,6 @@ public class MidiButton {
     private int REV;
     private int CHO;
     private int PAN;
-    private int ROT;
     private int MOD;
 
     public MidiButton() {
@@ -30,6 +29,7 @@ public class MidiButton {
         this.setLayerIdx(0);
         this.setChannelIdx(0);
         this.setChannelOutIdx("0");
+        this.setOctaveTran(0);
         this.setPC(0);
         this.setLSB(0);
         this.setMSB(0);
@@ -38,7 +38,6 @@ public class MidiButton {
         this.setREV(0);
         this.setCHO(0);
         this.setMOD(0);
-        this.setROT(0);
         this.setPAN(0);
     }
 
@@ -46,7 +45,7 @@ public class MidiButton {
     public MidiButton(int buttonIdx, String buttonId, int patchId, String patchName, int layerIdx,
                       int channelIdx, String channelOutIdx, int octaveTran,
                       int PC, int LSB, int MSB, int moduleIdx,
-                      int VOL, int EXP, int REV, int CHO, int PAN,int MOD, int ROT) {
+                      int VOL, int EXP, int REV, int CHO, int MOD,int PAN) {
         super();
 
         this.buttonIdx = buttonIdx;
@@ -65,9 +64,8 @@ public class MidiButton {
         this.EXP = EXP;
         this.REV = REV;
         this.CHO = CHO;
-        this.PAN = PAN;
-        this.ROT = ROT;
         this.MOD = MOD;
+        this.PAN = PAN;
     }
 
     public int getButtonIdx() {
@@ -201,22 +199,16 @@ public class MidiButton {
         this.PAN = PAN;
     }
 
-    public int getROT() {
-        return ROT;
-    }
-    public void setROT(int ROT) {
-        this.ROT = ROT;
-    }
-
     @Override
     public String toString() {
         return "Preset String = [buttonIdx=" + buttonIdx + ", buttonId=" + buttonId
                 + ", patchId=" + patchId + ", patchName=" + patchName
                 + ", layerIdx" + layerIdx +  ", channelIdx=" + channelIdx
                 + ", channelOutIdx=" + channelOutIdx + ", moduleIdx=" + moduleIdx
+                + ", octaveTran=" + octaveTran
                 + ", PC=" + PC + ", LSB=" + LSB + ", MSB=" + MSB
                 + ", VOL=" + VOL + ", EXP=" + EXP + ", REV=" + REV
-                + ", CHO=" + CHO + ", PAN=" + PAN + ", MOD=" + MOD + ", ROT=" + ROT + "]";
+                + ", CHO=" + CHO + PAN + ", MOD=" + MOD +  ", PAN=" + "]";
     }
 }
 

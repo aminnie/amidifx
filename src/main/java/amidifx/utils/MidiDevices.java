@@ -32,12 +32,12 @@ public class MidiDevices {
     // Layered channels out (defaulted): presetIdx, channelInIdx, (ChannelOutIdx & ModuleIdx) * 10, OctaveTran
     private byte[] channelOutStruct = {0, 13, 0, 0, 14, 0, 15, 0, 16, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
 
-    private static final int chan14idx = 4;
-    private static final int chan15idx = 6;
-    private static final int chan16idx = 8;
+    private static final byte chan14idx = 4;
+    private static final byte chan15idx = 6;
+    private static final byte chan16idx = 8;
 
-    private static final int chan12idx = 4;
-    private static final int chan13idx = 6;
+    private static final byte chan12idx = 4;
+    private static final byte chan13idx = 6;
 
     private byte[] layerUpper = {0, 14, 0, 0, 14, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
     private byte[] layerLower = {0, 12, 0, 0, 12, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
@@ -261,8 +261,8 @@ public class MidiDevices {
             switch (leftNibble) {
                 case 0x80: //displayNoteOff(message);
                 case 0x90: //displayNoteOn(message);
-                    receiver.send(message, timeStamp);
-                    //layerOutMessages(message, timeStamp);
+                    //receiver.send(message, timeStamp);
+                    layerOutMessages(message, timeStamp);
                     break;
                 case 0xa0: //displayKeyPressure(message);
                 case 0xb0: //displayControllerChange(message);
@@ -270,16 +270,16 @@ public class MidiDevices {
                 case 0xd0: //displayChannelPressure(message);
                 case 0xe0: //displayPitchBend(message);
                 case 0xf0:
-                    receiver.send(message, timeStamp);
+                    //receiver.send(message, timeStamp);
                     //layerOutMessages(message, timeStamp);
-                    break;
+                    //break;
                 default:
                     // Not recognized, but forward
                     receiver.send(message, timeStamp);
             }
         }
 
-
+/*
         // Play Keyboard IN messages and perform all Channel OUT layering per Preset definition
         private void layerPresetOutMessages(MidiMessage message, long timeStamp) {
 
@@ -333,8 +333,8 @@ public class MidiDevices {
                 System.out.print(ex);
             }
         }
-
-        // Play Keyboard IN messages and perform all Channel OUT layering as needed
+*/
+        // Play MIDI Note On/Off IN messages and perform all Channel OUT layering as needed
         private void layerOutMessages(MidiMessage message, long timeStamp) {
 
             ShortMessage shortmessage;
@@ -347,42 +347,90 @@ public class MidiDevices {
             // Now dissect to determine if Layering is needed and forward in layered channels
             byte[] bytes = message.getMessage();
             int command = message.getStatus() & 0xf0;
-            int channel = message.getStatus() & 0x0f;
+            byte channel = (byte)(message.getStatus() & 0x0f);
 
-            try {
-                // Layer the first/origin Channel
-                int chan = layerUpper[chan14idx];
-                if (chan != 0) {
-                    shortmessage = new ShortMessage();
-                    shortmessage.setMessage(command, chan - 1, byteToInt(bytes[1]) + 4, byteToInt(bytes[2]));
-                    receiver.send(shortmessage, timeStamp);
-
-                    //System.out.println("Layer Upper index[0]: " + chan);
-                }
-
-                chan = layerUpper[chan15idx];
-                if (chan != 0) {
-                    shortmessage = new ShortMessage();
-                    shortmessage.setMessage(command, chan - 1, byteToInt(bytes[1]) + 4, byteToInt(bytes[2]));
-                    receiver.send(shortmessage, timeStamp);
-
-                    //System.out.println("Layer Upper index[0]: " + chan);
-                }
-
-                chan = layerUpper[chan16idx];
-                if (chan != 0) {
-                    shortmessage = new ShortMessage();
-                    shortmessage.setMessage(command, chan - 1, byteToInt(bytes[1]) + 4, byteToInt(bytes[2]));
-                    receiver.send(shortmessage, timeStamp);
-
-                    //System.out.println("Layer Upper index[0]: " + chan);
-                }
-
+            // Do not layer any origan channels below Lower Keyboard, including Bass Pedals
+            if (channel < (byte)(sharedstatus.getLower1CHAN()-1)) {
+                receiver.send(message, timeStamp);
+                return;
             }
-            catch (InvalidMidiDataException ex) {
-                System.out.print("Invalid Channel Layer Message" + channel);
-                System.out.print(ex);
+
+            System.out.println("LayerOutMessages: " + channel + ", " + message.toString());
+
+            // Layer Upper Channel 1
+            if (channel == (byte)(sharedstatus.getUpper1CHAN()-1)) {
+
+                try {
+
+                    // Layer the first/origin Upper Channel if not 0 (off/muted)
+                    byte chan = layerUpper[chan14idx];
+                    if (chan != 0) {
+                        shortmessage = new ShortMessage();
+                        shortmessage.setMessage(command, channel, byteToInt(bytes[1]), byteToInt(bytes[2]));
+                        receiver.send(shortmessage, timeStamp);
+
+                        System.out.println("Layer Upper index[0]: " + chan);
+                    }
+
+                    chan = layerUpper[chan15idx];
+                    if (chan != 0) {
+                        shortmessage = new ShortMessage();
+                        shortmessage.setMessage(command, channel + 1, byteToInt(bytes[1]), byteToInt(bytes[2]));
+                        receiver.send(shortmessage, timeStamp);
+
+                        System.out.println("Layer Upper index[0]: " + chan);
+                    }
+
+                    chan = layerUpper[chan16idx];
+                    if (chan != 0) {
+                        shortmessage = new ShortMessage();
+                        shortmessage.setMessage(command, channel + 2, byteToInt(bytes[1]), byteToInt(bytes[2]));
+                        receiver.send(shortmessage, timeStamp);
+
+                        System.out.println("Layer Upper index[0]: " + chan);
+                    }
+
+                }
+                catch (InvalidMidiDataException ex) {
+                    System.out.print("Invalid Upper Channel Layer Message" + channel);
+                    System.out.print(ex);
+                }
             }
+
+            // Layer Lower Channel 1
+            else if (channel ==  (byte)(sharedstatus.getLower1CHAN()-1)) {
+
+                try {
+                    // Layer the first/origin Upper Channel if not 0 (off/muted)
+                    byte chan = layerLower[chan12idx];
+                    if (chan != 0) {
+                        shortmessage = new ShortMessage();
+                        shortmessage.setMessage(command, channel, byteToInt(bytes[1]) , byteToInt(bytes[2]));
+                        receiver.send(shortmessage, timeStamp);
+
+                        System.out.println("Layer Upper index[0]: " + chan);
+                    }
+
+                    chan = layerLower[chan13idx];
+                    if (chan != 0) {
+                        shortmessage = new ShortMessage();
+                        shortmessage.setMessage(command, channel+1, byteToInt(bytes[1]) , byteToInt(bytes[2]));
+                        receiver.send(shortmessage, timeStamp);
+
+                        System.out.println("Layer Upper index[0]: " + chan);
+                    }
+                }
+                catch (InvalidMidiDataException ex) {
+                    System.out.print("Invalid Lower Channel Layer Message" + channel);
+                    System.out.print(ex);
+                }
+            }
+            // Still fell through, send it anyway since it is likely channel Lower 2=13, Upper 2=15, Upper 3=16
+            else {
+                receiver.send(message, timeStamp);
+                return;
+            }
+
         }
     }
 

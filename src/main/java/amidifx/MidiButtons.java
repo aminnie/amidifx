@@ -54,7 +54,7 @@ public class MidiButtons {
     public int lookupButtonIdx(String buttonId) {
 
         for (buttonMap bmap : buttonMaps) {
-            if (bmap.buttonID == buttonId) return bmap.buttonIdx;
+            if (bmap.buttonID.equals(buttonId)) return bmap.buttonIdx;
         }
         return 0;
     }
@@ -151,15 +151,14 @@ public class MidiButtons {
                             Integer.parseInt(buttonDetails[7]),     // octave
                             Integer.parseInt(buttonDetails[8]),     // pc
                             Integer.parseInt(buttonDetails[9]),     // lsb
-                            Integer.parseInt(buttonDetails[10]),     // msb
-                            Integer.parseInt(buttonDetails[11]),     // mod
-                            Integer.parseInt(buttonDetails[12]),    // vol
-                            Integer.parseInt(buttonDetails[13]),    // exp
-                            Integer.parseInt(buttonDetails[14]),    // rev
-                            Integer.parseInt(buttonDetails[15]),    // cho
-                            Integer.parseInt(buttonDetails[16]),    // tre
-                            Integer.parseInt(buttonDetails[17]),    // mod
-                            Integer.parseInt(buttonDetails[18]));   // pan
+                            Integer.parseInt(buttonDetails[10]),    // msb
+                            Integer.parseInt(buttonDetails[11]),    // vol
+                            Integer.parseInt(buttonDetails[12]),    // exp
+                            Integer.parseInt(buttonDetails[13]),    // rev
+                            Integer.parseInt(buttonDetails[14]),    // cho
+                            Integer.parseInt(buttonDetails[15]),    // mod
+                            Integer.parseInt(buttonDetails[16]),    // pan
+                            Integer.parseInt(buttonDetails[17]));   // pan
                     buttonList.add(mButton);
                 }
             }
@@ -286,8 +285,8 @@ public class MidiButtons {
                 buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getModuleIdx()));
                 buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getVOL())).concat(",").concat(Integer.toString(button.getEXP()));
                 buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getREV())).concat(",").concat(Integer.toString(button.getCHO()));
-                buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getPAN())).concat(",").concat(Integer.toString(button.getMOD()));
-                buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getMOD()).concat("\r"));
+                buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getMOD()));
+                buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getPAN()).concat("\r"));
                 bw.write(buttonLine);
 
                 //System.out.print("buttonline: " + buttonLine);
@@ -357,9 +356,6 @@ public class MidiButtons {
 
             int CHO = button.getCHO() & 0x7F;
             playmidifile.sendMidiControlChange((byte) CHANOUT, ccCHO, (byte) CHO);
-
-            int ROT = button.getROT() & 0x7F;
-            playmidifile.sendMidiControlChange((byte) CHANOUT, ccROT, (byte) ROT);
 
             int MOD = button.getMOD() & 0x7F;
             playmidifile.sendMidiControlChange((byte) CHANOUT, ccMOD, (byte) MOD);

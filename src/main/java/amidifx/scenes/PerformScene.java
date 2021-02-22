@@ -1591,7 +1591,7 @@ public class PerformScene {
             lbutton14.setTextAlignment(TextAlignment.CENTER);
             lbutton14.setOnAction(event -> {
                 offAllLower1Buttons();
-                int buttonidx = midiButtons.lookupButtonIdx(lbutton13.getId());
+                int buttonidx = midiButtons.lookupButtonIdx(lbutton14.getId());
 
                 lastVoiceButton = lbutton14.getId();
                 lastVoiceChannel = midiButtons.getButtonChannel(lbutton14.getId());
@@ -1614,7 +1614,7 @@ public class PerformScene {
                 }
 
                 if (!lpressed14) {
-                    // Apply MIDI Program Change on Upper Channel for Button Press
+                    // Apply MIDI Program Change on Lower Channel for Button Press
                     int CHAN = sharedStatus.getLower1CHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
@@ -1667,7 +1667,7 @@ public class PerformScene {
                 }
 
                 if (!lpressed21) {
-                    // Apply MIDI Program Change on Upper Channel for Button Press
+                    // Apply MIDI Program Change on Lower Channel for Button Press
                     int CHAN = sharedStatus.getLower2CHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
@@ -1720,7 +1720,7 @@ public class PerformScene {
                 }
 
                 if (!lpressed22) {
-                    // Apply MIDI Program Change on Upper Channel for Button Press
+                    // Apply MIDI Program Change on Lower Channel for Button Press
                     int CHAN = sharedStatus.getLower2CHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
@@ -1773,7 +1773,7 @@ public class PerformScene {
                 }
 
                 if (!lpressed23) {
-                    // Apply MIDI Program Change on Upper Channel for Button Press
+                    // Apply MIDI Program Change on Lower Channel for Button Press
                     int CHAN = sharedStatus.getLower2CHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
@@ -2994,6 +2994,7 @@ public class PerformScene {
             });
             sliderMOD.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getMOD());
 
+/*
             // Create ROT slider
             sliderROT = new Slider(0, 7, 0);
             sliderROT.setOrientation(Orientation.VERTICAL);
@@ -3023,7 +3024,7 @@ public class PerformScene {
                     labelstatusOrg.setText(" Status: Button " + lastVoiceButton + " ROT= " + (byte)rotvalue);
             });
             sliderROT.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getROT());
-
+*/
             // Create PAN slider
             sliderPAN = new Slider(0, 127, 0);
             sliderPAN.setOrientation(Orientation.VERTICAL);

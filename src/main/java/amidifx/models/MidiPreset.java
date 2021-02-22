@@ -13,8 +13,8 @@ public class MidiPreset {
     private int EXP;
     private int REV;
     private int CHO;
-    private int MOD;
     private int PAN;
+    private int MOD;
     private int ROT;
     private int bankIdx;
     private int fontIdx;
@@ -32,14 +32,14 @@ public class MidiPreset {
         this.setEXP(0);
         this.setREV(0);
         this.setCHO(0);
-        this.setMOD(0);
         this.setPAN(0);
+        this.setMOD(0);
     }
 
     // 0,12,12,0,106,121,100,0,100,100,20,0,0,0,0,3,8,Klaus sein Sax
     public MidiPreset(int presetIdx, int channelIdx, String channelOutIdx, int octaveTran,
                       int PC, int LSB, int MSB, int moduleIdx,
-                      int VOL, int EXP, int REV, int CHO, int MOD, int PAN,
+                      int VOL, int EXP, int REV, int CHO, int PAN,int MOD,
                       int bankIdx, int fontIdx, int patchIdx, String patchName) {
         super();
         this.presetIdx = presetIdx;

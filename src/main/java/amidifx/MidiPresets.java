@@ -99,8 +99,8 @@ public class MidiPresets {
                             Integer.parseInt(presetDetails[9]),     // EXP
                             Integer.parseInt(presetDetails[10]),    // REV
                             Integer.parseInt(presetDetails[11]),    // CHO
-                            Integer.parseInt(presetDetails[12]),    // MOD
-                            Integer.parseInt(presetDetails[13]),    // PAN
+                            Integer.parseInt(presetDetails[12]),    // PAN
+                            Integer.parseInt(presetDetails[13]),    // MOD
                             //Integer.parseInt(presetDetails[14]),    // ROT
                             Integer.parseInt(presetDetails[14]),
                             Integer.parseInt(presetDetails[15]),
