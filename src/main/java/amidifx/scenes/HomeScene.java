@@ -409,6 +409,11 @@ public class HomeScene {
 
                 seloutdevice = comboOutDevice.getValue().toString();
 
+                // If selected Device is Deebach, prepare to load the Deebach pacthes
+                if (seloutdevice.contains("Deebach")) {
+                    sharedStatus.setModuleidx(1);
+                }
+
                 buttonSave.setDisable(false);
                 System.out.println("MIDI Out:" + comboOutDevice.getValue().toString());
 
