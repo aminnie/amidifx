@@ -258,7 +258,7 @@ public class PerformScene {
     boolean dpressed3 = false;
     boolean dpressed4 = false;
 
-    Button btnBacking;      // Backing mode Play configuration Button
+    Button btnbacking;      // Backing mode Play configuration Button
     int playmode = 3;       // 2 = Play ALong, 3 = Backing mode
 
     Button r1layerbtn;       // Righthand Layering Buttons
@@ -494,7 +494,6 @@ public class PerformScene {
             borderPaneTop.setRight(toolbarRight);
 
             // Build the Song Title Selection Controls
-
             Button buttonSongLoad = new Button(songTitle);
             buttonSongLoad.setStyle(selectcolorOff);
             buttonSongLoad.setPrefSize(xbtnleftright, ybtnleftright);
@@ -512,16 +511,30 @@ public class PerformScene {
                 // Preset Time Signature for correct Bar Time Display
                 sharedStatus.setTimeSig(dosongs.getSong(idxSongList).getTimeSig());
 
-                // Autoload Preset 0
-                ////dopresets.makeMidiPresets(sharedStatus.getPresetFile());
-                ////buttonPresetAction(0);
-                ////btnpreset1.setStyle(pcolorOn);
+                // Check if Sound Module matches the active Module, enable/disable Presets and Autoload Preset 0
+                boolean modulematch = disablePresetButtons(sharedStatus.getModuleidx(), dosongs.getSong(idxSongList).getModuleIdx());
+                if (modulematch) {
+                    ////dopresets.makeMidiPresets(sharedStatus.getPresetFile());
+                    ////buttonPresetAction(0);
+                    ////btnpreset1.setStyle(pcolorOn);
+                    labelstatusOrg.setText(" Status: Loaded Presets for " + dosongs.getSong(idxSongList).getSongTitle());
+                    labelstatusOrg.setStyle(styletext);
 
-                // Enable Song Play Button
-                btnplay.setDisable(false);
+                    // Enable Song Play Button
+                    btnplay.setDisable(false);
+                    btnbacking.setDisable(false);
+                }
+                else {
+                    labelstatusOrg.setText(" Status: Connect Sound "
+                            + sharedStatus.getModuleName(dosongs.getSong(idxSongList).getModuleIdx())
+                            + " for Song " + dosongs.getSong(idxSongList).getSongTitle());
+                    labelstatusOrg.setStyle(styletextred);
 
-                labelstatusOrg.setText(" Status: Loaded Presets for " + dosongs.getSong(idxSongList).getSongTitle());
-                //System.out.println("PerformScene: Loaded Presets " + dosongs.getSong(idxSongList).getPresetFile());
+                    // Enable Song Play Button
+                    btnplay.setDisable(true);
+                    btnbacking.setDisable(true);
+                }
+
             });
 
             Button buttonSongNameLeft = new Button("<<");
@@ -2886,13 +2899,14 @@ public class PerformScene {
             // Backing Mode Button
             // Mode 1 = Original, 2 = Play Along, 3 = Backing
             playmode = 3;
-            Button btnBacking = new Button("Backing");
-            btnBacking.setStyle(btnplayOff);
-            btnBacking.setMaxSize(xvoicebtn, yvoicebtn);
-            btnBacking.setOnAction(e -> {
+            btnbacking = new Button("Backing");
+            btnbacking.setDisable(true);
+            btnbacking.setStyle(btnplayOff);
+            btnbacking.setMaxSize(xvoicebtn, yvoicebtn);
+            btnbacking.setOnAction(e -> {
                 if (playmode == 3) {
-                    btnBacking.setText("Play Along");
-                    btnBacking.setStyle(btnplayOn);
+                    btnbacking.setText("Play Along");
+                    btnbacking.setStyle(btnplayOn);
                     playmode = 2;
 
                     PlayMidi playmidifile = PlayMidi.getInstance();
@@ -2901,8 +2915,8 @@ public class PerformScene {
                     }
                 }
                 else {
-                    btnBacking.setText("Backing");
-                    btnBacking.setStyle(btnplayOff);
+                    btnbacking.setText("Backing");
+                    btnbacking.setStyle(btnplayOff);
                     playmode = 3;
 
                     PlayMidi playmidifile = PlayMidi.getInstance();
@@ -2911,7 +2925,7 @@ public class PerformScene {
                     }
                 }
             });
-            gridmidcenterPerform.add(btnBacking, 1, 6, 1, 1);
+            gridmidcenterPerform.add(btnbacking, 1, 6, 1, 1);
 
 
             // Add VOL, REV and CHO Sliders. Show for the most recent selected Voice Button
@@ -3118,6 +3132,9 @@ public class PerformScene {
 
             // Populate Midi Button Text with Patch names as read from file.
             initMidiButtonPatches(midiButtons);
+
+            // Disable Preset Buttons on startup
+            disablePresetButtons(0, -1);
 
             // Enable Save button only once a change has been made in UI
             buttonSave.setDisable(true);
@@ -3427,6 +3444,32 @@ public class PerformScene {
             System.err.println("initMidiButtonPatches: Error reading MIDI Buttons File: " + buttonFile.toString());
             System.err.println(ex);
         }
+    }
+
+
+    // Set Preset Buttons On/Off based current Sound Module and the Module the Song Presets was coded with
+    // to avoid loading presets for a module not connected and invalid program changes
+    // Note that Deebach can handle both own and GM sounds, but Patch Names may not be correct for Midi GM
+    private boolean disablePresetButtons(int moduleidx, int songmoduleidx) {
+        boolean bon = false;
+
+        if (moduleidx != songmoduleidx)
+            bon = true;
+
+        // If Deebach connected, then do both Deebach and MidiGM
+        if (moduleidx == 1)
+            bon = false;
+
+        btnpreset1.setDisable(bon);
+        btnpreset2.setDisable(bon);
+        btnpreset3.setDisable(bon);
+        btnpreset4.setDisable(bon);
+        btnpreset5.setDisable(bon);
+        btnpreset6.setDisable(bon);
+        btnpreset7.setDisable(bon);
+        btnpreset8.setDisable(bon);
+
+        return (!bon);
     }
 
     /** Returns the current Scene **/
