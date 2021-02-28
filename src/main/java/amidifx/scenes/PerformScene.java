@@ -1421,7 +1421,7 @@ public class PerformScene {
             l2layerbtn = new Button("Lower 2 [13]   ");
             l2layerbtn.setStyle(lrpressedOff);
             l2layerbtn.setMaxWidth(xvoicebtn);
-            l2layerbtn.setDisable(!sharedStatus.getLowerKbdLayer1Enabled());
+            l2layerbtn.setDisable(!sharedStatus.getlower1Kbdlayerenabled());
             //l2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             l2layerbtn.setOnAction(event -> {
                 if (l2pressed == false) {
@@ -1912,7 +1912,7 @@ public class PerformScene {
             r2layerbtn = new Button("Upper 2 [15]   ");
             r2layerbtn.setStyle(lrpressedOff);
             r2layerbtn.setMaxWidth(xvoicebtn);
-            r2layerbtn.setDisable(!sharedStatus.getUpperKbdLayer1Enabled());
+            r2layerbtn.setDisable(!sharedStatus.getUpper1KbdLayerEnabled());
             //r2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r2layerbtn.setOnAction(event -> {
                 if (r2pressed == false) {
@@ -1939,7 +1939,7 @@ public class PerformScene {
             r3layerbtn = new Button("Upper 3 [16]   ");
             r3layerbtn.setStyle(lrpressedOff);
             r3layerbtn.setMaxWidth(xvoicebtn);
-            r3layerbtn.setDisable(!sharedStatus.getUpperKbdLayer2Enabled());
+            r3layerbtn.setDisable(!sharedStatus.getupper2Kbdlayerenabled());
             //r3layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r3layerbtn.setOnAction(event -> {
                 if (r3pressed == false) {

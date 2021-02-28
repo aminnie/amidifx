@@ -29,6 +29,9 @@ public class MidiDevices {
     private String selindevice = "default";
     private String seloutdevice = "default";
 
+    final int NOTEON = 0x90;
+    final int NOTEOFF = 0x80;
+
     // Layered channels out (defaulted): presetIdx, channelInIdx, (ChannelOutIdx & ModuleIdx) * 10, OctaveTran
     private byte[] channelOutStruct = {0, 13, 0, 0, 14, 0, 15, 0, 16, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
 
@@ -44,19 +47,18 @@ public class MidiDevices {
 
     private byte lower12notestrack[] = new byte[128];
     private byte lower13notestrack[] = new byte[128];
-
     private byte upper14notestrack[] = new byte[128];
     private byte upper15notestrack[] = new byte[128];
     private byte upper16notestrack[] = new byte[128];
 
     // Track Layering requests and close out on queued basis to ensure no hung notes
-    private boolean upperlayer14on = false;
-    private boolean upperlayer15on = false;
-    private boolean upperlayer16on = false;
+    private boolean upper14layeron = false;
+    private boolean upper15layeron = false;
+    private boolean upper16layeron = false;
     private int uppernoteson = 0;
 
-    private boolean lowerlayer12on = false;
-    private boolean lowerlayer13on = false;
+    private boolean lower12layeron = false;
+    private boolean lower13layeron = false;
     private int lowernoteson = 0;
 
     // Track open/closed notes to prevent hanging:
@@ -288,8 +290,8 @@ public class MidiDevices {
             // Strip channel number out of status
             int leftNibble = status & 0xf0;
             switch (leftNibble) {
-                case 0x80: //displayNoteOff(message);
-                case 0x90: //displayNoteOn(message);
+                case NOTEOFF: //displayNoteOff(message);
+                case NOTEON: //displayNoteOn(message);
                     //receiver.send(message, timeStamp);
                     layerOutMessages(message, timeStamp);
                     break;
@@ -339,7 +341,7 @@ public class MidiDevices {
 
                 // Track open notes to prevent hung notes. Close out all open notes before completing the layer off request
                 // Note: Midi Note ON with Velocity = 0, is same as Note OFF
-                if ((command == 0x90) && (bytes[2] != 0)) {
+                if ((command == NOTEON) && (bytes[2] != 0)) {
                     uppernoteson++;
 
                     try {
@@ -380,7 +382,7 @@ public class MidiDevices {
                     }
                 }
 
-                else if ( (command == 0x80) || ((command == 0x90) && (bytes[2] == 0)) ) {
+                else if ( (command == NOTEOFF) || ((command == 0x90) && (bytes[2] == 0)) ) {
                     uppernoteson--;
 
                     try {
@@ -393,20 +395,20 @@ public class MidiDevices {
                         //System.out.println("Layer Upper index[80]: " + (sharedstatus.getUpper1CHAN()) + ", " + bytes[1] + ", " + bytes[2] + " L=" + trackupper14opennotes + " #=" + uppernoteson);
 
                         // Check if the same note on Channel 15 is on, and turn it off too
-                        boolean upperlayer15enabled = sharedstatus.getUpperKbdLayer1Enabled();
+                        boolean upperlayer15enabled = sharedstatus.getUpper1KbdLayerEnabled();
                         if (upperlayer15enabled) {
                             shortmessage = new ShortMessage();
-                            shortmessage.setMessage(0x80 & 0xFF, (channel + 1), bytes[1], 0);
+                            shortmessage.setMessage(NOTEOFF & 0xFF, (channel + 1), bytes[1], 0);
                             receiver.send(shortmessage, timeStamp);
 
                             upper15notestrack[bytes[1]] = (byte)0;
                         }
 
                         // Check if the same note on Channel 16 is on, and turn it off too
-                        boolean upperlayer16enabled = sharedstatus.getUpperKbdLayer2Enabled();
+                        boolean upperlayer16enabled = sharedstatus.getupper2Kbdlayerenabled();
                         if (upperlayer16enabled) {
                             shortmessage = new ShortMessage();
-                            shortmessage.setMessage(0x80 & 0xFF, (channel + 2), bytes[1], 0);
+                            shortmessage.setMessage(NOTEOFF & 0xFF, (channel + 2), bytes[1], 0);
                             receiver.send(shortmessage, timeStamp);
 
                             upper16notestrack[bytes[1]] = (byte)0;
@@ -424,7 +426,7 @@ public class MidiDevices {
 
                 // Track open notes to prevent hung notes. Close out all open notes before completing the layer off request
                 // Note: Midi Note ON with Velocity = 0, is same as Note OFF
-                if ((command == 0x90) && (bytes[2] != 0)) {
+                if ((command == NOTEON) && (bytes[2] != 0)) {
                     lowernoteson++;
 
                     try {
@@ -454,7 +456,7 @@ public class MidiDevices {
                         System.out.print(ex);
                     }
                 }
-                else if ( (command == 0x80) || ((command == 0x90) && (bytes[2] == 0)) ) {
+                else if ( (command == NOTEOFF) || ((command == NOTEON) && (bytes[2] == 0)) ) {
                     lowernoteson--;
 
                     try {
@@ -470,7 +472,7 @@ public class MidiDevices {
                         boolean lower13layerenabled = true; //sharedstatus.getLowerKbdLayer1Enabled();
                         if (lower13layerenabled) {
                             shortmessage = new ShortMessage();
-                            shortmessage.setMessage(0x80 & 0xFF, (channel + 1), bytes[1], 0);
+                            shortmessage.setMessage(NOTEOFF & 0xFF, channel + 1, bytes[1], 0);
                             receiver.send(shortmessage, timeStamp);
                             lower13notestrack[bytes[1]] = (byte) 0;
                         }
@@ -649,12 +651,12 @@ public class MidiDevices {
         if (chan == sharedstatus.getUpper1CHAN()) {
             if (layeron) {
                 layerUpper[chan14idx] = (byte)(chan & 0xFF);
-                upperlayer14on = true;
+                upper14layeron = true;
                 uppernoteson = 0;
             }
             else {
                 layerUpper[chan14idx] = (byte)(0);
-                upperlayer14on = false;
+                upper14layeron = false;
                 trackupper14opennotes = 1;            // Interim state until all notes closed out on keyboard - triggers real layer off
             }
             return;
@@ -662,12 +664,12 @@ public class MidiDevices {
         else if (chan == sharedstatus.getUpper2CHAN()) {
             if (layeron) {
                 layerUpper[chan15idx] = (byte)(chan & 0xFF);
-                upperlayer15on = true;
+                upper15layeron = true;
                 uppernoteson = 0;
             }
             else {
                 layerUpper[chan15idx] = (byte)(0);
-                upperlayer15on = false;
+                upper15layeron = false;
                 trackupper15opennotes = 1;            // Interim state until all notes closed out on keyboard - triggers real layer off
             }
             return;
@@ -675,12 +677,12 @@ public class MidiDevices {
         else if (chan == sharedstatus.getUpper3CHAN()) {
             if (layeron) {
                 layerUpper[chan16idx] = (byte) (chan & 0xFF);
-                upperlayer16on = true;
+                upper15layeron = true;
                 uppernoteson = 0;
             }
             else {
                 layerUpper[chan16idx] = (byte)(0);
-                upperlayer16on = false;
+                upper16layeron = false;
                 trackupper16opennotes = 1;            // Interim state until all notes closed out on keyboard - triggers real layer off
             }
             return;
@@ -690,12 +692,12 @@ public class MidiDevices {
         else if (chan == sharedstatus.getLower1CHAN()) {
             if (layeron) {
                 layerLower[chan12idx] = (byte) (chan & 0xFF);
-                lowerlayer12on = true;
+                lower12layeron = true;
                 lowernoteson = 0;
             }
             else {
                 layerLower[chan12idx] = (byte) (0);
-                lowerlayer12on = false;
+                lower12layeron = false;
                 //tracklower12opennotes = 1;            // Interim state until all notes closed out on keyboard - triggers real layer off
             }
             return;
@@ -703,12 +705,12 @@ public class MidiDevices {
         else if (chan == sharedstatus.getLower2CHAN()) {
             if (layeron) {
                 layerLower[chan13idx] = (byte) (chan & 0xFF);
-                lowerlayer13on = true;
+                lower13layeron = true;
                 lowernoteson = 0;
             }
             else {
                 layerLower[chan13idx] = (byte) (0);
-                lowerlayer13on = false;
+                lower13layeron = false;
                 tracklower13opennotes = 1;            // Interim state until all notes closed out on keyboard - triggers real layer off
             }
             return;

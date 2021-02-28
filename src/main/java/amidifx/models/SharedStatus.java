@@ -31,9 +31,9 @@ public class SharedStatus {
     private static final int UPPERKBD = 14;
     private static final int SOLOKBD = 16;
 
-    private boolean lowerkbdlayer1enabled = true;
-    private boolean upperkbdlayer1enabled = true;
-    private boolean upperkbdlayer2enabled = true;
+    private boolean lower1kbdlayerenabled = true;
+    private boolean upper1kbdlayerenabled = true;
+    private boolean upper2kbdlayerenabled = true;
 
     private String timeSig = "4/4";
 
@@ -259,28 +259,28 @@ public class SharedStatus {
         return DRUMS;
     }
 
-    public void setLowerKbdLayer1Enabled(boolean lowerkbdlayer1enabled) {
-        this.lowerkbdlayer1enabled = lowerkbdlayer1enabled;
+    public void setLower1KbdLayerEnabled(boolean lower1kbdlayerenabled) {
+        this.lower1kbdlayerenabled = lower1kbdlayerenabled;
     }
 
-    public boolean getLowerKbdLayer1Enabled() {
-        return lowerkbdlayer1enabled;
+    public boolean getlower1Kbdlayerenabled() {
+        return lower1kbdlayerenabled;
     }
 
-    public void setUpperKbdLayer1Enabled(boolean upperkbdlayer1enabled) {
-        this.upperkbdlayer1enabled = upperkbdlayer1enabled;
+    public void setUpper1KbdLayerEnabled(boolean upper1kbdlayerenabled) {
+        this.upper1kbdlayerenabled = upper1kbdlayerenabled;
     }
 
-    public boolean getUpperKbdLayer1Enabled() {
-        return upperkbdlayer1enabled;
+    public boolean getUpper1KbdLayerEnabled() {
+        return upper1kbdlayerenabled;
     }
 
-    public void setUpperKbdLayer2Enabled(boolean upperkbdlayer2enabled) {
-        this.upperkbdlayer2enabled = upperkbdlayer2enabled;
+    public void setUpper2KbdLayerEnabled(boolean upper2kbdlayerenabled) {
+        this.upper2kbdlayerenabled = upper2kbdlayerenabled;
     }
 
-    public boolean getUpperKbdLayer2Enabled() {
-        return upperkbdlayer2enabled;
+    public boolean getupper2Kbdlayerenabled() {
+        return upper2kbdlayerenabled;
     }
 
     public String getPerformFile() {
