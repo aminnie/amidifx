@@ -4,6 +4,7 @@ import amidifx.models.MidiPreset;
 import amidifx.models.MidiSong;
 import amidifx.models.SharedStatus;
 import amidifx.utils.AppConfig;
+import javafx.application.Platform;
 
 import javax.sound.midi.*;
 import java.io.File;
@@ -526,8 +527,9 @@ public class PlayMidi {
     ////    sendMidiControlChange(14, 74, 0);
     ////}
 
-    public void sendRotaryOn(boolean brotoaryon) {
+    public void sendRotaryOn(int channel, boolean brotoaryon) {
 
+        /*
         byte[] rotaryoff = {
                 (byte) 0xF0,
                 (byte) 0xB0, (byte) 0x63, (byte) 0x33, (byte) 0x62, (byte) 0x66, (byte) 0x06, (byte) 0x00,
@@ -539,19 +541,21 @@ public class PlayMidi {
                 (byte) 0xB0, (byte) 0x63, (byte) 0x33, (byte) 0x62, (byte) 0x66, (byte) 0x06, (byte) 0x71,
                 (byte) 0xF7
         };
+*/
 
         if (brotoaryon) {
             //sendSysEx(rotaryon);
-            sendMidiControlChange(14, 0x74, 127);
+            sendMidiControlChange((byte)(channel & 0xFF), 0x74, 1);
         }
         else {
             //sendSysEx(rotaryoff);
-            sendMidiControlChange(14, 0x74, 0);
+            sendMidiControlChange((byte)(channel & 0xFF), 0x74, 0);
         }
     }
 
-    public void sendRotaryFast(boolean brotaryfast) {
+    public void sendRotaryFast(int channel, boolean brotaryfast) {
 
+        /*
         byte[] rotaryslow = {
                 (byte) 0xF0,
                 (byte) 0xB0, (byte) 0x63, (byte) 0x33, (byte) 0x62, (byte) 0x69, (byte) 0x06, (byte) 0x02,
@@ -563,14 +567,42 @@ public class PlayMidi {
                 (byte) 0xB0, (byte) 0x63, (byte) 0x33, (byte) 0x62, (byte) 0x66, (byte) 0x06, (byte) 0x07,
                 (byte) 0xF7
         };
+        */
+
+        byte rotaryup[] = {(byte)0, (byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7};
+
 
         if (brotaryfast) {
             //sendSysEx(rotaryfast);
-            sendMidiControlChange(14, 74, 7);
+
+            // Ramp Rotary On and Off Up
+            Platform.runLater(() -> {
+                for (int i = 1; i < 8; i++) {
+                    try {
+                        Thread.sleep(200);
+                        sendMidiControlChange((byte)channel & 0xFF, 74, rotaryup[i]);
+
+                        System.out.println("Rotary Fast: " + rotaryup[i]);
+                    }
+                    catch (InterruptedException ex) {}
+                }
+            });
+
         }
         else {
             //sendSysEx(rotaryslow);
-            sendMidiControlChange(14, 74, 0);
+            // Ramp Rotary On and Off Up
+            Platform.runLater(() -> {
+                for (int i = 7; i > 0; i--) {
+                    try {
+                        Thread.sleep(250);
+                        sendMidiControlChange((byte)channel & 0xFF, 74, rotaryup[i]);
+
+                        System.out.println("Rotary Slow: " + rotaryup[i]);
+                    }
+                    catch (InterruptedException ex) {}
+                }
+            });
         }
     }
 

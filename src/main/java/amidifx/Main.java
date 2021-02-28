@@ -73,10 +73,10 @@ public class Main extends Application {
     int ysonglist = (int)(550 * 1); //ymul
 
     int xpatchlist = (int)(180 * xmul);
-    int ypatchlist = (int)(550 * 1); //xmul)
+    int ypatchlist = (int)(545 * 1); //xmul)
 
-    int xpresetlist = (int)(175 * xmul);
-    int ypresetlist = (int)(550 * 1); //xmul)
+    int xpresetlist = (int)(180 * xmul);
+    int ypresetlist = (int)(545 * 1); //xmul)
 
     int yslider = (int)(135 * xmul);
 
@@ -1555,9 +1555,9 @@ public class Main extends Application {
         banklistView.getSelectionModel().selectFirst();
         banklistView.setStyle(styletext);
 
-        Button buttonb = new Button("Select Voice Bank");
+        Button buttonb = new Button("Set Voice");
         buttonb.setStyle(selectcolorOff);
-        buttonb.setPrefSize(xbutton, ybutton);
+        buttonb.setPrefSize(xbutton, ybutton -10 );
         buttonb.setOnAction(event -> {
             ObservableList selectedIndices = banklistView.getSelectionModel().getSelectedIndices();
 
@@ -1573,7 +1573,7 @@ public class Main extends Application {
 
         VBox vboxLeft = new VBox();
         vboxLeft.setSpacing(10);
-        vboxLeft.setPadding(new Insets(10, 5, 5,5));
+        vboxLeft.setPadding(new Insets(5, 5, 5,5));
         vboxLeft.getChildren().add(vboxModuleList);
         vboxLeft.getChildren().add(vboxList);
         vboxLeft.getChildren().add(vboxbut);
@@ -1710,7 +1710,7 @@ public class Main extends Application {
         // Update Voice for currently selected Channel in Preset Listview
         Button buttonvoice = new Button("Set Channel Voice");
         buttonvoice.setStyle(selectcolorOff);
-        buttonvoice.setPrefSize(xbutton, ybutton);
+        buttonvoice.setPrefSize(xbutton, ybutton - 10);
         buttonvoice.setOnAction(event -> {
             MidiPatch midiPatch = dopatches.getMIDIPatch(selpatchIdx);
             dopresets.setPreset(presetIdx * 16 + channelIdx, moduleIdx, midiPatch);
@@ -1741,7 +1741,7 @@ public class Main extends Application {
         VBox vboxRight = new VBox();
         vboxRight.setSpacing(10);
         vboxRight.setSpacing(10);
-        vboxRight.setPadding(new Insets(10, 5, 5,5));
+        vboxRight.setPadding(new Insets(5, 5, 5,5));
         vboxRight.getChildren().add(vboxPresetList);
         vboxRight.getChildren().add(vboxList2);
         vboxRight.getChildren().add(vboxvoice);
@@ -1749,7 +1749,7 @@ public class Main extends Application {
         // **** Show Middle Pane: Sound Fonts for selected Bank. First sound from Bank 1 1 by default
         FlowPane flowpane = new FlowPane();
         flowpane.prefHeight(ypatchlist);
-        flowpane.setPadding(new Insets(10, 5, 0,10));    // Insets(double top, double right, double bottom, double left)
+        flowpane.setPadding(new Insets(5, 5, 0,5));    // Insets(double top, double right, double bottom, double left)
         flowpane.setHgap(10);
         flowpane.setVgap(10);
 

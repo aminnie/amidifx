@@ -31,6 +31,10 @@ public class SharedStatus {
     private static final int UPPERKBD = 14;
     private static final int SOLOKBD = 16;
 
+    private boolean lowerkbdlayer1enabled = true;
+    private boolean upperkbdlayer1enabled = true;
+    private boolean upperkbdlayer2enabled = true;
+
     private String timeSig = "4/4";
 
     private Receiver RxDevice;          // Selected MIDI Device
@@ -253,6 +257,30 @@ public class SharedStatus {
 
     public int getDrumCHAN() {
         return DRUMS;
+    }
+
+    public void setLowerKbdLayer1Enabled(boolean lowerkbdlayer1enabled) {
+        this.lowerkbdlayer1enabled = lowerkbdlayer1enabled;
+    }
+
+    public boolean getLowerKbdLayer1Enabled() {
+        return lowerkbdlayer1enabled;
+    }
+
+    public void setUpperKbdLayer1Enabled(boolean upperkbdlayer1enabled) {
+        this.upperkbdlayer1enabled = upperkbdlayer1enabled;
+    }
+
+    public boolean getUpperKbdLayer1Enabled() {
+        return upperkbdlayer1enabled;
+    }
+
+    public void setUpperKbdLayer2Enabled(boolean upperkbdlayer2enabled) {
+        this.upperkbdlayer2enabled = upperkbdlayer2enabled;
+    }
+
+    public boolean getUpperKbdLayer2Enabled() {
+        return upperkbdlayer2enabled;
     }
 
     public String getPerformFile() {

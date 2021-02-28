@@ -96,8 +96,8 @@ public class PerformScene {
     final String btnplayOff = "-fx-background-color: #8ED072; -fx-font-size: " + fsize ;
     final String btnplayOn = "-fx-background-color: #DB6B6B; -fx-font-size: " + fsize ;
 
-    final String lrpressedOff = "-fx-background-color: #8ED072; -fx-font-size: " + fsize ;
-    final String lrpressedOn = "-fx-background-color: #DB6B6B; -fx-font-size: " + fsize ;
+    final String lrpressedOn = "-fx-background-color: #8ED072; -fx-font-size: " + fsize ;
+    final String lrpressedOff = "-fx-background-color: #DB6B6B; -fx-font-size: " + fsize ;
 
     final String styletext = "-fx-text-fill: black; -fx-font-size: " + fsize ;
     final String styletextred = "-fx-text-fill: red; -fx-font-size: " + fsize ;
@@ -525,7 +525,7 @@ public class PerformScene {
                     btnbacking.setDisable(false);
                 }
                 else {
-                    labelstatusOrg.setText(" Status: Connect Sound "
+                    labelstatusOrg.setText(" Status: Connect Module "
                             + sharedStatus.getModuleName(dosongs.getSong(idxSongList).getModuleIdx())
                             + " for Song " + dosongs.getSong(idxSongList).getSongTitle());
                     labelstatusOrg.setStyle(styletextred);
@@ -1421,6 +1421,7 @@ public class PerformScene {
             l2layerbtn = new Button("Lower 2 [13]   ");
             l2layerbtn.setStyle(lrpressedOff);
             l2layerbtn.setMaxWidth(xvoicebtn);
+            l2layerbtn.setDisable(!sharedStatus.getLowerKbdLayer1Enabled());
             //l2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             l2layerbtn.setOnAction(event -> {
                 if (l2pressed == false) {
@@ -1911,6 +1912,7 @@ public class PerformScene {
             r2layerbtn = new Button("Upper 2 [15]   ");
             r2layerbtn.setStyle(lrpressedOff);
             r2layerbtn.setMaxWidth(xvoicebtn);
+            r2layerbtn.setDisable(!sharedStatus.getUpperKbdLayer1Enabled());
             //r2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r2layerbtn.setOnAction(event -> {
                 if (r2pressed == false) {
@@ -1937,6 +1939,7 @@ public class PerformScene {
             r3layerbtn = new Button("Upper 3 [16]   ");
             r3layerbtn.setStyle(lrpressedOff);
             r3layerbtn.setMaxWidth(xvoicebtn);
+            r3layerbtn.setDisable(!sharedStatus.getUpperKbdLayer2Enabled());
             //r3layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r3layerbtn.setOnAction(event -> {
                 if (r3pressed == false) {
@@ -2304,14 +2307,16 @@ public class PerformScene {
                     rbutton17.setStyle(orgcolorOn);
                     rbutton17.setText("Rotary On");
 
-                    playmidifile.sendRotaryOn(true);
+                    int channel = sharedStatus.getUpper1CHAN();
+                    playmidifile.sendRotaryOn(channel, true);
 
                     labelstatusOrg.setText(" Status: Rotary On");
                 } else {
                     rbutton17.setStyle(orgcolorOff);
                     rbutton17.setText("Rotary Off");
 
-                    playmidifile.sendRotaryOn(false);
+                    int channel = sharedStatus.getUpper1CHAN();
+                    playmidifile.sendRotaryOn(channel,false);
 
                     labelstatusOrg.setText(" Status: Rotary Off");
                 }
@@ -2333,16 +2338,19 @@ public class PerformScene {
                     rbutton18.setStyle(orgcolorOn);
                     rbutton18.setText(" Rotary Fast");
 
-                    playmidifile.sendRotaryFast(true);
-
                     labelstatusOrg.setText(" Status: Rotary Fast");
-                } else {
+
+                    int channel = sharedStatus.getUpper1CHAN();
+                    playmidifile.sendRotaryFast(channel,true);
+                }
+                else {
                     rbutton18.setStyle(orgcolorOff);
                     rbutton18.setText(" Rotary Slow");
 
-                    playmidifile.sendRotaryFast(false);
-
                     labelstatusOrg.setText(" Status: Rotary Slow");
+
+                    int channel = sharedStatus.getUpper1CHAN();
+                    playmidifile.sendRotaryFast(channel,false);
                 }
                 rpressed18 = !rpressed18;
             });
