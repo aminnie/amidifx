@@ -16,7 +16,6 @@ public class AppConfig {
     //String configPath = rootPath + "AppConfig.xml";
     String configPath = CFG_DIRECTORY + "AppConfig.xml";
 
-
     // Static variable single_instance of type PlayMidi
     private static AppConfig single_AppConfig_Instance = null;
 
@@ -42,7 +41,7 @@ public class AppConfig {
 
     private boolean loadProperties() {
 
-        System.out.println("AppConfig: Loading Properties from disk: " + configPath);
+        System.out.println("AppConfig: Loading Properties from: " + configPath);
 
         try {
             configProps.loadFromXML(new FileInputStream(configPath));
@@ -69,7 +68,7 @@ public class AppConfig {
             configProps.storeToXML(new FileOutputStream(configPath), "Saved to XML file");
 
             // get the property value and print it out
-            System.out.println("AppConfig: Saving Properties to disk: " + configPath);
+            System.out.println("AppConfig: Saving Properties to: " + configPath);
             System.out.println("AppConfig: In device is " +  configProps.getProperty("indevice"));
             System.out.println("AppConfig: Out device is " +  configProps.getProperty("outdevice"));
 

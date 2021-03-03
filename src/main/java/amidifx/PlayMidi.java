@@ -352,11 +352,7 @@ public class PlayMidi {
         try {
             long timeStamp = -1;
 
-            //if (midircv == null) {
-                //midircv = MidiSystem.getReceiver();
-                Receiver midircv = sharedStatus.getRxDevice();
-                //System.out.println("PlayMidi: Created getReceiver: " + midircv.toString());
-            //}
+            Receiver midircv = sharedStatus.getRxDevice();
 
             if (NOTEON) {
                 midiMsg.setMessage(ShortMessage.NOTE_ON, CHAN, NOTE, 48);
@@ -385,16 +381,14 @@ public class PlayMidi {
             return false;
         }
 
-        //System.out.println("PlayMidi: Sending MIDI Program Change  CHAN: " + (CHAN +1 )  + " PC:" + PC + " MSB:" + MSB + " LSB:"+ LSB);
+        System.out.println("PlayMidi: Sending MIDI Program Change  CHAN: " + (CHAN +1 )  + " PC:" + PC + " MSB:" + MSB + " LSB:"+ LSB);
 
         long timeStamp = -1;
         ShortMessage midiMsg = new ShortMessage();
         try {
-            //if (midircv == null) {
-                //midircv = MidiSystem.getReceiver();
-                midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
-                //System.out.println("PlayMidi: getReceiver: " + midircv.toString());
-            //}
+
+            midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
+            //System.out.println("PlayMidi: getReceiver: " + midircv.toString());
 
             // Proceed to apply Bank and Program changes. Do so only if not duplicate of previous
             if ((curPresetList.get(CHAN).getMSB() == MSB) &&
@@ -437,13 +431,10 @@ public class PlayMidi {
         }
 
         try {
-            //System.out.println("PlayMidi: sendMidiControlChange sending MIDI Control Change:  CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
+            System.out.println("PlayMidi: sendMidiControlChange sending MIDI Control Change:  CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
 
-            //if (midircv == null) {
-                //midircv = MidiSystem.getReceiver();
-                Receiver midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
-                //System.out.println("PlayMidi: Created getReceiver: " + midircv.toString());
-            //}
+            Receiver midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
+            //System.out.println("PlayMidi: Created getReceiver: " + midircv.toString());
 
             // Start playing note
             long timeStamp = -1;
@@ -485,7 +476,7 @@ public class PlayMidi {
                 case ccROT:
                     //if (curPresetList.get(CHAN).getROT() != VAL) {
                     midircv.send(midiMsg, timeStamp);
-                    System.out.println("PlayMidi: Sent MIDI Control Message: " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
+                    //System.out.println("PlayMidi: Sent MIDI Control Message: " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
 
                     //curPresetList.get(CHAN).setROT(VAL);
                     //}
@@ -515,17 +506,6 @@ public class PlayMidi {
         return true;
     }
 
-    ////public void sendRotaryFast() {
-    ////    sendMidiControlChange(14, 74, 63);
-    ////}
-
-    ////public void sendRotarySlow() {
-    ////    sendMidiControlChange(14, 74, 15);
-    ////}
-
-    ////public void sendRotaryOff() {
-    ////    sendMidiControlChange(14, 74, 0);
-    ////}
 
     public void sendRotaryOn(int channel, boolean brotoaryon) {
 
@@ -644,11 +624,8 @@ public class PlayMidi {
         ShortMessage midiMsg = new ShortMessage();
 
         try {
-            //if (midircv == null) {
-                //midircv = MidiSystem.getReceiver();
-                midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
-                //System.out.println("PlayMidi: Created getReceiver: " + midircv.toString());
-            //}
+            midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
+            //System.out.println("PlayMidi: Created getReceiver: " + midircv.toString());
 
             for (CHAN = 0; CHAN < 16; CHAN++) {
                 midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, allControllersoff & 0XFF, 0 & 0XFF);
@@ -674,11 +651,8 @@ public class PlayMidi {
             byte ccAllNotesOff = 123;
             byte VAL = 0;
 
-            //if (midircv == null) {
-                //midircv = MidiSystem.getReceiver();
-                midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
-                //System.out.println("PlayMidi: Created getReceiver: " + midircv.toString());
-            //}
+            midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
+            //System.out.println("PlayMidi: Created getReceiver: " + midircv.toString());
 
             for (int chanidx = 0; chanidx < 16; chanidx++) {
                 midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, chanidx, ccALLSoundOFF, VAL);

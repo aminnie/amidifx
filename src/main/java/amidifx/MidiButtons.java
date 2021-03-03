@@ -54,7 +54,8 @@ public class MidiButtons {
     public int lookupButtonIdx(String buttonId) {
 
         for (buttonMap bmap : buttonMaps) {
-            if (bmap.buttonID.equals(buttonId)) return bmap.buttonIdx;
+            if (bmap.buttonID.equals(buttonId))
+                return bmap.buttonIdx;
         }
         return 0;
     }
@@ -251,11 +252,10 @@ public class MidiButtons {
         boolean bsaved = false;
 
         // Print Preset Channels
-        for (int i = 0; i < buttonList.size(); i++) {
-            MidiButton mButton = buttonList.get(i);
-
-            //System.out.println(mButton.toString());
-        }
+        //for (int i = 0; i < buttonList.size(); i++) {
+        //    MidiButton mButton = buttonList.get(i);
+        //    System.out.println(mButton.toString());
+        //}
 
         BufferedWriter bw = null;
         try {
@@ -378,6 +378,9 @@ public class MidiButtons {
 
         midibutton.setPatchId(preset.getPatchIdx());
         midibutton.setPatchName(preset.getPatchName());
+
+        midibutton.setChannelIdx(preset.getChannelIdx());
+        midibutton.setChannelOutIdx(preset.getChannelOutIdx());
 
         midibutton.setPC(preset.getPC());
         midibutton.setLSB(preset.getLSB());

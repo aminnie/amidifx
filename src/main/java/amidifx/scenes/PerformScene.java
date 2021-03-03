@@ -46,13 +46,13 @@ public class PerformScene {
     int xleftright = (int)(50 * xmul);
     int yleftright = (int)(25 * ymul);
 
-    int xbtnleftright = (int)(190 * xmul);
+    int xbtnleftright = (int)(200 * xmul);
     int ybtnleftright = (int)(25 * ymul);
 
-    int xbtnpreset = (int)(115 * xmul);
+    int xbtnpreset = (int)(118 * xmul);
     int ybtnpreset = (int)(50 * ymul);
 
-    int xvoicebtn = (int)(127 * xmul);
+    int xvoicebtn = (int)(129 * xmul);
     int yvoicebtn = (int)(50 * ymul);
 
     int xstatusleft = (int)(400 * xmul);
@@ -453,12 +453,10 @@ public class PerformScene {
                 playmidifile.stopMidiPlay("End Play");
 
                 try {
-                    Transmitter midixmt = sharedStatus.getTxDevice();
-                    midixmt.close();
-
                     Receiver midircv = sharedStatus.getRxDevice();
                     midircv.close();
-
+                    Transmitter midixmt = sharedStatus.getTxDevice();
+                    midixmt.close();
                     Sequencer midiseq = sharedStatus.getSeqDevice();
                     midiseq.close();
                 }
@@ -542,13 +540,6 @@ public class PerformScene {
             buttonSongNameLeft.setPrefSize(xleftright, yleftright);
             buttonSongNameLeft.setOnAction(e -> {
 
-                // Check if Song List file has been updated in the Songs Scene and reload if needed
-                ////if (sharedStatus.getSongReload()) {
-                    ///// dosongs.makeMidiSongs();
-
-                /////    sharedStatus.setSongReload(false);
-                ////}
-
                 if (idxSongList > 0) --idxSongList;
                 songTitle = dosongs.getSong(idxSongList).getSongTitle();
                 songFile = dosongs.getSong(idxSongList).getMidiFile();
@@ -567,13 +558,6 @@ public class PerformScene {
             buttonSongNameRight.setStyle(selectcolorOff);
             buttonSongNameRight.setPrefSize(xleftright, yleftright);
             buttonSongNameRight.setOnAction(e -> {
-
-                // Check if Song List file has been updated in the Songs Scene and reload if needed
-                ////if (sharedStatus.getSongReload()) {
-                    ////dosongs.makeMidiSongs();
-
-                    ////sharedStatus.setSongReload(false);
-                ////}
 
                 if (idxSongList < (dosongs.getSongListSize() - 1)) idxSongList++;
                 songTitle = dosongs.getSong(idxSongList).getSongTitle();
@@ -768,7 +752,6 @@ public class PerformScene {
             gridTopLine.add(flowBank, 1, 0, 1, 1);
             gridTopLine.add(flowFont, 2, 0, 1, 1);
             gridTopLine.add(btntest, 3, 0, 1, 1);
-
 
             // *** Start Bottom Status Bar
 
@@ -995,7 +978,7 @@ public class PerformScene {
                 }
                 bpressed1 = !bpressed1;
 
-                labelstatusOrg.setText(" Status: Applied Bass 1");
+                labelstatusOrg.setText(" Status: Applied B1");
             });
 
             bleft2.setText(" Bass 2");
@@ -1048,7 +1031,7 @@ public class PerformScene {
                 }
                 bpressed2 = !bpressed2;
 
-                labelstatusOrg.setText(" Status: Applied Bass 2");
+                labelstatusOrg.setText(" Status: Applied B2");
             });
 
             bleft3.setText(" Bass 3");
@@ -1101,7 +1084,7 @@ public class PerformScene {
                 }
                 bpressed3 = !bpressed3;
 
-                labelstatusOrg.setText(" Status: Applied Bass 3");
+                labelstatusOrg.setText(" Status: Applied B3");
             });
             
             bleft4.setText(" Bass 4");
@@ -1154,7 +1137,7 @@ public class PerformScene {
                 }
                 bpressed4 = !bpressed4;
 
-                labelstatusOrg.setText(" Status: Applied Bass 4");
+                labelstatusOrg.setText(" Status: Applied B4");
             });
 
             gridmidcenterPerform.add(blabel1, 0, 0, 1, 1);
@@ -1220,7 +1203,7 @@ public class PerformScene {
                 }
                 dpressed1 = !dpressed1;
 
-                labelstatusOrg.setText(" Status: Applied Drum 1");
+                labelstatusOrg.setText(" Status: Applied D1");
             });
 
             dleft2.setText(" Drums 2");
@@ -1273,7 +1256,7 @@ public class PerformScene {
                 }
                 dpressed2 = !dpressed2;
 
-                labelstatusOrg.setText(" Status: Applied Drum 2");
+                labelstatusOrg.setText(" Status: Applied D2");
             });
 
             dleft3.setText(" Drums 3");
@@ -1326,7 +1309,7 @@ public class PerformScene {
                 }
                 dpressed3 = !dpressed3;
 
-                labelstatusOrg.setText(" Status: Applied Drum 3");
+                labelstatusOrg.setText(" Status: Applied D3");
             });
 
             dleft4.setText(" Drums 4");
@@ -1380,7 +1363,7 @@ public class PerformScene {
                 }
                 dpressed4 = !dpressed4;
 
-                labelstatusOrg.setText(" Status: Applied Drum 4");
+                labelstatusOrg.setText(" Status: Applied D4");
             });
 
             gridmidcenterPerform.add(dlabel1, 0, 3, 1, 1);
@@ -1495,7 +1478,7 @@ public class PerformScene {
                 }
                 lpressed11 = !lpressed11;
 
-                labelstatusOrg.setText(" Status: Applied Lower 1-1");
+                labelstatusOrg.setText(" Status: Applied L1-1");
             });
 
             lbutton12.setText(" Lower 1-2");
@@ -1548,7 +1531,7 @@ public class PerformScene {
                 }
                 lpressed12 = !lpressed12;
 
-                labelstatusOrg.setText(" Status: Applied Lower 1-2");
+                labelstatusOrg.setText(" Status: Applied L1-2");
             });
 
             lbutton13.setText(" Lower 1-3");
@@ -1601,7 +1584,7 @@ public class PerformScene {
                 }
                 lpressed13 = !lpressed13;
 
-                labelstatusOrg.setText(" Status: Applied Lower 1-3");
+                labelstatusOrg.setText(" Status: Applied L1-3");
             });
 
             lbutton14.setText(" Lower 1-4");
@@ -1654,7 +1637,7 @@ public class PerformScene {
                 }
                 lpressed14 = !lpressed14;
 
-                labelstatusOrg.setText(" Status: Applied Lower 1-4");
+                labelstatusOrg.setText(" Status: Applied L1-4");
             });
 
             lbutton21 = new Button(" Lower 2-1");
@@ -1707,7 +1690,7 @@ public class PerformScene {
                 }
                 lpressed21 = !lpressed21;
 
-                labelstatusOrg.setText(" Status: Applied Lower 2-1");
+                labelstatusOrg.setText(" Status: Applied L2-1");
             });
 
             lbutton22 = new Button(" Lower 2-2");
@@ -1760,7 +1743,7 @@ public class PerformScene {
                 }
                 lpressed22 = !lpressed22;
 
-                labelstatusOrg.setText(" Status: Applied Lower 2-2");
+                labelstatusOrg.setText(" Status: Applied L2-2");
             });
 
             lbutton23 = new Button(" Lower 2-3");
@@ -1813,7 +1796,7 @@ public class PerformScene {
                 }
                 lpressed23 = !lpressed23;
 
-                labelstatusOrg.setText(" Status: Applied Lower 2-3");
+                labelstatusOrg.setText(" Status: Applied L2-3");
             });
 
             lbutton24 = new Button(" Lower 2-4");
@@ -1866,7 +1849,7 @@ public class PerformScene {
                 }
                 lpressed24 = !lpressed24;
 
-                labelstatusOrg.setText(" Status: Applied Lower 2-4");
+                labelstatusOrg.setText(" Status: Applied L2-4");
             });
 
             gridmidcenterPerform.add(l1layerbtn, 3, 0, 1, 1);
@@ -2015,7 +1998,7 @@ public class PerformScene {
                 }
                 rpressed11 = !rpressed11;
 
-                labelstatusOrg.setText(" Status: Applied Upper 1-1");
+                labelstatusOrg.setText(" Status: Applied U1-1");
             });
 
             rbutton12.setText(" Upper 1-2");
@@ -2069,7 +2052,7 @@ public class PerformScene {
                 }
                 rpressed12 = !rpressed12;
 
-                labelstatusOrg.setText(" Status: Applied Upper 1-2");
+                labelstatusOrg.setText(" Status: Applied U1-2");
             });
 
             rbutton13.setText(" Upper 1-3");
@@ -2123,7 +2106,7 @@ public class PerformScene {
                 }
                 rpressed13 = !rpressed13;
 
-                labelstatusOrg.setText(" Status: Applied Upper 1-3");
+                labelstatusOrg.setText(" Status: Applied U1-3");
             });
 
             rbutton14.setText(" Upper 1-4");
@@ -2180,7 +2163,7 @@ public class PerformScene {
                 lastVoiceButton = rbutton14.getId();
                 lastVoiceChannel = midiButtons.getButtonChannel(rbutton14.getId());
 
-                labelstatusOrg.setText(" Status: Applied Upper 1-4");
+                labelstatusOrg.setText(" Status: Applied U1-4");
             });
 
             rbutton15.setText(" Upper 1-5");
@@ -2234,7 +2217,7 @@ public class PerformScene {
                 }
                 rpressed15 = !rpressed15;
 
-                labelstatusOrg.setText(" Status: Applied Upper 1-5");
+                labelstatusOrg.setText(" Status: Applied U1-5");
             });
 
             // Organ Button + Rotary On/Off and Brake
@@ -2289,7 +2272,7 @@ public class PerformScene {
                 }
                 rpressed16 = !rpressed16;
 
-                labelstatusOrg.setText(" Status: Applied Upper 1-6");
+                labelstatusOrg.setText(" Status: Applied U1-6");
             });
 
             //playmidifile.sendRotaryOn(false);
@@ -2407,7 +2390,7 @@ public class PerformScene {
                 }
                 rpressed21 = !rpressed21;
 
-                labelstatusOrg.setText(" Status: Applied Upper 2-1");
+                labelstatusOrg.setText(" Status: Applied U2-1");
             });
 
             rbutton22.setText(" Upper 2-2");
@@ -2461,7 +2444,7 @@ public class PerformScene {
                 }
                 rpressed22 = !rpressed22;
 
-                labelstatusOrg.setText(" Status: Applied Upper 2-2");
+                labelstatusOrg.setText(" Status: Applied U2-2");
             });
 
             rbutton23.setText(" Upper 2-3");
@@ -2515,7 +2498,7 @@ public class PerformScene {
                 }
                 rpressed23 = !rpressed23;
 
-                labelstatusOrg.setText(" Status: Applied Upper 2-3");
+                labelstatusOrg.setText(" Status: Applied U2-3");
             });
 
             rbutton24.setText(" Upper 2-4");
@@ -2569,7 +2552,7 @@ public class PerformScene {
                 }
                 rpressed24 = !rpressed24;
 
-                labelstatusOrg.setText(" Status: Applied Upper 2-4");
+                labelstatusOrg.setText(" Status: Applied U2-4");
             });
 
             rbutton31.setText(" Upper 3-1");
@@ -2623,7 +2606,7 @@ public class PerformScene {
                 }
                 rpressed31 = !rpressed31;
 
-                labelstatusOrg.setText(" Status: Applied Upper 3-1");
+                labelstatusOrg.setText(" Status: Applied U3-1");
             });
 
             rbutton32.setText(" Upper 3-2");
@@ -2677,7 +2660,7 @@ public class PerformScene {
                 }
                 rpressed32 = !rpressed32;
 
-                labelstatusOrg.setText(" Status: Applied Upper 3-2");
+                labelstatusOrg.setText(" Status: Applied U3-2");
             });
 
             rbutton33.setText(" Upper 3-3");
@@ -2731,7 +2714,7 @@ public class PerformScene {
                 }
                 rpressed33 = !rpressed33;
 
-                labelstatusOrg.setText(" Status: Applied Upper 3-3");
+                labelstatusOrg.setText(" Status: Applied U3-3");
             });
 
             rbutton34.setText(" Upper 3-4");
@@ -2785,7 +2768,7 @@ public class PerformScene {
                 }
                 rpressed34 = !rpressed34;
 
-                labelstatusOrg.setText(" Status: Applied Upper 3-4");
+                labelstatusOrg.setText(" Status: Applied U3-4");
             });
 
             gridmidcenterPerform.add(r1layerbtn, 6, 0, 1, 1);

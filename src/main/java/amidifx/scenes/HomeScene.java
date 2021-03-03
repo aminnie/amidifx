@@ -17,6 +17,8 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import javax.sound.midi.Receiver;
+import javax.sound.midi.Sequencer;
+import javax.sound.midi.Transmitter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -247,6 +249,10 @@ public class HomeScene {
                 try {
                     Receiver midircv = sharedStatus.getRxDevice();
                     midircv.close();
+                    Transmitter miditrans = sharedStatus.getTxDevice();
+                    miditrans.close();
+                    Sequencer midiseq = sharedStatus.getSeqDevice();
+                    midiseq.close();
                 }
                 catch (Exception ex) {
                     System.out.println("Info: Exiting: No receiver set yet");
@@ -279,20 +285,55 @@ public class HomeScene {
             borderPaneTop.setRight(toolbarRight);
 
             Label lbltopspacer = new Label("");
-            lbltopspacer.setPrefSize(300, 50);
+            lbltopspacer.setMaxHeight(50);
 
             String introline1 = "Welcome to AMIDIFX!";
             String introline2 = "AMIDIFX integrates MIDI sound modules with keyboards enabling live play with backing tracks.";
             String introline3 = "At this time we support the Deebach BlackBox as well as MIDI GM compliant modules with more planned.";
-            String introlines = introline1 + System.getProperty("line.separator") + System.getProperty("line.separator") + introline2 + System.getProperty("line.separator") + introline3;
+            String introlines = introline1 + System.getProperty("line.separator") +
+                    System.getProperty("line.separator") +
+                    introline2 + System.getProperty("line.separator") +
+                    introline3;
             TextArea txtIntro = new TextArea(introlines);
             txtIntro.setStyle("-fx-background-color: #999999; ");
-            txtIntro.setPrefSize(300, 200);
+            txtIntro.setPrefSize(400, 250);
             txtIntro.setWrapText(true);
             txtIntro.setDisable(true);
-            HBox vboxIntro = new HBox();
-            vboxIntro.setPadding(new Insets(10, 10, 10, 10));
-            vboxIntro.getChildren().add(txtIntro);
+
+            String keyboards1 = "MIDI Keyboard Channels:";
+            String keyboards20 = " Upper 1: Channel 14";
+            String keyboards21 = " Upper 2: Channel 15";
+            String keyboards22 = " Upper 3: Channel 16";
+            String keyboards30 = " Lower 1: Channel 12";
+            String keyboards31 = " Lower 2: Channel 13";
+            String keyboards4 = " Bass:       Channel 11";
+            String keyboards5 = " Drums:   Channel 10";
+            String keyboards = keyboards1 + System.getProperty("line.separator") + System.getProperty("line.separator") +
+                    keyboards20 + System.getProperty("line.separator") +
+                    keyboards21 + System.getProperty("line.separator") +
+                    keyboards22 + System.getProperty("line.separator") +
+                    keyboards30 + System.getProperty("line.separator") +
+                    keyboards31 + System.getProperty("line.separator") +
+                    keyboards4 + System.getProperty("line.separator") +
+                    keyboards5;
+            TextArea txtKeyboard = new TextArea(keyboards);
+            txtKeyboard.setStyle("-fx-background-color: #999999; ");
+            txtKeyboard.setPrefSize(300, 250);
+            txtKeyboard.setWrapText(true);
+            txtKeyboard.setDisable(true);
+
+            String stringSpace = " ";
+            TextArea txtLabel = new TextArea(stringSpace);
+            txtLabel.setStyle("-fx-background-color: #999999; ");
+            txtLabel.setPrefSize(800, 250);
+            txtLabel.setWrapText(true);
+            txtLabel.setDisable(true);
+
+            GridPane gridIntroKeyboard = new GridPane();
+            gridIntroKeyboard.setPadding(new Insets(10, 10, 10, 10));
+            gridIntroKeyboard.add(txtIntro,  0, 0, 1, 1);
+            gridIntroKeyboard.add(txtLabel, 1, 0, 1, 1);
+            gridIntroKeyboard.add(txtKeyboard, 2, 0, 1, 1);
 
             lblindevice = new Label(sharedStatus.getSelInDevice());
             if (fselindeviceok == true)
@@ -344,7 +385,7 @@ public class HomeScene {
                     }
                     dopatches.loadMidiPatches(modulefile);
 
-                    labelstatusOrg.setText(" Status: Ready to Play!");
+                    labelstatusOrg.setText(" Status: Ready to play. Test keyboard connection.");
                 }
             });
             // Proceed to setup MIDI IN, OUT and SYNTH
@@ -432,7 +473,7 @@ public class HomeScene {
             VBox vboxMidCenter = new VBox();
             vboxMidCenter.setPadding(new Insets(10, 10, 10, 10));
             vboxMidCenter.getChildren().add(lbltopspacer);
-            vboxMidCenter.getChildren().add(vboxIntro);
+            vboxMidCenter.getChildren().add(gridIntroKeyboard);
             vboxMidCenter.getChildren().add(vboxcomboindevice);
             vboxMidCenter.getChildren().add(vboxcombooutdevice);
             vboxMidCenter.getChildren().add(hboxbtnstart);

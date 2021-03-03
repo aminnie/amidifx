@@ -356,12 +356,10 @@ public class Main extends Application {
                 playmidifile.stopMidiPlay("End Play");
 
                 try {
-                    Transmitter midixmt = sharedStatus.getTxDevice();
-                    midixmt.close();
-
                     Receiver midircv = sharedStatus.getRxDevice();
                     midircv.close();
-
+                    Transmitter midixmt = sharedStatus.getTxDevice();
+                    midixmt.close();
                     Sequencer midiseq = sharedStatus.getSeqDevice();
                     midiseq.close();
                 }
@@ -1363,12 +1361,10 @@ public class Main extends Application {
                 playmidifile.stopMidiPlay("End Play");
 
                 try {
-                    Transmitter midixmt = sharedStatus.getTxDevice();
-                    midixmt.close();
-
                     Receiver midircv = sharedStatus.getRxDevice();
                     midircv.close();
-
+                    Transmitter midixmt = sharedStatus.getTxDevice();
+                    midixmt.close();
                     Sequencer midiseq = sharedStatus.getSeqDevice();
                     midiseq.close();
                 }
