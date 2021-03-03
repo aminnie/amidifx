@@ -1,6 +1,11 @@
 ## Introduction to AMIDIFX
 
-Last Update: 06 February 2021
+Last Update: 02 March 2021
+
+Most recent updates:
+* Added USB MIDI Keyboard support
+* Added home screen for MIDI IN and OUT Device Selects
+* Added Layering modes for Lower and Upper Keyboards
 
 AMIDIFIX is a component based MIDI solution intended to manage one or more MIDI Sound Modules. Hardware sound modules such as the Deebach BlackBox (https://www.deebach.eu/), Roland Integra7, or Yamaha Motif Rack ES are well suited for studio applications. However, wiith no or limited user onboard interfaces they require much configuration for realtime performances. With custom development, it is quite possible to use them in live music scenarios, and/or for instance assemble your own multi-keyboard solution with instant recall of all the settings for a pre-confgured song. 
 
@@ -193,11 +198,10 @@ How to use the Preset configuraton screen:
   * This feature reiies on an external custom controller currently in development and testing. The idea is that you connect your keyboard/organ to this device and the output of this controller to the sound module. The controller is updated with layers associated with each channel. Inbound keyboard notes are mapped real-time to configured output channels - up to 16 of them. Additioanlly external VOL control changes form the organ or MIDI volume pedal is mapped to all Keyboard Bass, Lower 1+2, Upper 1+2+3 channels as well as all layers - just like the expression pedal on an Organ. The Seeed Oddesey shown above is already integrated in this manner and I am workinng on the ARM controller source code. This extenrnal ARM controller will be connected to hardware drawbars as well as additioal rotary encoders and buttons.
 
  
-### Current Status: 02/06/2021
+### Current Status: 03/02/2021
 
 Next up:
-  * Updating the Song screen to list all active tracks and the channels along wuth a track mute buttons for an easy play alogn mdoe
-  * Building out the ARM controller
+  * Updating the Song screen to list all active tracks and the channels along with a track mute buttons for an easy play alogn mode
   * Deeper integraton into Deebach: Complete rotary on/off, drawbar integration, etc.
   * AMIDIFX was developed in JavaFX. It is portable to numerous operating systems and devices, including IOS, Andriod, Linux, etc.
   * Adding a USB based controller hardeware with real(!) buttons and rotary switches, and of course one or more sets of drawbars1
