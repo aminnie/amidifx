@@ -455,18 +455,28 @@ public class PerformScene {
                 try {
                     Receiver midircv = sharedStatus.getRxDevice();
                     midircv.close();
+                }
+                catch (Exception ex) {
+                    System.out.println("Exception on receiver close");
+                }
+                try {
                     Transmitter midixmt = sharedStatus.getTxDevice();
                     midixmt.close();
+                }
+                catch (Exception ex) {
+                    System.out.println("Exception on transmitter close");
+                }
+                try {
                     Sequencer midiseq = sharedStatus.getSeqDevice();
                     midiseq.close();
                 }
                 catch (Exception ex) {
-                    System.out.println("Info: Exiting: No receiver set yet");
+                    System.out.println("Exception on sequencer close");
                 }
 
-                arduinoUtils.closePort();
+                //arduinoUtils.closePort();
 
-                Platform.exit();
+                System.exit(0);
             });
 
             ToolBar toolbarLeft = new ToolBar(buttonsc1, buttonsc2, buttonsc3);

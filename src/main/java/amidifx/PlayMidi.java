@@ -664,6 +664,10 @@ public class PlayMidi {
                 midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, chanidx, ccAllNotesOff, VAL);
                 midircv.send(midiMsg, timeStamp);
 
+                // Default EXP to default for now
+                midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, chanidx & 0XFF, ccEXP & 0XFF, 127 & 0XFF);
+                midircv.send(midiMsg, timeStamp);
+
                 //System.out.println("PlayMidi: PANIC Sound, Controllers, Notes off sent on channel: " + chanidx);
             }
         }

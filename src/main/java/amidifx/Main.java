@@ -351,29 +351,34 @@ public class Main extends Application {
         Button buttonExit = new Button("  Exit  ");
         buttonExit.setStyle(btnMenuOff);
         buttonExit.setOnAction(e -> {
+            PlayMidi playmidifile = PlayMidi.getInstance();
+            playmidifile.stopMidiPlay("End Play");
+
             try {
-                PlayMidi playmidifile = PlayMidi.getInstance();
-                playmidifile.stopMidiPlay("End Play");
-
-                try {
-                    Receiver midircv = sharedStatus.getRxDevice();
-                    midircv.close();
-                    Transmitter midixmt = sharedStatus.getTxDevice();
-                    midixmt.close();
-                    Sequencer midiseq = sharedStatus.getSeqDevice();
-                    midiseq.close();
-                }
-                catch (Exception ex) {
-                    System.out.println("Info: Exiting: No receiver set yet");
-                }
-
-                arduinoUtils.closePort();
+                Receiver midircv = sharedStatus.getRxDevice();
+                midircv.close();
             }
             catch (Exception ex) {
-
+                System.out.println("Exception on receiver close");
+            }
+            try {
+                Transmitter midixmt = sharedStatus.getTxDevice();
+                midixmt.close();
+            }
+            catch (Exception ex) {
+                System.out.println("Exception on transmitter close");
+            }
+            try {
+                Sequencer midiseq = sharedStatus.getSeqDevice();
+                midiseq.close();
+            }
+            catch (Exception ex) {
+                System.out.println("Exception on sequencer close");
             }
 
-            Platform.exit();
+            //arduinoUtils.closePort();
+
+            System.exit(0);
         });
 
         // Reload Presets Button
@@ -1356,29 +1361,34 @@ public class Main extends Application {
         Button buttonExit = new Button("  Exit  ");
         buttonExit.setStyle(btnMenuOff);
         buttonExit.setOnAction(e -> {
+            PlayMidi playmidifile = PlayMidi.getInstance();
+            playmidifile.stopMidiPlay("End Play");
+
             try {
-                PlayMidi playmidifile = PlayMidi.getInstance();
-                playmidifile.stopMidiPlay("End Play");
-
-                try {
-                    Receiver midircv = sharedStatus.getRxDevice();
-                    midircv.close();
-                    Transmitter midixmt = sharedStatus.getTxDevice();
-                    midixmt.close();
-                    Sequencer midiseq = sharedStatus.getSeqDevice();
-                    midiseq.close();
-                }
-                catch (Exception ex) {
-                    System.out.println("Info: Exiting: No receiver set yet");
-                }
-
-                arduinoUtils.closePort();
+                Receiver midircv = sharedStatus.getRxDevice();
+                midircv.close();
             }
             catch (Exception ex) {
-
+                System.out.println("Exception on receiver close");
+            }
+            try {
+                Transmitter midixmt = sharedStatus.getTxDevice();
+                midixmt.close();
+            }
+            catch (Exception ex) {
+                System.out.println("Exception on transmitter close");
+            }
+            try {
+                Sequencer midiseq = sharedStatus.getSeqDevice();
+                midiseq.close();
+            }
+            catch (Exception ex) {
+                System.out.println("Exception on sequencer close");
             }
 
-            Platform.exit();
+            //arduinoUtils.closePort();
+
+            System.exit(0);
         });
 
         // Save Presets Button

@@ -323,7 +323,7 @@ public class MidiDevices {
             byte channel = (byte)(message.getStatus() & 0x0f);
 
             // Testing device and channel, e.g. Trellis M4
-            if (channel == 0) channel = 13;
+            //if (channel == 0) channel = 13;
 
             // Do not layer any source channels below Lower Keyboard, including Bass Pedals and Drums
             if (channel < (byte)(sharedstatus.getLower1CHAN()-1)) {
