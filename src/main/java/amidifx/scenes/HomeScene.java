@@ -124,7 +124,8 @@ public class HomeScene {
      * Creates Welcome Scene.
      *********************************************************/
 
-    public HomeScene(Stage primaryStage, Scene returnScene) {
+    //public HomeScene(Stage primaryStage, Scene returnScene) {
+    public HomeScene(Stage primaryStage) {
 
         System.out.println("AMIDIFX Home Scene Starting");
 
@@ -393,7 +394,13 @@ public class HomeScene {
             btnStart.setStyle(selectcolorOn);
             btnStart.setDisable(true);
             btnStart.setOnAction(e -> {
-                primaryStage.setScene(returnScene);
+
+                System.out.println("HomeScene: Switching to Perform Scene");
+
+                PerformScene performScene = new PerformScene(primaryStage);
+                sharedStatus.setPerformScene(performScene.getScene());
+
+                primaryStage.setScene(sharedStatus.getPerformScene());
                 try {
 
                     Thread.sleep(600);

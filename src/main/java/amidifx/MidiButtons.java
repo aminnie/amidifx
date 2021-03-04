@@ -3,6 +3,7 @@ package amidifx;
 import amidifx.models.MidiButton;
 import amidifx.models.MidiPatch;
 import amidifx.models.MidiPreset;
+import amidifx.models.SharedStatus;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,6 +11,9 @@ import java.util.List;
 
 
 public class MidiButtons {
+
+    // Static variable single_instance of type PlayMidi
+    private static MidiButtons single_MidiButtonsInstance = null;
 
     // CSV file delimiter
     private static final String CSV_DELIMITER = ",";
@@ -35,18 +39,31 @@ public class MidiButtons {
     class buttonMap {
         String buttonID;
         int buttonIdx;
+        int channelIdx;
 
         // Constructor
-        public buttonMap(String buttonId, int buttonIdx) {
+        public buttonMap(String buttonId, int buttonIdx, int channelIdx) {
             this.buttonID = buttonId;
             this.buttonIdx = buttonIdx;
+            this.channelIdx = channelIdx;
         }
     }
 
-    // Constructor
-    public MidiButtons() {
+    // Static method to create singleton instance of PlayMidi class
+    public synchronized static MidiButtons getInstance() {
+        if (single_MidiButtonsInstance == null) {
+            single_MidiButtonsInstance = new MidiButtons();
 
-        // Create Revers Button Mapping for all Buttons in the UI
+            //System.out.println("MidiButtons: Creating instance MidiButtons");
+        }
+
+        return single_MidiButtonsInstance;
+    }
+
+    // Constructor
+    private MidiButtons() {
+
+        // Create Reverse Button Mapping for all Buttons in the UI
         this.createButtonMapping();
     }
 
@@ -60,67 +77,77 @@ public class MidiButtons {
         return 0;
     }
 
+    // Reverse Lookup ChannelIdx into List from buttonId
+    public int lookupChannelIdx(String buttonId) {
+
+        for (buttonMap bmap : buttonMaps) {
+            if (bmap.buttonID.equals(buttonId))
+                return bmap.channelIdx;
+        }
+        return 0;
+    }
+
     // Create a list of all Buttons in UI with associated Button List Index value
     protected void createButtonMapping() {
 
         System.out.println("MidiButtons: Creating Button index mappings");
 
+        SharedStatus sharedstatus = SharedStatus.getInstance();
+
         // Upper 1 Buttons
-        buttonMaps.add(0, new buttonMap("U1-1", 0));
-        buttonMaps.add(0, new buttonMap("U1-2", 1));
-        buttonMaps.add(0, new buttonMap("U1-3", 2));
-        buttonMaps.add(0, new buttonMap("U1-4", 3));
-        buttonMaps.add(0, new buttonMap("U1-5", 4));
-        buttonMaps.add(0, new buttonMap("U1-6", 5));
+        buttonMaps.add(0, new buttonMap("U1-1", 0, sharedstatus.getUpper1CHAN() ));
+        buttonMaps.add(0, new buttonMap("U1-2", 1, sharedstatus.getUpper1CHAN() ));
+        buttonMaps.add(0, new buttonMap("U1-3", 2, sharedstatus.getUpper1CHAN() ));
+        buttonMaps.add(0, new buttonMap("U1-4", 3, sharedstatus.getUpper1CHAN() ));
+        buttonMaps.add(0, new buttonMap("U1-5", 4, sharedstatus.getUpper1CHAN() ));
+        buttonMaps.add(0, new buttonMap("U1-6", 5, sharedstatus.getUpper1CHAN() ));
 
         // Upper 2 Buttons
-        buttonMaps.add(0, new buttonMap("U2-1", 6));
-        buttonMaps.add(0, new buttonMap("U2-2", 7));
-        buttonMaps.add(0, new buttonMap("U2-3", 8));
-        buttonMaps.add(0, new buttonMap("U2-4", 9));
+        buttonMaps.add(0, new buttonMap("U2-1", 6, sharedstatus.getUpper2CHAN() ));
+        buttonMaps.add(0, new buttonMap("U2-2", 7, sharedstatus.getUpper2CHAN() ));
+        buttonMaps.add(0, new buttonMap("U2-3", 8, sharedstatus.getUpper2CHAN() ));
+        buttonMaps.add(0, new buttonMap("U2-4", 9, sharedstatus.getUpper2CHAN() ));
 
         // Upper 2 Buttons
-        buttonMaps.add(0, new buttonMap("U3-1", 10));
-        buttonMaps.add(0, new buttonMap("U3-2", 11));
-        buttonMaps.add(0, new buttonMap("U3-3", 12));
-        buttonMaps.add(0, new buttonMap("U3-4", 13));
+        buttonMaps.add(0, new buttonMap("U3-1", 10, sharedstatus.getUpper3CHAN() ));
+        buttonMaps.add(0, new buttonMap("U3-2", 11, sharedstatus.getUpper3CHAN() ));
+        buttonMaps.add(0, new buttonMap("U3-3", 12, sharedstatus.getUpper3CHAN() ));
+        buttonMaps.add(0, new buttonMap("U3-4", 13, sharedstatus.getUpper3CHAN() ));
 
         // Lower 1 Buttons
-        buttonMaps.add(0, new buttonMap("L1-1", 14));
-        buttonMaps.add(0, new buttonMap("L1-2", 15));
-        buttonMaps.add(0, new buttonMap("L1-3", 16));
-        buttonMaps.add(0, new buttonMap("L2-4", 17));
+        buttonMaps.add(0, new buttonMap("L1-1", 14, sharedstatus.getLower1CHAN() ));
+        buttonMaps.add(0, new buttonMap("L1-2", 15, sharedstatus.getLower1CHAN() ));
+        buttonMaps.add(0, new buttonMap("L1-3", 16, sharedstatus.getLower1CHAN() ));
+        buttonMaps.add(0, new buttonMap("L2-4", 17, sharedstatus.getLower1CHAN() ));
 
         // Lower 2 Buttons
-        buttonMaps.add(0, new buttonMap("L2-1", 18));
-        buttonMaps.add(0, new buttonMap("L2-2", 19));
-        buttonMaps.add(0, new buttonMap("L2-3", 20));
-        buttonMaps.add(0, new buttonMap("L2-4", 21));
+        buttonMaps.add(0, new buttonMap("L2-1", 18, sharedstatus.getLower2CHAN() ));
+        buttonMaps.add(0, new buttonMap("L2-2", 19, sharedstatus.getLower2CHAN() ));
+        buttonMaps.add(0, new buttonMap("L2-3", 20, sharedstatus.getLower2CHAN() ));
+        buttonMaps.add(0, new buttonMap("L2-4", 21, sharedstatus.getLower2CHAN() ));
 
         // Bass Buttons
-        buttonMaps.add(0, new buttonMap("B1-1", 22));
-        buttonMaps.add(0, new buttonMap("B1-2", 23));
-        buttonMaps.add(0, new buttonMap("B1-3", 24));
-        buttonMaps.add(0, new buttonMap("B1-4", 25));
+        buttonMaps.add(0, new buttonMap("B1-1", 22, sharedstatus.getBassCHAN() ));
+        buttonMaps.add(0, new buttonMap("B1-2", 23, sharedstatus.getBassCHAN() ));
+        buttonMaps.add(0, new buttonMap("B1-3", 24, sharedstatus.getBassCHAN() ));
+        buttonMaps.add(0, new buttonMap("B1-4", 25, sharedstatus.getBassCHAN() ));
 
         // Drum Buttons
-        buttonMaps.add(0, new buttonMap("D1-1", 26));
-        buttonMaps.add(0, new buttonMap("D1-2", 27));
-        buttonMaps.add(0, new buttonMap("D1-3", 28));
-        buttonMaps.add(0, new buttonMap("D1-4", 29));
+        buttonMaps.add(0, new buttonMap("D1-1", 26, sharedstatus.getDrumCHAN() ));
+        buttonMaps.add(0, new buttonMap("D1-2", 27, sharedstatus.getDrumCHAN() ));
+        buttonMaps.add(0, new buttonMap("D1-3", 28, sharedstatus.getDrumCHAN() ));
+        buttonMaps.add(0, new buttonMap("D1-4", 29, sharedstatus.getDrumCHAN() ));
     }
 
     // Load specific Button Config file
-    public void makeMidiButtons(String buttonFile) {
+    public void loadMidiButtons(String buttonFile) {
 
         this.buttonFile = buttonFile;
-
-        //midiButtons = new MidiButtons();
 
         // Need to validate this
         buttonList.clear();
 
-        System.out.println("Loading MIDI Buttons using BufferedReader:  " + buttonFile);
+        System.out.println("LoadMidiButtons: Loading buttons file:  " + buttonFile);
 
         BufferedReader br = null;
         try {
@@ -393,5 +420,4 @@ public class MidiButtons {
         midibutton.setMOD(preset.getMOD());
         midibutton.setPAN(preset.getPAN());
     }
-
 }

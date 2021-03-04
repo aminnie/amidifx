@@ -125,7 +125,10 @@ public class PerformScene {
     String songTitle;
     String songFile;
     String presetFile;
-    String buttonFile = "perform.csv";
+
+    private String performgm = "midigm.prf";
+    String buttonFile = performgm;
+
     private static final String MID_DIRECTORY = "C:/amidifx/midifiles/";
 
     Button buttonSave;
@@ -298,7 +301,8 @@ public class PerformScene {
      * Creates a Perform Scene.
      *********************************************************/
 
-    public PerformScene(Stage primaryStage, Scene returnScene) {
+    //public PerformScene(Stage primaryStage, Scene returnScene) {
+    public PerformScene(Stage primaryStage) {
 
         System.out.println("PerformScene: AMIDIFX Perform Scene Starting");
 
@@ -307,6 +311,16 @@ public class PerformScene {
             sharedStatus = SharedStatus.getInstance();
 
             AppConfig config = AppConfig.getInstance();
+
+            // To Do: Generalize the first two Songs in the Song List and ensure cannot be deleted
+            if (config.getSoundModuleIdx() == 1) {
+                sharedStatus.setPresetFile("defaultdb.csv");
+                idxSongList = 0;
+            }
+            else {
+                sharedStatus.setPresetFile("defaultgm.csv");
+                idxSongList = 1;
+            }
 
             // Get instance of Arduino Utilities
             arduinoUtils = ArduinoUtils.getInstance();
@@ -319,7 +333,7 @@ public class PerformScene {
 
             // Load Song List
             dosongs = sharedStatus.getDoSongs();
-            songTitle = dosongs.getSong(0).getSongTitle();
+            songTitle = dosongs.getSong(idxSongList).getSongTitle();
             System.out.println("PerformScene Init: Song Title: " + songTitle);
 
             // Load MIDI Patch files on start up based on detected and preferred sound module
@@ -351,7 +365,7 @@ public class PerformScene {
             playmidifile.initCurPresetList();
 
             // Prepare Voice Buttons Mappings by loading either Deebach or MidiGM Organ Files
-            midiButtons = new MidiButtons();
+            midiButtons = MidiButtons.getInstance();
 
             if (sharedStatus.getPerformFile() != null) {
                 buttonFile = sharedStatus.getPerformFile();
@@ -359,7 +373,7 @@ public class PerformScene {
             else {
                 System.err.println("### PerformScene Error: Perform file not found. Selected default: " + buttonFile);
             }
-            midiButtons.makeMidiButtons(buttonFile);
+            midiButtons.loadMidiButtons(buttonFile);
 
             // Start Building the Scene
 
@@ -3117,7 +3131,9 @@ public class PerformScene {
             HBox hboxstatus = new HBox();
             hboxstatus.getChildren().add(labelstatusOrg);
             labelstatusOrg.setMinWidth(820 * ymul);
-            labelsynth = new Label("Module");
+
+            //labelsynth = new Label("Module");
+            labelsynth = new Label(sharedStatus.getModuleName(config.getSoundModuleIdx()));
             labelsynth.setTextAlignment(TextAlignment.JUSTIFY);
             labelsynth.setStyle(styletext);
             hboxstatus.getChildren().add(labelsynth);

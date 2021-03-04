@@ -2,7 +2,6 @@ package amidifx;
 
 import amidifx.models.*;
 import amidifx.scenes.HomeScene;
-import amidifx.scenes.PerformScene;
 import amidifx.utils.AppConfig;
 import amidifx.utils.ArduinoUtils;
 import javafx.application.Application;
@@ -238,17 +237,16 @@ public class Main extends Application {
         scenePresets.getStylesheets().add("style.css");
         sharedStatus.setPresetsScene(scenePresets);
 
-        // Song Perform/Keyboard/Organ Scene
-        PerformScene performScene = new PerformScene(stage, sceneSongs);
-        sharedStatus.setPerformScene(performScene.getScene());
-        //stage.setScene(performScene.getScene());
+        ///// Song Perform/Keyboard/Organ Scene
+        ////PerformScene performScene = new PerformScene(stage);
+        ////sharedStatus.setPerformScene(performScene.getScene());
 
-        // Device Config Scene
-        HomeScene welcomeScene = new HomeScene(stage, performScene.getScene());
-        sharedStatus.setHomeScene(performScene.getScene());
+        // Device Configuration Home Scene
+        HomeScene homeScene = new HomeScene(stage);
+        sharedStatus.setHomeScene(homeScene.getScene());
 
         // Switch to Device Configuration (Home) Screen for start up
-        stage.setScene(welcomeScene.getScene());
+        stage.setScene(homeScene.getScene());
 
         stage.show();
     }
@@ -921,6 +919,26 @@ public class Main extends Application {
         buttonedit.setStyle(selectcolorOff);
         buttonedit.setPrefSize(xsmallbtn, ysmallbtn);
         buttonedit.setOnAction(event -> {
+            ObservableList selectedIndices = songlistView.getSelectionModel().getSelectedIndices();
+
+            for(Object o : selectedIndices) {
+                System.out.println("Main: o = " + o + " (" + o.getClass() + ")");
+                int idx = Integer.parseInt(o.toString());
+
+                MidiSong midiSong = midiSongs.get(idx);
+                String songtitle = midiSong.getSongTitle();
+
+                // Never edit initial default organ preset files.
+                if ((idx == 0) || (idx == 1)) {
+                    labelstatusSng.setText(" Status: Editing Preset Song " + midiSong.getSongTitle() + " files not allowed");
+                    labelstatusSng.setStyle(styletextred);
+
+                    buttonedit.setDisable(true);
+                    buttondelete.setDisable(true);
+
+                    return;
+                }
+            }
 
             // Enable Preset File Save As text entry
             txtSongTitle.setDisable(false);
@@ -938,7 +956,6 @@ public class Main extends Application {
             buttonnew.setDisable(true);
             buttondelete.setDisable(true);
             buttonupdate.setDisable(false);
-
 
             labelstatusSng.setText(" Status: Editing details for Song " + txtSongTitle.getText());
         });
@@ -1022,11 +1039,14 @@ public class Main extends Application {
                     String songtitle = midiSong.getSongTitle();
 
                     // Never delete the initial default organ preset file.
-                    if (idx == 0) {
-                        labelstatusSng.setText(" Status: Deleting Song " + songtitle + " not allowed");
+                    if ((idx == 0) || (idx == 1)) {
+                        labelstatusSng.setText(" Status: Deleting Preset Song " + songtitle + " not allowed");
+                        labelstatusSng.setStyle(styletextred);
 
                         // Enable user save of UI deleted Song form List
                         buttonupdate.setDisable(true);
+                        buttonedit.setDisable(true);
+                        buttondelete.setDisable(true);
 
                         return;
                     }

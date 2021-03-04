@@ -76,13 +76,13 @@ public class SharedStatus {
     private SharedStatus() { }
 
     public Scene getPerformScene() {
-        System.out.println("SharedStatus: Getting Songs Scene: " + scenePerform.toString());
+        System.out.println("SharedStatus: Getting Perform Scene: " + scenePerform.toString());
         return this.scenePerform;
     }
 
     public void setPerformScene(Scene sceneOrgan) {
         this.scenePerform = sceneOrgan;
-        System.out.println("SharedStatus: Setting Songs Scene: " + scenePerform.toString());
+        System.out.println("SharedStatus: Setting Perform Scene: " + scenePerform.toString());
     }
 
     public Scene getSongsScene() {
@@ -96,13 +96,13 @@ public class SharedStatus {
     }
 
     public Scene getPresetsScene() {
-        System.out.println("SharedStatus: Getting Songs Scene: " + scenePresets.toString());
+        System.out.println("SharedStatus: Getting Presets Scene: " + scenePresets.toString());
         return this.scenePresets;
     }
 
     public void setPresetsScene(Scene scenePresets) {
         this.scenePresets = scenePresets;
-        System.out.println("SharedStatus: Setting Songs Scene: " + scenePresets.toString());
+        System.out.println("SharedStatus: Setting Presets Scene: " + scenePresets.toString());
     }
 
     public void setHomeScene(Scene sceneHome) {
@@ -284,12 +284,14 @@ public class SharedStatus {
     }
 
     public String getPerformFile() {
-        if (moduleidx == 0)
+        if (moduleidx == 0) {
+            System.out.println("Button File: " + performgm);
             return performgm;
-        //else if (moduleidx == 1)
-        //    return performin;
-        else
+        }
+        else {
+            System.out.println("Button File: " + performdb);
             return performdb;
+        }
     }
 
     public void setSelInDevice(String selindevice) {
