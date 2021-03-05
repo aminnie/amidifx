@@ -65,7 +65,7 @@ public class AppConfig {
     public boolean saveProperties() {
 
         try {
-            configProps.storeToXML(new FileOutputStream(configPath), "Saved to XML file");
+            configProps.storeToXML(new FileOutputStream(configPath), "Config XML file save");
 
             // get the property value and print it out
             System.out.println("AppConfig: Saving Properties to: " + configPath);

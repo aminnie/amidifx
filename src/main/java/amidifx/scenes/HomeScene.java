@@ -359,13 +359,15 @@ public class HomeScene {
             Button btnConfig = new Button("Configure");
             btnConfig.setStyle(btnplayOff);
             btnConfig.setOnAction(e -> {
+
                 int result = mididevices.createMidiDevices(config.getInDevice(), config.getOutDevice());
                 if (result == -1) {
                     labelstatusOrg.setText(" Error creating MIDI OUT Device: " + config.getOutDevice());
-
+                    labelstatusOrg.setStyle(styletextred);
                 }
                 else if (result == -2) {
                     labelstatusOrg.setText(" Error creating MIDI Sequencer!");
+                    labelstatusOrg.setStyle(styletextred);
                 }
                 else {
                     btnStart.setDisable(false);
@@ -387,8 +389,10 @@ public class HomeScene {
                     dopatches.loadMidiPatches(modulefile);
 
                     labelstatusOrg.setText(" Status: Ready to play. Test keyboard connection.");
+                    labelstatusOrg.setStyle(styletext);
                 }
             });
+
             // Proceed to setup MIDI IN, OUT and SYNTH
             btnStart = new Button("To Perform");
             btnStart.setStyle(selectcolorOn);
@@ -409,6 +413,7 @@ public class HomeScene {
                 }
 
             });
+
             HBox hboxbtnstart = new HBox();
             hboxbtnstart.setSpacing(20);
             hboxbtnstart.getChildren().add(btnConfig);
@@ -468,6 +473,7 @@ public class HomeScene {
                 //System.out.println("Selection made: [" + selectedIndex + "] " + selectedItem);
                 //System.out.println("   ComboBox.getValue(): " + comboOutDevice.getValue());
             });
+
             Label lbloutselect = new Label("Select MIDI OUT:");
             lbloutselect.setStyle(styletextwhite);
 

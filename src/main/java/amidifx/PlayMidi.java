@@ -219,7 +219,7 @@ public class PlayMidi {
                             MidiPreset preset = readpresets.getPreset(presetidx * 16 + chanidx);
                             readpresets.applyMidiPreset(preset, chanidx);
 
-                            System.out.println("### Applied Channel " + chanidx + ", " + preset.toString());
+                            //System.out.println("### Applied Channel " + chanidx + ", " + preset.toString());
                         }
 
                         sharedStatus.setStatusText("Preset " + (presetidx + 1) + " auto applied ");
@@ -431,7 +431,7 @@ public class PlayMidi {
         }
 
         try {
-            System.out.println("PlayMidi: sendMidiControlChange sending MIDI Control Change:  CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
+            //System.out.println("PlayMidi: sendMidiControlChange sending MIDI Control Change:  CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
 
             Receiver midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
             //System.out.println("PlayMidi: Created getReceiver: " + midircv.toString());
