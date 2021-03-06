@@ -1562,6 +1562,7 @@ public class Main extends Application {
         ArrayList moduleNames = new ArrayList();
         moduleNames.add(midimodules.getModuleName(0));
         moduleNames.add(midimodules.getModuleName(1));
+        moduleNames.add(midimodules.getModuleName(2));
         int moduleidx = sharedStatus.getModuleidx();
 
         ObservableList<String> soundbank = FXCollections.observableArrayList();

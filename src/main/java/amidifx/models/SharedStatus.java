@@ -20,6 +20,7 @@ public class SharedStatus {
 
     private String modulename0 = "MIDI GM";
     private String modulename1 = "Deebach BlackBox";
+    private String modulename2 = "Roland Integra7";
 
     private String selindevice = "default";
     private String seloutdevice = "default";
@@ -186,11 +187,15 @@ public class SharedStatus {
         System.out.println("Setting moduleIdx = " + this.moduleidx);
     }
 
+    // Return Deebach MaxPlus (1), Roland Integra7, or MIDI GM (0)
     public String getModuleName(int moduleidx) {
 
-        // Return Deebach MaxPlus (1) or MIDI GM (0)
         if (moduleidx == 1)
             return this.modulename1;
+
+        // Return Roland Integra7
+        if (moduleidx == 2)
+            return this.modulename2;
 
         return modulename0;
     }

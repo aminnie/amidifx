@@ -479,9 +479,14 @@ public class HomeScene {
 
                 seloutdevice = comboOutDevice.getValue().toString();
 
-                // If selected Device is Deebach, prepare to load the Deebach pacthes
+                // If selected Device is Deebach, prepare to load the Deebach patches
                 if (seloutdevice.contains("Deebach")) {
                     sharedStatus.setModuleidx(1);
+                }
+
+                // If selected Device is Integra, prepare to load the Integra7 patches
+                if (seloutdevice.contains("Integra")) {
+                    sharedStatus.setModuleidx(2);
                 }
 
                 buttonSave.setDisable(false);
