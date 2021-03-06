@@ -144,7 +144,9 @@ public class MidiSongs {
 
 
     // Save current Song List to Disk
-    public void saveSongs(boolean sort) {
+    public boolean saveSongs(boolean sort) {
+
+        boolean statusreturn = true;
 
         // Ensure that Song List is saved in alphabetical order in case new New Songs has been added
         if (sort)
@@ -171,7 +173,7 @@ public class MidiSongs {
             for (int idx = 0; idx < songList.size(); idx++) {
                 MidiSong song = getSong(idx);
 
-                String songline = Integer.toString(song.getSongId());
+                String songline = Integer.toString(song.getSongType());
                 songline = songline.concat(",").concat(song.getSongTitle());
                 songline = songline.concat(",").concat(song.getPresetFile());
                 songline = songline.concat(",").concat(song.getMidiFile());
@@ -191,7 +193,11 @@ public class MidiSongs {
             System.out.println("Song file written successfully");
         }
         catch (IOException ioe) {
+            System.err.println("Unable to Save the Updated Song List");
             ioe.printStackTrace();
+
+            sharedStatus.setStatusText(" Status: Unable to Save the Updated Song List!");
+            statusreturn = false;
         }
         finally {
             try {
@@ -200,8 +206,11 @@ public class MidiSongs {
             }
             catch(Exception ex) {
                 System.err.println("Error in closing the Song file BufferedWriter"+ex);
+                statusreturn = false;
             }
         }
+
+        return statusreturn;
     }
 
     public static boolean copyFile(String source, String dest, boolean bdestdel) {

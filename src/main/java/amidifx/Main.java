@@ -130,7 +130,7 @@ public class Main extends Application {
 
     int patchIdx = 100;     // On Screen Voice Index Started
     int selpatchIdx = 0;    // Selected on Screen Voice Index
-    int songIdx = 0;
+    //int songIdx = 0;
     int moduleIdx = 0;
     int presetIdx = 0;
     int channelIdx = 0;
@@ -686,7 +686,7 @@ public class Main extends Application {
         txtPresetFile = new TextField();
         txtPresetFile.setDisable(true);
         txtPresetFile.textProperty().addListener(event -> {
-            String regexfile = "^[A-Za-z0-9]{3,8}[.]{1}[A-Za-z]{3}$";
+            String regexfile = "^[A-Za-z0-9]{3,12}[.]{1}[A-Za-z]{3}$";
             txtPresetFile.pseudoClassStateChanged(
                     PseudoClass.getPseudoClass("error"),
                         (txtPresetFile.getText().isEmpty() ||
@@ -697,7 +697,7 @@ public class Main extends Application {
         txtPresetFile.setPromptText("Enter Preset file (required).");
         txtPresetFile.setPrefColumnCount(10);
         txtPresetFile.setTooltip(new Tooltip(
-                "Item name (Name in 8.3 Alphanum format)"));
+                "Item name (Name in 3-12 Alphanum format)"));
         txtPresetFile.setStyle("-fx-control-inner-background: #E7ECEC;");
 
         Label lblsmf = new Label("MIDI File:");
@@ -706,7 +706,7 @@ public class Main extends Application {
         txtSmfFile = new TextField();
         txtSmfFile.setDisable(true);
         txtSmfFile.textProperty().addListener(event -> {
-            String regexfile = "^[A-Za-z0-9]{3,8}[.]{1}[A-Za-z]{3}$";
+            String regexfile = "^[A-Za-z0-9]{3,12}[.]{1}[A-Za-z]{3}$";
             txtSmfFile.pseudoClassStateChanged(
                     PseudoClass.getPseudoClass("error"),
                         (txtSmfFile.getText().isEmpty() ||
@@ -717,7 +717,7 @@ public class Main extends Application {
         txtSmfFile.setPromptText("Enter MIDI file (required).");
         txtSmfFile.setPrefColumnCount(10);
         txtSmfFile.setTooltip(new Tooltip(
-                "Item name (Name in 8.3 Alphanum format)"));
+                "Item name (Name in 3-12 Alphanum format)"));
         txtSmfFile.setStyle("-fx-control-inner-background: #E7ECEC;");
 
         Label lblpresetsaveas = new Label("Preset As:");
@@ -728,18 +728,20 @@ public class Main extends Application {
         txtPresetSaveAsFile.setMouseTransparent(true);
         txtPresetSaveAsFile.setFocusTraversable(false);
         txtPresetSaveAsFile.textProperty().addListener(event -> {
-            String regexfile = "^[A-Za-z0-9]{3,8}[.]{1}[A-Za-z]{3}$";
+            String regexfile = "^[A-Za-z0-9]{3,12}[.]{1}[A-Za-z]{3}$";
             txtPresetSaveAsFile.pseudoClassStateChanged(
                     PseudoClass.getPseudoClass("error"),
                     (txtPresetSaveAsFile.getText().isEmpty() ||
-                            !txtPresetSaveAsFile.getText().matches(regexfile))
+                            !txtPresetSaveAsFile.getText().matches(regexfile) ||
+                            (txtPresetSaveAsFile.getText().equals(txtPresetFile.getText()))
+                    )
             );
         });
         txtPresetSaveAsFile.setMinHeight(30.0);
         txtPresetSaveAsFile.setPromptText("New Preset File (required for New)");
         txtPresetSaveAsFile.setPrefColumnCount(10);
         txtPresetSaveAsFile.setTooltip(new Tooltip(
-                "Save as Preset name (Name in 8.3 Alphanum format)"));
+                "Save as Preset name (Name in 3-12 Alphanum format)"));
         txtPresetSaveAsFile.setStyle("-fx-control-inner-background: #E7ECEC;");
 
         Label lblCurMidiModule = new Label("Module:");
@@ -794,7 +796,7 @@ public class Main extends Application {
                         System.out.println("Main: Created new preset file: " + txtPresetSaveAsFile.getText() + " based on " + txtPresetFile.getText());
 
                         MidiSong midiSong = new MidiSong();
-                        midiSong.setSongId(dosongs.sizeSongs());
+                        //midiSong.setSongId(dosongs.sizeSongs());
                         midiSong.setSongTitle(txtSongTitle.getText());
                         midiSong.setMidiFile(txtSmfFile.getText());
                         midiSong.setPresetFile(txtPresetSaveAsFile.getText());
@@ -810,8 +812,11 @@ public class Main extends Application {
                         midiSongs.add(midiSong);
                         songlistView.getItems().add(midiSong.getSongTitle());
 
-                        dosongs.saveSongs(false);
-
+                        if (!dosongs.saveSongs(false)) {
+                            labelstatusSng.setText(" Status: Error Saving New Song " + txtSongTitle.getText() + ". Check Song List File!");
+                            labelstatusSng.setStyle(styletextred);
+                            return;
+                        }
                         songlistView.refresh();
 
                         bnewSong = false;
@@ -821,11 +826,9 @@ public class Main extends Application {
                         txtPresetSaveAsFile.setMouseTransparent(true);
                         txtPresetSaveAsFile.setFocusTraversable(false);
 
-                        labelstatusSng.setText(" Status: Saved New Song " + txtSongTitle.getText() + " -" + songIdx);
+                        labelstatusSng.setText(" Status: Saved New Song " + txtSongTitle.getText());
                     }
                     else {
-                        songIdx = dosongs.getMidiSong(idx).getSongId();
-
                         MidiSong midiSong = dosongs.getSong(idx);
                         midiSong.setSongTitle(txtSongTitle.getText());
                         midiSong.setMidiFile(txtSmfFile.getText());
@@ -835,6 +838,7 @@ public class Main extends Application {
                         midiSong.setChanUpper(Integer.parseInt(txtUpper.getText()));
                         midiSong.setModuleIdx(0);
                         midiSong.setTimeSig(txtTimeSig.getText());
+                        midiSong.setSongType(0);
 
                         midiSongs.set(idx, midiSong);
                         songlistView.getItems().set(idx, midiSong.getSongTitle());
@@ -843,7 +847,7 @@ public class Main extends Application {
 
                         dosongs.saveSongs(false);
 
-                        labelstatusSng.setText(" Status: Updated Song " +  txtSongTitle.getText() + " (" + songIdx + ")");
+                        labelstatusSng.setText(" Status: Updated Song " +  txtSongTitle.getText());
                     }
                 }
             }
@@ -1054,9 +1058,9 @@ public class Main extends Application {
                     MidiSong midiSong = midiSongs.get(idx);
                     String songtitle = midiSong.getSongTitle();
 
-                    // Never delete the initial default organ preset file.
-                    if ((idx == 0) || (idx == 1)) {
-                        labelstatusSng.setText(" Status: Deleting Preset Song " + songtitle + " not allowed");
+                    // Never delete the initial default organ preset files (type 1)
+                    if (midiSong.getSongType() == 1) {
+                        labelstatusSng.setText(" Status: Delete not allowed for file type of Song " + songtitle);
                         labelstatusSng.setStyle(styletextred);
 
                         // Enable user save of UI deleted Song form List
@@ -1262,21 +1266,15 @@ public class Main extends Application {
         boxstatussong.getChildren().add(labelstatusSng);
         boxstatussong.setStyle(bgheadercolor);
 
-        // Add Song, Bank and Font Select to Top Line
+        // Add Song, Bank and Font Select to Top Line - Not in use yet
         VBox vboxRight = new VBox();
 
         Button cbutton1 = new Button("Mute");
-        Button cbutton2 = new Button("Mute");
-        Button cbutton3 = new Button("Mute");
-        Button cbutton4 = new Button("Mute");
 
         GridPane gridChannels = new GridPane();
         gridChannels.setHgap(5);
         gridChannels.setVgap(10);
         gridChannels.add(cbutton1, 0, 0, 1, 1);
-        gridChannels.add(cbutton2, 0, 1, 1, 1);
-        gridChannels.add(cbutton3, 0, 2, 1, 1);
-        gridChannels.add(cbutton4, 0, 3, 1, 1);
         vboxRight.getChildren().add(gridChannels);
         vboxRight.setPadding(new Insets(20, 10, 10,20 ));
 

@@ -2,7 +2,7 @@ package amidifx.models;
 
 public class MidiSong {
 
-    private int songIdx;        // Index
+    private int songType;       // Type 0 = Default for Modules, 1 = Normal Songs
     private String songTitle;   // Song Title
     private String presetFile;  // Song Preset file
     private String midiFile;    // Song MIDI file
@@ -15,8 +15,8 @@ public class MidiSong {
     public MidiSong () {
     }
 
-    public MidiSong(int songIdx, String songTitle, String presetFile, String midiFile, int chanBass, int chanLower, int chanUpper, int moduleIdx, String timeSig) {
-        this.songIdx = songIdx;
+    public MidiSong(int songType, String songTitle, String presetFile, String midiFile, int chanBass, int chanLower, int chanUpper, int moduleIdx, String timeSig) {
+        this.songType = songType;
         this.songTitle = songTitle;
         this.presetFile = presetFile;
         this.midiFile = midiFile;
@@ -27,11 +27,11 @@ public class MidiSong {
         this.timeSig = timeSig;
     }
 
-    public int getSongId() {
-        return this.songIdx;
+    public int getSongType() {
+        return this.songType;
     }
-    public void setSongId(int songIdx) {
-        this.songIdx = songIdx;
+    public void setSongType(int songIdx) {
+        this.songType = songType;
     }
 
     public String getSongTitle() {
@@ -92,7 +92,7 @@ public class MidiSong {
 
     @Override
     public String toString() {
-        return "Song Listing [songIdx=" + this.songIdx + ", songTitle=" + this.songTitle
+        return "Song Listing [songType=" + this.songType + ", songTitle=" + this.songTitle
                 + ", presetFile=" + this.presetFile + ", midiFile=" + this.midiFile
                 + ", chanBass=" + this.getChanBass() + ", chanLower=" + this.getChanLower() + ", chanUpper=" + this.getChanUpper()
                 + ", timeSig=" + this.getTimeSig() + ", module=" + moduleIdx
