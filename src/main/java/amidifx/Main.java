@@ -17,8 +17,12 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Rotate;
@@ -415,8 +419,20 @@ public class Main extends Application {
         toolbarLeft.setStyle(bgheadercolor);
         toolbarLeft.setMinWidth(xtoolbarleft);
 
-        Label lbltitle1 = new Label(config.getControllerTitle());
-        lbltitle1.setStyle(styletext);
+        // Header Text
+        DropShadow ds = new DropShadow();
+        ds.setOffsetY(3.0f);
+        ds.setColor(Color.color(0.4f, 0.4f, 0.4f));
+
+        Text lbltitle1 = new Text();
+        lbltitle1.setEffect(ds);
+        lbltitle1.setCache(true);
+        lbltitle1.setX(10.0f);
+        lbltitle1.setY(270.0f);
+        lbltitle1.setFill(Color.BLACK);
+        lbltitle1.setText(config.getControllerTitle());
+        lbltitle1.setFont(Font.font(null, FontWeight.SEMI_BOLD, 20));
+
         HBox hboxTitle = new HBox();
         hboxTitle.setPadding(new Insets(10, 10, 10, xtitle));
         hboxTitle.getChildren().add(lbltitle1);
@@ -1246,11 +1262,29 @@ public class Main extends Application {
         boxstatussong.getChildren().add(labelstatusSng);
         boxstatussong.setStyle(bgheadercolor);
 
+        // Add Song, Bank and Font Select to Top Line
+        VBox vboxRight = new VBox();
+
+        Button cbutton1 = new Button("Mute");
+        Button cbutton2 = new Button("Mute");
+        Button cbutton3 = new Button("Mute");
+        Button cbutton4 = new Button("Mute");
+
+        GridPane gridChannels = new GridPane();
+        gridChannels.setHgap(5);
+        gridChannels.setVgap(10);
+        gridChannels.add(cbutton1, 0, 0, 1, 1);
+        gridChannels.add(cbutton2, 0, 1, 1, 1);
+        gridChannels.add(cbutton3, 0, 2, 1, 1);
+        gridChannels.add(cbutton4, 0, 3, 1, 1);
+        vboxRight.getChildren().add(gridChannels);
+        vboxRight.setPadding(new Insets(20, 10, 10,20 ));
+
         // Assemble the BorderPane View
         borderPaneSng.setTop(borderPaneTopSng);
         borderPaneSng.setLeft(vboxLeftS);
         borderPaneSng.setCenter(songvboxS);
-        //borderPane1.setRight(vboxRight);
+        //borderPaneSng.setRight(vboxRight);
         //borderPaneS.setBottom(borderStatusS);
         borderPaneSng.setBottom(boxstatussong);
 
@@ -1464,8 +1498,20 @@ public class Main extends Application {
         toolbarLeft.setStyle(bgheadercolor);
         toolbarLeft.setMinWidth(xtoolbarleft);
 
-        Label lbltitle1 = new Label(config.getControllerTitle());
-        lbltitle1.setStyle(styletext);
+        // Header Text
+        DropShadow ds = new DropShadow();
+        ds.setOffsetY(3.0f);
+        ds.setColor(Color.color(0.4f, 0.4f, 0.4f));
+
+        Text lbltitle1 = new Text();
+        lbltitle1.setEffect(ds);
+        lbltitle1.setCache(true);
+        lbltitle1.setX(10.0f);
+        lbltitle1.setY(270.0f);
+        lbltitle1.setFill(Color.BLACK);
+        lbltitle1.setText(config.getControllerTitle());
+        lbltitle1.setFont(Font.font(null, FontWeight.SEMI_BOLD, 20));
+
         HBox hboxTitle = new HBox();
         hboxTitle.setPadding(new Insets(10, 10, 10, xtitle));
         hboxTitle.getChildren().add(lbltitle1);

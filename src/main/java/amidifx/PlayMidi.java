@@ -1,5 +1,6 @@
 package amidifx;
 
+import amidifx.models.MidiInstrument;
 import amidifx.models.MidiPreset;
 import amidifx.models.MidiSong;
 import amidifx.models.SharedStatus;
@@ -1000,6 +1001,55 @@ public class PlayMidi {
         //System.out.println(instrumentlist);
 
         return instrumentlist;
+    }
+
+
+    public ArrayList<MidiInstrument> listChannelInstruments() {
+
+        Instrument instruments[];
+        ArrayList<MidiInstrument> midiinstruments = new ArrayList<>();
+
+        try {
+            Soundbank soundbank = synthesizer.getDefaultSoundbank();
+
+            if (soundbank != null) {
+                instruments = synthesizer.getDefaultSoundbank().getInstruments();
+
+                int trackNumber = 0;
+                for (Track track : midiSeq.getTracks()) {
+                    trackNumber++;
+
+                    for (int i = 0; i < track.size(); i++) {
+
+                        MidiEvent event = track.get(i);
+                        MidiMessage message = event.getMessage();
+
+                        if (message instanceof ShortMessage) {
+                            ShortMessage sm = (ShortMessage) message;
+                            if (sm.getCommand() == 192) {
+                                System.out.println("PlayMidi: Track " + trackNumber + " Channel=" + (sm.getChannel() + 1) + " " + instruments[sm.getData1()]);
+
+                                MidiInstrument midiinstrument = new MidiInstrument();
+                                midiinstrument.setTrackId(trackNumber);
+                                midiinstrument.setChannelId(sm.getChannel() + 1);
+                                midiinstrument.setInstrumentName(instruments[sm.getData1()].toString());
+                                midiinstruments.add(midiinstrument);
+
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                System.out.println("PlayMidi: No Soundbank defined");
+            }
+        }
+        catch (Exception ex) {
+            System.err.println("PlayMidi: Error listing instruments: " + ex);
+        }
+
+        return midiinstruments;
     }
 
     // Get and parse out the Time Signature for the currently loaded Song

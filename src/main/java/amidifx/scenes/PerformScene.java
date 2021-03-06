@@ -11,7 +11,12 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
@@ -497,8 +502,20 @@ public class PerformScene {
             toolbarLeft.setStyle(bgheadercolor);
             toolbarLeft.setMinWidth(xtoolbarleft);
 
-            Label lbltitle1 = new Label(config.getControllerTitle());
-            lbltitle1.setStyle(styletext);
+            // Header Text
+            DropShadow ds = new DropShadow();
+            ds.setOffsetY(3.0f);
+            ds.setColor(Color.color(0.4f, 0.4f, 0.4f));
+
+            Text lbltitle1 = new Text();
+            lbltitle1.setEffect(ds);
+            lbltitle1.setCache(true);
+            lbltitle1.setX(10.0f);
+            lbltitle1.setY(270.0f);
+            lbltitle1.setFill(Color.BLACK);
+            lbltitle1.setText(config.getControllerTitle());
+            lbltitle1.setFont(Font.font(null, FontWeight.SEMI_BOLD, 20));
+
             HBox hboxTitle = new HBox();
             hboxTitle.setPadding(new Insets(10, 10, 10, xtitle));
             hboxTitle.getChildren().add(lbltitle1);
@@ -1174,8 +1191,18 @@ public class PerformScene {
             dlabel1.setStyle(styletext);
 
             // Do Beat Counter in large font
-            Label lblbeatcount = new Label("Bar: 0.0");
-            lblbeatcount.setStyle(styletext);
+            DropShadow ds1 = new DropShadow();
+            ds1.setOffsetY(3.0f);
+            ds1.setColor(Color.color(0.4f, 0.4f, 0.4f));
+
+            Text lblbeatcount = new Text();
+            lblbeatcount.setEffect(ds1);
+            lblbeatcount.setCache(true);
+            lblbeatcount.setX(10.0f);
+            lblbeatcount.setY(270.0f);
+            lblbeatcount.setFill(Color.DARKRED);
+            lblbeatcount.setText("Bar: 0.0");
+            lblbeatcount.setFont(Font.font(null, FontWeight.SEMI_BOLD, 20));
 
             dleft1.setText(" Drums 1");
             dleft1.setId("D1-1");
@@ -3152,6 +3179,27 @@ public class PerformScene {
 
             // Disable Preset Buttons on startup
             disablePresetButtons(0, -1);
+
+            // In MIDI GM Mode: Preset all Sounds and Wire up the Sliders to default to Upper 1-1
+            if (moduleidx == 0) {
+                dlabel1.setVisible(false);
+                dleft1.setVisible(false);
+                dleft2.setVisible(false);
+                dleft3.setVisible(false);
+                dleft4.setVisible(false);
+
+                // Disable Rotary Buttons in MIDI GM Mode
+                rbutton17.setVisible(false);
+                rbutton18.setVisible(false);
+            }
+            else
+                dleft1.fire();
+            bleft1.fire();
+            lbutton21.fire();
+            lbutton11.fire();
+            rbutton31.fire();
+            rbutton21.fire();
+            rbutton11.fire();
 
             // Enable Save button only once a change has been made in UI
             buttonSave.setDisable(true);

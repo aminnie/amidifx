@@ -11,8 +11,13 @@ import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
@@ -266,8 +271,20 @@ public class HomeScene {
             toolbarLeft.setStyle(bgheadercolor);
             toolbarLeft.setMinWidth(xtoolbarleft);
 
-            Label lbltitle1 = new Label(config.getControllerTitle());
-            lbltitle1.setStyle(styletexttitle);
+            // Header Text
+            DropShadow ds = new DropShadow();
+            ds.setOffsetY(3.0f);
+            ds.setColor(Color.color(0.4f, 0.4f, 0.4f));
+
+            Text lbltitle1 = new Text();
+            lbltitle1.setEffect(ds);
+            lbltitle1.setCache(true);
+            lbltitle1.setX(10.0f);
+            lbltitle1.setY(270.0f);
+            lbltitle1.setFill(Color.BLACK);
+            lbltitle1.setText(config.getControllerTitle());
+            lbltitle1.setFont(Font.font(null, FontWeight.SEMI_BOLD, 20));
+
             HBox hboxTitle = new HBox();
             hboxTitle.setPadding(new Insets(10, 10, 10, xtitle));
             hboxTitle.getChildren().add(lbltitle1);
