@@ -16,7 +16,7 @@ public class MidiSongs {
     // CSV file delimiter
     private static final String CSV_DELIMITER = ",";
     private static final String MID_DIRECTORY = "C:/amidifx/midifiles/";
-    private static final String songFile = "songs.csv";
+    private static final String songFile = "songs.sng";
 
     SharedStatus sharedStatus;
 

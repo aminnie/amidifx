@@ -152,7 +152,7 @@ public class Main extends Application {
     ListView<String> presetListView;
     String songTitle = "Organ";
     String songFile = "amloop.mid";
-    String presetFile = "default.csv";
+    String presetFile = "default.pre";
     Label labelstatus = new Label(" ");
 
     Label labelsongtitle = new Label(" ");
@@ -199,10 +199,10 @@ public class Main extends Application {
 
         // Load Song List. If not exists, abort load AMIDIFX
         dosongs = MidiSongs.getInstance();
-        if (!dosongs.fileExist("songs.csv")) {
+        if (!dosongs.fileExist("songs.sng")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("AMIDIFX Startup Error");
-            alert.setHeaderText("Song Index file " + MID_DIRECTORY + "songs.csv not found!");
+            alert.setHeaderText("Song Index file " + MID_DIRECTORY + "songs.sng not found!");
             Optional<ButtonType> result = alert.showAndWait();
 
             System.exit(-1);
@@ -638,7 +638,7 @@ public class Main extends Application {
         presetchooser.setOnAction(e -> {
             fileChooserPreset.setInitialDirectory(new File(MID_DIRECTORY));
             fileChooserPreset.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Preset Files", "*.csv")
+                    new FileChooser.ExtensionFilter("Preset Files", "*.pre")
             );
             File selectedFile = fileChooserPreset.showOpenDialog(stage);
             if (selectedFile != null)
@@ -784,9 +784,9 @@ public class Main extends Application {
                     if (bnewSong) {
                         System.out.println("Main: Creating new midi files for: " + txtSmfFile.getText());
 
-                        // Never overwrite default.csv. System needs to boot.
-                        if (txtPresetSaveAsFile.getText().equals("default.csv")) {
-                            System.err.println("### Main Error: Required file default.csv does not exist.");
+                        // Never overwrite default.pre. System needs to boot.
+                        if (txtPresetSaveAsFile.getText().equals("default.pre")) {
+                            System.err.println("### Main Error: Required file default.pre does not exist.");
                             return;
                         }
 

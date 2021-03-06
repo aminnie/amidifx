@@ -319,11 +319,11 @@ public class PerformScene {
 
             // To Do: Generalize the first two Songs in the Song List and ensure cannot be deleted
             if (config.getSoundModuleIdx() == 1) {
-                sharedStatus.setPresetFile("defaultdb.csv");
+                sharedStatus.setPresetFile("defaultdb.pre");
                 idxSongList = 0;
             }
             else {
-                sharedStatus.setPresetFile("defaultgm.csv");
+                sharedStatus.setPresetFile("defaultgm.pre");
                 idxSongList = 1;
             }
 
