@@ -166,8 +166,6 @@ public class Main extends Application {
     SharedStatus sharedStatus;
     ArduinoUtils arduinoUtils;
 
-    private static final String MID_DIRECTORY = "C:/amidifx/midifiles/";
-
     @Override
     public void start(Stage stage) throws Exception {
 
@@ -202,7 +200,7 @@ public class Main extends Application {
         if (!dosongs.fileExist("songs.sng")) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("AMIDIFX Startup Error");
-            alert.setHeaderText("Song Index file " + MID_DIRECTORY + "songs.sng not found!");
+            alert.setHeaderText("Song Index file " + sharedStatus.getCFGDirectory() + "songs.sng not found!");
             Optional<ButtonType> result = alert.showAndWait();
 
             System.exit(-1);
@@ -220,7 +218,7 @@ public class Main extends Application {
         if (!dopatches.fileExist(modulefile)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("AMIDIFX Startup Error");
-            alert.setHeaderText("Module Patch file " + MID_DIRECTORY + modulefile + " not found!");
+            alert.setHeaderText("Module Patch file " + sharedStatus.getCFGDirectory() + modulefile + " not found!");
             Optional<ButtonType> result = alert.showAndWait();
 
             System.exit(-1);
@@ -636,7 +634,7 @@ public class Main extends Application {
         presetchooser.setStyle("-fx-font-size: 15; ");
         presetchooser.setDisable(true);
         presetchooser.setOnAction(e -> {
-            fileChooserPreset.setInitialDirectory(new File(MID_DIRECTORY));
+            fileChooserPreset.setInitialDirectory(new File(sharedStatus.getMIDDirectory()));
             fileChooserPreset.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("Preset Files", "*.pre")
             );
@@ -649,7 +647,7 @@ public class Main extends Application {
         midichooser.setStyle("-fx-font-size: 15; ");
         midichooser.setDisable(true);
         midichooser.setOnAction(e -> {
-            fileChooserMidi.setInitialDirectory(new File(MID_DIRECTORY));
+            fileChooserMidi.setInitialDirectory(new File(sharedStatus.getMIDDirectory()));
             fileChooserMidi.getExtensionFilters().addAll(
                     new FileChooser.ExtensionFilter("MIDI Files", "*.mid")
             );
@@ -767,12 +765,12 @@ public class Main extends Application {
                 // Proceed to updated Song List save only if both files exist
                 int fileexistcnt = 0;
 
-                File mfile = new File(MID_DIRECTORY + txtSmfFile.getText());
+                File mfile = new File(sharedStatus.getMIDDirectory() + txtSmfFile.getText());
                 if (!mfile.exists()) {
                     labelstatusSng.setText(" Status: MIDI file " + txtSmfFile.getText() + " does not exist!");
                     fileexistcnt++;
                 }
-                mfile = new File(MID_DIRECTORY + txtPresetFile.getText());
+                mfile = new File(sharedStatus.getMIDDirectory() + txtPresetFile.getText());
                 if (!mfile.exists()) {
                     labelstatusSng.setText(" Status: Preset file " + txtPresetFile.getText() + " does not exist!");
                     fileexistcnt++;

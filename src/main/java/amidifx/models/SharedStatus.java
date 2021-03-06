@@ -22,6 +22,9 @@ public class SharedStatus {
     private String modulename1 = "Deebach BlackBox";
     private String modulename2 = "Roland Integra7";
 
+    private String MID_DIRECTORY = "C:/amidifx/midifiles/";
+    private String CFG_DIRECTORY = "C:/amidifx/config/";
+
     private String selindevice = "default";
     private String seloutdevice = "default";
 
@@ -56,8 +59,6 @@ public class SharedStatus {
 
     private boolean presetreload = true;    // Reload preset file that was changed
     private boolean songreload = true;      // Reload song file that may have changed
-
-    private static final String CSV_DIRECTORY = "C:\\amidifx\\midifiles\\";
 
     // Static variable single_instance of type PlayMidi
     private static SharedStatus single_SharedStatus_Instance = null;
@@ -313,6 +314,22 @@ public class SharedStatus {
 
     public String getSelOutDevice() {
         return this.seloutdevice;
+    }
+
+    public void setMIDDirectory(String MID_DIRECTORY) {
+        this.MID_DIRECTORY = MID_DIRECTORY;
+    }
+
+    public String getMIDDirectory() {
+        return MID_DIRECTORY;
+    }
+
+    public void setCFGDirectory(String CFG_DIRECTORY) {
+        this.CFG_DIRECTORY = CFG_DIRECTORY;
+    }
+
+    public String getCFGDirectory() {
+        return CFG_DIRECTORY;
     }
 
     public void isMidirunning(boolean midirunning) {

@@ -92,9 +92,6 @@ public class HomeScene {
     final String styletextgreen = "-fx-text-fill: #8ED072; -fx-font-size: " + fsize ;
     final String styletexttitle = "-fx-font-size: " + fsizetitle;
 
-    private static final String MID_DIRECTORY = "C:/amidifx/midifiles/";
-    private static final String IMG_DIRECTORY = "C:/amidifx/config/";
-
     SharedStatus sharedStatus;
 
     AppConfig config;
@@ -398,7 +395,7 @@ public class HomeScene {
                     if (!dopatches.fileExist(modulefile)) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("AMIDIFX Device Config Error");
-                        alert.setHeaderText("Module Patch file " + MID_DIRECTORY + modulefile + " not found!");
+                        alert.setHeaderText("Module Patch file " + sharedStatus.getCFGDirectory() + modulefile + " not found!");
                         Optional<ButtonType> presult = alert.showAndWait();
 
                         System.exit(-1);
@@ -532,7 +529,7 @@ public class HomeScene {
 
             // Prepare background Image
             try {
-                FileInputStream input = new FileInputStream(IMG_DIRECTORY + "backimage.png");
+                FileInputStream input = new FileInputStream(sharedStatus.getCFGDirectory() + "backimage.png");
                 Image image = new Image(input);
                 BackgroundImage backgroundimage = new BackgroundImage(image,
                         BackgroundRepeat.NO_REPEAT,

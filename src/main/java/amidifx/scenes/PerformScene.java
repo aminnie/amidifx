@@ -134,8 +134,6 @@ public class PerformScene {
     private String performgm = "midigm.prf";
     String buttonFile = performgm;
 
-    private static final String MID_DIRECTORY = "C:/amidifx/midifiles/";
-
     Button buttonSave;
     boolean flgDirtyPreset = false;
 
@@ -351,7 +349,7 @@ public class PerformScene {
             if (!dopatches.fileExist(modulefile)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("AMIDIFX Perform Scene Error");
-                alert.setHeaderText("Module Patch file " + MID_DIRECTORY + modulefile + " not found!");
+                alert.setHeaderText("Module Patch file " + sharedStatus.getCFGDirectory() + modulefile + " not found!");
                 Optional<ButtonType> result = alert.showAndWait();
 
                 System.exit(-1);
