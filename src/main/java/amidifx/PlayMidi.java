@@ -59,6 +59,10 @@ public class PlayMidi {
     int presetidx = 0;
     int newpresetidx = -1;
 
+    boolean bupperrotorfast = false;    // Tracking for rotor fast/slow for back to on state
+    boolean bupperrotoron = false;      // Tracking for rotor fast/slow for back to on state
+    boolean blowerrotorfast = false;    // Tracking for rotor fast/slow for back to on state
+    boolean blowerrotoron = false;      // Tracking for rotor fast/slow for back to on state
 
     // Static method to create singleton instance of PlayMidi class
     public synchronized static PlayMidi getInstance() {
@@ -496,6 +500,13 @@ public class PlayMidi {
                     ////curPresetList.get(CHAN).setPAN(VAL);
                     //}
                     break;
+                case ccGP1:
+                    midircv.send(midiMsg, timeStamp);
+
+                    break;
+                case ccGP2:
+                    midircv.send(midiMsg, timeStamp);
+                    break;
             }
         } catch (Exception ex) {
             System.err.println("PlayMidi Error: Sent MIDI Control Change " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
@@ -508,87 +519,269 @@ public class PlayMidi {
     }
 
 
-    public void sendRotaryOn(int channel, boolean brotoaryon) {
+    public boolean sendUpperRotaryOn(int channel, boolean setrotoron) {
 
-        /*
-        byte[] rotaryoff = {
-                (byte) 0xF0,
-                (byte) 0xB0, (byte) 0x63, (byte) 0x33, (byte) 0x62, (byte) 0x66, (byte) 0x06, (byte) 0x00,
-                (byte) 0xF7
-        };
+        int rotaryon[] = {0x63, 0x33, 0x62, 0x68, 0x06, 0x00};
+        int rotarydepth[] = {0x63, 0x33, 0x62, 0x6a, 0x06, 0x45};
+        int rotarystep[] = {0*6, 1*4, 2*5, 3*6, 4*6, 5*6, 6*7, 7*7, 8*7, 63};
 
-        byte[] rotaryon = {
-                (byte) 0xF0,
-                (byte) 0xB0, (byte) 0x63, (byte) 0x33, (byte) 0x62, (byte) 0x66, (byte) 0x06, (byte) 0x71,
-                (byte) 0xF7
-        };
-*/
+        Receiver midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
+        System.out.println("PlayMidi: Created getReceiver: " + midircv.toString());
 
-        if (brotoaryon) {
-            //sendSysEx(rotaryon);
-            sendMidiControlChange((byte)(channel & 0xFF), 0x74, 1);
+        ShortMessage midiMsg = new ShortMessage();
+
+        long timeStamp = -1;
+
+        //int CHAN = 13;          // Upper Right Only for Now
+        int CHAN = channel - 1;
+        if (CHAN < 0) {
+            System.err.println("PlayMidi: sendMidiControlChange Error:  CHAN: " + (CHAN + 1) + " Rotary On/Off");
+            return false;
+        }
+
+        if (setrotoron) {
+            // Rotary On
+            try {
+                bupperrotoron = true;
+
+                if (bupperrotorfast) {
+                    midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, ccROT & 0XFF, rotarystep[9] & 0XFF);
+                    midircv.send(midiMsg, timeStamp);
+                }
+                else {
+                    midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, ccROT & 0XFF, rotarystep[2] & 0XFF);
+                    midircv.send(midiMsg, timeStamp);
+                }
+
+                System.out.println("Upper Rotary On!");
+            }
+            catch (InvalidMidiDataException ex) {
+                System.err.println(ex);
+            }
         }
         else {
-            //sendSysEx(rotaryoff);
-            sendMidiControlChange((byte)(channel & 0xFF), 0x74, 0);
+            // Rotary Off
+            bupperrotoron = false;
+
+            try {
+                midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, ccROT & 0XFF, 0 & 0XFF);
+                midircv.send(midiMsg, timeStamp);
+
+                System.out.println("Upper Rotary Off! ");
+            }
+            catch (InvalidMidiDataException ex) {
+                System.err.println(ex);
+            }
+
         }
+
+        return true;
     }
 
-    public void sendRotaryFast(int channel, boolean brotaryfast) {
+    public boolean sendUpperRotaryFast(int channel, boolean setrotaryfast) {
 
-        /*
-        byte[] rotaryslow = {
-                (byte) 0xF0,
-                (byte) 0xB0, (byte) 0x63, (byte) 0x33, (byte) 0x62, (byte) 0x69, (byte) 0x06, (byte) 0x02,
-                (byte) 0xF7
-        };
+        int rotaryfast[] = {0x63, 0x33, 0x62, 0x69, 0x06, 0x00};
+        int rotarystep[] = {0*6, 1*4, 2*5, 3*6, 4*6, 5*6, 6*7, 7*7, 8*7, 63};
 
-        byte[] rotaryfast = {
-                (byte) 0xF0,
-                (byte) 0xB0, (byte) 0x63, (byte) 0x33, (byte) 0x62, (byte) 0x66, (byte) 0x06, (byte) 0x07,
-                (byte) 0xF7
-        };
-        */
+        Receiver midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
+        System.out.println("PlayMidi: Got Receiver: " + midircv.toString());
 
-        byte rotaryup[] = {(byte)0, (byte)1, (byte)2, (byte)3, (byte)4, (byte)5, (byte)6, (byte)7};
+        ShortMessage midiMsg = new ShortMessage();
 
+        long timeStamp = -1;
 
-        if (brotaryfast) {
-            //sendSysEx(rotaryfast);
+        //int CHAN = 13;          // Upper Right Only for Now
+        int CHAN = channel - 1;
+        if (CHAN < 0) {
+            System.err.println("PlayMidi: sendMidiControlChange Error:  CHAN: " + (CHAN + 1) + " Rotary Fast/Slow");
+            return false;
+        }
 
-            // Ramp Rotary On and Off Up
+        if (!bupperrotoron) return false;
+
+        if (setrotaryfast) {
+
+            bupperrotorfast = true;
+            // Ramp Rotary On Up
             Platform.runLater(() -> {
-                for (int i = 1; i < 8; i++) {
+                for (int i = 2; i <= 9; i++) {
                     try {
-                        Thread.sleep(200);
-                        sendMidiControlChange((byte)channel & 0xFF, 74, rotaryup[i]);
+                        midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, ccROT & 0XFF, rotarystep[i] & 0XFF);
+                        midircv.send(midiMsg, timeStamp);
 
-                        System.out.println("Rotary Fast: " + rotaryup[i]);
+                        System.out.println("Rotary Fast: " + rotarystep[i]);
+                        Thread.sleep(200);
                     }
-                    catch (InterruptedException ex) {}
+                    catch (InvalidMidiDataException ex) {
+                        System.err.println(ex);
+                    }
+                    catch (InterruptedException ex) {
+                        System.err.println(ex);
+                    }
                 }
             });
 
         }
         else {
-            //sendSysEx(rotaryslow);
-            // Ramp Rotary On and Off Up
-            Platform.runLater(() -> {
-                for (int i = 7; i > 0; i--) {
-                    try {
-                        Thread.sleep(250);
-                        sendMidiControlChange((byte)channel & 0xFF, 74, rotaryup[i]);
+            bupperrotorfast = false;
 
-                        System.out.println("Rotary Slow: " + rotaryup[i]);
+            // Ramp Rotary Off Down
+            Platform.runLater(() -> {
+                for (int i = 9; i >= 2; i--) {
+                    try {
+                        midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, ccROT & 0XFF, rotarystep[i] & 0XFF);
+                        midircv.send(midiMsg, timeStamp);
+
+                        System.out.println("Rotary Slow: " + rotarystep[i]);
+                        Thread.sleep(200);
                     }
-                    catch (InterruptedException ex) {}
+                    catch (InvalidMidiDataException ex) {
+                        System.err.println(ex);
+                    }
+                    catch (InterruptedException ex) {
+                        System.err.println(ex);
+                    }
                 }
             });
+
         }
+
+        return true;
+    }
+
+    public boolean sendLowerRotaryOn(int channel, boolean setrotoron) {
+
+        int rotaryon[] = {0x63, 0x33, 0x62, 0x68, 0x06, 0x00};
+        int rotarydepth[] = {0x63, 0x33, 0x62, 0x6a, 0x06, 0x45};
+        int rotarystep[] = {0*6, 1*4, 2*5, 3*6, 4*6, 5*6, 6*7, 7*7, 8*7, 63};
+
+        Receiver midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
+        System.out.println("PlayMidi: Created getReceiver: " + midircv.toString());
+
+        ShortMessage midiMsg = new ShortMessage();
+
+        long timeStamp = -1;
+
+        //int CHAN = 13;          // Upper Right Only for Now
+        int CHAN = channel - 1;
+        if (CHAN < 0) {
+            System.err.println("PlayMidi: sendMidiControlChange Error:  CHAN: " + (CHAN + 1) + " Rotary On/Off");
+            return false;
+        }
+
+        if (setrotoron) {
+            // Rotary On
+            try {
+                blowerrotoron = true;
+
+                if (blowerrotorfast) {
+                    midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, ccROT & 0XFF, rotarystep[9] & 0XFF);
+                    midircv.send(midiMsg, timeStamp);
+                }
+                else {
+                    midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, ccROT & 0XFF, rotarystep[2] & 0XFF);
+                    midircv.send(midiMsg, timeStamp);
+                }
+
+                System.out.println("Lower Rotary On!");
+            }
+            catch (InvalidMidiDataException ex) {
+                System.err.println(ex);
+            }
+        }
+        else {
+            // Rotary Off
+            blowerrotoron = false;
+
+            try {
+                midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, ccROT & 0XFF, 0 & 0XFF);
+                midircv.send(midiMsg, timeStamp);
+
+                System.out.println("Lower Rotary Off! ");
+            }
+            catch (InvalidMidiDataException ex) {
+                System.err.println(ex);
+            }
+
+        }
+
+        return true;
+    }
+
+    public boolean sendLowerRotaryFast(int channel, boolean setrotaryfast) {
+
+        int rotaryfast[] = {0x63, 0x33, 0x62, 0x69, 0x06, 0x00};
+        int rotarystep[] = {0*6, 1*4, 2*5, 3*6, 4*6, 5*6, 6*7, 7*7, 8*7, 63};
+
+        Receiver midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
+        System.out.println("PlayMidi: Got Receiver: " + midircv.toString());
+
+        ShortMessage midiMsg = new ShortMessage();
+
+        long timeStamp = -1;
+
+        //int CHAN = 13;          // Upper Right Only for Now
+        int CHAN = channel - 1;
+        if (CHAN < 0) {
+            System.err.println("PlayMidi: sendMidiControlChange Error:  CHAN: " + (CHAN + 1) + " Rotary Fast/Slow");
+            return false;
+        }
+
+        if (!blowerrotoron) return false;
+
+        if (setrotaryfast) {
+
+            blowerrotorfast = true;
+            // Ramp Rotary On Up
+            Platform.runLater(() -> {
+                for (int i = 2; i <= 9; i++) {
+                    try {
+                        midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, ccROT & 0XFF, rotarystep[i] & 0XFF);
+                        midircv.send(midiMsg, timeStamp);
+
+                        System.out.println("Lower Rotary Fast: " + rotarystep[i]);
+                        Thread.sleep(200);
+                    }
+                    catch (InvalidMidiDataException ex) {
+                        System.err.println(ex);
+                    }
+                    catch (InterruptedException ex) {
+                        System.err.println(ex);
+                    }
+                }
+            });
+
+        }
+        else {
+            blowerrotorfast = false;
+
+            // Ramp Rotary Off Down
+            Platform.runLater(() -> {
+                for (int i = 9; i >= 2; i--) {
+                    try {
+                        midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, ccROT & 0XFF, rotarystep[i] & 0XFF);
+                        midircv.send(midiMsg, timeStamp);
+
+                        System.out.println("Rotary Slow: " + rotarystep[i]);
+                        Thread.sleep(200);
+                    }
+                    catch (InvalidMidiDataException ex) {
+                        System.err.println(ex);
+                    }
+                    catch (InterruptedException ex) {
+                        System.err.println(ex);
+                    }
+                }
+            });
+
+        }
+
+        return true;
     }
 
 
     // Sending SysExMessages
+    // https://github.com/fua94/SysEx-JAVA-Library
     public boolean sendSysEx(byte[] sysexmsg) {
 
         System.out.println("PlayMidi: Sending MIDI SysEx " + sysexmsg);

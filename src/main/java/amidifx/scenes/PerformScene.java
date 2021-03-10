@@ -226,11 +226,15 @@ public class PerformScene {
     Button lbutton12 = new Button();
     Button lbutton13 = new Button();
     Button lbutton14 = new Button();
+    Button lbutton15 = new Button();
+    Button lbutton16 = new Button();
 
     boolean lpressed11 = false;
     boolean lpressed12 = false;
     boolean lpressed13 = false;
     boolean lpressed14 = false;
+    boolean lpressed15 = false;
+    boolean lpressed16 = false;
 
     Button lbutton21 = new Button();
     Button lbutton22 = new Button();
@@ -319,6 +323,10 @@ public class PerformScene {
             if (config.getSoundModuleIdx() == 1) {
                 sharedStatus.setPresetFile("defaultdb.pre");
                 idxSongList = 0;
+            }
+            else if (config.getSoundModuleIdx() == 2) {
+                sharedStatus.setPresetFile("defaultin.pre");
+                idxSongList = 2;
             }
             else {
                 sharedStatus.setPresetFile("defaultgm.pre");
@@ -1199,7 +1207,7 @@ public class PerformScene {
             lblbeatcount.setX(10.0f);
             lblbeatcount.setY(270.0f);
             lblbeatcount.setFill(Color.DARKRED);
-            lblbeatcount.setText("Bar: 0.0");
+            lblbeatcount.setText("  Bar: 0.0");
             lblbeatcount.setFont(Font.font(null, FontWeight.SEMI_BOLD, 20));
 
             dleft1.setText(" Drums 1");
@@ -1687,6 +1695,73 @@ public class PerformScene {
                 lpressed14 = !lpressed14;
 
                 labelstatusOrg.setText(" Status: Applied L1-4");
+            });
+
+            //playmidifile.sendRotaryOn(false);
+            lbutton15.setText("Lower 1 Rotary Off");
+            lbutton15.setId("L1-5");
+            lbutton15.setMaxSize(xvoicebtn, yvoicebtn);
+            lbutton15.setMinSize(xvoicebtn, yvoicebtn);
+            lbutton15.setStyle(orgcolorOff);
+            lbutton15.setWrapText(true);
+            lbutton15.setTextAlignment(TextAlignment.CENTER);
+            lbutton15.setOnAction(event -> {
+
+                labelstatusOrg.setText(" Status: Lower 1 Rotary On/Off");
+                if (!lpressed15) {
+                    lbutton15.setStyle(orgcolorOn);
+                    lbutton15.setText("Lower 1 Rotary On");
+
+                    int channel = sharedStatus.getLower1CHAN();
+                    playmidifile.sendLowerRotaryOn(channel, true);
+
+                    labelstatusOrg.setText(" Status: Lower 1 Rotary On");
+                } else {
+                    lbutton15.setStyle(orgcolorOff);
+                    lbutton15.setText("Lower 1 Rotary Off");
+
+                    int channel = sharedStatus.getLower1CHAN();
+                    playmidifile.sendLowerRotaryOn(channel, false);
+
+                    labelstatusOrg.setText(" Status: Lower 1 Rotary Off");
+                }
+                lpressed15 = !lpressed15;
+            });
+
+            //playmidifile.sendRotaryFast(false);
+            lbutton16.setText(" Lower 1 Rotary Slow");
+            lbutton16.setId("L1-6");
+            lbutton16.setMaxSize(xvoicebtn, yvoicebtn);
+            lbutton16.setMinSize(xvoicebtn, yvoicebtn);
+            lbutton16.setStyle(orgcolorOff);
+            lbutton16.setWrapText(true);
+            lbutton16.setTextAlignment(TextAlignment.CENTER);
+            lbutton16.setOnAction(event -> {
+
+                labelstatusOrg.setText(" Status: Lower 1 Rotary On/Off");
+                if (!lpressed16) {
+                    lbutton16.setStyle(orgcolorOn);
+                    lbutton16.setText(" Lower 1 Rotary Fast");
+
+                    labelstatusOrg.setText(" Status: Lower 1 Rotary Fast");
+
+                    lbutton16.setDisable(true);
+                    int channel = sharedStatus.getLower1CHAN();
+                    playmidifile.sendLowerRotaryFast(channel,true);
+                    lbutton16.setDisable(false);
+                }
+                else {
+                    lbutton16.setStyle(orgcolorOff);
+                    lbutton16.setText(" Lower 1 Rotary Slow");
+
+                    labelstatusOrg.setText(" Status: Lower 1 Rotary Slow");
+
+                    lbutton16.setDisable(true);
+                    int channel = sharedStatus.getLower1CHAN();
+                    playmidifile.sendLowerRotaryFast(channel,false);
+                    lbutton16.setDisable(false);
+                }
+                lpressed16 = !lpressed16;
             });
 
             lbutton21 = new Button(" Lower 2-1");
@@ -2325,7 +2400,7 @@ public class PerformScene {
             });
 
             //playmidifile.sendRotaryOn(false);
-            rbutton17.setText("Rotary Off");
+            rbutton17.setText("Upper 1 Rotary Off");
             rbutton17.setId("U1-7");
             rbutton17.setMaxSize(xvoicebtn, yvoicebtn);
             rbutton17.setMinSize(xvoicebtn, yvoicebtn);
@@ -2334,29 +2409,29 @@ public class PerformScene {
             rbutton17.setTextAlignment(TextAlignment.CENTER);
             rbutton17.setOnAction(event -> {
 
-                labelstatusOrg.setText(" Status: Rotary On/Off");
+                labelstatusOrg.setText(" Status: Upper 1 Rotary On/Off");
                 if (!rpressed17) {
                     rbutton17.setStyle(orgcolorOn);
-                    rbutton17.setText("Rotary On");
+                    rbutton17.setText("Upper 1 Rotary On");
 
                     int channel = sharedStatus.getUpper1CHAN();
-                    playmidifile.sendRotaryOn(channel, true);
+                    playmidifile.sendUpperRotaryOn(channel, true);
 
-                    labelstatusOrg.setText(" Status: Rotary On");
+                    labelstatusOrg.setText(" Status: Upper 1 Rotary On");
                 } else {
                     rbutton17.setStyle(orgcolorOff);
-                    rbutton17.setText("Rotary Off");
+                    rbutton17.setText("Upper 1 Rotary Off");
 
                     int channel = sharedStatus.getUpper1CHAN();
-                    playmidifile.sendRotaryOn(channel,false);
+                    playmidifile.sendUpperRotaryOn(channel, false);
 
-                    labelstatusOrg.setText(" Status: Rotary Off");
+                    labelstatusOrg.setText(" Status: Upper 1 Rotary Off");
                 }
                 rpressed17 = !rpressed17;
             });
 
             //playmidifile.sendRotaryFast(false);
-            rbutton18.setText(" Rotary Slow");
+            rbutton18.setText(" Upper 1 Rotary Slow");
             rbutton18.setId("U1-8");
             rbutton18.setMaxSize(xvoicebtn, yvoicebtn);
             rbutton18.setMinSize(xvoicebtn, yvoicebtn);
@@ -2365,24 +2440,28 @@ public class PerformScene {
             rbutton18.setTextAlignment(TextAlignment.CENTER);
             rbutton18.setOnAction(event -> {
 
-                labelstatusOrg.setText(" Status: Rotary On/Off");
+                labelstatusOrg.setText(" Status: Upper 1 Rotary On/Off");
                 if (!rpressed18) {
                     rbutton18.setStyle(orgcolorOn);
-                    rbutton18.setText(" Rotary Fast");
+                    rbutton18.setText(" Upper 1 Rotary Fast");
 
-                    labelstatusOrg.setText(" Status: Rotary Fast");
+                    labelstatusOrg.setText(" Status: Upper 1 Rotary Fast");
 
+                    rbutton18.setDisable(true);
                     int channel = sharedStatus.getUpper1CHAN();
-                    playmidifile.sendRotaryFast(channel,true);
+                    playmidifile.sendUpperRotaryFast(channel,true);
+                    rbutton18.setDisable(false);
                 }
                 else {
                     rbutton18.setStyle(orgcolorOff);
-                    rbutton18.setText(" Rotary Slow");
+                    rbutton18.setText(" Upper 1 Rotary Slow");
 
-                    labelstatusOrg.setText(" Status: Rotary Slow");
+                    labelstatusOrg.setText(" Status: Upper 1 Rotary Slow");
 
+                    rbutton18.setDisable(true);
                     int channel = sharedStatus.getUpper1CHAN();
-                    playmidifile.sendRotaryFast(channel,false);
+                    playmidifile.sendUpperRotaryFast(channel,false);
+                    rbutton18.setDisable(false);
                 }
                 rpressed18 = !rpressed18;
             });
@@ -2829,19 +2908,21 @@ public class PerformScene {
             gridmidcenterPerform.add(rbutton13, 6, 3, 1, 1);
             gridmidcenterPerform.add(rbutton14, 6, 4, 1, 1);
             gridmidcenterPerform.add(rbutton15, 6, 5, 1, 1);
-
             gridmidcenterPerform.add(rbutton16, 6, 6, 1, 1);
-            gridmidcenterPerform.add(rbutton17, 7, 6, 1, 1);
-            gridmidcenterPerform.add(rbutton18, 8, 6, 1, 1);
 
             gridmidcenterPerform.add(rbutton21, 7, 1, 1, 1);
             gridmidcenterPerform.add(rbutton22, 7, 2, 1, 1);
             gridmidcenterPerform.add(rbutton23, 7, 3, 1, 1);
             gridmidcenterPerform.add(rbutton24, 7, 4, 1, 1);
+            gridmidcenterPerform.add(lbutton15, 7, 5, 1, 1);
+            gridmidcenterPerform.add(lbutton16, 7, 6, 1, 1);
+
             gridmidcenterPerform.add(rbutton31, 8, 1, 1, 1);
             gridmidcenterPerform.add(rbutton32, 8, 2, 1, 1);
             gridmidcenterPerform.add(rbutton33, 8, 3, 1, 1);
             gridmidcenterPerform.add(rbutton34, 8, 4, 1, 1);
+            gridmidcenterPerform.add(rbutton17, 8, 5, 1, 1);
+            gridmidcenterPerform.add(rbutton18, 8, 6, 1, 1);
 
             // Assemble MIDI Play Buttons
 
@@ -2899,7 +2980,7 @@ public class PerformScene {
 
                                     Platform.runLater(() -> {
                                             //labelstatusOrg.setText(" Status: Bar " + playmidifile.getSequencerBeat()));
-                                            lblbeatcount.setText("Bar: " + playmidifile.getSequencerBeat());
+                                            lblbeatcount.setText("  Bar: " + playmidifile.getSequencerBeat());
                                     });
 
                                     //System.out.println("PerformScene: Sequencer Bar.Beat " + playmidifile.getSequencerTickPosition());
@@ -2916,7 +2997,7 @@ public class PerformScene {
                         PlayMidi playmidifile = PlayMidi.getInstance();
                         playmidifile.stopMidiPlay(songFile);
 
-                        lblbeatcount.setText("Bar: 0.0");
+                        lblbeatcount.setText("  Bar: 0.0");
 
                         bplaying = false;
 
@@ -3187,6 +3268,8 @@ public class PerformScene {
                 dleft4.setVisible(false);
 
                 // Disable Rotary Buttons in MIDI GM Mode
+                lbutton15.setVisible(false);
+                lbutton16.setVisible(false);
                 rbutton17.setVisible(false);
                 rbutton18.setVisible(false);
             }
@@ -3344,6 +3427,10 @@ public class PerformScene {
         rbutton15.setStyle(rcolorOff);
         rpressed16 = false;
         rbutton16.setStyle(orgcolorOff);
+        rpressed17 = false;
+        rbutton17.setStyle(orgcolorOff);
+        rpressed18 = false;
+        rbutton18.setStyle(orgcolorOff);
     }
 
     private void offAllUpper2Buttons() {
@@ -3377,6 +3464,10 @@ public class PerformScene {
         lbutton13.setStyle(lcolorOff);
         lpressed14 = false;
         lbutton14.setStyle(lcolorOff);
+        lpressed15 = false;
+        lbutton15.setStyle(orgcolorOff);
+        lpressed16 = false;
+        lbutton16.setStyle(orgcolorOff);
     }
 
     private void offAllLower2Buttons() {

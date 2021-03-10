@@ -108,7 +108,7 @@ public class MidiButtons {
         buttonMaps.add(0, new buttonMap("U2-3", 8, sharedstatus.getUpper2CHAN() ));
         buttonMaps.add(0, new buttonMap("U2-4", 9, sharedstatus.getUpper2CHAN() ));
 
-        // Upper 2 Buttons
+        // Upper 3 Buttons
         buttonMaps.add(0, new buttonMap("U3-1", 10, sharedstatus.getUpper3CHAN() ));
         buttonMaps.add(0, new buttonMap("U3-2", 11, sharedstatus.getUpper3CHAN() ));
         buttonMaps.add(0, new buttonMap("U3-3", 12, sharedstatus.getUpper3CHAN() ));
@@ -118,25 +118,27 @@ public class MidiButtons {
         buttonMaps.add(0, new buttonMap("L1-1", 14, sharedstatus.getLower1CHAN() ));
         buttonMaps.add(0, new buttonMap("L1-2", 15, sharedstatus.getLower1CHAN() ));
         buttonMaps.add(0, new buttonMap("L1-3", 16, sharedstatus.getLower1CHAN() ));
-        buttonMaps.add(0, new buttonMap("L2-4", 17, sharedstatus.getLower1CHAN() ));
+        buttonMaps.add(0, new buttonMap("L1-4", 17, sharedstatus.getLower1CHAN() ));
+        buttonMaps.add(0, new buttonMap("L1-5", 18, sharedstatus.getLower1CHAN() ));
+        buttonMaps.add(0, new buttonMap("L1-6", 19, sharedstatus.getLower1CHAN() ));
 
         // Lower 2 Buttons
-        buttonMaps.add(0, new buttonMap("L2-1", 18, sharedstatus.getLower2CHAN() ));
-        buttonMaps.add(0, new buttonMap("L2-2", 19, sharedstatus.getLower2CHAN() ));
-        buttonMaps.add(0, new buttonMap("L2-3", 20, sharedstatus.getLower2CHAN() ));
-        buttonMaps.add(0, new buttonMap("L2-4", 21, sharedstatus.getLower2CHAN() ));
+        buttonMaps.add(0, new buttonMap("L2-1", 20, sharedstatus.getLower2CHAN() ));
+        buttonMaps.add(0, new buttonMap("L2-2", 21, sharedstatus.getLower2CHAN() ));
+        buttonMaps.add(0, new buttonMap("L2-3", 22, sharedstatus.getLower2CHAN() ));
+        buttonMaps.add(0, new buttonMap("L2-4", 23, sharedstatus.getLower2CHAN() ));
 
         // Bass Buttons
-        buttonMaps.add(0, new buttonMap("B1-1", 22, sharedstatus.getBassCHAN() ));
-        buttonMaps.add(0, new buttonMap("B1-2", 23, sharedstatus.getBassCHAN() ));
-        buttonMaps.add(0, new buttonMap("B1-3", 24, sharedstatus.getBassCHAN() ));
-        buttonMaps.add(0, new buttonMap("B1-4", 25, sharedstatus.getBassCHAN() ));
+        buttonMaps.add(0, new buttonMap("B1-1", 24, sharedstatus.getBassCHAN() ));
+        buttonMaps.add(0, new buttonMap("B1-2", 25, sharedstatus.getBassCHAN() ));
+        buttonMaps.add(0, new buttonMap("B1-3", 26, sharedstatus.getBassCHAN() ));
+        buttonMaps.add(0, new buttonMap("B1-4", 27, sharedstatus.getBassCHAN() ));
 
         // Drum Buttons
-        buttonMaps.add(0, new buttonMap("D1-1", 26, sharedstatus.getDrumCHAN() ));
-        buttonMaps.add(0, new buttonMap("D1-2", 27, sharedstatus.getDrumCHAN() ));
-        buttonMaps.add(0, new buttonMap("D1-3", 28, sharedstatus.getDrumCHAN() ));
-        buttonMaps.add(0, new buttonMap("D1-4", 29, sharedstatus.getDrumCHAN() ));
+        buttonMaps.add(0, new buttonMap("D1-1", 28, sharedstatus.getDrumCHAN() ));
+        buttonMaps.add(0, new buttonMap("D1-2", 29, sharedstatus.getDrumCHAN() ));
+        buttonMaps.add(0, new buttonMap("D1-3", 30, sharedstatus.getDrumCHAN() ));
+        buttonMaps.add(0, new buttonMap("D1-4", 31, sharedstatus.getDrumCHAN() ));
     }
 
     // Load specific Button Config file

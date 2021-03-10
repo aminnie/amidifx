@@ -14,6 +14,8 @@ public class SharedStatus {
     private String MidiFile = "None";
     private String StatusText = "Ready";         // Latest Status Bar text
 
+    private String songlist = "songs.sng";
+
     private String performgm = "midigm.prf";
     private String performdb = "deebach.prf";
     private String performin = "integra.prf";
@@ -314,6 +316,14 @@ public class SharedStatus {
 
     public String getSelOutDevice() {
         return this.seloutdevice;
+    }
+
+    public void setSongList(String songlist) {
+        this.songlist = songlist;
+    }
+
+    public String getSongList() {
+        return this.songlist;
     }
 
     public void setMIDDirectory(String MID_DIRECTORY) {

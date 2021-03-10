@@ -197,7 +197,7 @@ public class Main extends Application {
 
         // Load Song List. If not exists, abort load AMIDIFX
         dosongs = MidiSongs.getInstance();
-        if (!dosongs.fileExist("songs.sng")) {
+        if (!dosongs.fileExist(sharedStatus.getSongList())) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("AMIDIFX Startup Error");
             alert.setHeaderText("Song Index file " + sharedStatus.getCFGDirectory() + "songs.sng not found!");
@@ -801,7 +801,7 @@ public class Main extends Application {
                         midiSong.setChanBass(Integer.parseInt(txtBass.getText()));
                         midiSong.setChanLower(Integer.parseInt(txtLower.getText()));
                         midiSong.setChanUpper(Integer.parseInt(txtUpper.getText()));
-                        midiSong.setModuleIdx(0);
+                        midiSong.setModuleIdx(sharedStatus.getModuleidx());
                         midiSong.setTimeSig(txtTimeSig.getText());
 
                         // Preset Time Signature for correct Bar Time Display
@@ -834,7 +834,7 @@ public class Main extends Application {
                         midiSong.setChanBass(Integer.parseInt(txtBass.getText()));
                         midiSong.setChanLower(Integer.parseInt(txtLower.getText()));
                         midiSong.setChanUpper(Integer.parseInt(txtUpper.getText()));
-                        midiSong.setModuleIdx(0);
+                        midiSong.setModuleIdx(sharedStatus.getModuleidx());
                         midiSong.setTimeSig(txtTimeSig.getText());
                         midiSong.setSongType(0);
 
@@ -1016,6 +1016,8 @@ public class Main extends Application {
             buttonnew.setDisable(true);
             buttondelete.setDisable(true);
             buttonupdate.setDisable(false);
+
+            lblCurSongMidiModule.setText(sharedStatus.getModuleName(sharedStatus.getModuleidx()));
 
             labelstatusSng.setText(" Status: Creating New Song " + txtSongTitle.getText());
         });
@@ -2860,6 +2862,12 @@ public class Main extends Application {
         // Log System Out and Err to a file
         logSystemToFile();
 
+        AppConfig appconfig = AppConfig.getInstance();
+        if (!appconfig.getApplicationLock()) {
+            System.err.println("Exiting as instance of AMIDIFX is already running!");
+
+            System.exit(-1);
+        }
         launch(args);
     }
 }

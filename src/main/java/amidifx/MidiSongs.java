@@ -15,8 +15,6 @@ public class MidiSongs {
 
     // CSV file delimiter
     private static final String CSV_DELIMITER = ",";
-    private static final String MID_DIRECTORY = "C:/amidifx/midifiles/";
-    private static final String songFile = "songs.sng";
 
     SharedStatus sharedStatus;
 
@@ -46,12 +44,12 @@ public class MidiSongs {
         // Create instance of Shared Status to report back to Scenes
         sharedStatus = SharedStatus.getInstance();
 
-        System.out.println("MidiSongs: Loading Song List from file " + songFile);
+        System.out.println("MidiSongs: Loading Song List from file " + sharedStatus.getSongList());
 
         BufferedReader br = null;
         try {
             // Read the csv file
-            br = new BufferedReader(new FileReader(MID_DIRECTORY + songFile));
+            br = new BufferedReader(new FileReader(sharedStatus.getMIDDirectory() + sharedStatus.getSongList()));
 
             String line;
             while ((line = br.readLine()) != null) {
@@ -90,7 +88,7 @@ public class MidiSongs {
 
         }
         catch (Exception ex) {
-            System.err.println("### MidiSongs: Error Reading Songs from file " + songFile);
+            System.err.println("### MidiSongs: Error Reading Songs from file " + sharedStatus.getSongList());
             ex.printStackTrace();
         }
         finally {
@@ -160,7 +158,7 @@ public class MidiSongs {
         BufferedWriter bw = null;
         try {
             //Specify the file name and path here
-            File file = new File(MID_DIRECTORY + "songs.csv");
+            File file = new File(sharedStatus.getMIDDirectory() + sharedStatus.getSongList());
 
             // Ensure that the fil gets created if it is not present at the specified location
             if (!file.exists()) {
@@ -215,8 +213,10 @@ public class MidiSongs {
 
     public static boolean copyFile(String source, String dest, boolean bdestdel) {
 
-        File sourceFile = new File(MID_DIRECTORY + source);
-        File destFile = new File(MID_DIRECTORY + dest);
+        SharedStatus sharedstatus = SharedStatus.getInstance();
+
+        File sourceFile = new File(sharedstatus.getMIDDirectory() + source);
+        File destFile = new File(sharedstatus.getMIDDirectory() + dest);
 
         if (bdestdel && destFile.exists()) {
             destFile.delete();
@@ -237,7 +237,9 @@ public class MidiSongs {
 
     public boolean fileExist(String songfile) {
 
-        File f = new File(MID_DIRECTORY + songfile);
+        SharedStatus sharedstatus = SharedStatus.getInstance();
+
+        File f = new File(sharedstatus.getMIDDirectory() + songfile);
         if (!f.exists()) {
             System.out.println("MIDISongs: Error Song File does not exist: " + songfile);
             return false;

@@ -17,7 +17,6 @@ public class MidiPresets {
 
     // CSV file delimiter
     private static final String CSV_DELIMITER = ",";
-    private static final String MID_DIRECTORY = "C:/amidifx/midifiles/";
 
     String presetFile;
 
@@ -34,6 +33,8 @@ public class MidiPresets {
     public static final byte ccCHO = 93;
     public static final byte ccMOD = 1;
     public static final byte ccPAN = 10;
+    public static final byte ccGP1 = 80;
+    public static final byte ccGP2 = 81;
 
 
     // Static method to create singleton instance of PlayMidi class
@@ -70,7 +71,7 @@ public class MidiPresets {
         BufferedReader br = null;
         try {
             // To do: Read a specific Preset csv file
-            br = new BufferedReader(new FileReader(MID_DIRECTORY + presetFile));
+            br = new BufferedReader(new FileReader(sharedStatus.getMIDDirectory() + presetFile));
 
             String line;
             while ((line = br.readLine()) != null) {
@@ -232,7 +233,7 @@ public class MidiPresets {
         BufferedWriter bw = null;
         try {
             //Specify the file name and path here
-            File file = new File(MID_DIRECTORY + presetFle);
+            File file = new File(sharedStatus.getMIDDirectory() + presetFle);
 
             // Ensure that the fil gets created if it is not present at the specified location
             if (!file.exists()) {

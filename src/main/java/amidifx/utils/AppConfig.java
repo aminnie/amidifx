@@ -1,13 +1,12 @@
 package amidifx.utils;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.channels.FileChannel;
 import java.util.Properties;
 
 public class AppConfig {
 
+    private static final String APP_DIRECTORY = "C:/amidifx/";
     private static final String CFG_DIRECTORY = "C:/amidifx/config/";
 
     Properties configProps = new Properties();
@@ -117,6 +116,8 @@ public class AppConfig {
         switch (idx) {
             case 1:
                 strmodule = configProps.getProperty("sndmodfil1");
+            case 2:
+                strmodule = configProps.getProperty("sndmodfil2");
             default:
                 // Default to Midi GM file
                 strmodule = configProps.getProperty("sndmodfil0");
@@ -158,5 +159,26 @@ public class AppConfig {
         return configProps.getProperty("songsfile");
     }
 
+    public boolean getApplicationLock() {
+
+        try {
+            RandomAccessFile randomFile = new RandomAccessFile(APP_DIRECTORY + "applock.txt","rw");
+
+            FileChannel channel = randomFile.getChannel();
+
+            if (channel.tryLock() == null) {
+                System.out.println("AppConfig: AMIDIFX already Running...");
+                return false;
+            }
+
+            System.out.println("AppConfig: AMIDIFX application locked.");
+        }
+        catch (Exception ex) {
+            System.err.println("AppConfig: AMDIDIFX Unable to obtain Application lock error");
+            System.err.println(ex.toString());
+        }
+
+        return true;
+    }
 }
 
