@@ -337,17 +337,13 @@ public class HomeScene {
             txtKeyboard.setWrapText(true);
             txtKeyboard.setDisable(true);
 
-            String stringSpace = " ";
-            TextArea txtLabel = new TextArea(stringSpace);
-            txtLabel.setStyle("-fx-background-color: #999999; ");
-            txtLabel.setPrefSize(800, 250);
-            txtLabel.setWrapText(true);
-            txtLabel.setDisable(true);
+            Label lblspace = new Label();
+            lblspace.setPrefSize(520, 250);
 
             GridPane gridIntroKeyboard = new GridPane();
             gridIntroKeyboard.setPadding(new Insets(10, 10, 10, 10));
             gridIntroKeyboard.add(txtIntro,  0, 0, 1, 1);
-            gridIntroKeyboard.add(txtLabel, 1, 0, 1, 1);
+            gridIntroKeyboard.add(lblspace, 1, 0, 1, 1);
             gridIntroKeyboard.add(txtKeyboard, 2, 0, 1, 1);
 
             lblindevice = new Label(sharedStatus.getSelInDevice());

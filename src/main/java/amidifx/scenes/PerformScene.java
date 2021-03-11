@@ -3285,6 +3285,25 @@ public class PerformScene {
             // Enable Save button only once a change has been made in UI
             buttonSave.setDisable(true);
             flgDirtyPreset = false;
+
+            // Prepare background Image
+            //try {
+            //    FileInputStream input = new FileInputStream(sharedStatus.getCFGDirectory() + "backimage.png");
+            //    Image image = new Image(input);
+            //    BackgroundImage backgroundimage = new BackgroundImage(image,
+            //            BackgroundRepeat.NO_REPEAT,
+            //            BackgroundRepeat.NO_REPEAT,
+            //            BackgroundPosition.DEFAULT,
+            //            BackgroundSize.DEFAULT);
+
+            //    // Create and set background
+            //    Background background = new Background(backgroundimage);
+            //    centerPerformPanel.setBackground(background);
+            //}
+            //catch(FileNotFoundException ex) {
+            //    System.err.println("Background image not found! ");
+            //}
+
         }
         catch (Exception ex) {
             System.err.println("### PerformScene Exception: Unable to read Stylesheets!");

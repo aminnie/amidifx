@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -586,7 +587,7 @@ public class Main extends Application {
             // Only allow edits on connect sound module
             if (cursongmoduleidx != sharedStatus.getModuleidx()) {
                 MidiModules midimodule = new MidiModules();
-                labelstatusSng.setText(" Status: To correctly edit, connect module " + midimodule.getModuleName(cursongmoduleidx));
+                labelstatusSng.setText(" Status: To edit connect module " + midimodule.getModuleName(cursongmoduleidx));
                 labelstatusSng.setStyle(styletextred);
 
                 System.out.println("To edit, connect sound module " + midimodule.getModuleName(cursongmoduleidx));
@@ -1286,6 +1287,24 @@ public class Main extends Application {
         //borderPaneS.setBottom(borderStatusS);
         borderPaneSng.setBottom(boxstatussong);
 
+        // Prepare background Image
+        //try {
+        //    FileInputStream input = new FileInputStream(sharedStatus.getCFGDirectory() + "backimage.png");
+        //    Image image = new Image(input);
+        //    BackgroundImage backgroundimage = new BackgroundImage(image,
+        //            BackgroundRepeat.NO_REPEAT,
+        //            BackgroundRepeat.NO_REPEAT,
+        //            BackgroundPosition.DEFAULT,
+        //            BackgroundSize.DEFAULT);
+        //
+        //    // Create and set background
+        //    Background background = new Background(backgroundimage);
+        //    borderPaneSng.setBackground(background);
+        //}
+        //catch(FileNotFoundException ex) {
+        //    System.err.println("Background image not found! ");
+        //}
+
         return borderPaneSng;
     }
 
@@ -1359,6 +1378,9 @@ public class Main extends Application {
     MidiPreset midiPreset;
     PlayMidi playmidifile;
 
+    ComboBox moduleCombo;
+    boolean bmodulechanged = false;
+
     // Select Bank and Sounds Panel
     public BorderPane createPresetScene(Stage stage) {
 
@@ -1372,8 +1394,20 @@ public class Main extends Application {
         buttonsc1.setStyle(btnMenuOff);
         //buttonsc1.setOnAction(e -> stage.setScene(sceneOrgan));
         buttonsc1.setOnAction(e -> {
+            // Reload original Sound Module if changed
+            if (bmodulechanged == true) {
+                moduleIdx = sharedStatus.getModuleidx();
+
+                moduleCombo.getSelectionModel().select(moduleIdx);
+                Event.fireEvent(moduleCombo, new ActionEvent());
+
+                bmodulechanged = false;
+                System.out.println("Module changed to: " + sharedStatus.getModuleName(moduleIdx));
+            }
+
             System.out.println(("Main: Changing to Organ Scene: " + sharedStatus.getPerformScene().toString()));
             stage.setScene(sharedStatus.getPerformScene());
+
             try {
                 Thread.sleep(250);
             } catch (Exception ex) { }
@@ -1383,8 +1417,21 @@ public class Main extends Application {
         buttonsc2.setStyle(btnMenuOff);
         //buttonsc2.setOnAction(e -> stage.setScene(sceneSongs));
         buttonsc2.setOnAction(e -> {
+
+            // Reload original Sound Module if changed
+            if (bmodulechanged == true) {
+                moduleIdx = sharedStatus.getModuleidx();
+
+                moduleCombo.getSelectionModel().select(moduleIdx);
+                Event.fireEvent(moduleCombo, new ActionEvent());
+
+                bmodulechanged = false;
+                System.out.println("Module changed to: " + sharedStatus.getModuleName(moduleIdx));
+            }
+
             System.out.println(("Main: Changing to Songs Scene: " + sharedStatus.getSongsScene().toString()));
             stage.setScene(sharedStatus.getSongsScene());
+
             try {
                 Thread.sleep(250);
             } catch (Exception ex) { }
@@ -1394,8 +1441,21 @@ public class Main extends Application {
         buttonsc3.setStyle(btnMenuOn);
         //buttonsc3.setOnAction(e -> stage.setScene(scenePresets));
         buttonsc3.setOnAction(e -> {
+
+            // Reload original Sound Module if changed
+            if (bmodulechanged == true) {
+                moduleIdx = sharedStatus.getModuleidx();
+
+                moduleCombo.getSelectionModel().select(moduleIdx);
+                Event.fireEvent(moduleCombo, new ActionEvent());
+
+                bmodulechanged = false;
+                System.out.println("Module changed to: " + sharedStatus.getModuleName(moduleIdx));
+            }
+
             System.out.println(("Main: Changing to Presets Scene: " + sharedStatus.getPresetsScene().toString()));
             stage.setScene(sharedStatus.getPresetsScene());
+
             try {
                 Thread.sleep(250);
             } catch (Exception ex) { }
@@ -1569,15 +1629,28 @@ public class Main extends Application {
         banklistView.setPrefHeight(ypatchlist);
         banklistView.setStyle("-fx-control-inner-background: #E7ECEC;");
 
-        ComboBox moduleCombo = new ComboBox(FXCollections.observableArrayList(moduleNames));
+        moduleCombo = new ComboBox(FXCollections.observableArrayList(moduleNames));
         moduleCombo.setPrefSize(xpatchlist, 20);
         moduleCombo.setStyle(selectcolorOff);
         moduleCombo.getSelectionModel().select(moduleidx);
         EventHandler<ActionEvent> midxevent =
                 e -> {
+
                     int moduleidx1 = moduleCombo.getSelectionModel().getSelectedIndex();
                     dopatches.loadMidiPatches(midimodules.getModuleFile(moduleidx1));
-                    sharedStatus.setModuleidx(moduleidx1);
+
+                    // Save ModuleIdx so we can reload it back to original when we exit the page
+                    // If we temporarily changed the moduleidx, we need to reload the active module patches as we exit this page
+                    // as well as disable the Voice Sound and Play Buttons as the sounds selected do not match the active sound
+                    // module
+                    if (moduleidx1 != moduleidx) {
+                        moduleIdx = moduleidx1;
+                        ////devicemoduleIdx = sharedStatus.getModuleidx();
+                        sharedStatus.setModuleidx(moduleidx);
+
+                        bmodulechanged = true;
+                        System.out.println("Module changed to" + sharedStatus.getModuleName(moduleidx1));
+                    }
 
                     banklistView.getItems().clear();
                     banklistView.getSelectionModel().clearSelection();
@@ -2606,6 +2679,24 @@ public class Main extends Application {
         // After initial render set saveButton to false if trigger during initial config, e.g. setting sliders.
         flgDirtyPreset = false;
         buttonSave.setDisable(true);
+
+        // Prepare background Image
+        //try {
+        //    FileInputStream input = new FileInputStream(sharedStatus.getCFGDirectory() + "backimage.png");
+        //    Image image = new Image(input);
+        //    BackgroundImage backgroundimage = new BackgroundImage(image,
+        //            BackgroundRepeat.NO_REPEAT,
+        //            BackgroundRepeat.NO_REPEAT,
+        //            BackgroundPosition.DEFAULT,
+        //            BackgroundSize.DEFAULT);
+
+        //    // Create and set background
+        //    Background background = new Background(backgroundimage);
+        //    borderPane1.setBackground(background);
+        //}
+        //catch(FileNotFoundException ex) {
+        //    System.err.println("Background image not found! ");
+        //}
 
         return borderPane1;
     }
