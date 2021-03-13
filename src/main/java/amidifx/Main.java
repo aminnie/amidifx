@@ -57,7 +57,7 @@ public class Main extends Application {
     int xscene = (int)(1024 * xmul);
     int yscene = (int)(600 * ymul - 45);    // 45 = Adjustment while we are single showing Windows status bar
 
-    int xbutton = (int)(150 * xmul);
+    int xbutton = (int)(154 * xmul);
     int ybutton = (int)(50 * ymul);
 
     int xtoolbarleft = (int)(225 * xmul);

@@ -54,10 +54,10 @@ public class PerformScene {
     int xbtnleftright = (int)(190 * xmul);
     int ybtnleftright = (int)(25 * ymul);
 
-    int xbtnpreset = (int)(118 * xmul);
+    int xbtnpreset = (int)(120 * xmul);
     int ybtnpreset = (int)(50 * ymul);
 
-    int xvoicebtn = (int)(129 * xmul);
+    int xvoicebtn = (int)(130 * xmul);
     int yvoicebtn = (int)(50 * ymul);
 
     int xstatusleft = (int)(400 * xmul);
