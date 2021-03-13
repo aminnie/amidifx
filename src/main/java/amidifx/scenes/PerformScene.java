@@ -51,7 +51,7 @@ public class PerformScene {
     int xleftright = (int)(50 * xmul);
     int yleftright = (int)(25 * ymul);
 
-    int xbtnleftright = (int)(200 * xmul);
+    int xbtnleftright = (int)(190 * xmul);
     int ybtnleftright = (int)(25 * ymul);
 
     int xbtnpreset = (int)(118 * xmul);
@@ -65,10 +65,11 @@ public class PerformScene {
     // Calculate font size based on screen dimensions. Default = 15 for 1024 * 600
     final String fsize = Integer.toString((int)(ifsize * xmul)) + "; ";
     final String fsizetitle = Integer.toString((int)(ifsize * xmul * 1.1)) + "; ";
+    final String fsizesmall = Integer.toString((int)(ifsize * xmul * 8/10)) + "; ";
 
     // Button Colors
     // https://yagisanatode.com/2019/08/06/google-apps-script-hexadecimal-color-codes-for-google-docs-sheets-and-slides-standart-palette/
-    final String bgpanecolor = "-fx-background-color: #999999; ";
+    final String bgpanecolor = "-fx-background-color: #000000; ";
     final String bgheadercolor = "-fx-background-color: #B2B5B1; ";
     final String bgfootercolor = "-fx-background-color: #B2B5B1;";
 
@@ -105,6 +106,8 @@ public class PerformScene {
     final String lrpressedOff = "-fx-background-color: #DB6B6B; -fx-font-size: " + fsize ;
 
     final String styletext = "-fx-text-fill: black; -fx-font-size: " + fsize ;
+    final String styletextwhite = "-fx-text-fill: white; -fx-font-size: " + fsize ;
+    final String styletextwhitesmall = "-fx-text-fill: white; -fx-font-size: " + fsizesmall ;
     final String styletextred = "-fx-text-fill: red; -fx-font-size: " + fsize ;
     final String styletexttitle = "-fx-font-size: " + fsizetitle;
 
@@ -622,6 +625,7 @@ public class PerformScene {
 
             // Assemble the Song Navigation Controls
             HBox hboxSong = new HBox();
+            hboxSong.setSpacing(2);
             hboxSong.getChildren().add(buttonSongNameLeft);
             hboxSong.getChildren().add(buttonSongLoad);
             hboxSong.getChildren().add(buttonSongNameRight);
@@ -682,6 +686,7 @@ public class PerformScene {
 
             // Assemble the Song Navigation Controls
             HBox hboxBank = new HBox();
+            hboxBank.setSpacing(2);
             hboxBank.getChildren().add(buttonSoundBankLeft);
             hboxBank.getChildren().add(buttonSoundBank);
             hboxBank.getChildren().add(buttonSoundBankRight);
@@ -738,6 +743,7 @@ public class PerformScene {
 
             // Assemble the Sound Font Navigation Controls
             HBox hboxFont = new HBox();
+            hboxFont.setSpacing(2);
             hboxFont.getChildren().add(buttonSoundFontLeft);
             hboxFont.getChildren().add(buttonSoundFont);
             hboxFont.getChildren().add(buttonSoundFontRight);
@@ -745,7 +751,7 @@ public class PerformScene {
             // Voice Test Button
             Button btntest = new Button("Sound");
             btntest.setStyle(btnplayOff);
-            btntest.setPrefSize(xbtnleftright / 2, ybtnleftright);
+            btntest.setPrefSize(xbtnleftright / 2 - 10, ybtnleftright);
             btntest.setOnAction(e -> {
                 try {
 
@@ -793,7 +799,7 @@ public class PerformScene {
 
             // Add Song, Bank and Font Select to Top Line
             GridPane gridTopLine = new GridPane();
-            gridTopLine.setHgap(5);
+            gridTopLine.setHgap(10);
             gridTopLine.setVgap(10);
             gridTopLine.add(flowSong, 0, 0, 1, 1);
             gridTopLine.add(flowBank, 1, 0, 1, 1);
@@ -971,8 +977,9 @@ public class PerformScene {
             gridmidcenterPerform.setHgap(15);
             gridmidcenterPerform.setVgap(10);
 
-            Label blabel1 = new Label("Bass [11]");
-            blabel1.setStyle(styletext);
+            Button b1layerbtn = new Button("Bass [11]");
+            b1layerbtn.setStyle(lrpressedOn);
+            b1layerbtn.setMaxWidth(xvoicebtn);
 
             bleft1 = new Button(" Bass 1");
             bleft1.setId("B1-1");
@@ -1187,14 +1194,17 @@ public class PerformScene {
                 labelstatusOrg.setText(" Status: Applied B4");
             });
 
-            gridmidcenterPerform.add(blabel1, 0, 0, 1, 1);
+            gridmidcenterPerform.add(b1layerbtn, 0, 0, 1, 1);
             gridmidcenterPerform.add(bleft1, 0, 1, 1, 1);
             gridmidcenterPerform.add(bleft2, 1, 1, 1, 1);
             gridmidcenterPerform.add(bleft3, 0, 2, 1, 1);
             gridmidcenterPerform.add(bleft4, 1, 2, 1, 1);
 
-            Label dlabel1 = new Label("Drums [10]");
-            dlabel1.setStyle(styletext);
+            Button d1layerbtn = new Button("Drums [10]");
+            d1layerbtn.setStyle(styletext);
+            d1layerbtn.setStyle(lrpressedOn);
+            d1layerbtn.setMaxWidth(xvoicebtn);
+            d1layerbtn.setMaxHeight(yvoicebtn / 2);
 
             // Do Beat Counter in large font
             DropShadow ds1 = new DropShadow();
@@ -1206,9 +1216,9 @@ public class PerformScene {
             lblbeatcount.setCache(true);
             lblbeatcount.setX(10.0f);
             lblbeatcount.setY(270.0f);
-            lblbeatcount.setFill(Color.DARKRED);
+            lblbeatcount.setFill(Color.RED);
             lblbeatcount.setText("  Bar: 0.0");
-            lblbeatcount.setFont(Font.font(null, FontWeight.SEMI_BOLD, 20));
+            lblbeatcount.setFont(Font.font(null, FontWeight.BOLD, 20));
 
             dleft1.setText(" Drums 1");
             dleft1.setId("D1-1");
@@ -1423,7 +1433,7 @@ public class PerformScene {
                 labelstatusOrg.setText(" Status: Applied D4");
             });
 
-            gridmidcenterPerform.add(dlabel1, 0, 3, 1, 1);
+            gridmidcenterPerform.add(d1layerbtn, 0, 3, 1, 1);
             gridmidcenterPerform.add(lblbeatcount, 1, 3, 1, 1);
             gridmidcenterPerform.add(dleft1, 0, 4, 1, 1);
             gridmidcenterPerform.add(dleft2, 1, 4, 1, 1);
@@ -3208,12 +3218,23 @@ public class PerformScene {
             });
             sliderPAN.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getPAN());
 
+            Label vollabel = new Label("VOL");
+            vollabel.setStyle(styletextwhitesmall);
+            Label revlabel = new Label("REV");
+            revlabel.setStyle(styletextwhitesmall);
+            Label cholabel = new Label("CHO");
+            cholabel.setStyle(styletextwhitesmall);
+            Label modlabel = new Label("MOD");
+            modlabel.setStyle(styletextwhitesmall);
+            Label panlabel = new Label("PAN");
+            panlabel.setStyle(styletextwhitesmall);
+
             GridPane gridEffects = new GridPane();
-            gridEffects.add(new VBox(new Label("VOL"), sliderVOL), 0, 1, 1, 1);
-            gridEffects.add(new VBox(new Label("REV"), sliderREV), 1, 1, 1, 1);
-            gridEffects.add(new VBox(new Label("CHO"), sliderCHO), 2, 1, 1, 1);
-            gridEffects.add(new VBox(new Label("MOD"), sliderMOD), 3, 1, 1, 1);
-            gridEffects.add(new VBox(new Label("PAN"), sliderPAN), 4, 1, 1, 1);
+            gridEffects.add(new VBox(vollabel, sliderVOL), 0, 1, 1, 1);
+            gridEffects.add(new VBox(revlabel, sliderREV), 1, 1, 1, 1);
+            gridEffects.add(new VBox(cholabel, sliderCHO), 2, 1, 1, 1);
+            gridEffects.add(new VBox(modlabel, sliderMOD), 3, 1, 1, 1);
+            gridEffects.add(new VBox(panlabel, sliderPAN), 4, 1, 1, 1);
             //gridEffects.add(new VBox(new Label("ROT"), sliderROT), 5, 1, 1, 1);
             gridEffects.setHgap(10);
             gridmidcenterPerform.add(gridEffects, 3, 5, 3, 2);
@@ -3261,13 +3282,13 @@ public class PerformScene {
 
             // In MIDI GM Mode: Preset all Sounds and Wire up the Sliders to default to Upper 1-1
             if (moduleidx == 0) {
-                dlabel1.setVisible(false);
+                d1layerbtn.setVisible(false);
                 dleft1.setVisible(false);
                 dleft2.setVisible(false);
                 dleft3.setVisible(false);
                 dleft4.setVisible(false);
 
-                // Disable Rotary Buttons in MIDI GM Mode
+                // Disable Organ Rotary Buttons in MIDI GM Mode
                 lbutton15.setVisible(false);
                 lbutton16.setVisible(false);
                 rbutton17.setVisible(false);
@@ -3275,12 +3296,12 @@ public class PerformScene {
             }
             else
                 dleft1.fire();
-            bleft1.fire();
-            lbutton21.fire();
-            lbutton11.fire();
-            rbutton31.fire();
-            rbutton21.fire();
-            rbutton11.fire();
+                bleft1.fire();
+                lbutton21.fire();
+                lbutton11.fire();
+                rbutton31.fire();
+                rbutton21.fire();
+                rbutton11.fire();
 
             // Enable Save button only once a change has been made in UI
             buttonSave.setDisable(true);

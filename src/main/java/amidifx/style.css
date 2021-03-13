@@ -20,7 +20,7 @@
 .button {
     -fx-font-size: 15px;
     -fx-font-family: Helvetica;
-    -fx-text-fill:  black;
+    -fx-text-fill: black;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
     -fx-border-width:5;
@@ -32,7 +32,7 @@
     -fx-border-width: 2px;
     -fx-border-color: red;
     -fx-border-style: hidden hidden solid hidden;
-    -fx-background-color: derive(red, 99%);
+    -fx-background-color: derive(red, 80%);
 }
 
 .list-view .list-cell:odd {
@@ -48,3 +48,6 @@
     -fx-background-color: #4493C0;
 }
 
+.slider .axis {
+    -fx-tick-label-fill: white;
+ }

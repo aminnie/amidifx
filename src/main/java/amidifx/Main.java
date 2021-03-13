@@ -74,7 +74,7 @@ public class Main extends Application {
     int ysmallestbtn = (int)(10 * ymul);
 
     int xsonglist = (int)(200 * xmul);
-    int ysonglist = (int)(550 * 1); //ymul
+    int ysonglist = (int)(575 * 1); //ymul
 
     int xpatchlist = (int)(180 * xmul);
     int ypatchlist = (int)(545 * 1); //xmul)
@@ -92,10 +92,11 @@ public class Main extends Application {
     final String fsize = Integer.toString((int)(ifsize * xmul)) + "; ";
     final String fsmallsize = Integer.toString((int)(ifsize / 1.30 * xmul)) + "; ";
     final String fsizetitle = Integer.toString((int)(ifsize * xmul * 1.1)) + "; ";
+    final String fsizesmall = Integer.toString((int)(ifsize * xmul * 8/10)) + "; ";
 
     // Button Colors
     // https://yagisanatode.com/2019/08/06/google-apps-script-hexadecimal-color-codes-for-google-docs-sheets-and-slides-standart-palette/
-    final String bgpanecolor = "-fx-background-color: #999999; ";
+    final String bgpanecolor = "-fx-background-color: #000000; ";
     final String bgheadercolor = "-fx-background-color: #B2B5B1; ";
     final String bgfootercolor = "-fx-background-color: #B2B5B1; ";
 
@@ -116,6 +117,8 @@ public class Main extends Application {
 
     final String styletext = "-fx-text-fill: black; -fx-font-size: " + fsize ;
     final String styletextred = "-fx-text-fill: red; -fx-font-size: " + fsize ;
+    final String styletextwhite = "-fx-text-fill: white; -fx-font-size: " + fsize ;
+    final String styletextwhitesmall = "-fx-text-fill: white; -fx-font-size: " + fsizesmall ;
     final String smallstyletext = "-fx-background-color: #69A8CC; -fx-font-size: " + fsmallsize ;
     final String styletexttitle = "-fx-font-size: " + fsizetitle;
 
@@ -460,13 +463,13 @@ public class Main extends Application {
         borderStatusSng.setStyle(bgheadercolor);
 
         labelstatus.setText(" Status: " + sharedStatus.getStatusText());
-        labelstatus.setStyle(styletext);
+        labelstatus.setStyle(styletextwhite);
         labelsongtitle.setText("Song: " + sharedStatus.getSongTitle());
-        labelsongtitle.setStyle(styletext);
+        labelsongtitle.setStyle(styletextwhite);
         labelmidifile.setText("   Midi: " + sharedStatus.getMidiFile());
-        labelmidifile.setStyle(styletext);
+        labelmidifile.setStyle(styletextwhite);
         labelpresetfile.setText("   Preset: " + sharedStatus.getPresetFile());
-        labelpresetfile.setStyle(styletext);
+        labelpresetfile.setStyle(styletextwhite);
 
         FlowPane panefilesSng = new FlowPane();
         panefilesSng.setHgap(20);
@@ -659,7 +662,7 @@ public class Main extends Application {
 
         // Song Details view, input and edit screen
         Label lblsong = new Label("Song Title:");
-        lblsong.setStyle(styletext);
+        lblsong.setStyle(styletextwhite);
         txtSongTitle.setStyle(styletext);
         txtSongTitle = new TextField();
         txtSongTitle.setDisable(true);
@@ -680,7 +683,7 @@ public class Main extends Application {
         txtSongTitle.setStyle("-fx-control-inner-background: #E7ECEC;");
 
         Label lblpreset = new Label("Preset File:");
-        lblpreset.setStyle(styletext);
+        lblpreset.setStyle(styletextwhite);
         txtPresetFile.setStyle(styletext);
         txtPresetFile = new TextField();
         txtPresetFile.setDisable(true);
@@ -700,7 +703,7 @@ public class Main extends Application {
         txtPresetFile.setStyle("-fx-control-inner-background: #E7ECEC;");
 
         Label lblsmf = new Label("MIDI File:");
-        lblsmf.setStyle(styletext);
+        lblsmf.setStyle(styletextwhite);
         txtSmfFile.setStyle(styletext);
         txtSmfFile = new TextField();
         txtSmfFile.setDisable(true);
@@ -720,7 +723,7 @@ public class Main extends Application {
         txtSmfFile.setStyle("-fx-control-inner-background: #E7ECEC;");
 
         Label lblpresetsaveas = new Label("Preset As:");
-        lblpresetsaveas.setStyle(styletext);
+        lblpresetsaveas.setStyle(styletextwhite);
         txtPresetSaveAsFile.setStyle(styletext);
         txtPresetSaveAsFile.setDisable(true);
         txtPresetSaveAsFile.setEditable(false);
@@ -744,8 +747,8 @@ public class Main extends Application {
         txtPresetSaveAsFile.setStyle("-fx-control-inner-background: #E7ECEC;");
 
         Label lblCurMidiModule = new Label("Module:");
-        lblCurMidiModule.setStyle(styletext);
-        lblCurSongMidiModule.setStyle(styletext);
+        lblCurMidiModule.setStyle(styletextwhite);
+        lblCurSongMidiModule.setStyle(styletextwhite);
 
         buttonupdate.setDisable(true);
         buttonupdate.setStyle(btnMenuSaveOn);
@@ -861,11 +864,11 @@ public class Main extends Application {
 
         // Get Song Bass, Lower and Upper Channel override from User
         Label lblSongChannels = new Label("MIDI Track Number Override for Mute:");
-        lblSongChannels.setStyle(styletext);
+        lblSongChannels.setStyle(styletextwhite);
 
         Label lblBass = new Label("Bass:  ");
-        lblBass.setStyle(styletext);
-        txtBass.setStyle(styletext);
+        lblBass.setStyle(styletextwhite);
+        txtBass.setStyle(styletextwhite);
         txtBass = new TextField(Integer.toString(sharedStatus.getBassCHAN()));
         txtBass.setDisable(true);
         txtBass.setMaxWidth(xmute);
@@ -878,9 +881,9 @@ public class Main extends Application {
                     ));
         });
 
-        Label lblLower = new Label("    Lower:  ");
-        lblLower.setStyle(styletext);
-        txtLower.setStyle(styletext);
+        Label lblLower = new Label("   Lower:  ");
+        lblLower.setStyle(styletextwhite);
+        txtLower.setStyle(styletextwhite);
         txtLower = new TextField(Integer.toString(sharedStatus.getLower1CHAN()));
         txtLower.setDisable(true);
         txtLower.setMaxWidth(xmute);
@@ -893,9 +896,9 @@ public class Main extends Application {
                     ));
         });
 
-        Label lblUpper = new Label("    Upper:  ");
-        lblUpper.setStyle(styletext);
-        txtUpper.setStyle(styletext);
+        Label lblUpper = new Label("   Upper:  ");
+        lblUpper.setStyle(styletextwhite);
+        txtUpper.setStyle(styletextwhite);
         txtUpper = new TextField(Integer.toString(sharedStatus.getUpper1CHAN()));
         txtUpper.setDisable(true);
         txtUpper.setMaxWidth(xmute);
@@ -908,8 +911,8 @@ public class Main extends Application {
                     ));
         });
 
-        Label lblTimeSig = new Label("    Time:  ");
-        lblTimeSig.setStyle(styletext);
+        Label lblTimeSig = new Label(" Signature: ");
+        lblTimeSig.setStyle(styletextwhite);
         txtTimeSig.setStyle(styletext);
         txtTimeSig.setDisable(true);
         txtTimeSig.setMaxWidth(xmute);
@@ -948,7 +951,7 @@ public class Main extends Application {
                 String songtitle = midiSong.getSongTitle();
 
                 // Never edit initial default organ preset files.
-                if ((idx == 0) || (idx == 1)) {
+                if ((idx == 0) || (idx == 1)|| (idx == 2)) {
                     labelstatusSng.setText(" Status: Editing Preset Song " + midiSong.getSongTitle() + " files not allowed");
                     labelstatusSng.setStyle(styletextred);
 
@@ -1087,7 +1090,7 @@ public class Main extends Application {
 
         // Prepare for Demo Play with options, defaulting to demo play
         radioOriginal.setSelected(true);
-        radioOriginal.setStyle(styletext);
+        radioOriginal.setStyle(styletextwhite);
 
         Button buttondemo = new Button("Play Song");
         buttondemo.setStyle(btnplayOff);
@@ -1193,7 +1196,7 @@ public class Main extends Application {
         });
 
         txtInstrumentList.setMaxWidth(450 * xmul);
-        txtInstrumentList.setMaxHeight(135 * ymul);
+        txtInstrumentList.setMaxHeight(185 * ymul);
         txtInstrumentList.setStyle(stlInstrumentList);
 
         VBox vboxInstrumentList = new VBox();
@@ -1245,14 +1248,14 @@ public class Main extends Application {
         // Do the Demo style radio buttons
 
         Label labelDemoType = new Label("Sequencer Mode:  ");
-        labelDemoType.setStyle(styletext);
+        labelDemoType.setStyle(styletextwhite);
 
         ToggleGroup radioDemoTypeGroup = new ToggleGroup();
         radioOriginal.setSelected(true);
         radioPresets = new RadioButton("With Presets    ");
-        radioPresets.setStyle(styletext);
+        radioPresets.setStyle(styletextwhite);
         radioLive = new RadioButton("Backing Only");
-        radioLive.setStyle(styletext);
+        radioLive.setStyle(styletextwhite);
         radioOriginal.setToggleGroup(radioDemoTypeGroup);
         radioPresets.setToggleGroup(radioDemoTypeGroup);
         radioLive.setToggleGroup(radioDemoTypeGroup);
@@ -2478,16 +2481,29 @@ public class Main extends Application {
         vboxEffects.setStyle(styletext);
 
         labeleffects = new Label("Effects: Channel " + (channelIdx + 1));
-        labeleffects.setStyle(styletext);
+        labeleffects.setStyle(styletextwhite);
+
+        Label vollabel = new Label("VOL");
+        vollabel.setStyle(styletextwhitesmall);
+        Label explabel = new Label("EXP");
+        explabel.setStyle(styletextwhitesmall);
+        Label revlabel = new Label("REV");
+        revlabel.setStyle(styletextwhitesmall);
+        Label cholabel = new Label("CHO");
+        cholabel.setStyle(styletextwhitesmall);
+        Label modlabel = new Label("MOD");
+        modlabel.setStyle(styletextwhitesmall);
+        Label panlabel = new Label("PAN");
+        panlabel.setStyle(styletextwhitesmall);
 
         GridPane gridEffects = new GridPane();
-        gridEffects.add(new VBox(new Label("VOL"), sliderVOL), 0, 1, 1, 1);
-        gridEffects.add(new VBox(new Label("EXP"), sliderEXP), 1, 1, 1, 1);
-        gridEffects.add(new VBox(new Label("REV"), sliderREV), 2, 1, 1, 1);
-        gridEffects.add(new VBox(new Label("CHO"), sliderCHO), 3, 1, 1, 1);
-        //gridEffects.add(new VBox(new Label("TRE"), sliderTRE), 4, 1, 1, 1);
-        gridEffects.add(new VBox(new Label("MOD"), sliderMOD), 5, 1, 1, 1);
-        gridEffects.add(new VBox(new Label("PAN"), sliderPAN), 6, 1, 1, 1);
+        gridEffects.add(new VBox(vollabel, sliderVOL), 0, 1, 1, 1);
+        gridEffects.add(new VBox(explabel, sliderEXP), 1, 1, 1, 1);
+        gridEffects.add(new VBox(revlabel, sliderREV), 2, 1, 1, 1);
+        gridEffects.add(new VBox(cholabel, sliderCHO), 3, 1, 1, 1);
+        //gridEffects.add(new VBox(trelabel, sliderTRE), 4, 1, 1, 1);
+        gridEffects.add(new VBox(modlabel, sliderMOD), 5, 1, 1, 1);
+        gridEffects.add(new VBox(panlabel, sliderPAN), 6, 1, 1, 1);
 
         // Effects and Slider Default or deeper Configurations
         HBox hboxEffects = new HBox();
@@ -2573,14 +2589,14 @@ public class Main extends Application {
                 " 9 ", "10 ", "11 ", "12 ", "13 ", "14 ", "15 ", "16 "};
 
         midiLayerLabel = new Label("Keyboard: Channel " + (channelIdx + 1) + " Layers");
-        midiLayerLabel.setStyle(styletext);
+        midiLayerLabel.setStyle(styletextwhite);
         midiLayerLabel.setDisable(!ArduinoUtils.getInstance().hasARMPort());
 
         chkBoxArray = new CheckBox[16];
         int x, y;
         for (checkIdx = 0; checkIdx < 16; checkIdx++) {                     // midiChannels.length
             chkBoxArray[checkIdx] = new CheckBox(midiChannels[checkIdx]);
-            chkBoxArray[checkIdx].setStyle(styletext);
+            chkBoxArray[checkIdx].setStyle(styletextwhite);
             chkBoxArray[checkIdx].setDisable(!ArduinoUtils.getInstance().hasARMPort());
             // Add Check Box event to save changes to Preset
             EventHandler<ActionEvent> event = e -> {
@@ -2606,7 +2622,7 @@ public class Main extends Application {
         vboxApplyPreset.setSpacing(10);
 
         Label labelPresets = new Label("Apply Presets");
-        labelPresets.setStyle(styletext);
+        labelPresets.setStyle(styletextwhite);
 
         // Send Presets to MIDI Module Button
         Button buttonApplyPreset = new Button("Cur Channel");
