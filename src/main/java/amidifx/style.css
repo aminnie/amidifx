@@ -51,3 +51,12 @@
 .slider .axis {
     -fx-tick-label-fill: white;
  }
+
+.slider .fill {
+ -fx-background-color: #00828b;
+ -fx-padding: 0.333333em;
+}
+
+.slider .fill:hover {
+ -fx-background-color: #219297;
+}

@@ -1,6 +1,7 @@
 package amidifx.models;
 
 import amidifx.MidiSongs;
+import amidifx.utils.AppConfig;
 import javafx.scene.Scene;
 
 import javax.sound.midi.Receiver;
@@ -36,6 +37,8 @@ public class SharedStatus {
     private static final int LOWERKBD = 12;
     private static final int UPPERKBD = 14;
     private static final int SOLOKBD = 16;
+
+    int expchannel = 0xFF; // Expression Channel Number if used. Value of 0 is not used, 0xFF if not yet set
 
     private boolean lower1kbdlayerenabled = true;
     private boolean upper1kbdlayerenabled = true;
@@ -300,6 +303,21 @@ public class SharedStatus {
             System.out.println("Button File: " + performdb);
             return performdb;
         }
+    }
+
+    public int setExpressionCHAN(int expchannel) {
+        return this.expchannel;
+    }
+
+    public int getExpressionCHAN() {
+
+        // If no set yet, read from AppConfig
+        if (expchannel == 0xFF) {
+            AppConfig appconfig = AppConfig.getInstance();
+            this.expchannel = appconfig.getExpressionChannel();
+        }
+
+        return expchannel;
     }
 
     public void setSelInDevice(String selindevice) {

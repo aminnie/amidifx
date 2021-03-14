@@ -288,6 +288,9 @@ public class PerformScene {
     boolean l1pressed = true;
     boolean l2pressed = false;
 
+    Button b1layerbtn;
+    boolean b1pressed = true;
+
     Slider sliderVOL;
     Slider sliderEXP;
     Slider sliderREV;
@@ -977,9 +980,30 @@ public class PerformScene {
             gridmidcenterPerform.setHgap(15);
             gridmidcenterPerform.setVgap(10);
 
-            Button b1layerbtn = new Button("Bass [11]");
+            b1layerbtn = new Button("Bass [11]");
             b1layerbtn.setStyle(lrpressedOn);
             b1layerbtn.setMaxWidth(xvoicebtn);
+            //b1layerbtn.setDisable(!arduinoUtils.hasARMPort());
+            b1layerbtn.setOnAction(event -> {
+                if (b1pressed == false) {
+                    MidiDevices mididevices = MidiDevices.getInstance();
+                    mididevices.layerChannel(11, true);
+
+                    b1layerbtn.setStyle(lrpressedOn);
+                    b1pressed = true;
+
+                    labelstatusOrg.setText(" Status: Layer Bass On");
+                }
+                else {
+                    MidiDevices mididevices = MidiDevices.getInstance();
+                    mididevices.layerChannel(11, false);
+
+                    b1layerbtn.setStyle(lrpressedOff);
+                    b1pressed = false;
+
+                    labelstatusOrg.setText(" Status: Layer Bass Off");
+                }
+            });
 
             bleft1 = new Button(" Bass 1");
             bleft1.setId("B1-1");

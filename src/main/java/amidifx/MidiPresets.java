@@ -36,6 +36,12 @@ public class MidiPresets {
     public static final byte ccGP1 = 80;
     public static final byte ccGP2 = 81;
 
+/*  Future adds
+    71 Resonance (Timbre)
+    72 Sound Release Time
+    73 Sound Attack Time
+    74 Frequency Cutoff (Brightness) == Organ Rotary!
+*/
 
     // Static method to create singleton instance of PlayMidi class
     public synchronized static MidiPresets getInstance() {

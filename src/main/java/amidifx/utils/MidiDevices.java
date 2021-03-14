@@ -39,9 +39,13 @@ public class MidiDevices {
     private static final byte chan12idx = 4;
     private static final byte chan13idx = 6;
 
+    private static final byte chan11idx = 4;
+
     private byte[] layerUpper = {0, 14, 0, 0, 14, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
     private byte[] layerLower = {0, 12, 0, 0, 12, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
+    private byte[] layerBass = {0, 11, 0, 0, 11, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
 
+    private byte bass11notestrack[] = new byte[128];
     private byte lower12notestrack[] = new byte[128];
     private byte lower13notestrack[] = new byte[128];
     private byte upper14notestrack[] = new byte[128];
@@ -58,6 +62,9 @@ public class MidiDevices {
     private boolean lower13layeron = false;
     private int lowernoteson = 0;
 
+    private boolean bass11layeron = false;
+    private int bassnoteson = 0;
+
     // Track open/closed notes to prevent hanging:
     // 0 = no tracking or all closed; 1 = layer off request (but open notes); 2 = no open notes after current close note
     private boolean trackupper14opennotes = false;
@@ -67,12 +74,16 @@ public class MidiDevices {
     private boolean tracklower12opennotes = false;
     private boolean tracklower13opennotes = false;
 
+    private boolean trackbass11opennotes = false;
+
     long upper14layerofftime;
     long upper15layerofftime;
     long upper16layerofftime;
 
     long lower12layerofftime;
     long lower13layerofftime;
+
+    long bass11layerofftime;
 
     // Static variable single_instance of type PlayMidi
     private static MidiDevices single_MidiDevices_Instance = null;
@@ -114,8 +125,7 @@ public class MidiDevices {
             miditrans.close();
             Sequencer midiseq = sharedstatus.getSeqDevice();
             midiseq.close();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("Info: Exiting: No receiver set yet");
         }
 
@@ -141,8 +151,7 @@ public class MidiDevices {
                 System.out.println("Ready to play MIDI keyboard...");
             } else
                 System.out.println("**** No MIDI keyboard connected! Connect USB MIDI keyboard proceed.");
-        }
-        catch (Exception e) {     //// MidiUnavailableException
+        } catch (Exception e) {     //// MidiUnavailableException
             System.err.println("MidiDevices: Device configuration error getting receiver, custom receiver or transmitter");
             e.printStackTrace();
 
@@ -309,7 +318,10 @@ public class MidiDevices {
                     layerOutMessages(message, timeStamp);
                     break;
                 case 0xa0:      //displayKeyPressure(message);
-                case 0xb0:      //displayControllerChange(message);
+                case 0xb0:
+                    // Duplicate Expession Pedal Message to All Keyboard Channels just like Organ
+                    LayerExpressionMessage(message, timeStamp);
+                    break;
                 case 0xc0:      //displayProgramChange(message);
                 case 0xd0:      //displayChannelPressure(message);
                 case 0xe0:      //displayPitchBend(message);
@@ -330,20 +342,20 @@ public class MidiDevices {
             ShortMessage shortmessage;
 
             if (message.getLength() < 3 || message.getLength() % 2 == 0) {
-                System.out.println("Unable to Layer/Output Bad MIDI message");
+                System.out.println("layerOutMessages: Unable to Layer/Output Bad MIDI message");
                 return;
             }
 
             // Now dissect to determine if Layering is needed and forward in layered channels
             byte[] bytes = message.getMessage();
             int command = message.getStatus() & 0xf0;
-            byte channel = (byte)(message.getStatus() & 0x0f);
+            byte channel = (byte) (message.getStatus() & 0x0f);
 
             // Testing device and channel, e.g. Trellis M4
             //if (channel == 0) channel = 13;
 
             // Do not layer any source channels below Lower Keyboard, including Bass Pedals and Drums
-            if (channel < (byte)(sharedstatus.getLower1CHAN()-1)) {
+            if (channel < (byte) (sharedstatus.getLower1CHAN() - 1)) {
                 receiver.send(message, timeStamp);
                 return;
             }
@@ -351,7 +363,7 @@ public class MidiDevices {
             //System.out.println("LayerOutMessages: " + channel + ", " + message.toString());
 
             // Layer Upper Channel 1
-            if (channel == (byte)(sharedstatus.getUpper1CHAN()-1)) {
+            if (channel == (byte) (sharedstatus.getUpper1CHAN() - 1)) {
 
                 // Track open notes to prevent hung notes. Close out all open notes before completing the layer off request
                 // Note: Midi Note ON with Velocity = 0, is same as Note OFF
@@ -366,40 +378,39 @@ public class MidiDevices {
                             shortmessage.setMessage(command, channel, byteToInt(bytes[1]), byteToInt(bytes[2]));
                             receiver.send(shortmessage, timeStamp);
 
-                            upper14notestrack[(int)bytes[1]] = (byte)1;
-                            //System.out.println("Layer Upper index[90]: " + chan + ", " + bytes[1] + ", " + bytes[2]);
+                            upper14notestrack[(int) bytes[1]] = (byte) 1;
+                            //System.out.println("layerOutMessages: Layer Upper index[90]: " + chan + ", " + bytes[1] + ", " + bytes[2]);
                         }
 
                         // Layer Upper Channel + 1 if not 0 (off/muted)
                         chan = layerUpper[chan15idx];
-                        if ((chan != 0) ) {
+                        if ((chan != 0)) {
                             shortmessage = new ShortMessage();
                             shortmessage.setMessage(command, channel + 1, byteToInt(bytes[1]), byteToInt(bytes[2]));
                             receiver.send(shortmessage, timeStamp);
 
-                            upper15notestrack[(int)bytes[1]] = (byte)1;
-                            //System.out.println("Layer Upper index[90]: " + chan + ", " + bytes[1] + ", " + bytes[2]);
+                            upper15notestrack[(int) bytes[1]] = (byte) 1;
+                            //System.out.println("layerOutMessages: Layer Upper index[90]: " + chan + ", " + bytes[1] + ", " + bytes[2]);
                         }
 
                         // Layer Upper Channel + 2 if not 0 (off/muted)
                         chan = layerUpper[chan16idx];
-                        if ((chan != 0) ) {
+                        if ((chan != 0)) {
                             shortmessage = new ShortMessage();
                             shortmessage.setMessage(command, channel + 2, byteToInt(bytes[1]), byteToInt(bytes[2]));
                             receiver.send(shortmessage, timeStamp);
 
-                            upper16notestrack[(int)bytes[1]] = (byte)1;
+                            upper16notestrack[(int) bytes[1]] = (byte) 1;
                             //System.out.println("Layer Upper index[90]: " + chan + ", " + bytes[1] + ", " + bytes[2]);
                         }
-                    }
-                    catch (InvalidMidiDataException ex) {
-                        System.out.print("Invalid Upper Channel Layer Message" + channel);
+                    } catch (InvalidMidiDataException ex) {
+                        System.out.print("layerOutMessages: Invalid Upper Channel Layer Message" + channel);
                         System.out.print(ex);
                     }
                 }
 
                 // Check for Upper Channel Note Off or Note On with Velocity = 0
-                else if ( (command == 0x80) || ((command == 0x90) && (bytes[2] == 0)) ) {
+                else if ((command == 0x80) || ((command == 0x90) && (bytes[2] == 0))) {
                     uppernoteson--;
 
                     try {
@@ -408,8 +419,8 @@ public class MidiDevices {
                         shortmessage.setMessage(command, sharedstatus.getUpper1CHAN() - 1, byteToInt(bytes[1]), byteToInt(bytes[2]));
                         receiver.send(shortmessage, timeStamp);
 
-                        upper14notestrack[(int) bytes[1]] = (byte)0;
-                        //System.out.println("Layer Upper index[80]: " + (sharedstatus.getUpper1CHAN()) + ", " + bytes[1] + ", " + bytes[2] + " L=" + trackupper14opennotes + " #=" + uppernoteson);
+                        upper14notestrack[(int) bytes[1]] = (byte) 0;
+                        //System.out.println("layerOutMessages: Layer Upper index[80]: " + (sharedstatus.getUpper1CHAN()) + ", " + bytes[1] + ", " + bytes[2] + " L=" + trackupper14opennotes + " #=" + uppernoteson);
 
                         // Check if the same note on Channel 15 is on, and turn it off too
                         boolean upperlayer15enabled = sharedstatus.getUpper1KbdLayerEnabled();
@@ -419,7 +430,7 @@ public class MidiDevices {
                             shortmessage.setMessage(0x90, (channel + 1), bytes[1], 0);
                             receiver.send(shortmessage, timeStamp);
 
-                            upper15notestrack[bytes[1]] = (byte)0;
+                            upper15notestrack[bytes[1]] = (byte) 0;
 
                             // Tracking Note On in preparation for Note Off following Layer off command with 10s timeout
                             if (trackupper15opennotes && (System.currentTimeMillis() - upper15layerofftime > 10000)) {
@@ -436,7 +447,7 @@ public class MidiDevices {
                             shortmessage.setMessage(0x90, (channel + 2), bytes[1], 0);
                             receiver.send(shortmessage, timeStamp);
 
-                            upper16notestrack[bytes[1]] = (byte)0;
+                            upper16notestrack[bytes[1]] = (byte) 0;
 
                             // Tracking Note On in preparation for Note Off following Layer off command with 10s timeout
                             if (trackupper16opennotes && (System.currentTimeMillis() - upper16layerofftime > 10000)) {
@@ -444,16 +455,15 @@ public class MidiDevices {
                                 trackupper16opennotes = false;
                             }
                         }
-                    }
-                    catch (InvalidMidiDataException ex) {
-                        System.out.println("Invalid Upper Channel Layer Message" + channel);
+                    } catch (InvalidMidiDataException ex) {
+                        System.out.println("layerOutMessages: Invalid Upper Channel Layer Message" + channel);
                         System.out.println(ex);
                     }
                 }
             }
 
             // Layer Lower Channel 12
-            else if (channel == (byte)(sharedstatus.getLower1CHAN()-1)) {
+            else if (channel == (byte) (sharedstatus.getLower1CHAN() - 1)) {
 
                 // Track open notes to prevent hung notes. Close out all open notes before completing the layer off request
                 // Note: Midi Note ON with Velocity = 0, is same as Note OFF
@@ -468,8 +478,8 @@ public class MidiDevices {
                             shortmessage.setMessage(command, channel, byteToInt(bytes[1]), byteToInt(bytes[2]));
                             receiver.send(shortmessage, timeStamp);
 
-                            lower12notestrack[(int)bytes[1]] = (byte)1;
-                            //System.out.println("Layer Lower index[90]: " + chan + ", " + bytes[1] + ", " + bytes[2]);
+                            lower12notestrack[(int) bytes[1]] = (byte) 1;
+                            //System.out.println("layerOutMessages: Layer Lower index[90]: " + chan + ", " + bytes[1] + ", " + bytes[2]);
                         }
 
                         // Layer Lower + 1 if not 0 (off muted)
@@ -479,18 +489,17 @@ public class MidiDevices {
                             shortmessage.setMessage(command, channel + 1, byteToInt(bytes[1]), byteToInt(bytes[2]));
                             receiver.send(shortmessage, timeStamp);
 
-                            lower13notestrack[(int)bytes[1]] = (byte)1;
-                            //System.out.println("Layer Lower index[90]: " + chan + ", " + bytes[1] + ", " + bytes[2]);
+                            lower13notestrack[(int) bytes[1]] = (byte) 1;
+                            //System.out.println("layerOutMessages: Layer Lower index[90]: " + chan + ", " + bytes[1] + ", " + bytes[2]);
                         }
-                    }
-                    catch (InvalidMidiDataException ex) {
-                        System.out.print("Invalid Upper Channel Layer Message" + channel);
+                    } catch (InvalidMidiDataException ex) {
+                        System.out.print("layerOutMessages: Invalid Upper Channel Layer Message" + channel);
                         System.out.print(ex);
                     }
                 }
 
                 // Close out Lower Channel Open Notes
-                else if ( (command == 0x80) || ((command == 0x90) && (bytes[2] == 0)) ) {
+                else if ((command == 0x80) || ((command == 0x90) && (bytes[2] == 0))) {
                     lowernoteson--;
 
                     try {
@@ -499,8 +508,8 @@ public class MidiDevices {
                         receiver.send(shortmessage, timeStamp);
 
                         // Note Off for Channel Lower
-                        lower12notestrack[(int) bytes[1]] = (byte)0;
-                        //System.out.println("Layer Lower index[80]: " + channel + ", " + bytes[1] + ", " + bytes[2] + " L=" + tracklower12opennotes + " #=" + lowernoteson);
+                        lower12notestrack[(int) bytes[1]] = (byte) 0;
+                        //System.out.println("layerOutMessages: Layer Lower index[80]: " + channel + ", " + bytes[1] + ", " + bytes[2] + " L=" + tracklower12opennotes + " #=" + lowernoteson);
 
                         // Check if the same note on Channel 13 (Lower + 1) is on, and turn it off too
                         boolean lower13layerenabled = sharedstatus.getlower1Kbdlayerenabled();
@@ -518,9 +527,8 @@ public class MidiDevices {
                                 tracklower13opennotes = false;            // Interim state until all notes closed out on keyboard - triggers real layer off
                             }
                         }
-                    }
-                    catch (InvalidMidiDataException ex) {
-                        System.out.println("Invalid Lower Channel Layer Message" + channel);
+                    } catch (InvalidMidiDataException ex) {
+                        System.out.println("layerOutMessages: Invalid Lower Channel Layer Message" + channel);
                         System.out.println(ex);
                     }
                 }
@@ -528,13 +536,146 @@ public class MidiDevices {
                 else {
                     //receiver.send(message, timeStamp);
 
-                    System.out.println("Sent Note ON aor Note OFF that did not match: " + channel);
+                    System.out.println("layerOutMessages: Sent Note ON aor Note OFF that did not match: " + channel);
                     return;
                 }
             }
 
+            // Layer Bass Channel 11
+            else if (channel == (byte) (sharedstatus.getBassCHAN() - 1)) {
+
+                // Track open notes to prevent hung notes. Close out all open notes before completing the layer off request
+                // Note: Midi Note ON with Velocity = 0, is same as Note OFF
+                if ((command == 0x90) && (bytes[2] != 0)) {
+                    bassnoteson++;
+
+                    try {
+                        // Layer the first/origin Upper Channel if not 0 (off/muted)
+                        byte chan = layerBass[chan11idx];
+                        if ((chan != 0)) {
+                            shortmessage = new ShortMessage();
+                            shortmessage.setMessage(command, channel, byteToInt(bytes[1]), byteToInt(bytes[2]));
+                            receiver.send(shortmessage, timeStamp);
+
+                            bass11notestrack[(int) bytes[1]] = (byte) 1;
+                            //System.out.println("layerOutMessages: Layer Bass index[90]: " + chan + ", " + bytes[1] + ", " + bytes[2]);
+                        }
+                    } catch (InvalidMidiDataException ex) {
+                        System.out.print("layerOutMessages: Invalid Bass Channel Layer Message" + channel);
+                        System.out.print(ex);
+                    }
+                }
+
+                // Close out Bass Channel Open Notes
+                else if ((command == 0x80) || ((command == 0x90) && (bytes[2] == 0))) {
+                    bassnoteson--;
+
+                    try {
+                        shortmessage = new ShortMessage();
+                        shortmessage.setMessage(command, channel, byteToInt(bytes[1]), byteToInt(bytes[2]));
+                        receiver.send(shortmessage, timeStamp);
+
+                        // Note Off for Channel Lower
+                        bass11notestrack[(int) bytes[1]] = (byte) 0;
+                        //System.out.println("layerOutMessages: Layer Lower index[80]: " + channel + ", " + bytes[1] + ", " + bytes[2] + " L=" + tracklower12opennotes + " #=" + lowernoteson);
+                    } catch (InvalidMidiDataException ex) {
+                        System.out.println("layerOutMessages: Invalid Bass Channel Layer Message" + channel);
+                        System.out.println(ex);
+                    }
+                }
+                // Still fell through, send it anyway since it is likely channel Lower 2=13, Upper 2=15, Upper 3=16
+                else {
+                    //receiver.send(message, timeStamp);
+
+                    System.out.println("layerOutMessages: Sent Note ON aor Note OFF that did not match: " + channel);
+                    return;
+                }
+            }
         }
-    }
+
+        // Layer MIDI Expression Messages received from Keyboard or Organ
+        private void LayerExpressionMessage(MidiMessage message, long timeStamp) {
+
+            ShortMessage shortmessage;
+
+            if (message.getLength() < 3 || message.getLength() % 2 == 0) {
+                System.out.println("LayerExpressionMessage: Unable to Layer/Output Bad MIDI Expression message");
+                return;
+            }
+
+            // Now dissect to determine if Layering is needed and forward in layered channels
+            byte[] bytes = message.getMessage();
+            int command = message.getStatus() & 0xf0;
+            byte channel = (byte) (message.getStatus() & 0x0f);
+
+            // Testing device and channel, e.g. Trellis M4
+            //if (channel == 0) channel = 13;
+
+            // Do not Layer Channel Expression Messages if not coming from Designated Channel
+            if (channel != (byte) (sharedstatus.getExpressionCHAN() - 1)) {
+                receiver.send(message, timeStamp);
+                return;
+            }
+
+            try {
+                // Layer EXP onto Bass Channel
+                if (bass11layeron) {
+                    int chan = sharedstatus.getBassCHAN() - 1;
+                    shortmessage = new ShortMessage();
+                    shortmessage.setMessage(command, chan, byteToInt(bytes[1]), byteToInt(bytes[2]));
+                    receiver.send(shortmessage, timeStamp);
+                }
+
+                // Layer EXP onto Lower 1 Channel
+                if (lower12layeron) {
+                    int chan = sharedstatus.getLower1CHAN() - 1;
+                    shortmessage = new ShortMessage();
+                    shortmessage.setMessage(command, chan, byteToInt(bytes[1]), byteToInt(bytes[2]));
+                    receiver.send(shortmessage, timeStamp);
+                }
+
+                // Layer EXP onto Lower 2 Channel
+                boolean lowerlayer13enabled = sharedstatus.getlower1Kbdlayerenabled();
+                if (lowerlayer13enabled && lower13layeron) {
+                    int chan = sharedstatus.getLower2CHAN() - 1;
+                    shortmessage = new ShortMessage();
+                    shortmessage.setMessage(command, chan, byteToInt(bytes[1]), byteToInt(bytes[2]));
+                    receiver.send(shortmessage, timeStamp);
+                }
+
+                // Layer EXP onto Upper 1 Channel
+                if (upper14layeron) {
+                    int chan = sharedstatus.getUpper1CHAN() - 1;
+                    shortmessage = new ShortMessage();
+                    shortmessage.setMessage(command, chan, byteToInt(bytes[1]), byteToInt(bytes[2]));
+                    receiver.send(shortmessage, timeStamp);
+                }
+
+                // Layer EXP onto Upper 2 Channel
+                boolean upperlayer15enabled = sharedstatus.getUpper1KbdLayerEnabled();
+                if (upperlayer15enabled && upper16layeron) {
+                    int chan = sharedstatus.getUpper2CHAN() - 1;
+                    shortmessage = new ShortMessage();
+                    shortmessage.setMessage(command, chan, byteToInt(bytes[1]), byteToInt(bytes[2]));
+                    receiver.send(shortmessage, timeStamp);
+                }
+
+                // Layer EXP onto Upper 3 Channel
+                boolean upperlayer16enabled = sharedstatus.getupper2Kbdlayerenabled();
+                if (upperlayer16enabled && upper16layeron) {
+                    int chan = sharedstatus.getUpper3CHAN() - 1;
+                    shortmessage = new ShortMessage();
+                    shortmessage.setMessage(command, chan, byteToInt(bytes[1]), byteToInt(bytes[2]));
+                    receiver.send(shortmessage, timeStamp);
+                }
+            }
+            catch (InvalidMidiDataException ex) {
+                System.out.println("LayerExpressionMessage: Invalid Expression Layer Message" + channel);
+                System.out.println(ex);
+            }
+        }
+
+    }   // AMIDIFXReceiver Class End
 
     // Check if at least one MIDI OUT device is correctly installed
     public Receiver openMidiReceiver(String seloutdevice) {
@@ -767,6 +908,22 @@ public class MidiDevices {
                 ////lower13layeron = false;
                 lower13layerofftime = System.currentTimeMillis();
                 tracklower13opennotes = true;            // Interim state until all notes closed out on keyboard - triggers real layer off
+            }
+            return;
+        }
+
+        // Layer Bass Keyboard Channels
+        else if (chan == sharedstatus.getBassCHAN()) {
+            if (layeron) {
+                layerBass[chan11idx] = (byte)(chan & 0xFF);
+                bass11layeron = true;
+                bassnoteson = 0;
+            }
+            else {
+                layerBass[chan11idx] = (byte)(0);
+                bass11layeron = false;
+                bass11layerofftime = System.currentTimeMillis();
+                trackbass11opennotes = true;            // Interim state until all notes closed out on keyboard - triggers real layer off
             }
             return;
         }

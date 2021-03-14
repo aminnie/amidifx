@@ -39,7 +39,17 @@ public class ArduinoUtils {
     private ArduinoUtils() {
 
         this.hasPort = false;
-        this.getPort();
+
+        // Ignore HW interface based on Config setting
+        AppConfig appconfig = AppConfig.getInstance();
+        if (appconfig.getUSBHardeware() != "true") {
+            usePort = -1;
+            System.out.println("ArduinoUtils Config: External MIDI Hardware ignored");
+            return;
+        }
+
+        usePort = this.getPort();
+
         if (usePort != -1) {
             this.setPort(usePort);
 
@@ -54,7 +64,9 @@ public class ArduinoUtils {
     }
 
 
-    public void getPort() {
+    public int getPort() {
+
+        int getport = -1;
 
         //System.out.println("ArduinoUtils: Listing Ports");
 
@@ -66,15 +78,20 @@ public class ArduinoUtils {
             System.out.println(port.getPortDescription());
 
             // Seeeduino is the Port the onboard COM Port
-            if (port.getPortDescription().contains("Seeeduino"))
-                usePort = numberPort;
+            if (port.getPortDescription().contains("Seeeduino")) {
+                getport = numberPort;
+                break;
+            }
 
             // Otherwise assume first USB Serial Port for remote Arduino controller
-            else if (port.getPortDescription().contains("USB Serial"))
-                usePort = numberPort;
+            else if (port.getPortDescription().contains("USB Serial")) {
+                getport = numberPort;
+            }
 
             numberPort++;
         }
+
+        return getport;
     }
 
 

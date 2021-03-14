@@ -109,6 +109,16 @@ public class AppConfig {
         return configProps.getProperty("appname");
     }
 
+    // Check if USB Hardware Controller is connected
+    public String getUSBHardeware() {
+        return configProps.getProperty("usbhardware");
+    }
+
+    // Check if Master Volume is sourced from Organ or MidiCC based Volume pedal
+    public String getMidiCCVol() {
+        return configProps.getProperty("midiccvol");
+    }
+
     // Get selected Out Midi device - Sound Module
     public String getSoundModule(int idx) {
         String strmodule;
@@ -146,6 +156,9 @@ public class AppConfig {
         try {
             String moduleidxstr = configProps.getProperty("moduleidx");
             moduleidx = new Integer(moduleidxstr);
+
+            // Ignore incorrect moduleidx values from AppConfig. Default to MIDIGM is so
+            if ((moduleidx < -1) || (moduleidx > 2)) moduleidx = 0;
         }
         catch (Exception ex) {
             System.err.println("AppConfig: Error read moduleidx from AppConfig file");
@@ -153,6 +166,24 @@ public class AppConfig {
         }
 
         return moduleidx;
+    }
+
+    public int getExpressionChannel() {
+        Integer expchannelidx = 0;
+
+        try {
+            String channelidxstr = configProps.getProperty("midiexpchan");
+            expchannelidx = new Integer(channelidxstr);
+
+            // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
+            if ((expchannelidx < -1) || (expchannelidx > 16)) expchannelidx = 0;
+        }
+        catch (Exception ex) {
+            System.err.println("AppConfig: Error read MIDI Expression CHannel from AppConfig file");
+            System.err.println(ex);
+        }
+
+        return expchannelidx;
     }
 
     public String getSongsFile() {
