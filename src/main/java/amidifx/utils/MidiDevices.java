@@ -608,12 +608,21 @@ public class MidiDevices {
             int command = message.getStatus() & 0xf0;
             byte channel = (byte) (message.getStatus() & 0x0f);
 
-            // Testing device and channel, e.g. Trellis M4
-            //if (channel == 0) channel = 13;
+            System.out.println("LayerExpressionMessage: Expression[0x0B] " + channel + ", " + bytes[1] + ", " + bytes[2]);
+
+            // if command is not Expression, then ignore applying it and send on
+            if (command != 0xb0) {
+                receiver.send(message, timeStamp);
+
+                System.out.println("LayerExpressionMessage: Not Expression Command " + (channel + 1) + ", " + bytes[1] + ", " + bytes[2]);
+                return;
+            }
 
             // Do not Layer Channel Expression Messages if not coming from Designated Channel
             if (channel != (byte) (sharedstatus.getExpressionCHAN() - 1)) {
                 receiver.send(message, timeStamp);
+
+                System.out.println("LayerExpressionMessage: Not Layering Expression[0x0B] " + (channel + 1) + ", " + bytes[1] + ", " + bytes[2]);
                 return;
             }
 
@@ -624,6 +633,8 @@ public class MidiDevices {
                     shortmessage = new ShortMessage();
                     shortmessage.setMessage(command, chan, byteToInt(bytes[1]), byteToInt(bytes[2]));
                     receiver.send(shortmessage, timeStamp);
+
+                    System.out.println("LayerExpressionMessage: Bass Expression[0x0B] " + (chan + 1) + ", " + bytes[1] + ", " + bytes[2]);
                 }
 
                 // Layer EXP onto Lower 1 Channel
@@ -632,6 +643,8 @@ public class MidiDevices {
                     shortmessage = new ShortMessage();
                     shortmessage.setMessage(command, chan, byteToInt(bytes[1]), byteToInt(bytes[2]));
                     receiver.send(shortmessage, timeStamp);
+
+                    System.out.println("LayerExpressionMessage: Lower 1 Expression[0x0B] " + (chan + 1) + ", " + bytes[1] + ", " + bytes[2]);
                 }
 
                 // Layer EXP onto Lower 2 Channel
@@ -641,6 +654,8 @@ public class MidiDevices {
                     shortmessage = new ShortMessage();
                     shortmessage.setMessage(command, chan, byteToInt(bytes[1]), byteToInt(bytes[2]));
                     receiver.send(shortmessage, timeStamp);
+
+                    System.out.println("LayerExpressionMessage: Lower 2 Expression[0x0B] " + (chan + 1) + ", " + bytes[1] + ", " + bytes[2]);
                 }
 
                 // Layer EXP onto Upper 1 Channel
@@ -649,15 +664,19 @@ public class MidiDevices {
                     shortmessage = new ShortMessage();
                     shortmessage.setMessage(command, chan, byteToInt(bytes[1]), byteToInt(bytes[2]));
                     receiver.send(shortmessage, timeStamp);
+
+                    System.out.println("LayerExpressionMessage: Upper 1 Expression[0x0B] " + (chan + 1) + ", " + bytes[1] + ", " + bytes[2]);
                 }
 
                 // Layer EXP onto Upper 2 Channel
                 boolean upperlayer15enabled = sharedstatus.getUpper1KbdLayerEnabled();
-                if (upperlayer15enabled && upper16layeron) {
+                if (upperlayer15enabled && upper15layeron) {
                     int chan = sharedstatus.getUpper2CHAN() - 1;
                     shortmessage = new ShortMessage();
                     shortmessage.setMessage(command, chan, byteToInt(bytes[1]), byteToInt(bytes[2]));
                     receiver.send(shortmessage, timeStamp);
+
+                    System.out.println("LayerExpressionMessage: Upper 2 Expression[0x0B] " + (chan + 1) + ", " + bytes[1] + ", " + bytes[2]);
                 }
 
                 // Layer EXP onto Upper 3 Channel
@@ -667,6 +686,8 @@ public class MidiDevices {
                     shortmessage = new ShortMessage();
                     shortmessage.setMessage(command, chan, byteToInt(bytes[1]), byteToInt(bytes[2]));
                     receiver.send(shortmessage, timeStamp);
+
+                    System.out.println("LayerExpressionMessage: Upper 3 Expression[0x0B] " + (chan + 1) + ", " + bytes[1] + ", " + bytes[2]);
                 }
             }
             catch (InvalidMidiDataException ex) {
@@ -897,6 +918,7 @@ public class MidiDevices {
             }
             return;
         }
+
         else if (chan == sharedstatus.getLower2CHAN()) {
             if (layeron) {
                 layerLower[chan13idx] = (byte) (chan & 0xFF);

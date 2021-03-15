@@ -110,8 +110,12 @@ public class AppConfig {
     }
 
     // Check if USB Hardware Controller is connected
-    public String getUSBHardeware() {
-        return configProps.getProperty("usbhardware");
+    public boolean getUSBHardeware() {
+
+        if (configProps.getProperty("usbhardware").equals("true"))
+            return true;
+        else
+            return false;
     }
 
     // Check if Master Volume is sourced from Organ or MidiCC based Volume pedal

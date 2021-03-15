@@ -42,7 +42,7 @@ public class ArduinoUtils {
 
         // Ignore HW interface based on Config setting
         AppConfig appconfig = AppConfig.getInstance();
-        if (appconfig.getUSBHardeware() != "true") {
+        if (!appconfig.getUSBHardeware()) {
             usePort = -1;
             System.out.println("ArduinoUtils Config: External MIDI Hardware ignored");
             return;
