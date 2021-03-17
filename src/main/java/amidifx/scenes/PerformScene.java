@@ -342,6 +342,9 @@ public class PerformScene {
             // Get instance of Arduino Utilities
             arduinoUtils = ArduinoUtils.getInstance();
 
+            // Get instance of MidiDevices Configuration
+            MidiDevices mididevices = MidiDevices.getInstance();
+
             // Load MIDI Default MIDI Preset file on start up
             dopresets = MidiPresets.getInstance();
             presetFile = sharedStatus.getPresetFile();
@@ -986,7 +989,6 @@ public class PerformScene {
             //b1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             b1layerbtn.setOnAction(event -> {
                 if (b1pressed == false) {
-                    MidiDevices mididevices = MidiDevices.getInstance();
                     mididevices.layerChannel(11, true);
 
                     b1layerbtn.setStyle(lrpressedOn);
@@ -995,7 +997,6 @@ public class PerformScene {
                     labelstatusOrg.setText(" Status: Layer Bass On");
                 }
                 else {
-                    MidiDevices mididevices = MidiDevices.getInstance();
                     mididevices.layerChannel(11, false);
 
                     b1layerbtn.setStyle(lrpressedOff);
@@ -1004,6 +1005,7 @@ public class PerformScene {
                     labelstatusOrg.setText(" Status: Layer Bass Off");
                 }
             });
+            mididevices.layerChannel(11, true);
 
             bleft1 = new Button(" Bass 1");
             bleft1.setId("B1-1");
@@ -1472,7 +1474,6 @@ public class PerformScene {
             //l1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             l1layerbtn.setOnAction(event -> {
                 if (l1pressed == false) {
-                    MidiDevices mididevices = MidiDevices.getInstance();
                     mididevices.layerChannel(12, true);
 
                     l1layerbtn.setStyle(lrpressedOn);
@@ -1481,7 +1482,6 @@ public class PerformScene {
                     labelstatusOrg.setText(" Status: Layer Lower 1 On");
                 }
                 else {
-                    MidiDevices mididevices = MidiDevices.getInstance();
                     mididevices.layerChannel(12, false);
 
                     l1layerbtn.setStyle(lrpressedOff);
@@ -1491,6 +1491,7 @@ public class PerformScene {
                 }
                 ////arduinoUtils.lefthandLayerSysexData(l1pressed, l2pressed);
             });
+            mididevices.layerChannel(12, true);
 
             l2layerbtn = new Button("Lower 2 [13]   ");
             l2layerbtn.setStyle(lrpressedOff);
@@ -1499,7 +1500,6 @@ public class PerformScene {
             //l2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             l2layerbtn.setOnAction(event -> {
                 if (l2pressed == false) {
-                    MidiDevices mididevices = MidiDevices.getInstance();
                     mididevices.layerChannel(13, true);
 
                     l2layerbtn.setStyle(lrpressedOn);
@@ -1508,7 +1508,6 @@ public class PerformScene {
                     labelstatusOrg.setText(" Status: Layer Lower 2 On");
                 }
                 else {
-                    MidiDevices mididevices = MidiDevices.getInstance();
                     mididevices.layerChannel(13, false);
 
                     l2layerbtn.setStyle(lrpressedOff);
@@ -1518,6 +1517,7 @@ public class PerformScene {
                 }
                 ////arduinoUtils.lefthandLayerSysexData(l1pressed, l2pressed);
             });
+            mididevices.layerChannel(13, false);
 
             lbutton11.setText(" Lower 1-1");
             lbutton11.setId("L1-1");
@@ -2030,7 +2030,6 @@ public class PerformScene {
             //r1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r1layerbtn.setOnAction(event -> {
                 if (r1pressed == false) {
-                    MidiDevices mididevices = MidiDevices.getInstance();
                     mididevices.layerChannel(14, true);
 
                     r1layerbtn.setStyle(lrpressedOn);
@@ -2039,7 +2038,6 @@ public class PerformScene {
                     labelstatusOrg.setText(" Status: Layer Upper 1 On");
                 }
                 else {
-                    MidiDevices mididevices = MidiDevices.getInstance();
                     mididevices.layerChannel(14, false);
 
                     r1layerbtn.setStyle(lrpressedOff);
@@ -2049,6 +2047,7 @@ public class PerformScene {
                 }
                 ////arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
             });
+            mididevices.layerChannel(14, true);
 
             r2layerbtn = new Button("Upper 2 [15]   ");
             r2layerbtn.setStyle(lrpressedOff);
@@ -2057,7 +2056,6 @@ public class PerformScene {
             //r2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r2layerbtn.setOnAction(event -> {
                 if (r2pressed == false) {
-                    MidiDevices mididevices = MidiDevices.getInstance();
                     mididevices.layerChannel(15, true);
 
                     r2layerbtn.setStyle(lrpressedOn);
@@ -2066,7 +2064,6 @@ public class PerformScene {
                     labelstatusOrg.setText(" Status: Layer Upper 2 On");
                 }
                 else {
-                    MidiDevices mididevices = MidiDevices.getInstance();
                     mididevices.layerChannel(15, false);
 
                     r2layerbtn.setStyle(lrpressedOff);
@@ -2076,6 +2073,7 @@ public class PerformScene {
                 }
                 ////arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
             });
+            mididevices.layerChannel(15, false);
 
             r3layerbtn = new Button("Upper 3 [16]   ");
             r3layerbtn.setStyle(lrpressedOff);
@@ -2084,7 +2082,6 @@ public class PerformScene {
             //r3layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r3layerbtn.setOnAction(event -> {
                 if (r3pressed == false) {
-                    MidiDevices mididevices = MidiDevices.getInstance();
                     mididevices.layerChannel(16, true);
 
                     r3layerbtn.setStyle(lrpressedOn);
@@ -2093,7 +2090,6 @@ public class PerformScene {
                     labelstatusOrg.setText(" Status: Layer Upper 3 On");
                 }
                 else {
-                    MidiDevices mididevices = MidiDevices.getInstance();
                     mididevices.layerChannel(16, false);
 
                     r3layerbtn.setStyle(lrpressedOff);
@@ -2104,6 +2100,7 @@ public class PerformScene {
                 ////arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
 
             });
+            mididevices.layerChannel(16, false);
 
             rbutton11.setText(" Upper 1-1");
             rbutton11.setId("U1-1");
