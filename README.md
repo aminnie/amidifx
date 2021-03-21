@@ -105,7 +105,7 @@ How to Use the Home screen:
 
 ### Main/Live Performance Screen
 
-![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/other/Perform1.png)
+![Example AMIDIFX Perform screen:](https://github.com/aminnie/amidifx/blob/master/Resources/other/Perform1.png)
 
 How to Use the Performance screen:
 * Navigation buttons: Select Song, Select Bank and Select Voice
@@ -140,7 +140,7 @@ How to Use the Performance screen:
 
 ### Preset Configuration for selected Song
 
-![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/other/Songs1.png)
+![Example AMIDIFX Songs screen:](https://github.com/aminnie/amidifx/blob/master/Resources/other/Songs1.png)
 
 How to Use Song screen:
 * Song List:
@@ -173,7 +173,7 @@ How to Use Song screen:
 
 ### Manage Song List, MIDI SMF, and Preset Files
 
-![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/other/Presets1.png)
+![Example AMIDIFX Presets screen:](https://github.com/aminnie/amidifx/blob/master/Resources/other/Presets2.png)
 
 How to use the Preset configuraton screen:
 * Bank List:
