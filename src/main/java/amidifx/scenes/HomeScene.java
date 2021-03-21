@@ -316,13 +316,14 @@ public class HomeScene {
             txtIntro.setDisable(true);
 
             String keyboards1 = "MIDI Keyboard Channels:";
-            String keyboards20 = " Upper 1: Channel 14";
-            String keyboards21 = " Upper 2: Channel 15";
-            String keyboards22 = " Upper 3: Channel 16";
-            String keyboards30 = " Lower 1: Channel 12";
-            String keyboards31 = " Lower 2: Channel 13";
-            String keyboards4 = " Bass:       Channel 11";
-            String keyboards5 = " Drums:   Channel 10";
+            String keyboards20 = "  Upper 1: Channel 14";
+            String keyboards21 = "  Upper 2: Channel 15";
+            String keyboards22 = "  Upper 3: Channel 16";
+            String keyboards30 = "  Lower 1: Channel 12";
+            String keyboards31 = "  Lower 2: Channel 13";
+            String keyboards4 = "       Bass: Channel 11";
+            String keyboards5 = "    Drums: Channel 10";
+            String keyboards6 = "Expression:Channel 16";
             String keyboards = keyboards1 + System.getProperty("line.separator") + System.getProperty("line.separator") +
                     keyboards20 + System.getProperty("line.separator") +
                     keyboards21 + System.getProperty("line.separator") +
@@ -330,7 +331,8 @@ public class HomeScene {
                     keyboards30 + System.getProperty("line.separator") +
                     keyboards31 + System.getProperty("line.separator") +
                     keyboards4 + System.getProperty("line.separator") +
-                    keyboards5;
+                    keyboards5 + System.getProperty("line.separator") + System.getProperty("line.separator") +
+                    keyboards6;
             TextArea txtKeyboard = new TextArea(keyboards);
             txtKeyboard.setStyle("-fx-background-color: #999999; ");
             txtKeyboard.setPrefSize(300, 250);
@@ -516,8 +518,8 @@ public class HomeScene {
             // Assemble Status Bar
             HBox hboxstatus = new HBox();
             hboxstatus.getChildren().add(labelstatusOrg);
-            labelstatusOrg.setMinWidth(820 * ymul);
-            Label labelsynth = new Label(config.getOutDevice());
+            labelstatusOrg.setMinWidth(700 * ymul);
+            Label labelsynth = new Label("Module: " + config.getOutDevice());
             labelsynth.setTextAlignment(TextAlignment.JUSTIFY);
             labelsynth.setStyle(styletext);
             hboxstatus.getChildren().add(labelsynth);

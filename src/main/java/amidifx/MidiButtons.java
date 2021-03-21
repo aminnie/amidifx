@@ -28,10 +28,14 @@ public class MidiButtons {
     public static final byte ccVOL = 7;
     public static final byte ccEXP = 11;
     public static final byte ccREV = 91;
-    public static final byte ccROT = 74;
     public static final byte ccCHO = 93;
     public static final byte ccMOD = 1;
     public static final byte ccPAN = 10;
+
+    public static final byte ccTIM = 71;
+    public static final byte ccREL = 72;
+    public static final byte ccATK = 73;
+    public static final byte ccBRI = 74;
 
     MidiButtons midiButtons;
     ArrayList<buttonMap> buttonMaps = new ArrayList<>();
@@ -182,13 +186,14 @@ public class MidiButtons {
                             Integer.parseInt(buttonDetails[8]),     // pc
                             Integer.parseInt(buttonDetails[9]),     // lsb
                             Integer.parseInt(buttonDetails[10]),    // msb
-                            Integer.parseInt(buttonDetails[11]),    // vol
-                            Integer.parseInt(buttonDetails[12]),    // exp
-                            Integer.parseInt(buttonDetails[13]),    // rev
-                            Integer.parseInt(buttonDetails[14]),    // cho
-                            Integer.parseInt(buttonDetails[15]),    // mod
-                            Integer.parseInt(buttonDetails[16]),    // pan
-                            Integer.parseInt(buttonDetails[17]));   // pan
+                            Integer.parseInt(buttonDetails[11]),    //
+                            Integer.parseInt(buttonDetails[12]),    // vol
+                            Integer.parseInt(buttonDetails[13]),    // exp
+                            Integer.parseInt(buttonDetails[14]),    // rve
+                            Integer.parseInt(buttonDetails[15]),    // cho
+                            Integer.parseInt(buttonDetails[16]),    // mod
+                            Integer.parseInt(buttonDetails[17]),    // bri
+                            Integer.parseInt(buttonDetails[18]));   // pan
                     buttonList.add(mButton);
                 }
             }
@@ -315,6 +320,7 @@ public class MidiButtons {
                 buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getVOL())).concat(",").concat(Integer.toString(button.getEXP()));
                 buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getREV())).concat(",").concat(Integer.toString(button.getCHO()));
                 buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getMOD()));
+                buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getBRI()));
                 buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getPAN()).concat("\r"));
                 bw.write(buttonLine);
 
@@ -389,6 +395,18 @@ public class MidiButtons {
             int MOD = button.getMOD() & 0x7F;
             playmidifile.sendMidiControlChange((byte) CHANOUT, ccMOD, (byte) MOD);
 
+            int TIM = 64; //button.getTIM() & 0x7F;
+            playmidifile.sendMidiControlChange((byte) CHANOUT, ccTIM, (byte) TIM);
+
+            int ATK = 16; //button.getATK() & 0x7F;
+            playmidifile.sendMidiControlChange((byte) CHANOUT, ccATK, (byte) ATK);
+
+            int REL = 16; //button.getREL() & 0x7F;
+            playmidifile.sendMidiControlChange((byte) CHANOUT, ccREL, (byte) REL);
+
+            int BRI = button.getBRI() & 0x7F;
+            playmidifile.sendMidiControlChange((byte) CHANOUT, ccBRI, (byte) BRI);
+
             int PAN = button.getPAN() & 0x7F;
             playmidifile.sendMidiControlChange((byte) CHANOUT, ccPAN, (byte) PAN);
         }
@@ -420,6 +438,7 @@ public class MidiButtons {
         midibutton.setREV(preset.getREV());
         midibutton.setCHO(preset.getCHO());
         midibutton.setMOD(preset.getMOD());
+        midibutton.setBRI(preset.getBRI());
         midibutton.setPAN(preset.getPAN());
     }
 }

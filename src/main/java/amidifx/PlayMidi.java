@@ -862,6 +862,22 @@ public class PlayMidi {
                 midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, chanidx & 0XFF, ccEXP & 0XFF, 127 & 0XFF);
                 midircv.send(midiMsg, timeStamp);
 
+                // Default BRI to default for now
+                midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, chanidx & 0XFF, ccBRI & 0XFF, 64 & 0XFF);
+                midircv.send(midiMsg, timeStamp);
+
+                // Default TIM to default for now
+                midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, chanidx & 0XFF, ccTIM & 0XFF, 64 & 0XFF);
+                midircv.send(midiMsg, timeStamp);
+
+                // Default ATK to default for now
+                midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, chanidx & 0XFF, ccATK & 0XFF, 0 & 0XFF);
+                midircv.send(midiMsg, timeStamp);
+
+                // Default REL to default for now
+                midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, chanidx & 0XFF, ccREL & 0XFF, 0 & 0XFF);
+                midircv.send(midiMsg, timeStamp);
+
                 //System.out.println("PlayMidi: PANIC Sound, Controllers, Notes off sent on channel: " + chanidx);
             }
         }
@@ -1255,6 +1271,57 @@ public class PlayMidi {
         TimeSigDen = Integer.parseInt(timeSigDetails[1]);
 
         //System.out.println("MidiPlay: TimeSigNum " + TimeSigNum + ", TimeSigDen " + TimeSigDen);
+    }
+
+
+    // Set MIDI events to play a short Demo tune
+    public void startMidiDemo(int channel) {
+
+        channel = channel - 1;
+        if ((channel < 0) || (channel > 15)) channel = 0;
+
+        int velocity = 64;
+        int note = 35;
+        int tick = 0;
+
+        sendMidiNote((byte)(channel+1), (byte)60, true);
+
+/*
+        try {
+            int ticksPerQuarterNote = 4;
+            Sequence seq;
+            seq = new Sequence(Sequence.PPQ, ticksPerQuarterNote);
+            Track track = seq.createTrack();
+
+            addMidiEvent(track, ShortMessage.NOTE_ON, channel, note, velocity, tick);
+            addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note, 0, tick + 2);
+
+            addMidiEvent(track, ShortMessage.NOTE_ON, channel, note + 1 , velocity, tick + 4);
+            addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note + 1, 0, tick + 7);
+
+            addMidiEvent(track, ShortMessage.NOTE_ON, channel, note + 2, velocity, tick + 8);
+            addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note + 2, 0, tick + 11);
+
+            addMidiEvent(track, ShortMessage.NOTE_ON, channel, note + 3, velocity, tick + 12);
+            addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note + 3, 0, tick + 17);
+
+            addMidiEvent(track, ShortMessage.NOTE_ON, channel, note + 4, velocity, tick + 18);
+            addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note + 4, 0, tick + 22);
+        }
+        catch(Exception ex) {}
+
+*/
+    }
+    // Create a MIDI event and add it to the track
+    private void addMidiEvent(Track track, int command, int channel, int data1, int data2, int tick) {
+        ShortMessage message = new ShortMessage();
+        try {
+            message.setMessage(command, channel, data1, data2);
+        }
+        catch (InvalidMidiDataException e) {
+            e.printStackTrace();
+        }
+        track.add(new MidiEvent(message, tick));
     }
 
 }

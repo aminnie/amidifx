@@ -13,9 +13,12 @@ public class MidiPreset {
     private int EXP;
     private int REV;
     private int CHO;
+    private int TIM;
+    private int ATK;
+    private int REL;
+    private int BRI;
     private int PAN;
     private int MOD;
-    private int ROT;
     private int bankIdx;
     private int fontIdx;
     private int patchIdx;
@@ -32,6 +35,10 @@ public class MidiPreset {
         this.setEXP(0);
         this.setREV(0);
         this.setCHO(0);
+        this.setTIM(0);
+        this.setATK(0);
+        this.setREL(0);
+        this.setBRI(0);
         this.setPAN(0);
         this.setMOD(0);
     }
@@ -39,7 +46,9 @@ public class MidiPreset {
     // 0,12,12,0,106,121,100,0,100,100,20,0,0,0,0,3,8,Klaus sein Sax
     public MidiPreset(int presetIdx, int channelIdx, String channelOutIdx, int octaveTran,
                       int PC, int LSB, int MSB, int moduleIdx,
-                      int VOL, int EXP, int REV, int CHO, int PAN,int MOD,
+                      int VOL, int EXP, int REV, int CHO,
+                      int TIM, int ATK, int REL, int BRI,
+                      int PAN,int MOD,
                       int bankIdx, int fontIdx, int patchIdx, String patchName) {
         super();
         this.presetIdx = presetIdx;
@@ -54,6 +63,10 @@ public class MidiPreset {
         this.EXP = EXP;
         this.REV = REV;
         this.CHO = CHO;
+        this.TIM = TIM;
+        this.ATK = ATK;
+        this.REL = REL;
+        this.BRI = BRI;
         this.PAN = PAN;
         this.MOD = MOD;
         this.bankIdx = bankIdx;
@@ -153,6 +166,34 @@ public class MidiPreset {
         this.MOD = MOD;
     }
 
+    public int getTIM() {
+        return TIM;
+    }
+    public void setTIM(int TIM) {
+        this.TIM = TIM;
+    }
+
+    public int getATK() {
+        return ATK;
+    }
+    public void setATK(int ATK) {
+        this.ATK = ATK;
+    }
+
+    public int getREL() {
+        return REL;
+    }
+    public void setREL(int REL) {
+        this.REL = REL;
+    }
+
+    public int getBRI() {
+        return BRI;
+    }
+    public void setBRI(int BRI) {
+        this.BRI = BRI;
+    }
+
     public int getPAN() {
         return PAN;
     }
@@ -194,7 +235,9 @@ public class MidiPreset {
                 + ", channelOutIdx=" + channelOutIdx + ", moduleIdx=" + moduleIdx
                 + ", PC=" + PC + ", LSB=" + LSB + ", MSB=" + MSB
                 + ", VOL=" + VOL + ", EXP=" + EXP + ", REV=" + REV
-                + ", CHO=" + CHO + ", MOD=" + MOD + ", PAN=" + PAN
+                + ", CHO=" + CHO
+                + ", TIM=" + TIM + ", ATK=" + ATK + ", REL=" + REL
+                + ", BRI=" + BRI + ", PAN=" + PAN + ", MOD=" + MOD
                 + ", bankIdx=" + bankIdx + ", fontIdx=" + fontIdx
                 + ", patchIdx=" + patchIdx + ", patchName=" + patchName + "]";
     }

@@ -296,19 +296,22 @@ public class PerformScene {
     Slider sliderREV;
     Slider sliderCHO;
     Slider sliderMOD;
+    Slider sliderBRI;
     Slider sliderPAN;
-    Slider sliderROT;
     int rotvalue = 0;
 
     // https://professionalcomposers.com/midi-cc-list/
     public static byte ccVOL = 7;
     public static byte ccEXP = 11;
-    public static byte ccROT = 74;
     public static byte ccREV = 91;
     public static byte ccCHO = 93;
     public static byte ccMOD = 1;
     public static byte ccPAN = 10;
 
+    public static byte ccTIM = 71;
+    public static byte ccREL = 72;
+    public static byte ccATK = 73;
+    public static byte ccBRI = 74;
 
     /*********************************************************
      * Creates a Perform Scene.
@@ -418,6 +421,9 @@ public class PerformScene {
             Button buttonsc1 = new Button("Perform");
             buttonsc1.setStyle(btnMenuOn);
             buttonsc1.setOnAction(e -> {
+                // Reset Channel layering to default every time we switch Scenes to avoid unwanted layering
+                defaultChannelLayering();
+
                 //System.out.println(("PerformScene: Changing to Perform Scene " + sharedStatus.getPerformScene().toString()));
                 primaryStage.setScene(sharedStatus.getPerformScene());
                 try {
@@ -430,6 +436,9 @@ public class PerformScene {
             Button buttonsc2 = new Button("Songs");
             buttonsc2.setStyle(btnMenuOff);
             buttonsc2.setOnAction(e -> {
+                // Reset Channel layering to default every time we switch Scenes to avoid unwanted layering
+                defaultChannelLayering();
+
                 //System.out.println(("PerformScene: Changing to Song Scene " + sharedStatus.getSongScene().toString()));
                 primaryStage.setScene(sharedStatus.getSongsScene());
                 try {
@@ -443,6 +452,9 @@ public class PerformScene {
             buttonsc3.setStyle(btnMenuOff);
             buttonsc3.setDisable(true);
             buttonsc3.setOnAction(e -> {
+                // Reset Channel layering to default every time we switch Scenes to avoid unwanted layering
+                defaultChannelLayering();
+
                 //System.out.println(("PerformScene: Changing to Presets Scene " + sharedStatus.getPresetsScene().toString()));
                 primaryStage.setScene(sharedStatus.getPresetsScene());
                 try {
@@ -655,7 +667,7 @@ public class PerformScene {
                 fontname = dopatches.getMIDIPatch(patchidx).getPatchName();
                 buttonSoundFont.setText(fontname);
 
-                labelsynth.setText(config.getOutDevice());
+                labelsynth.setText("Module: " + config.getOutDevice());
 
                 buttonSoundBank.setStyle(selectcolorOn);
             });
@@ -3183,37 +3195,31 @@ public class PerformScene {
             });
             sliderMOD.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getMOD());
 
-/*
-            // Create ROT slider
-            sliderROT = new Slider(0, 7, 0);
-            sliderROT.setOrientation(Orientation.VERTICAL);
-            sliderROT.setShowTickLabels(true);
-            sliderROT.setShowTickMarks(true);
-            sliderROT.setMajorTickUnit(1);
-            sliderROT.setBlockIncrement(1);
-            Rotate rotateRot = new Rotate();
-            sliderROT.valueProperty().addListener((observable, oldValue, newValue) -> {
+            // Create BRI (Brightness) slider
+            sliderBRI = new Slider(0, 127, 0);
+            sliderBRI.setOrientation(Orientation.VERTICAL);
+            sliderBRI.setShowTickLabels(true);
+            sliderBRI.setShowTickMarks(true);
+            sliderBRI.setMajorTickUnit(16);
+            sliderBRI.setBlockIncrement(8);
+            Rotate rotateBri = new Rotate();
+            sliderBRI.valueProperty().addListener((observable, oldValue, newValue) -> {
                 //Setting the angle for the rotation
-                rotateRot.setAngle((double) newValue);
-
-                // Rotary Slider CC74 value range = 0 - 7. Ignore duplicate values
-                if (rotvalue == (int)sliderROT.getValue()) return;
-
-                rotvalue = (int)sliderROT.getValue();
+                rotateBri.setAngle((double) newValue);
 
                 PlayMidi playmidifile = PlayMidi.getInstance();
-                playmidifile.sendMidiControlChange((byte) lastVoiceChannel, ccROT, (byte)rotvalue);
+                playmidifile.sendMidiControlChange((byte) lastVoiceChannel, ccBRI, (byte) sliderBRI.getValue());
 
-                midiButtons.getButtonById(lastVoiceButton, 0).setROT(rotvalue);
+                midiButtons.getButtonById(lastVoiceButton, 0).setBRI((int)sliderBRI.getValue());
 
                 buttonSave.setDisable(false);
                 flgDirtyPreset = true;      // Need to save updated Preset
 
                 if (lastVoiceButton != null)
-                    labelstatusOrg.setText(" Status: Button " + lastVoiceButton + " ROT= " + (byte)rotvalue);
+                    labelstatusOrg.setText(" Status: Button " + lastVoiceButton + " BRI= " + newValue.intValue());
             });
-            sliderROT.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getROT());
-*/
+            sliderBRI.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getBRI());
+
             // Create PAN slider
             sliderPAN = new Slider(0, 127, 0);
             sliderPAN.setOrientation(Orientation.VERTICAL);
@@ -3247,6 +3253,8 @@ public class PerformScene {
             cholabel.setStyle(styletextwhitesmall);
             Label modlabel = new Label("MOD");
             modlabel.setStyle(styletextwhitesmall);
+            Label brilabel = new Label("BRI");
+            brilabel.setStyle(styletextwhitesmall);
             Label panlabel = new Label("PAN");
             panlabel.setStyle(styletextwhitesmall);
 
@@ -3255,9 +3263,9 @@ public class PerformScene {
             gridEffects.add(new VBox(revlabel, sliderREV), 1, 1, 1, 1);
             gridEffects.add(new VBox(cholabel, sliderCHO), 2, 1, 1, 1);
             gridEffects.add(new VBox(modlabel, sliderMOD), 3, 1, 1, 1);
-            gridEffects.add(new VBox(panlabel, sliderPAN), 4, 1, 1, 1);
-            //gridEffects.add(new VBox(new Label("ROT"), sliderROT), 5, 1, 1, 1);
-            gridEffects.setHgap(10);
+            gridEffects.add(new VBox(brilabel, sliderBRI), 4, 1, 1, 1);
+            gridEffects.add(new VBox(panlabel, sliderPAN), 5, 1, 1, 1);
+            gridEffects.setHgap(5);
             gridmidcenterPerform.add(gridEffects, 3, 5, 3, 2);
             gridmidcenterPerform.setStyle(styletext);
 
@@ -3278,10 +3286,9 @@ public class PerformScene {
             // Assemble Status Bar
             HBox hboxstatus = new HBox();
             hboxstatus.getChildren().add(labelstatusOrg);
-            labelstatusOrg.setMinWidth(820 * ymul);
+            labelstatusOrg.setMinWidth(700 * ymul);
 
-            //labelsynth = new Label("Module");
-            labelsynth = new Label(sharedStatus.getModuleName(config.getSoundModuleIdx()));
+            labelsynth = new Label("Module: " + sharedStatus.getModuleName(config.getSoundModuleIdx()));
             labelsynth.setTextAlignment(TextAlignment.JUSTIFY);
             labelsynth.setStyle(styletext);
             hboxstatus.getChildren().add(labelsynth);
@@ -3356,6 +3363,26 @@ public class PerformScene {
     void buttonPresetLoad(String presetFile) {
 
         dopresets.makeMidiPresets(presetFile);
+
+        defaultChannelLayering();
+
+        //System.out.println("OrganScene: New Song selected: Loaded new Preset file: " + presetFile);
+    }
+
+    void defaultChannelLayering() {
+
+        // Reset Channel layering to default every time new Song is selected
+        MidiDevices mididevices = MidiDevices.getInstance();
+        mididevices.initlayerChannels();
+
+        b1layerbtn.setStyle(lrpressedOn);
+
+        l1layerbtn.setStyle(lrpressedOn);
+        l2layerbtn.setStyle(lrpressedOff);
+
+        r1layerbtn.setStyle(lrpressedOn);
+        r2layerbtn.setStyle(lrpressedOff);
+        r3layerbtn.setStyle(lrpressedOff);
 
         //System.out.println("OrganScene: New Song selected: Loaded new Preset file: " + presetFile);
     }
@@ -3582,6 +3609,15 @@ public class PerformScene {
     // Populate Every Midi Button Patchname on Screen
     private void initMidiButtonPatches(MidiButtons midiButtons) {
 
+        // Default Brightness for now - until in Organ PRF file and on screen
+        for (int chan = 0; chan < 15; chan++) {
+            playmidifile.sendMidiProgramChange(chan + 1, ccEXP, 127, 0);
+            playmidifile.sendMidiProgramChange(chan + 1, ccBRI, 64, 0);
+            playmidifile.sendMidiProgramChange(chan + 1, ccTIM, 64, 0);
+            playmidifile.sendMidiProgramChange(chan + 1, ccATK, 0, 0);
+            playmidifile.sendMidiProgramChange(chan + 1, ccREL, 0, 0);
+        }
+
         //System.out.println("OrganScene: Initialized all Midi Button Patch Names");
         int patchid = 0;
 
@@ -3652,6 +3688,7 @@ public class PerformScene {
             dleft3.setText(dopatches.getMIDIPatch(patchid).getPatchName());
             patchid = midiButtons.getButtonById(dleft4.getId(), 0).getPatchId();
             dleft4.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+
         }
         catch (Exception ex) {
             sharedStatus.setStatusText("Error reading MIDI Buttons File: " + buttonFile.toString());

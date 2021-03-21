@@ -18,8 +18,9 @@ public class MidiButton {
     private int EXP;
     private int REV;
     private int CHO;
-    private int PAN;
     private int MOD;
+    private int BRI;
+    private int PAN;
 
     public MidiButton() {
         this.setButtonIdx(0);
@@ -33,19 +34,20 @@ public class MidiButton {
         this.setPC(0);
         this.setLSB(0);
         this.setMSB(0);
-        this.setVOL(0);
-        this.setEXP(0);
-        this.setREV(0);
-        this.setCHO(0);
+        this.setVOL(90);
+        this.setEXP(127);
+        this.setREV(20);
+        this.setCHO(10);
         this.setMOD(0);
-        this.setPAN(0);
+        this.setBRI(64);
+        this.setPAN(64);
     }
 
     // ButtonIdx + ButtonId + 0,12,12,0,106,121,100,0,100,100,20,0,0,0,0,3,8,Klaus sein Sax
     public MidiButton(int buttonIdx, String buttonId, int patchId, String patchName, int layerIdx,
                       int channelIdx, String channelOutIdx, int octaveTran,
                       int PC, int LSB, int MSB, int moduleIdx,
-                      int VOL, int EXP, int REV, int CHO, int MOD,int PAN) {
+                      int VOL, int EXP, int REV, int CHO, int MOD, int BRI, int PAN) {
         super();
 
         this.buttonIdx = buttonIdx;
@@ -65,6 +67,7 @@ public class MidiButton {
         this.REV = REV;
         this.CHO = CHO;
         this.MOD = MOD;
+        this.BRI = BRI;
         this.PAN = PAN;
     }
 
@@ -192,12 +195,15 @@ public class MidiButton {
         this.MOD = MOD;
     }
 
-    public int getPAN() {
-        return PAN;
+    public int getBRI() {
+        return BRI;
     }
-    public void setPAN(int PAN) {
-        this.PAN = PAN;
+    public void setBRI(int BRI) {
+        this.BRI = BRI;
     }
+
+    public int getPAN() { return PAN; }
+    public void setPAN(int PAN) { this.PAN = PAN; }
 
     @Override
     public String toString() {
@@ -207,8 +213,10 @@ public class MidiButton {
                 + ", channelOutIdx=" + channelOutIdx + ", moduleIdx=" + moduleIdx
                 + ", octaveTran=" + octaveTran
                 + ", PC=" + PC + ", LSB=" + LSB + ", MSB=" + MSB
-                + ", VOL=" + VOL + ", EXP=" + EXP + ", REV=" + REV
-                + ", CHO=" + CHO + PAN + ", MOD=" + MOD +  ", PAN=" + "]";
+                + ", VOL=" + VOL + ", EXP=" + EXP
+                + ", REV=" + REV + ", CHO=" + CHO
+                + ", MOD=" + MOD +  ", BRI" + BRI
+                + ", PAN=" + PAN+ "]";
     }
 }
 

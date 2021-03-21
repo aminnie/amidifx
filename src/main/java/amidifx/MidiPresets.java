@@ -36,6 +36,11 @@ public class MidiPresets {
     public static final byte ccGP1 = 80;
     public static final byte ccGP2 = 81;
 
+    public static final byte ccTIM = 71;
+    public static final byte ccREL = 72;
+    public static final byte ccATK = 73;
+    public static final byte ccBRI = 74;
+
 /*  Future adds
     71 Resonance (Timbre)
     72 Sound Release Time
@@ -106,13 +111,16 @@ public class MidiPresets {
                             Integer.parseInt(presetDetails[9]),     // EXP
                             Integer.parseInt(presetDetails[10]),    // REV
                             Integer.parseInt(presetDetails[11]),    // CHO
-                            Integer.parseInt(presetDetails[12]),    // PAN
-                            Integer.parseInt(presetDetails[13]),    // MOD
-                            //Integer.parseInt(presetDetails[14]),    // ROT
-                            Integer.parseInt(presetDetails[14]),
-                            Integer.parseInt(presetDetails[15]),
-                            Integer.parseInt(presetDetails[16]),
-                            presetDetails[17]);
+                            Integer.parseInt(presetDetails[12]),    // TIM
+                            Integer.parseInt(presetDetails[13]),    // ATK
+                            Integer.parseInt(presetDetails[14]),    // REL
+                            Integer.parseInt(presetDetails[15]),    // BRI
+                            Integer.parseInt(presetDetails[16]),    // PAN
+                            Integer.parseInt(presetDetails[17]),    // MOD
+                            Integer.parseInt(presetDetails[18]),
+                            Integer.parseInt(presetDetails[19]),
+                            Integer.parseInt(presetDetails[20]),
+                            presetDetails[21]);
                     presetList.add(mPreset);
                 }
             }
@@ -196,9 +204,12 @@ public class MidiPresets {
         presetList.get(nextpresetIdx).setEXP(midipreset.getEXP());
         presetList.get(nextpresetIdx).setREV(midipreset.getREV());
         presetList.get(nextpresetIdx).setCHO(midipreset.getCHO());
+        presetList.get(nextpresetIdx).setTIM(midipreset.getTIM());
+        presetList.get(nextpresetIdx).setATK(midipreset.getATK());
+        presetList.get(nextpresetIdx).setREL(midipreset.getREL());
+        presetList.get(nextpresetIdx).setBRI(midipreset.getBRI());
         presetList.get(nextpresetIdx).setPAN(midipreset.getPAN());
         presetList.get(nextpresetIdx).setMOD(midipreset.getMOD());
-        //presetList.get(nextpresetIdx).setROT(midipreset.getROT());
 
         presetList.get(nextpresetIdx).setBankIdx(midipreset.getBankIdx());
         presetList.get(nextpresetIdx).setFontIdx(midipreset.getFontIdx());
@@ -261,6 +272,8 @@ public class MidiPresets {
                 presetline = presetline.concat(",").concat(Integer.toString(preset.getModuleIdx()));
                 presetline = presetline.concat(",").concat(Integer.toString(preset.getVOL())).concat(",").concat(Integer.toString(preset.getEXP()));
                 presetline = presetline.concat(",").concat(Integer.toString(preset.getREV())).concat(",").concat(Integer.toString(preset.getCHO()));
+                presetline = presetline.concat(",").concat(Integer.toString(preset.getTIM())).concat(",").concat(Integer.toString(preset.getATK()));
+                presetline = presetline.concat(",").concat(Integer.toString(preset.getREL())).concat(",").concat(Integer.toString(preset.getBRI()));
                 presetline = presetline.concat(",").concat(Integer.toString(preset.getPAN())).concat(",").concat(Integer.toString(preset.getMOD()));
                 presetline = presetline.concat(",").concat(Integer.toString(preset.getBankIdx()));
                 presetline = presetline.concat(",").concat(Integer.toString(preset.getFontIdx()));
@@ -341,6 +354,18 @@ public class MidiPresets {
 
             int MOD = preset.getMOD() & 0x7F;
             playmidifile.sendMidiControlChange((byte) CHANOUT, ccMOD, (byte) MOD);
+
+            int TIM = preset.getTIM() & 0x7F;
+            playmidifile.sendMidiControlChange((byte) CHANOUT, ccTIM, (byte) TIM);
+
+            int ATK = preset.getATK() & 0x7F;
+            playmidifile.sendMidiControlChange((byte) CHANOUT, ccATK, (byte) ATK);
+
+            int REL = preset.getREL() & 0x7F;
+            playmidifile.sendMidiControlChange((byte) CHANOUT, ccREL, (byte) REL);
+
+            int BRI = preset.getBRI() & 0x7F;
+            playmidifile.sendMidiControlChange((byte) CHANOUT, ccBRI, (byte) BRI);
 
             int PAN = preset.getPAN() & 0x7F;
             playmidifile.sendMidiControlChange((byte) CHANOUT, ccPAN, (byte) PAN);

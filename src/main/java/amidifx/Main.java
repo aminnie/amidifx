@@ -130,7 +130,7 @@ public class Main extends Application {
 
     Label midiLayerLabel;   // Midi Channel Layer Indicator
     Label labeleffects;     // Midi Channel Effects
-    CheckBox[] chkBoxArray; // MIDI Out Channel Layer
+    //CheckBox[] chkBoxArray; // MIDI Out Channel Layer
 
     int patchIdx = 100;     // On Screen Voice Index Started
     int selpatchIdx = 0;    // Selected on Screen Voice Index
@@ -1354,10 +1354,15 @@ public class Main extends Application {
     Button cfgREVbutton;
     Button cfgCHObutton;
     Button cfgMODbutton;
+    Button cfgTIMbutton;
+    Button cfgATKbutton;
+    Button cfgRELbutton;
+    Button cfgBRIbutton;
     Button cfgPANbutton;
 
     Button buttonSave = new Button();   // Presets save button - disabled/enabled when dirty
     Button buttonReload = new Button(); // Reload current Presets
+    Button buttonvoice;                 // Update Channel with new Patch/Voice
 
     ComboBox presetCombo;
 
@@ -1366,8 +1371,11 @@ public class Main extends Application {
     Slider sliderREV;
     Slider sliderCHO;
     Slider sliderMOD;
+    Slider sliderTIM;
+    Slider sliderATK;
+    Slider sliderREL;
+    Slider sliderBRI;
     Slider sliderPAN;
-    Slider sliderTRE;
 
     // https://professionalcomposers.com/midi-cc-list/
     public static byte ccVOL = 7;
@@ -1377,6 +1385,11 @@ public class Main extends Application {
     public static byte ccCHO = 93;
     public static byte ccMOD = 1;
     public static byte ccPAN = 10;
+
+    public static byte ccTIM = 71;
+    public static byte ccREL = 72;
+    public static byte ccATK = 73;
+    public static byte ccBRI = 74;
 
     MidiPreset midiPreset;
     PlayMidi playmidifile;
@@ -1550,6 +1563,7 @@ public class Main extends Application {
             presetCombo.getSelectionModel().select(0);
 
             // Force reload of all channels
+            PlayMidi playmidifile = PlayMidi.getInstance();
             playmidifile.resetcurPresetList();
 
             labelstatus.setText(" Status: Reloaded Presets file " + presetFile);
@@ -1635,6 +1649,7 @@ public class Main extends Application {
         moduleCombo = new ComboBox(FXCollections.observableArrayList(moduleNames));
         moduleCombo.setPrefSize(xpatchlist, 20);
         moduleCombo.setStyle(selectcolorOff);
+        //moduleCombo.setDisable(true);               // Do not select a module that is not loaded
         moduleCombo.getSelectionModel().select(moduleidx);
         EventHandler<ActionEvent> midxevent =
                 e -> {
@@ -1651,8 +1666,15 @@ public class Main extends Application {
                         ////devicemoduleIdx = sharedStatus.getModuleidx();
                         sharedStatus.setModuleidx(moduleidx);
 
+                        buttonSave.setDisable(true);
+                        buttonvoice.setDisable(true);
+
                         bmodulechanged = true;
                         System.out.println("Module changed to" + sharedStatus.getModuleName(moduleidx1));
+                    }
+                    else {
+                        buttonSave.setDisable(false);
+                        buttonvoice.setDisable(false);
                     }
 
                     banklistView.getItems().clear();
@@ -1772,18 +1794,18 @@ public class Main extends Application {
                     presetListView.refresh();
 
                     // **** Update the MIDI Channel Out Layers
-                    String strChannelOut = dopresets.getPreset(presetIdx * 16 + channelIdx).getChannelOutIdx();
-                    for (int i = 0; i < 16; i++) {
-                        chkBoxArray[i].setSelected(false);
-                    }
+                    //String strChannelOut = dopresets.getPreset(presetIdx * 16 + channelIdx).getChannelOutIdx();
+                    //for (int i = 0; i < 16; i++) {
+                    //    chkBoxArray[i].setSelected(false);
+                    //}
 
-                    String[] tokens = strChannelOut.split("\\||,");
-                    for (String token : tokens) {
-                        int chkidx = Integer.parseInt(token);
-                        //System.out.println("Main: Layer index " + chkidx);
-                        if (chkidx > 0)
-                            chkBoxArray[chkidx - 1].setSelected(true);
-                    }
+                    //String[] tokens = strChannelOut.split("\\||,");
+                    //for (String token : tokens) {
+                    //    int chkidx = Integer.parseInt(token);
+                    //    //System.out.println("Main: Layer index " + chkidx);
+                    //    if (chkidx > 0)
+                    //        chkBoxArray[chkidx - 1].setSelected(true);
+                    //}
 
                     labelstatus.setText(" Status: Selected Preset " + (presetIdx + 1));
                 };
@@ -1823,28 +1845,32 @@ public class Main extends Application {
                     sliderEXP.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getEXP());
                     sliderREV.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getREV());
                     sliderCHO.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getCHO());
+                    sliderTIM.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getTIM());
+                    sliderATK.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getATK());
+                    sliderREL.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getREL());
+                    sliderBRI.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getBRI());
                     sliderMOD.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getMOD());
                     sliderPAN.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
 
                     // **** Update the MIDI Channel Out Layer checkboxes
-                    String strChannelOut = dopresets.getPreset(presetIdx * 16 + channelIdx).getChannelOutIdx();
-                    for (int i = 0; i < 16; i++) {
-                        chkBoxArray[i].setSelected(false);
-                    }
+                    //String strChannelOut = dopresets.getPreset(presetIdx * 16 + channelIdx).getChannelOutIdx();
+                    //for (int i = 0; i < 16; i++) {
+                    //    chkBoxArray[i].setSelected(false);
+                    //}
 
-                    String[] tokens = strChannelOut.split("\\||,");
-                    for (String token : tokens)
-                    {
-                        int chkidx = Integer.parseInt(token);
-                        //System.out.println("Main: Layer index: " + chkidx);
-                        if (chkidx > 0)
-                            chkBoxArray[chkidx - 1].setSelected(true);
-                    }
+                    //String[] tokens = strChannelOut.split("\\||,");
+                    //for (String token : tokens)
+                    //{
+                    //    int chkidx = Integer.parseInt(token);
+                    //    //System.out.println("Main: Layer index: " + chkidx);
+                    //    if (chkidx > 0)
+                    //        chkBoxArray[chkidx - 1].setSelected(true);
+                    //}
 
-                    if (isdirty == false) {
-                        flgDirtyPreset = false;
-                        buttonSave.setDisable(true);
-                    }
+                    //if (isdirty == false) {
+                    //    flgDirtyPreset = false;
+                    //    buttonSave.setDisable(true);
+                    //}
 
                     //System.out.println("Main: Item selected " + selectedItem + ", Item index: " + channelIdx);
                     labelstatus.setText(" Status: CHAN Voice "  + selectedItem);
@@ -1855,7 +1881,7 @@ public class Main extends Application {
         presetListView.setStyle(styletext);
 
         // Update Voice for currently selected Channel in Preset Listview
-        Button buttonvoice = new Button("Set Channel Voice");
+        buttonvoice = new Button("Set Channel Voice");
         buttonvoice.setStyle(selectcolorOff);
         buttonvoice.setPrefSize(xbutton, ybutton - 10);
         buttonvoice.setOnAction(event -> {
@@ -1870,6 +1896,10 @@ public class Main extends Application {
             sliderEXP.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getEXP());
             sliderREV.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getREV());
             sliderCHO.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getCHO());
+            sliderTIM.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getTIM());
+            sliderATK.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getATK());
+            sliderREL.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getREL());
+            sliderBRI.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getBRI());
             sliderMOD.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getMOD());
             sliderPAN.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
 
@@ -2180,7 +2210,7 @@ public class Main extends Application {
             renderVoiceButtons(patchIdx - 16 > 0 ? (patchIdx = patchIdx - 16) : (patchIdx = 0), dopatches.getMIDIPatchSize());
         });
 
-        Button btntest = new Button("Sound Voice");
+        Button btntest = new Button("Demo Voice");
         btntest.setStyle(btnplayOff);
         btntest.setPrefSize(xbutton, ybutton);
         btntest.setOnAction(e -> {
@@ -2201,13 +2231,18 @@ public class Main extends Application {
                     playmidifile.sendMidiControlChange((byte)(channelIdx+1), ccCHO, (byte)sliderCHO.getValue());
                     playmidifile.sendMidiControlChange((byte)(channelIdx+1), ccMOD, (byte)sliderMOD.getValue());
                     playmidifile.sendMidiControlChange((byte)(channelIdx+1), ccPAN, (byte)sliderPAN.getValue());
-                    playmidifile.sendMidiControlChange((byte)(channelIdx+1), ccTRE, (byte)sliderTRE.getValue());
+                    playmidifile.sendMidiControlChange((byte)(channelIdx+1), ccTIM, (byte)sliderTIM.getValue());
+                    playmidifile.sendMidiControlChange((byte)(channelIdx+1), ccATK, (byte)sliderATK.getValue());
+                    playmidifile.sendMidiControlChange((byte)(channelIdx+1), ccREL, (byte)sliderREL.getValue());
+                    playmidifile.sendMidiControlChange((byte)(channelIdx+1), ccBRI, (byte)sliderBRI.getValue());
+
                     playmidifile.sendMidiNote((byte)(channelIdx+1), (byte)60, true);
+                    //playmidifile.startMidiDemo(channelIdx+1);
 
                     btestnote = true;
                 }
                 else {
-                    btntest.setText("Test Note");
+                    btntest.setText("Demo Voice");
                     btntest.setStyle(btnplayOff);
 
                     PlayMidi playmidifile = PlayMidi.getInstance();
@@ -2452,6 +2487,114 @@ public class Main extends Application {
         });
         sliderPAN.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
 
+        // Create TIM (Timber/Resonance) slider
+        sliderTIM = new Slider(0, 127, 0);
+        sliderTIM.setOrientation(Orientation.VERTICAL);
+        sliderTIM.setShowTickLabels(true);
+        sliderTIM.setShowTickMarks(true);
+        sliderTIM.setMajorTickUnit(16);
+        sliderTIM.setBlockIncrement(4);
+        sliderTIM.setPrefHeight(yslider);
+        Rotate rotateTim = new Rotate();
+        sliderTIM.valueProperty().addListener((observable, oldValue, newValue) -> {
+            //Setting the angle for the rotation
+            rotateTim.setAngle((double) newValue);
+
+            PlayMidi playmidifile = PlayMidi.getInstance();
+            playmidifile.sendMidiControlChange((byte)( channelIdx + 1), ccTIM, (byte) sliderTIM.getValue());
+
+            //System.out.println("Main: Old Pan Value " + readpresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
+            dopresets.getPreset(presetIdx * 16 + channelIdx).setTIM(newValue.intValue());
+            //System.out.println("Main: New Pan Value " + readpresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
+
+            buttonSave.setDisable(false);
+            flgDirtyPreset = true;      // Need to save updated Preset
+
+            labelstatus.setText(" Status: CHAN " + (channelIdx + 1) + " TIM: " + newValue.intValue());
+        });
+        sliderTIM.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getTIM());
+
+        // Create ATK (Attack) slider
+        sliderATK = new Slider(0, 127, 0);
+        sliderATK.setOrientation(Orientation.VERTICAL);
+        sliderATK.setShowTickLabels(true);
+        sliderATK.setShowTickMarks(true);
+        sliderATK.setMajorTickUnit(16);
+        sliderATK.setBlockIncrement(4);
+        sliderATK.setPrefHeight(yslider);
+        Rotate rotateAtk = new Rotate();
+        sliderATK.valueProperty().addListener((observable, oldValue, newValue) -> {
+            //Setting the angle for the rotation
+            rotateAtk.setAngle((double) newValue);
+
+            PlayMidi playmidifile = PlayMidi.getInstance();
+            playmidifile.sendMidiControlChange((byte)( channelIdx + 1), ccATK, (byte) sliderATK.getValue());
+
+            //System.out.println("Main: Old Pan Value " + readpresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
+            dopresets.getPreset(presetIdx * 16 + channelIdx).setATK(newValue.intValue());
+            //System.out.println("Main: New Pan Value " + readpresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
+
+            buttonSave.setDisable(false);
+            flgDirtyPreset = true;      // Need to save updated Preset
+
+            labelstatus.setText(" Status: CHAN " + (channelIdx + 1) + " ATK: " + newValue.intValue());
+        });
+        sliderATK.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getATK());
+
+        // Create TIM (Timber/Resonance) slider
+        sliderREL = new Slider(0, 127, 0);
+        sliderREL.setOrientation(Orientation.VERTICAL);
+        sliderREL.setShowTickLabels(true);
+        sliderREL.setShowTickMarks(true);
+        sliderREL.setMajorTickUnit(16);
+        sliderREL.setBlockIncrement(4);
+        sliderREL.setPrefHeight(yslider);
+        Rotate rotateRel = new Rotate();
+        sliderREL.valueProperty().addListener((observable, oldValue, newValue) -> {
+            //Setting the angle for the rotation
+            rotateRel.setAngle((double) newValue);
+
+            PlayMidi playmidifile = PlayMidi.getInstance();
+            playmidifile.sendMidiControlChange((byte)( channelIdx + 1), ccREL, (byte) sliderREL.getValue());
+
+            //System.out.println("Main: Old Pan Value " + readpresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
+            dopresets.getPreset(presetIdx * 16 + channelIdx).setREL(newValue.intValue());
+            //System.out.println("Main: New Pan Value " + readpresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
+
+            buttonSave.setDisable(false);
+            flgDirtyPreset = true;      // Need to save updated Preset
+
+            labelstatus.setText(" Status: CHAN " + (channelIdx + 1) + " REL: " + newValue.intValue());
+        });
+        sliderREL.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getREL());
+
+        // Create TIM (Timber/Resonance) slider
+        sliderBRI = new Slider(0, 127, 0);
+        sliderBRI.setOrientation(Orientation.VERTICAL);
+        sliderBRI.setShowTickLabels(true);
+        sliderBRI.setShowTickMarks(true);
+        sliderBRI.setMajorTickUnit(16);
+        sliderBRI.setBlockIncrement(4);
+        sliderBRI.setPrefHeight(yslider);
+        Rotate rotateBri = new Rotate();
+        sliderBRI.valueProperty().addListener((observable, oldValue, newValue) -> {
+            //Setting the angle for the rotation
+            rotateBri.setAngle((double) newValue);
+
+            PlayMidi playmidifile = PlayMidi.getInstance();
+            playmidifile.sendMidiControlChange((byte)( channelIdx + 1), ccBRI, (byte) sliderBRI.getValue());
+
+            //System.out.println("Main: Old Pan Value " + readpresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
+            dopresets.getPreset(presetIdx * 16 + channelIdx).setBRI(newValue.intValue());
+            //System.out.println("Main: New Pan Value " + readpresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
+
+            buttonSave.setDisable(false);
+            flgDirtyPreset = true;      // Need to save updated Preset
+
+            labelstatus.setText(" Status: CHAN " + (channelIdx + 1) + " BRI: " + newValue.intValue());
+        });
+        sliderBRI.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getBRI());
+
         flowpane.getChildren().add(pstbutton1);
         flowpane.getChildren().add(pstbutton2);
         flowpane.getChildren().add(pstbutton3);
@@ -2493,6 +2636,14 @@ public class Main extends Application {
         cholabel.setStyle(styletextwhitesmall);
         Label modlabel = new Label("MOD");
         modlabel.setStyle(styletextwhitesmall);
+        Label timlabel = new Label("TIM");
+        timlabel.setStyle(styletextwhitesmall);
+        Label atklabel = new Label("ATK");
+        atklabel.setStyle(styletextwhitesmall);
+        Label rellabel = new Label("REL");
+        rellabel.setStyle(styletextwhitesmall);
+        Label brilabel = new Label("BRI");
+        brilabel.setStyle(styletextwhitesmall);
         Label panlabel = new Label("PAN");
         panlabel.setStyle(styletextwhitesmall);
 
@@ -2501,9 +2652,12 @@ public class Main extends Application {
         gridEffects.add(new VBox(explabel, sliderEXP), 1, 1, 1, 1);
         gridEffects.add(new VBox(revlabel, sliderREV), 2, 1, 1, 1);
         gridEffects.add(new VBox(cholabel, sliderCHO), 3, 1, 1, 1);
-        //gridEffects.add(new VBox(trelabel, sliderTRE), 4, 1, 1, 1);
         gridEffects.add(new VBox(modlabel, sliderMOD), 5, 1, 1, 1);
-        gridEffects.add(new VBox(panlabel, sliderPAN), 6, 1, 1, 1);
+        gridEffects.add(new VBox(timlabel, sliderTIM), 6, 1, 1, 1);
+        gridEffects.add(new VBox(atklabel, sliderATK), 7, 1, 1, 1);
+        gridEffects.add(new VBox(rellabel, sliderREL), 8, 1, 1, 1);
+        gridEffects.add(new VBox(brilabel, sliderBRI), 9, 1, 1, 1);
+        gridEffects.add(new VBox(panlabel, sliderPAN), 10, 1, 1, 1);
 
         // Effects and Slider Default or deeper Configurations
         HBox hboxEffects = new HBox();
@@ -2513,7 +2667,7 @@ public class Main extends Application {
         cfgVOLbutton.setStyle(smallstyletext);
         cfgVOLbutton.setPrefSize(xsmallestbtn, ysmallestbtn);
         cfgVOLbutton.setOnAction(e -> {
-            sliderVOL.setValue(100);
+            sliderVOL.setValue(90);     // CC7 is 127 for full volume on a MIDI instrument, yet when it's used to control the fader of an audio- or instrument-track *in Logic*, 90 will hit unity gain while 127 will give +6dB of gain.
             buttonSave.setDisable(false);
             flgDirtyPreset = true;      // Need to save updated Preset
         });
@@ -2522,7 +2676,7 @@ public class Main extends Application {
         cfgEXPbutton.setStyle(smallstyletext);
         cfgEXPbutton.setPrefSize(xsmallestbtn, ysmallestbtn);
         cfgEXPbutton.setOnAction(e -> {
-            sliderEXP.setValue(127);
+            sliderEXP.setValue(127);    // CC11 to land on 127, as it is designed to only turn volume down.
             buttonSave.setDisable(false);
             flgDirtyPreset = true;      // Need to save updated Preset
         });
@@ -2531,7 +2685,7 @@ public class Main extends Application {
         cfgREVbutton.setStyle(smallstyletext);
         cfgREVbutton.setPrefSize(xsmallestbtn, ysmallestbtn);
         cfgREVbutton.setOnAction(e -> {
-            sliderREV.setValue(20);
+            sliderREV.setValue(16);
             buttonSave.setDisable(false);
             flgDirtyPreset = true;      // Need to save updated Preset
         });
@@ -2539,19 +2693,59 @@ public class Main extends Application {
         cfgCHObutton = new Button("SET");
         cfgCHObutton.setStyle(smallstyletext);
         cfgCHObutton.setPrefSize(xsmallestbtn, ysmallestbtn);
-        cfgCHObutton.setDisable(true);
+        cfgCHObutton.setDisable(false);
         cfgCHObutton.setOnAction(e -> {
-            sliderCHO.setValue(10);
+            sliderCHO.setValue(8);
             buttonSave.setDisable(false);
             flgDirtyPreset = true;      // Need to save updated Preset
         });
 
-        cfgMODbutton = new Button("CFG");
+        cfgMODbutton = new Button("SET");
         cfgMODbutton.setStyle(smallstyletext);
         cfgMODbutton.setPrefSize(xsmallestbtn, ysmallestbtn);
-        cfgMODbutton.setDisable(true);
+        cfgMODbutton.setDisable(false);
         cfgMODbutton.setOnAction(e -> {
             sliderMOD.setValue(0);
+            buttonSave.setDisable(false);
+            flgDirtyPreset = true;      // Need to save updated Preset
+        });
+
+        cfgTIMbutton = new Button("SET");
+        cfgTIMbutton.setStyle(smallstyletext);
+        cfgTIMbutton.setPrefSize(xsmallestbtn, ysmallestbtn);
+        cfgTIMbutton.setOnAction(e -> {
+            sliderTIM.setValue(64);
+
+            buttonSave.setDisable(false);
+            flgDirtyPreset = true;      // Need to save updated Preset
+        });
+
+        cfgATKbutton = new Button("SET");
+        cfgATKbutton.setStyle(smallstyletext);
+        cfgATKbutton.setPrefSize(xsmallestbtn, ysmallestbtn);
+        cfgATKbutton.setOnAction(e -> {
+            sliderATK.setValue(16);
+
+            buttonSave.setDisable(false);
+            flgDirtyPreset = true;      // Need to save updated Preset
+        });
+
+        cfgRELbutton = new Button("SET");
+        cfgRELbutton.setStyle(smallstyletext);
+        cfgRELbutton.setPrefSize(xsmallestbtn, ysmallestbtn);
+        cfgRELbutton.setOnAction(e -> {
+            sliderREL.setValue(16);
+
+            buttonSave.setDisable(false);
+            flgDirtyPreset = true;      // Need to save updated Preset
+        });
+
+        cfgBRIbutton = new Button("SET");
+        cfgBRIbutton.setStyle(smallstyletext);
+        cfgBRIbutton.setPrefSize(xsmallestbtn, ysmallestbtn);
+        cfgBRIbutton.setOnAction(e -> {
+            sliderBRI.setValue(64);
+
             buttonSave.setDisable(false);
             flgDirtyPreset = true;      // Need to save updated Preset
         });
@@ -2571,6 +2765,10 @@ public class Main extends Application {
         hboxEffects.getChildren().add(cfgREVbutton);
         hboxEffects.getChildren().add(cfgCHObutton);
         hboxEffects.getChildren().add(cfgMODbutton);
+        hboxEffects.getChildren().add(cfgTIMbutton);
+        hboxEffects.getChildren().add(cfgATKbutton);
+        hboxEffects.getChildren().add(cfgRELbutton);
+        hboxEffects.getChildren().add(cfgBRIbutton);
         hboxEffects.getChildren().add(cfgPANbutton);
 
         vboxEffects.getChildren().add(labeleffects);
@@ -2581,16 +2779,17 @@ public class Main extends Application {
         VBox vboxLayers = new VBox();
         vboxLayers.setSpacing(10);
 
+/*
+        midiLayerLabel = new Label("Keyboard: Channel " + (channelIdx + 1) + " Layers");
+        midiLayerLabel.setStyle(styletextwhite);
+        midiLayerLabel.setDisable(!ArduinoUtils.getInstance().hasARMPort());
+
         GridPane gridLayers = new GridPane();
         gridLayers.setHgap(3);
         gridLayers.setVgap(3);
 
         String[] midiChannels = { " 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ",
                 " 9 ", "10 ", "11 ", "12 ", "13 ", "14 ", "15 ", "16 "};
-
-        midiLayerLabel = new Label("Keyboard: Channel " + (channelIdx + 1) + " Layers");
-        midiLayerLabel.setStyle(styletextwhite);
-        midiLayerLabel.setDisable(!ArduinoUtils.getInstance().hasARMPort());
 
         chkBoxArray = new CheckBox[16];
         int x, y;
@@ -2613,10 +2812,10 @@ public class Main extends Application {
             else { x = checkIdx - 12; y = 5; }
             gridLayers.add(chkBoxArray[checkIdx], x, y, 1, 1);
         }
-
         vboxLayers.setPadding(new Insets(0, 0, 0,0));
         vboxLayers.getChildren().add(midiLayerLabel);
-        vboxLayers.getChildren().add(gridLayers);
+        //vboxLayers.getChildren().add(gridLayers);
+*/
 
         VBox vboxApplyPreset = new VBox();
         vboxApplyPreset.setSpacing(10);
@@ -2923,17 +3122,19 @@ public class Main extends Application {
         String strChannelIdxOut = "";
         boolean flgfirst = false;
 
-        for (int idx = 0; idx < 16; idx++) {
-            if (chkBoxArray[idx].isSelected()) {
-                if (!flgfirst) {
-                    strChannelIdxOut = Integer.toString(idx + 1);
-                    flgfirst = true;
-                }
-                else {
-                    strChannelIdxOut = strChannelIdxOut.concat("|").concat(Integer.toString(idx + 1));
-                }
-            }
-        }
+        //for (int idx = 0; idx < 16; idx++) {
+        //    if (chkBoxArray[idx].isSelected()) {
+        //        if (!flgfirst) {
+        //            strChannelIdxOut = Integer.toString(idx + 1);
+        //            flgfirst = true;
+        //        }
+        //        else {
+        //            strChannelIdxOut = strChannelIdxOut.concat("|").concat(Integer.toString(idx + 1));
+        //        }
+        //    }
+        //}
+
+        strChannelIdxOut = Integer.toString(channelIdx + 1);
         dopresets.getPreset(presetIdx * 16 + channelIdx).setChannelOutIdx(strChannelIdxOut);
         //System.out.println("Main: ChannelOutIdx " + strChannelIdxOut);
 
@@ -2944,11 +3145,10 @@ public class Main extends Application {
 
 
     private void setMidiLayerLabel(int chidx) {
-        String strLayers = "Layers Channel: ".concat(Integer.toString(chidx));
+        //String strLayers = "Layers Channel: ".concat(Integer.toString(chidx));
+        //midiLayerLabel.setText(strLayers);
 
         String strEffects = "Effects Channel: ".concat(Integer.toString(chidx));
-
-        midiLayerLabel.setText(strLayers);
         labeleffects.setText(strEffects);
     }
 
