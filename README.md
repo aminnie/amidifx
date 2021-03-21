@@ -1,6 +1,6 @@
 ## Introduction to AMIDIFX
 
-Last Update: 02 March 2021
+Last Update: 21 March 2021
 
 Most recent updates:
 * Added USB MIDI Keyboard support
@@ -198,12 +198,11 @@ How to use the Preset configuraton screen:
   * This feature reiies on an external custom controller currently in development and testing. The idea is that you connect your keyboard/organ to this device and the output of this controller to the sound module. The controller is updated with layers associated with each channel. Inbound keyboard notes are mapped real-time to configured output channels - up to 16 of them. Additioanlly external VOL control changes form the organ or MIDI volume pedal is mapped to all Keyboard Bass, Lower 1+2, Upper 1+2+3 channels as well as all layers - just like the expression pedal on an Organ. The Seeed Oddesey shown above is already integrated in this manner and I am workinng on the ARM controller source code. This extenrnal ARM controller will be connected to hardware drawbars as well as additioal rotary encoders and buttons.
 
  
-### Current Status: 03/02/2021
+### Current Status: 03/21/2021
 
 Next up:
   * Updating the Song screen to list all active tracks and the channels along with a track mute buttons for an easy play alogn mode
-  * Deeper integraton into Deebach: Complete rotary on/off, drawbar integration, etc.
-  * AMIDIFX was developed in JavaFX. It is portable to numerous operating systems and devices, including IOS, Andriod, Linux, etc.
+  *   * AMIDIFX was developed in JavaFX. It is portable to numerous operating systems and devices, including IOS, Andriod, Linux, etc.
   * Adding a USB based controller hardeware with real(!) buttons and rotary switches, and of course one or more sets of drawbars1
   * More testing, and usability inprovements based on user feedback
 
