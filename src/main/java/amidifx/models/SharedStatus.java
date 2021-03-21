@@ -24,7 +24,7 @@ public class SharedStatus {
     private String modulename0 = "MIDI GM";
     private String modulename1 = "Deebach BlackBox";
     private String modulename2 = "Roland Integra7";
-    private int defaultmoduleidx = 0;
+    private int defaultmoduleidx = 1;
 
     private String MID_DIRECTORY = "C:/amidifx/midifiles/";
     private String CFG_DIRECTORY = "C:/amidifx/config/";
