@@ -189,11 +189,14 @@ public class MidiButtons {
                             Integer.parseInt(buttonDetails[11]),    //
                             Integer.parseInt(buttonDetails[12]),    // vol
                             Integer.parseInt(buttonDetails[13]),    // exp
-                            Integer.parseInt(buttonDetails[14]),    // rve
+                            Integer.parseInt(buttonDetails[14]),    // rev
                             Integer.parseInt(buttonDetails[15]),    // cho
                             Integer.parseInt(buttonDetails[16]),    // mod
-                            Integer.parseInt(buttonDetails[17]),    // bri
-                            Integer.parseInt(buttonDetails[18]));   // pan
+                            Integer.parseInt(buttonDetails[17]),    // tim
+                            Integer.parseInt(buttonDetails[18]),    // atk
+                            Integer.parseInt(buttonDetails[19]),    // rel
+                            Integer.parseInt(buttonDetails[20]),    // bri
+                            Integer.parseInt(buttonDetails[21]));   // pan
                     buttonList.add(mButton);
                 }
             }
@@ -320,6 +323,9 @@ public class MidiButtons {
                 buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getVOL())).concat(",").concat(Integer.toString(button.getEXP()));
                 buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getREV())).concat(",").concat(Integer.toString(button.getCHO()));
                 buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getMOD()));
+                buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getTIM()));
+                buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getATK()));
+                buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getREL()));
                 buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getBRI()));
                 buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getPAN()).concat("\r"));
                 bw.write(buttonLine);
@@ -395,13 +401,13 @@ public class MidiButtons {
             int MOD = button.getMOD() & 0x7F;
             playmidifile.sendMidiControlChange((byte) CHANOUT, ccMOD, (byte) MOD);
 
-            int TIM = 64; //button.getTIM() & 0x7F;
+            int TIM = button.getTIM() & 0x7F;
             playmidifile.sendMidiControlChange((byte) CHANOUT, ccTIM, (byte) TIM);
 
-            int ATK = 16; //button.getATK() & 0x7F;
+            int ATK = button.getATK() & 0x7F;
             playmidifile.sendMidiControlChange((byte) CHANOUT, ccATK, (byte) ATK);
 
-            int REL = 16; //button.getREL() & 0x7F;
+            int REL = button.getREL() & 0x7F;
             playmidifile.sendMidiControlChange((byte) CHANOUT, ccREL, (byte) REL);
 
             int BRI = button.getBRI() & 0x7F;
@@ -438,6 +444,9 @@ public class MidiButtons {
         midibutton.setREV(preset.getREV());
         midibutton.setCHO(preset.getCHO());
         midibutton.setMOD(preset.getMOD());
+        midibutton.setTIM(preset.getTIM());
+        midibutton.setATK(preset.getATK());
+        midibutton.setREL(preset.getREL());
         midibutton.setBRI(preset.getBRI());
         midibutton.setPAN(preset.getPAN());
     }

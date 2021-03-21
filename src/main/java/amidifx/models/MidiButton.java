@@ -19,6 +19,9 @@ public class MidiButton {
     private int REV;
     private int CHO;
     private int MOD;
+    private int TIM;
+    private int ATK;
+    private int REL;
     private int BRI;
     private int PAN;
 
@@ -39,6 +42,9 @@ public class MidiButton {
         this.setREV(20);
         this.setCHO(10);
         this.setMOD(0);
+        this.setTIM(0);
+        this.setATK(0);
+        this.setREL(0);
         this.setBRI(64);
         this.setPAN(64);
     }
@@ -47,7 +53,7 @@ public class MidiButton {
     public MidiButton(int buttonIdx, String buttonId, int patchId, String patchName, int layerIdx,
                       int channelIdx, String channelOutIdx, int octaveTran,
                       int PC, int LSB, int MSB, int moduleIdx,
-                      int VOL, int EXP, int REV, int CHO, int MOD, int BRI, int PAN) {
+                      int VOL, int EXP, int REV, int CHO, int MOD, int TIM, int ATK, int REL, int BRI, int PAN) {
         super();
 
         this.buttonIdx = buttonIdx;
@@ -67,6 +73,9 @@ public class MidiButton {
         this.REV = REV;
         this.CHO = CHO;
         this.MOD = MOD;
+        this.TIM = TIM;
+        this.ATK = ATK;
+        this.REL = REL;
         this.BRI = BRI;
         this.PAN = PAN;
     }
@@ -195,6 +204,27 @@ public class MidiButton {
         this.MOD = MOD;
     }
 
+    public int getTIM() {
+        return TIM;
+    }
+    public void setTIM(int TIM) {
+        this.TIM = TIM;
+    }
+
+    public int getATK() {
+        return ATK;
+    }
+    public void setATK(int ATK) {
+        this.ATK = ATK;
+    }
+
+    public int getREL() {
+        return REL;
+    }
+    public void setREL(int REL) {
+        this.REL = REL;
+    }
+
     public int getBRI() {
         return BRI;
     }
@@ -215,8 +245,9 @@ public class MidiButton {
                 + ", PC=" + PC + ", LSB=" + LSB + ", MSB=" + MSB
                 + ", VOL=" + VOL + ", EXP=" + EXP
                 + ", REV=" + REV + ", CHO=" + CHO
-                + ", MOD=" + MOD +  ", BRI" + BRI
-                + ", PAN=" + PAN+ "]";
+                + ", MOD=" + MOD +  ", TIM" + TIM
+                + ", ATK=" + ATK +  ", REL" + REL
+                + ", BRI" + BRI + ", PAN=" + PAN+ "]";
     }
 }
 
