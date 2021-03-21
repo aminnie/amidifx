@@ -90,6 +90,17 @@ Current setup with Seed Odyssey, Waveshare 10.1" Touch Screen, and midibox IO mo
 
 ## AMIDIFX Screens and User Guide
 
+### Select Input MIDI Keyboard and Output Sound Module
+
+![Example AMIDIFX Home screen:](https://github.com/aminnie/amidifx/blob/master/Resources/other/Home.png)
+
+How to Use the Home screen:
+* Select MIDI Keyboard from detected Input Devices
+* Select MIDI Output Sound Module from detected Sound Modules
+* Click on Configure button
+* Test keyboard and sound output
+* Click on Perform to proceed to live play sreen
+
 ### Main/Live Performance Screen
 
 ![Example AMIDIFX Preset screen:](https://github.com/aminnie/amidifx/blob/master/Resources/other/Perform.png)
