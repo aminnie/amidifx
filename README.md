@@ -5,9 +5,9 @@ Last Update: 21 March 2021
 Most recent updates:
 * Added USB MIDI Keyboard support
 * Added home screen for MIDI IN and OUT Device Selects
-* Added Layering modes for Lower and Upper Keyboards
-* Added additional Midi CC controllers, not supports (VOL, EXP, REV, CHO, MOD, TIM, ATK, REL, TIM, PAN)
-* Controller now Supports MIDI GM, Deebach BlackBox and Roland Integra 7
+* Added Layering modes for Lower 1 + 2 and Upper 1 + 2+ 3 Keyboards
+* Added additional Midi CC controllers (VOL, EXP, REV, CHO, MOD, TIM, ATK, REL, TIM, PAN)
+* Added Sound Module Support. AMDIFIX Supports MIDI GM, Deebach BlackBox and Roland Integra 7
 
 AMIDIFIX is a component based MIDI solution intended to manage one or more MIDI Sound Modules. Hardware sound modules such as the Deebach BlackBox (https://www.deebach.eu/), Roland Integra7, or Yamaha Motif Rack ES are well suited for studio applications. However, wiith no or limited user onboard interfaces they require much configuration for realtime performances. With custom development, it is quite possible to use them in live music scenarios, and/or for instance assemble your own multi-keyboard solution with instant recall of all the settings for a pre-confgured song. 
 
