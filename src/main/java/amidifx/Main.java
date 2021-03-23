@@ -1638,7 +1638,6 @@ public class Main extends Application {
         moduleNames.add(midimodules.getModuleName(0));
         moduleNames.add(midimodules.getModuleName(1));
         moduleNames.add(midimodules.getModuleName(2));
-        int moduleidx = sharedStatus.getModuleidx();
 
         ObservableList<String> soundbank = FXCollections.observableArrayList();
         ListView<String> banklistView = new ListView<>(soundbank);
@@ -1650,7 +1649,7 @@ public class Main extends Application {
         moduleCombo.setPrefSize(xpatchlist, 20);
         moduleCombo.setStyle(selectcolorOff);
         //moduleCombo.setDisable(true);               // Do not select a module that is not loaded
-        moduleCombo.getSelectionModel().select(moduleidx);
+        moduleCombo.getSelectionModel().select(sharedStatus.getModuleidx());
         EventHandler<ActionEvent> midxevent =
                 e -> {
 
@@ -1661,10 +1660,7 @@ public class Main extends Application {
                     // If we temporarily changed the moduleidx, we need to reload the active module patches as we exit this page
                     // as well as disable the Voice Sound and Play Buttons as the sounds selected do not match the active sound
                     // module
-                    if (moduleidx1 != moduleidx) {
-                        moduleIdx = moduleidx1;
-                        ////devicemoduleIdx = sharedStatus.getModuleidx();
-                        sharedStatus.setModuleidx(moduleidx);
+                    if (moduleidx1 != sharedStatus.getModuleidx()) {
 
                         buttonSave.setDisable(true);
                         buttonvoice.setDisable(true);
@@ -2770,6 +2766,7 @@ public class Main extends Application {
         hboxEffects.getChildren().add(cfgRELbutton);
         hboxEffects.getChildren().add(cfgBRIbutton);
         hboxEffects.getChildren().add(cfgPANbutton);
+        hboxEffects.setPadding(new Insets(5,0,0,0));
 
         vboxEffects.getChildren().add(labeleffects);
         vboxEffects.getChildren().add(gridEffects);

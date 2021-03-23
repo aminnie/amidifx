@@ -94,7 +94,7 @@ public class HomeScene {
 
     SharedStatus sharedStatus;
 
-    AppConfig config;
+    AppConfig appconfig;
 
     MidiPatches dopatches;
     MidiPresets dopresets;
@@ -136,9 +136,9 @@ public class HomeScene {
             sharedStatus = SharedStatus.getInstance();
 
             // Load Config File Properties and preset IN and OUT devices to last config
-            config = AppConfig.getInstance();
-            sharedStatus.setSelInDevice(config.getInDevice());
-            sharedStatus.setSelOutDevice(config.getOutDevice());
+            appconfig = AppConfig.getInstance();
+            sharedStatus.setSelInDevice(appconfig.getInDevice());
+            sharedStatus.setSelOutDevice(appconfig.getOutDevice());
 
             // Initialize Input and Output Device Lists
             MidiUtils midiutils = new MidiUtils();
@@ -149,7 +149,7 @@ public class HomeScene {
             for (MidiUtils.StatusMidiDevice statusdevice : inlist) {
                 comboInDevice.getItems().add(statusdevice.getDevice());
 
-                if (statusdevice.getDevice().equals(config.getInDevice())) fselindeviceok = true;
+                if (statusdevice.getDevice().equals(appconfig.getInDevice())) fselindeviceok = true;
 
                 System.out.println("MIDI In:" + statusdevice.getDevice());
             }
@@ -159,7 +159,7 @@ public class HomeScene {
             for (MidiUtils.StatusMidiDevice statusdevice : outlist) {
                 comboOutDevice.getItems().add(statusdevice.getDevice());
 
-                if (statusdevice.getDevice().equals(config.getOutDevice())) fseloutdeviceok = true;
+                if (statusdevice.getDevice().equals(appconfig.getOutDevice())) fseloutdeviceok = true;
 
                 System.out.println("MIDI Out:" + statusdevice.getDevice());
             }
@@ -229,7 +229,7 @@ public class HomeScene {
             buttonSave.setDisable(true);
             buttonSave.setOnAction(event -> {
 
-                if (!config.saveProperties()) {
+                if (!appconfig.saveProperties()) {
                     labelstatusOrg.setText(" Status: Application config save failed!");
                     System.err.println("Failed to save AppConfig file!");
                     System.exit(-1);
@@ -279,7 +279,7 @@ public class HomeScene {
             lbltitle1.setX(10.0f);
             lbltitle1.setY(270.0f);
             lbltitle1.setFill(Color.BLACK);
-            lbltitle1.setText(config.getControllerTitle());
+            lbltitle1.setText(appconfig.getControllerTitle());
             lbltitle1.setFont(Font.font(null, FontWeight.SEMI_BOLD, 20));
 
             HBox hboxTitle = new HBox();
@@ -372,9 +372,9 @@ public class HomeScene {
             btnConfig.setStyle(btnplayOff);
             btnConfig.setOnAction(e -> {
 
-                int result = mididevices.createMidiDevices(config.getInDevice(), config.getOutDevice());
+                int result = mididevices.createMidiDevices(appconfig.getInDevice(), appconfig.getOutDevice());
                 if (result == -1) {
-                    labelstatusOrg.setText(" Error creating MIDI OUT Device: " + config.getOutDevice());
+                    labelstatusOrg.setText(" Error creating MIDI OUT Device: " + appconfig.getOutDevice());
                     labelstatusOrg.setStyle(styletextred);
                 }
                 else if (result == -2) {
@@ -385,11 +385,11 @@ public class HomeScene {
                     btnStart.setDisable(false);
 
                     // Save the updated Devices and load the associated Patch file
-                    config.saveProperties();
+                    appconfig.saveProperties();
 
                     midimodules = new MidiModules();
                     dopatches = MidiPatches.getInstance();
-                    String modulefile = midimodules.getModuleFile(config.getSoundModuleIdx());
+                    String modulefile = midimodules.getModuleFile(appconfig.getSoundModuleIdx());
                     if (!dopatches.fileExist(modulefile)) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("AMIDIFX Device Config Error");
@@ -440,7 +440,7 @@ public class HomeScene {
                 lblindevice.setText(comboInDevice.getValue().toString());
                 lblindevice.setStyle(styletextgreen);
 
-                config.setInDevice(comboInDevice.getValue().toString());
+                appconfig.setInDevice(comboInDevice.getValue().toString());
                 sharedStatus.setSelInDevice(comboInDevice.getValue().toString());
 
                 selindevice = comboInDevice.getValue().toString();
@@ -469,19 +469,27 @@ public class HomeScene {
                 lbloutdevice.setText(comboOutDevice.getValue().toString());
                 lbloutdevice.setStyle(styletextgreen);
 
-                config.setOutDevice(comboOutDevice.getValue().toString());
+                appconfig.setOutDevice(comboOutDevice.getValue().toString());
                 sharedStatus.setSelOutDevice(comboOutDevice.getValue().toString());
 
                 seloutdevice = comboOutDevice.getValue().toString();
 
-                // If selected Device is Deebach, prepare to load the Deebach patches
+                // If selected Device is Deebach prepare to load the Deebach patches
                 if (seloutdevice.contains("Deebach")) {
                     sharedStatus.setModuleidx(1);
+                    appconfig.setSoundModuleIdx(1);
+                    appconfig.saveProperties();
+
+                    dopatches.loadMidiPatches(midimodules.getModuleFile(1));
                 }
 
                 // If selected Device is Integra, prepare to load the Integra7 patches
                 if (seloutdevice.contains("Integra")) {
                     sharedStatus.setModuleidx(2);
+                    appconfig.setSoundModuleIdx(2);
+                    appconfig.saveProperties();
+
+                    dopatches.loadMidiPatches(midimodules.getModuleFile(2));
                 }
 
                 buttonSave.setDisable(false);
@@ -519,7 +527,7 @@ public class HomeScene {
             HBox hboxstatus = new HBox();
             hboxstatus.getChildren().add(labelstatusOrg);
             labelstatusOrg.setMinWidth(700 * ymul);
-            Label labelsynth = new Label("Module: " + config.getOutDevice());
+            Label labelsynth = new Label("Module: " + appconfig.getOutDevice());
             labelsynth.setTextAlignment(TextAlignment.JUSTIFY);
             labelsynth.setStyle(styletext);
             hboxstatus.getChildren().add(labelsynth);
