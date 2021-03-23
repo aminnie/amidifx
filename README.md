@@ -110,7 +110,7 @@ How to Use the Home screen:
 How to Use the Performance screen:
 * Navigation buttons: Select Song, Select Bank and Select Voice
   * Each control consists of three seperate buttons left << and >> navigate, and a text area that is used to select the current option.
-  * Selecting a Bank, resets the Bacnk Voices to the first vocie in the Bank
+  * Selecting a Bank, resets the Bank Voices to the first vocie in the Bank
   * Navigating and selecting a voice makes it available to applied to any of the Upper, Lower, Bass, or Drum soft buttons
 * Voice Buttons:
   * Click on a Voice button to register a new Bank and Voice on the soft button
