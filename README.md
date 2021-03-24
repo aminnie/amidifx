@@ -9,6 +9,8 @@ Most recent updates:
 * Added additional Midi CC controllers (VOL, EXP, REV, CHO, MOD, TIM, ATK, REL, TIM, PAN)
 * Added Sound Module Support. AMDIFIX Supports MIDI GM, Deebach BlackBox and Roland Integra 7
 
+For a download of the latest Windows X64 build, please contact the author at: a_minnie@hotmail.com
+
 AMIDIFIX is a component based MIDI solution intended to manage one or more MIDI Sound Modules. Hardware sound modules such as the Deebach BlackBox (https://www.deebach.eu/), Roland Integra7, or Yamaha Motif Rack ES are well suited for studio applications. However, wiith no or limited user onboard interfaces they require much configuration for realtime performances. With custom development, it is quite possible to use them in live music scenarios, and/or for instance assemble your own multi-keyboard solution with instant recall of all the settings for a pre-configured song. 
 
 AMIDIFX is a JavaFX based solution enables a musician to:
@@ -89,8 +91,7 @@ My setup: Seed Odyssey X86, Waveshare 10.1" Touch Screen, and midibox IO module 
   * Add your own MIDI files through the user interface. Don't forget to:
    * Add MIDI Cue = P[1-8] meta events to auto trigger and inject a Preset configuration into the MIDI stream. Find a place in the MIDI file following the initial channel MSB, LSB and PC changes, but before the first notes sound (often the intro symbol beats on the drum track), and insert the CUE = P1.
    * Add MIDI Cue = B[0-1] meta event to preset the Bar Counter with the music play. This may require a carefully reviewing the MIDI file in e.g. MidiYodi to determine where the first beat starts. Initial quarter lead in often is the start of Music in a Midi file.
-
-For a download of the latest Windows X64 build, please contact the author at: a_minnie@hotmail.com 
+  
 
 ## AMIDIFX Screens and User Guide
 
