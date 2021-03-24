@@ -6,6 +6,7 @@ Most recent updates:
 * Added USB MIDI Keyboard IN support
 * Added home screen for MIDI IN and OUT Device Selects
 * Added Layering modes for Lower 1 + 2 and Upper 1 + 2 + 3 Keyboards
+* Added MIDI Expression Pedal support to Upper, Lower and Bass channels via input CHAN 16
 * Added additional Midi CC controllers (VOL, EXP, REV, CHO, MOD, TIM, ATK, REL, TIM, PAN)
 * Added Sound Module Support. AMDIFIX Supports MIDI GM, Deebach BlackBox and Roland Integra 7
 
@@ -95,7 +96,7 @@ My setup: Seed Odyssey X86, Waveshare 10.1" Touch Screen, and midibox IO module 
 
 ## AMIDIFX Screens and User Guide
 
-### Select Input MIDI Keyboard and Output Sound Module
+### MIDI Input Keyboard and Output Sound Module
 
 ![Example AMIDIFX Home screen:](https://github.com/aminnie/amidifx/blob/master/Resources/other/Home1.png)
 
