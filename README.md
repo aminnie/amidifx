@@ -210,15 +210,15 @@ How to use the Preset configuration screen:
 * Copy Next Button:
   * Configuring all 8 presets and 16 channels is quite a task, especially if you are looking for incremental changes on just one or a few channels from one Preset to another.
   * This button takes the current Preset selected and copies it in full to the next Preset, including all program and effects configured.
- * After Copy Next, select the next Preset from the dropdown. It should be identical to the previous. Now proceed to update the channel you need to with new voices and effects  * * Apply Channel or All Channels Buttons:
-  * Send the selected channel or all channel program abd effect changes to the sound module if oy want to test in realtime.
-* Apply Presets Buttons:
+  * After Copy Next, select the next Preset from the dropdown. It should be identical to the previous. Now proceed to update the channel you need to with new voices and effects  * * Apply Channel or All Channels Buttons:
+  * Send the selected channel or all channel program and effect changes to the sound module if oy want to test in realtime.
+* Apply Preset Buttons:
   * Cur Channel: Sends current channel Voice Patch and Effects to the MIDI sound module
   * All Channels: Sends Voice Patch and Effects for all 16 channels to the MIDI sound module
 * Save Button:
   * Save the open Preset file. DO NOT forget to save your updates, otherwise you will have to redo all work since the last save.
 * Reload Button:
-  * If you realize you have misconfigured the voice or effects in file, the Reload buttons will abort the current edit and reload the Preset file based on the last save.
+  * If you realize you have misconfigured the voice or effects in file, the Reload button will abort the current edit and reload the last saved version of the Preset file.
 * Layers Option:
   * Every MIDI channel can be mapped to up to 10 other channels to layer additional MIDI sounds onto it.
   * This feature relies on an external custom controller currently in development and testing. The idea is that you connect your keyboard/organ to this device and the output of this controller to the sound module. The controller is updated with layers associated with each channel. Inbound keyboard notes are mapped real-time to configured output channels - up to 16 of them. Additionally external VOL control changes form the organ or MIDI volume pedal is mapped to all Keyboard Bass, Lower 1+2, Upper 1+2+3 channels as well as all layers - just like the expression pedal on an Organ. The Seeed Oddesey shown above is already integrated in this manner and I am working on the ARM controller source code. This external ARM controller will be connected to hardware drawbars as well as additional rotary encoders and buttons
