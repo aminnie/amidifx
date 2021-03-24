@@ -1,6 +1,6 @@
 ## Introduction to AMIDIFX
 
-Last Update: 21 March 2021
+Last Update: 23 March 2021
 
 Most recent updates:
 * Added USB MIDI Keyboard support
@@ -22,7 +22,7 @@ There are numerous free and commercial MIDI arrangements available that can be a
   * Live play of original MIDI file using MIDI GM sounds with 1 to 16 backing tracks
   * Play along purposes to listen and learn the tracks while playing a keyboard
 * Preset Files program up to 8 presets with 16 channels each for every MIDI Song file. 
-  * Every Preset defines paramaters for all 16 MIDI channels, including the following MIDI Program and Control changes: MSB, LSB, PC, VOL, EXP, REV, CHO, MOD, PAN. 
+  * Every Preset defines parameters for all 16 MIDI channels, including the following MIDI Program and Control changes: MSB, LSB, PC, VOL, EXP, REV, CHO, MOD, PAN. 
   * Preset files allow layering of channels enabling multiple voices on a track. 
    * We plan to extend this to multiplex input channels into multiple output MIDI modules in the near future. 
 
@@ -62,17 +62,17 @@ You need the following hardware and software to run AMIDIFX:
   * Of course a Windows 10 Tablet provides a nicely integrated solution to host AMIDIFX if you are looking a tandalone solution or comfortable with hardware. See here for example:  https://www.amazon.com/Windows-Fusion5-Ultra-Tablet-Cameras/dp/B07W6QYX8G/ref=sr_1_3?dchild=1&keywords=fusion+windows+tablet&qid=1612633174&sr=8-3
 
 * In January 2021, I ported the solution to a single board computer (SBC) - the Seeed Odyssey: https://www.seeedstudio.com/ODYSSEY-X86J4105800-p-4445.html.
-  * This X86-based SBC has 8GB Ram, support for SATA drives and SSDs (including M.2 and NVMe), as well as onboard ARM microcontroller that is integrated to the X86 via USB. This ARM cotroller can programmed to add low level GPIO to a AMIDIFX running on the X86. The JavaFX application forwards MIDI layering configurations to the ARM controller to manage MIDI keyboard layering, muting, etc.
-  * A Screen with 1024 x 600 or better a 1280 by 800 resolution - capactive touch preferably. I use this one: https://www.waveshare.com/10.1inch-hdmi-lcd-with-case.htm
-  * A MIDI Interface DIN Board. This board provides the MIDI DIN IN and OUT connectivty to the Odyssey ARM controler via the one/two sets of Serial GPIO pins. Most MIDI interface boards will work. For example, I use the midibox.org (http://www.ucapps.de/) dual MIDI channel MBHP_MIDI_IO board.
+  * This X86-based SBC has 8GB Ram, support for SATA drives and SSDs (including M.2 and NVMe), as well as onboard ARM microcontroller that is integrated to the X86 via USB. This ARM controller can programmed to add low level GPIO to a AMIDIFX running on the X86. The JavaFX application forwards MIDI layering configurations to the ARM controller to manage MIDI keyboard layering, muting, etc.
+  * A Screen with 1024 x 600 or better a 1280 by 800 resolution - capacitive touch preferably. I use this one: https://www.waveshare.com/10.1inch-hdmi-lcd-with-case.htm
+  * A MIDI Interface DIN Board. This board provides the MIDI DIN IN and OUT connectivity to the Odyssey ARM controller via the one/two sets of Serial GPIO pins. Most MIDI interface boards will work. For example, I use the midibox.org (http://www.ucapps.de/) dual MIDI channel MBHP_MIDI_IO board.
 
-* At this time, the Deebach Blackbox (https://www.deebach.eu/) sound module, or any MIDI GM compatible sound module is supported. The Roland Integra7 modified patch file will be added as an option in future.
+* At this time, the Deebach Blackbox (https://www.deebach.eu/) sound module, Roland Integra 7, or a MIDI GM compatible sound module is supported
 
 * MIDI file manipulation software. MidiYodi (https://www.canato.se/midiyodi/) works great for manipulating channel events, inserting Preset and Bar Counter CUE meta messages, program changes, and moving channels around to map to you keyboard preferences. I use CHAN 11 for Bass, CHAN 12 + 13 for Lower, and CHAN 14 + 15 + 16 for Upper.
 
 * Note: The Seeed Odessey has enough compute power and memory to act as a development host for AMIDIFX! I have installed JetBrains IntelliJ, the Arduino IDE, MidiYodi and several other applications on it, and while the 10" touch screen is relatively small for development, the solution is performant enough to make changes to the applcation (using an attached keyboard), change MIDI files, while running AMIDIFX and the built-in sequencer! At this time I am running WIndows 10 on the SBC, but all components of this solution including the IDE can be deployed on e.g. Ubuntu should you prefer to do so.
 
-Current setup with Seed Odyssey, Waveshare 10.1" Touch Screen, and midibox IO module with 2 In / 2 Out DIN MIDI ports:
+Setup with Seed Odyssey, Waveshare 10.1" Touch Screen, and midibox IO module with 2 In / 2 Out DIN MIDI ports:
 
 ![Example AMIDIFX Setup:](https://github.com/aminnie/amidifx/blob/master/Resources/other/AMIDIDX01182021.jpg)
 
@@ -84,7 +84,7 @@ Current setup with Seed Odyssey, Waveshare 10.1" Touch Screen, and midibox IO mo
 * Download the source code from this repo, build and run the solution
 * Plug in GM MIDI compatible sound module or Deebach Blackbox via USB. It will be detected on startup and be available to program, test Song and Presets configurations and live play. If no external sound module is available the system will default to the built-in Synth. 
 * Download the .CSV and .MID and .DAT files into the following directory on your system: C:\amidifx\midifiles
-  * Preset Files end with .CSV, and have a very specific format edit via the AMIDIFX applicaion, or editable in an editor if you understand the structure.
+  * Preset Files end with .CSV, and have a very specific format edit via the AMIDIFX application, or editable in an editor if you understand the structure.
   * Songs List file (songs.csv) is a directory of all the Songs and their respective configurations including associated MIDI SMF and Preset files, track/channel mutes, etc.
   * Add your own MIDI files through the user interface. Don't forget to:
    * Add MIDI Cue = P[1-8] meta events to auto trigger and inject a Preset configuration into the MIDI stream. Find a place in the MIDI file following the initial channel MSB, LSB and PC changes, but before the first notes sound (often the intro symbol beats on the drum track), and insert the CUE = P1.
@@ -101,7 +101,8 @@ How to Use the Home screen:
 * Select MIDI Output Sound Module from detected Sound Modules
 * Click on Configure button
 * Test keyboard and sound output
-* Click on Perform to proceed to live play sreen
+* Click on Perform to proceed to live play screen
+* Selected input and output devices are saved to a configuration file and available as the default on next startup
 
 ### Main/Live Performance Screen
 
@@ -109,7 +110,7 @@ How to Use the Home screen:
 
 How to Use the Performance screen:
 * Navigation buttons: Select Song, Select Bank and Select Voice
-  * Each control consists of three seperate buttons left << and >> navigate, and a text area that is used to select the current option.
+  * Each control consists of three separate buttons left << and >> navigate, and a text area that is used to select the current option.
   * Selecting a Bank, resets the Bank Voices to the first vocie in the Bank
   * Navigating and selecting a voice makes it available to applied to any of the Upper, Lower, Bass, or Drum soft buttons
   * Selecting a song enables / disables preset buttons and other functionality depending on Song and the sound module if was configured for
@@ -133,20 +134,16 @@ How to Use the Performance screen:
 * Presets:
   * Every preset file can be programmed with 8 presets and 16 channels each. See the Preset Screen
   * Once a song is selected, the associated file configured in the Songs screen is loaded.
-  * If the P1-8 Meta Cues have been configured in the MIDI file, playng the Song file will automaticall trigger a preset load. ALternatively, you can click on a Preset button to activate the sounds configured.
-  * The system is configured to track the voice and effects on every MIDI channel. When a Preset is applied, only the deltas are forwarded to the Deebach module to avoid redundant traffic and potential sound glicthes. To force a Preset load, or clear the controllers, click on the Panic button.
+  * If the P1-8 Meta Cues have been configured in the MIDI file, playng the Song file will automatically trigger a preset load. Alternatively, you can click on a Preset button to activate the sounds configured.
+  * The system is configured to track the voice and effects on every MIDI channel. When a Preset is applied, only the deltas are forwarded to the Deebach module to avoid redundant traffic and potential sound glitches. To force a Preset load, or clear the controllers, click on the Panic button.
   * If a MIDI Song plays with 'strange sounds', then the Preset file associated with the Song in the SOng screen has not been configured correctly in the Presets screen.
 * Upper 1 and Lower 1 Rotary Buttons
-  * Enables Rotary on and off. When turn on reverts to last Fast/Slow setting
+  * Enables Rotary on and off. When turned on reverts to last Fast/Slow setting
   * Rotary Fast and Slow buttons go through a time sequence to resemble rotary spin up and slow down after button is pressed
 * Save Perform button
   * Saves the current state of the voices, not unlike powering down a keyboard and having the same setting present when you turn it on again.
 * Bar Counter:
-  * I sactivated by placing a Metadate CUE B0 (lead in bar) or B1 in the midi file, just before the first note is played. A good placement tick will result in a acurate o qyarter note bar count. 
-* Other Notes:
-  * The Organ section is to be built out in future and the rotary buttons have not been implemented yet. The plan is to support soft and physical drawbar controllers in the future
-  * You will notice that the Lower 1, Upper 1, 2 and 3 labels are in effect disbled buttons. These buttons activate once it seens an external ARM controller that is used to manage keyboard layering configured in the Preset screen - see below for more 
-  * Please connect the Deebach controller to the USB port on your computer before start AMIDIFX. If not, AMIDIFX will select the built in software synth.
+  * Activated by placing a Metadate CUE B0 (lead in bar) or B1 in the midi file, just before the first note is played. A good placement tick will result in a accurate quarter note beat count. 
 
 ### Preset Configuration for selected Song
 
@@ -161,10 +158,10 @@ How to Use Song screen:
   * This button switches the Preset screen with current song selection as the Preset file to edit
   * Edit Preset will only allow preset edits if the song presets was created with current active sound module 
 * Song Input Controls: Any Song is created with
-  * A Song Name (up to 25 chaaracters
+  * A Song Name (up to 25 characters)
   * A MIDI file that you select from the file system. In 8.3 format with every file extension .mid
   * Track Mutes:
-   * FInd the MIDI tracks that contain the Bass, Upper and Lower MIDI channels. MIDI Tracks abd Channels are not the same! Start playing the Song and stop and see the tracks detected to assist with Track Mute input a swell as Preset configurations. Ideally change the channels to the the Drum (10) and Bass (11), Lower (12), Upper (13) MIDI channels usng e.g. MidiYodi or equvalent software.
+   * Find the MIDI tracks that contain the Bass, Upper and Lower MIDI channels. MIDI Tracks abd Channels are not the same! Start playing the Song and stop and see the tracks detected to assist with Track Mute input a swell as Preset configurations. Ideally change the channels to the the Drum (10) and Bass (11), Lower (12), Upper (13) MIDI channels usng e.g. MidiYodi or equvalent software.
   * Signature:
    * At this time the system support 3/4, 4/4 and 6/8 time signatures. 
   * A Preset file that you can copy form an existing during the New Song operation. In 8.3 format with the extension .csv (yes Excel text file)
@@ -172,7 +169,7 @@ How to Use Song screen:
 * New Button
   * Creates a new Song with details to be entered. Has basic validation input validation.
 * Edit Button
-  * Enables update of Song paramaters
+  * Enables update of Song parameters
 * Delete Button
   * Deletes the song from the list, but not the file system.
 * Save Song Button
@@ -180,13 +177,16 @@ How to Use Song screen:
 * Sequencer Mode Radio Buttons
   * Original; Plays the MIDI file without auto selecting Preset 1, even if coded as Metadata Cue P1 in the MIDI file
   * With Presets: Plays all 16 channels auto selecting Preset 1 when Song play is initiated. If Song play sounds off, proceed to update Presets 1 (at least in the Presets screen)
-  * Backking: Upon initiating Song Play, auto selects Preset 1, and mutes the Bass, Lower, and Upper tracks configured on the Song. 
+  * Backing: Upon initiating Song Play, auto selects Preset 1, and mutes the Bass, Lower, and Upper tracks configured on the Song. 
+* MIDI Sound Module Indicator
+  * Backing: Song Presets are coded with the current actve sound module. This information is stored in the Song metadata, and in future the Song can only be played or presets updated with the same sound module connected 
+
 
 ### Manage Song List, MIDI SMF, and Preset Files
 
 ![Example AMIDIFX Presets screen:](https://github.com/aminnie/amidifx/blob/master/Resources/other/Presets2.png)
 
-How to use the Preset configuraton screen:
+How to use the Preset configuration screen:
 * Bank List:
   * The available sounds Bans are listed in the list on the left. If the BlackBox is connected all banks are Deebach. Otherwise the system defaults to standard MIDI GM and the built in synth.
   * Clicking on a voice bank loads the voices for this bank into the 16 voice buttons in the center of the screen
@@ -194,42 +194,39 @@ How to use the Preset configuraton screen:
   * 16 Voice Buttons for the last selected Bank is shown with a << left and >> right buttons to scroll.
   * The Sound Voice button can be used to play a single note in the voice button last selected.
 * Play Song button
-  * Initiates Song play in Preset 0 autoselect mode enabling you to lsten to voice and effect changes (in realtime using the appropriate buttons)
-* Effect Sliders:
+  * Initiates Song play in Preset 0 auto select mode enabling you to lsten to voice and effect changes (in realtime using the appropriate buttons)
+* Effect Sliders
   * Operates in realtime and is set individually for each of the 16 MIDI channels on a Preset.
-  * The he buttons below the sliders can be used to defualt each slider as a starting point to tune a voice
-   * Note: The REV, CHO and MOD slider will be developed into a pop-up with additional paramter settings in future.
+  * The buttons below the sliders can be used to default each slider as a starting point to tune a voice
+  * Note: The REV, CHO and MOD slider will be developed into a pop-up with additional parameter settings in future.
 
 * Preset Channels: How do I program a new voice into a channel?
-  * Do this: 1) Select voice bank, 2) then proceed to select a Voice from this Bank, then 3) click on any of Channels 1 through 16. The voice has not registered on the Channel yet - in case you clicked on the wrong channel. Once you have yoru preferred channel, then 4) proceed to click on the Set Voice Button.
+  * Do this: 1) Select voice bank, 2) then proceed to select a Voice from this Bank, then 3) click on any of Channels 1 through 16. The voice has not registered on the Channel yet - in case you clicked on the wrong channel. Once you have your preferred channel, then 4) proceed to click the Set Voice Button.
   
 * Select Voice Button:
   * Programs the selected Voice into a CHannel, and forward the PC, MSB and LSB to the sound module. If you keyboard is connected the channel in the sound module it should sound.
-* Effect sLiders (again): Once you have the vocie programmed into a channelm continue to adjust the VOL etc. effects on this CHannel. All Effects are saved with its respective MIDI channel and every MIDI channel can be configured differently.
+* Effect sLiders (again): Once you have the voice programmed into a channel continue to adjust the VOL etc. effects on this CHannel. All Effects are saved with its respective MIDI channel and every MIDI channel can be configured differently.
 * Preset 1 through 1 selector:
-  * At the top of the Preset List the, Preset 1 (default) dropdown can used to select different Preset to configure all 16 channels for.
+  * At the top of the Preset List, the Preset 1 (default) dropdown can used to select different Preset to configure all 16 channels for.
 * Copy Next Button:
   * Configuring all 8 presets and 16 channels is quite a task, especially if you are looking for incremental changes on just one or a few channels from one Preset to another.
   * This button takes the current Preset selected and copies it in full to the next Preset, including all program and effects configured.
- * After Copy Next, select the next Preset from the dropdown. It should be identical to the previous. Now proceed to update the channel you need to with new voices ad effecs  * * Apply Channel or All Channels Buttons:
+ * After Copy Next, select the next Preset from the dropdown. It should be identical to the previous. Now proceed to update the channel you need to with new voices and effects  * * Apply Channel or All Channels Buttons:
   * Send the selected channel or all channel program abd effect changes to the sound module if oy want to test in realtime.
 * Save Button:
   * Save the open Preset file. DO NOT forget to save your updates, otherwise you will have to redo all work since the last save.
 * Reload Button:
-  * If you realize you have misconfigered the voice or effetcs in file, the Reload buttons will abort the current edit and reload the Preset file base don the last save.
+  * If you realize you have misconfigured the voice or effects in file, the Reload buttons will abort the current edit and reload the Preset file based on the last save.
 * Layers Option:
   * Every MIDI channel can be mapped to up to 10 other channels to layer additional MIDI sounds onto it.
-  * This feature reiies on an external custom controller currently in development and testing. The idea is that you connect your keyboard/organ to this device and the output of this controller to the sound module. The controller is updated with layers associated with each channel. Inbound keyboard notes are mapped real-time to configured output channels - up to 16 of them. Additioanlly external VOL control changes form the organ or MIDI volume pedal is mapped to all Keyboard Bass, Lower 1+2, Upper 1+2+3 channels as well as all layers - just like the expression pedal on an Organ. The Seeed Oddesey shown above is already integrated in this manner and I am workinng on the ARM controller source code. This extenrnal ARM controller will be connected to hardware drawbars as well as additioal rotary encoders and buttons.
-
+  * This feature reiies on an external custom controller currently in development and testing. The idea is that you connect your keyboard/organ to this device and the output of this controller to the sound module. The controller is updated with layers associated with each channel. Inbound keyboard notes are mapped real-time to configured output channels - up to 16 of them. Additioanlly external VOL control changes form the organ or MIDI volume pedal is mapped to all Keyboard Bass, Lower 1+2, Upper 1+2+3 channels as well as all layers - just like the expression pedal on an Organ. The Seeed Oddesey shown above is already integrated in this manner and I am workinng on the ARM controller source code. This extenrnal ARM controller will be connected to hardware drawbars as well as additional rotary encoders and buttons
  
-### Current Status: 03/21/2021
+### Current Status: 03/23/2021
 
 Next up:
-  * Updating the Song screen to list all active tracks and the channels along with a track mute buttons for an easy play alogn mode
+  * Updating the Song screen to list all active tracks and channels along with a track mute buttons for an easy play along mode
   *   * AMIDIFX was developed in JavaFX. It is portable to numerous operating systems and devices, including IOS, Andriod, Linux, etc.
-  * Adding a USB based controller hardeware with real(!) buttons and rotary switches, and of course one or more sets of drawbars1
-  * More testing, and usability inprovements based on user feedback
-
-
+  * Adding a USB based controller hardware with real buttons and rotary switches, and of course one or more sets of drawbars
+  * More testing, and usability improvements based on user feedback
  
 -- More to follow  ---
