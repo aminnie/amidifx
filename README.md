@@ -112,24 +112,34 @@ How to Use the Performance screen:
   * Each control consists of three seperate buttons left << and >> navigate, and a text area that is used to select the current option.
   * Selecting a Bank, resets the Bank Voices to the first vocie in the Bank
   * Navigating and selecting a voice makes it available to applied to any of the Upper, Lower, Bass, or Drum soft buttons
+  * Selecting a song enables / disables preset buttons and other functionality depending on Song and the sound module if was configured for
 * Voice Buttons:
   * Click on a Voice button to register a new Bank and Voice on the soft button
   * Future clicks on the voice button will function like any other mechanical push button and forward the program change to the Deebach sound module.
+  * Drum Channel is disabled (not shown) for MIDI GM sound modules
+* Layer Buttons:
+  * Layers Upper 2 and/or 3 on to Upper 1
+  * Layers Lower 2 on to Lower 1
+  * Also used to turn the sound on Upper 1 or Lower 1 on and off
 * Effect sliders:
-  * The VOL, REV, CHO, MOD, PAN effect sliders applies to the last selected voice button in take effect in realtime just like a mechanical slider.
+  * The VOL, REV, CHO, MOD, BRI, PAN effect sliders applies to the last selected voice button in take effect in realtime just like a mechanical slider.
+  * See status line for last voice selected and impacted
 * Play Song:
   * Clicking on the Play button initiates play of the selected MIDI Song. The button remains active until the song ends or you click on play stop
-  * Next to the Play Song button: This buttons has two modes
+* Backing/PlayAlong Button: This button has two modes
    * Play Along with plays up to and all 16 channels in Song Midi files.
-   * Backing mutes the MIDI tracks that contains contains the Upper 1, Lower 1, and Bass MIDI channels.
-   * Until further notice the external keyboard MIDI channels should be configured to: Drums = 10, Bass - 11, Lower = 12, Upper = 14. UpperNote that the tracks to be muted. CHannels 1 through 9 and selected higher can be used for the backing tracks.
+   * Backing which mutes the MIDI tracks that contain the Upper 1, Lower 1, and Bass MIDI channels.
+   * Until further notice the external keyboard MIDI channels should be configured to: Drums = 10, Bass - 11, Lower = 12, Upper = 14. Channels 1 through 9 and selected higher can be used for the backing tracks.
 * Presets:
   * Every preset file can be programmed with 8 presets and 16 channels each. See the Preset Screen
   * Once a song is selected, the associated file configured in the Songs screen is loaded.
   * If the P1-8 Meta Cues have been configured in the MIDI file, playng the Song file will automaticall trigger a preset load. ALternatively, you can click on a Preset button to activate the sounds configured.
   * The system is configured to track the voice and effects on every MIDI channel. When a Preset is applied, only the deltas are forwarded to the Deebach module to avoid redundant traffic and potential sound glicthes. To force a Preset load, or clear the controllers, click on the Panic button.
   * If a MIDI Song plays with 'strange sounds', then the Preset file associated with the Song in the SOng screen has not been configured correctly in the Presets screen.
-* Save Perform buttoon
+* Upper 1 and Lower 1 Rotary Buttons
+  * Enables Rotary on and off. When turn on reverts to last Fast/Slow setting
+  * Rotary Fast and Slow buttons go through a time sequence to resemble rotary spin up and slow down after button is pressed
+* Save Perform button
   * Saves the current state of the voices, not unlike powering down a keyboard and having the same setting present when you turn it on again.
 * Bar Counter:
   * I sactivated by placing a Metadate CUE B0 (lead in bar) or B1 in the midi file, just before the first note is played. A good placement tick will result in a acurate o qyarter note bar count. 
@@ -149,6 +159,7 @@ How to Use Song screen:
   * Note: For the moment, a new Song added to the list will show up at the end of the list, and not supported in place - to correct this in future. When  you restart AMIDIFX the new song will appear in the sorted list.
 * Edit Preset File button
   * This button switches the Preset screen with current song selection as the Preset file to edit
+  * Edit Preset will only allow preset edits if the song presets was created with current active sound module 
 * Song Input Controls: Any Song is created with
   * A Song Name (up to 25 chaaracters
   * A MIDI file that you select from the file system. In 8.3 format with every file extension .mid
