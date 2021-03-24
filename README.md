@@ -99,8 +99,7 @@ Setup with Seed Odyssey, Waveshare 10.1" Touch Screen, and midibox IO module wit
 How to Use the Home screen:
 * Select MIDI Keyboard from detected Input Devices
 * Select MIDI Output Sound Module from detected Sound Modules
-* Click on Configure button
-* Test keyboard and sound output
+* Click on Configure button and test MIDI keyboard to sound output
 * Click on Perform to proceed to live play screen
 * Selected input and output devices are saved to a configuration file and available as the default on next startup
 
@@ -122,7 +121,7 @@ How to Use the Performance screen:
   * Layers Upper 2 and/or 3 on to Upper 1
   * Layers Lower 2 on to Lower 1
   * Also used to turn the sound on Upper 1 or Lower 1 on and off
-* Effect sliders:
+* Effect Sliders:
   * The VOL, REV, CHO, MOD, BRI, PAN effect sliders applies to the last selected voice button in take effect in realtime just like a mechanical slider.
   * See status line for last voice selected and impacted
 * Play Song:
@@ -179,7 +178,7 @@ How to Use Song screen:
   * With Presets: Plays all 16 channels auto selecting Preset 1 when Song play is initiated. If Song play sounds off, proceed to update Presets 1 (at least in the Presets screen)
   * Backing: Upon initiating Song Play, auto selects Preset 1, and mutes the Bass, Lower, and Upper tracks configured on the Song. 
 * MIDI Sound Module Indicator
-  * Backing: Song Presets are coded with the current actve sound module. This information is stored in the Song metadata, and in future the Song can only be played or presets updated with the same sound module connected 
+  * Backing: Song Presets are coded with the current active sound module. This information is stored in the Song metadata, and in future the Song can only be played or presets updated with the same sound module connected 
 
 
 ### Manage Song List, MIDI SMF, and Preset Files
@@ -204,8 +203,8 @@ How to use the Preset configuration screen:
   * Do this: 1) Select voice bank, 2) then proceed to select a Voice from this Bank, then 3) click on any of Channels 1 through 16. The voice has not registered on the Channel yet - in case you clicked on the wrong channel. Once you have your preferred channel, then 4) proceed to click the Set Voice Button.
   
 * Select Voice Button:
-  * Programs the selected Voice into a CHannel, and forward the PC, MSB and LSB to the sound module. If you keyboard is connected the channel in the sound module it should sound.
-* Effect sLiders (again): Once you have the voice programmed into a channel continue to adjust the VOL etc. effects on this CHannel. All Effects are saved with its respective MIDI channel and every MIDI channel can be configured differently.
+  * Programs the selected Voice into a CHannel, and forward the PC, MSB and LSB to the sound module. If your keyboard is connected the channel in the sound module it should sound.
+* Effect Sliders (again): Once you have the voice programmed into a channel continue to adjust the VOL etc. effects on this CHannel. All Effects are saved with its respective MIDI channel and every MIDI channel can be configured differently.
 * Preset 1 through 1 selector:
   * At the top of the Preset List, the Preset 1 (default) dropdown can used to select different Preset to configure all 16 channels for.
 * Copy Next Button:
@@ -213,19 +212,22 @@ How to use the Preset configuration screen:
   * This button takes the current Preset selected and copies it in full to the next Preset, including all program and effects configured.
  * After Copy Next, select the next Preset from the dropdown. It should be identical to the previous. Now proceed to update the channel you need to with new voices and effects  * * Apply Channel or All Channels Buttons:
   * Send the selected channel or all channel program abd effect changes to the sound module if oy want to test in realtime.
+* Apply Presets Buttons:
+  * Cur Channel: Sends current channel Voice Patch and Effects to the MIDI sound module
+  * All Channels: Sends Voice Patch and Effects for all 16 channels to the MIDI sound module
 * Save Button:
   * Save the open Preset file. DO NOT forget to save your updates, otherwise you will have to redo all work since the last save.
 * Reload Button:
   * If you realize you have misconfigured the voice or effects in file, the Reload buttons will abort the current edit and reload the Preset file based on the last save.
 * Layers Option:
   * Every MIDI channel can be mapped to up to 10 other channels to layer additional MIDI sounds onto it.
-  * This feature reiies on an external custom controller currently in development and testing. The idea is that you connect your keyboard/organ to this device and the output of this controller to the sound module. The controller is updated with layers associated with each channel. Inbound keyboard notes are mapped real-time to configured output channels - up to 16 of them. Additioanlly external VOL control changes form the organ or MIDI volume pedal is mapped to all Keyboard Bass, Lower 1+2, Upper 1+2+3 channels as well as all layers - just like the expression pedal on an Organ. The Seeed Oddesey shown above is already integrated in this manner and I am workinng on the ARM controller source code. This extenrnal ARM controller will be connected to hardware drawbars as well as additional rotary encoders and buttons
+  * This feature relies on an external custom controller currently in development and testing. The idea is that you connect your keyboard/organ to this device and the output of this controller to the sound module. The controller is updated with layers associated with each channel. Inbound keyboard notes are mapped real-time to configured output channels - up to 16 of them. Additionally external VOL control changes form the organ or MIDI volume pedal is mapped to all Keyboard Bass, Lower 1+2, Upper 1+2+3 channels as well as all layers - just like the expression pedal on an Organ. The Seeed Oddesey shown above is already integrated in this manner and I am working on the ARM controller source code. This external ARM controller will be connected to hardware drawbars as well as additional rotary encoders and buttons
  
 ### Current Status: 03/23/2021
 
 Next up:
   * Updating the Song screen to list all active tracks and channels along with a track mute buttons for an easy play along mode
-  *   * AMIDIFX was developed in JavaFX. It is portable to numerous operating systems and devices, including IOS, Andriod, Linux, etc.
+  * AMIDIFX was developed in JavaFX. It is portable to numerous operating systems and devices, including IOS, Android, Linux, etc.
   * Adding a USB based controller hardware with real buttons and rotary switches, and of course one or more sets of drawbars
   * More testing, and usability improvements based on user feedback
  
