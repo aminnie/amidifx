@@ -2708,7 +2708,7 @@ public class Main extends Application {
             flgDirtyPreset = true;      // Need to save updated Preset
         });
 
-        cfgREVbutton = new Button("CFG");
+        cfgREVbutton = new Button("SET");
         cfgREVbutton.setStyle(smallstyletext);
         cfgREVbutton.setPrefSize(xsmallestbtn, ysmallestbtn);
         cfgREVbutton.setOnAction(e -> {

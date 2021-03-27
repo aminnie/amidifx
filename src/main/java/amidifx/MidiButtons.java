@@ -449,5 +449,7 @@ public class MidiButtons {
         midibutton.setREL(preset.getREL());
         midibutton.setBRI(preset.getBRI());
         midibutton.setPAN(preset.getPAN());
+
+        midibutton.setOctaveTran(preset.getOctaveTran());
     }
 }

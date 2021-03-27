@@ -1063,6 +1063,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     bleft1.setStyle(bcolorOn);
                 }
@@ -1116,6 +1118,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     bleft2.setStyle(bcolorOn);
                 }
@@ -1169,6 +1173,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     bleft3.setStyle(bcolorOn);
                 }
@@ -1222,6 +1228,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     bleft4.setStyle(bcolorOn);
                 }
@@ -1301,6 +1309,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(0);
 
                     dleft1.setStyle(dcolorOn);
                 }
@@ -1354,6 +1364,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(0);
 
                     dleft2.setStyle(dcolorOn);
                 }
@@ -1407,6 +1419,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(0);
 
                     dleft3.setStyle(dcolorOn);
                 }
@@ -1461,6 +1475,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(0);
 
                     dleft4.setStyle(dcolorOn);
                 }
@@ -1574,6 +1590,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     lbutton11.setStyle(lcolorOn);
                 }
@@ -1627,6 +1645,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     lbutton12.setStyle(lcolorOn);
                 }
@@ -1680,6 +1700,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     lbutton13.setStyle(lcolorOn);
                 }
@@ -1733,6 +1755,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     lbutton14.setStyle(lcolorOn);
                 }
@@ -1853,6 +1877,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     lbutton21.setStyle(lcolorOn);
                 }
@@ -1906,6 +1932,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     lbutton22.setStyle(lcolorOn);
                 }
@@ -1959,6 +1987,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     lbutton23.setStyle(lcolorOn);
                 }
@@ -2012,6 +2042,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     lbutton24.setStyle(lcolorOn);
                 }
@@ -2158,6 +2190,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     rbutton11.setStyle(rcolorOn);
                 }
@@ -2212,6 +2246,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     rbutton12.setStyle(rcolorOn);
                 }
@@ -2266,6 +2302,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     rbutton13.setStyle(rcolorOn);
                 }
@@ -2320,6 +2358,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     rbutton14.setStyle(rcolorOn);
                 }
@@ -2377,6 +2417,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     rbutton15.setStyle(rcolorOn);
                 }
@@ -2432,6 +2474,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     rbutton16.setStyle(orgcolorOn);
                 }
@@ -2554,6 +2598,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     rbutton21.setStyle(rcolorOn);
                 }
@@ -2608,6 +2654,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     rbutton22.setStyle(rcolorOn);
                 }
@@ -2662,6 +2710,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     rbutton23.setStyle(rcolorOn);
                 }
@@ -2716,6 +2766,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     rbutton24.setStyle(rcolorOn);
                 }
@@ -2770,6 +2822,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     rbutton31.setStyle(rcolorOn);
                 }
@@ -2824,6 +2878,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     rbutton32.setStyle(rcolorOn);
                 }
@@ -2878,6 +2934,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     rbutton33.setStyle(rcolorOn);
                 }
@@ -2932,6 +2990,8 @@ public class PerformScene {
                     sliderCHO.setValue(midibutton.getCHO());
                     sliderMOD.setValue(midibutton.getMOD());
                     sliderPAN.setValue(midibutton.getPAN());
+                    sliderBRI.setValue(midibutton.getBRI());
+                    sliderOCT.setValue(midibutton.getOctaveTran());
 
                     rbutton34.setStyle(rcolorOn);
                 }
