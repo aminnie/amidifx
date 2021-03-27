@@ -362,9 +362,22 @@ public class MidiDevices {
             // Testing device and channel, e.g. Trellis M4
             //if (channel == 0) channel = 13;
 
+            // Octave Translate incoming note
+            bytes[1] = octaveTran(channel, bytes[1]);
+
             // Do not layer any source channels below Lower Keyboard, including Bass Pedals and Drums
             if (channel < (byte) (sharedstatus.getLower1CHAN() - 1)) {
-                receiver.send(message, timeStamp);
+                //receiver.send(message, timeStamp);
+                try {
+                    shortmessage = new ShortMessage();
+                    shortmessage.setMessage(command, channel, byteToInt(bytes[1]), byteToInt(bytes[2]));
+                    receiver.send(shortmessage, timeStamp);
+                }
+                catch (InvalidMidiDataException ex) {
+                    System.out.print("layerOutMessages: Upper Channel Layer Message send failed on " + channel);
+                    System.out.print(ex);
+                }
+
                 return;
             }
 
@@ -653,6 +666,17 @@ public class MidiDevices {
                     return;
                 }
             }
+        }
+
+        private byte octaveTran(int channel, byte note) {
+
+            byte octavesadj = sharedstatus.getOctaveCHAN(channel);
+
+            byte octnote = (byte)(note + (octavesadj * 12));
+            if (note < 21 || note > 108)
+                return note;
+
+            return octnote;
         }
 
         // Layer MIDI Expression Messages received from Keyboard or Organ

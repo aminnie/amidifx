@@ -41,13 +41,6 @@ public class MidiPresets {
     public static final byte ccATK = 73;
     public static final byte ccBRI = 74;
 
-/*  Future adds
-    71 Resonance (Timbre)
-    72 Sound Release Time
-    73 Sound Attack Time
-    74 Frequency Cutoff (Brightness) == Organ Rotary!
-*/
-
     // Static method to create singleton instance of PlayMidi class
     public synchronized static MidiPresets getInstance() {
         if (single_MidiPresetsInstance == null) {
@@ -281,7 +274,7 @@ public class MidiPresets {
                 presetline = presetline.concat(",").concat(preset.getPatchName()).concat("\r");
                 bw.write(presetline);
 
-                //System.out.print("presetline " + idx + ": " + presetline);
+                //System.out.println("presetline " + idx + ": " + presetline);
             }
 
             // Reload presets on screens such as Perform it has changed
@@ -339,6 +332,8 @@ public class MidiPresets {
             int MSB = preset.getMSB() & 0xFF;
 
             playmidifile.sendMidiProgramChange(CHANOUT, PC, LSB, MSB);
+
+            sharedStatus.setOctaveCHAN(CHANOUT - 1, (byte)(preset.getOctaveTran() & 0XFF));
 
             int VOL = preset.getVOL() & 0x7F;
             playmidifile.sendMidiControlChange((byte) CHANOUT, ccVOL, (byte) VOL);

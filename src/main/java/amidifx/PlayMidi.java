@@ -891,6 +891,8 @@ public class PlayMidi {
 
         resetcurPresetList();
 
+        sharedStatus.resetOctaveCHAN();
+
         sharedStatus.setStatusText("MIDI PANIC Sent");
 
         return true;

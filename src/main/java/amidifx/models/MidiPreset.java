@@ -233,9 +233,10 @@ public class MidiPreset {
     public String toString() {
         return "Preset String = [presetIdx=" + presetIdx + ", channelIdx=" + channelIdx
                 + ", channelOutIdx=" + channelOutIdx + ", moduleIdx=" + moduleIdx
+                + ", octaveTran=" + octaveTran
                 + ", PC=" + PC + ", LSB=" + LSB + ", MSB=" + MSB
-                + ", VOL=" + VOL + ", EXP=" + EXP + ", REV=" + REV
-                + ", CHO=" + CHO
+                + ", VOL=" + VOL + ", EXP=" + EXP
+                + ", REV=" + REV + ", CHO=" + CHO
                 + ", TIM=" + TIM + ", ATK=" + ATK + ", REL=" + REL
                 + ", BRI=" + BRI + ", PAN=" + PAN + ", MOD=" + MOD
                 + ", bankIdx=" + bankIdx + ", fontIdx=" + fontIdx

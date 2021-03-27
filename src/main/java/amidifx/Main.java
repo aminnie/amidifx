@@ -1359,6 +1359,7 @@ public class Main extends Application {
     Button cfgRELbutton;
     Button cfgBRIbutton;
     Button cfgPANbutton;
+    Button cfgOCTbutton;
 
     Button buttonSave = new Button();   // Presets save button - disabled/enabled when dirty
     Button buttonReload = new Button(); // Reload current Presets
@@ -1376,6 +1377,7 @@ public class Main extends Application {
     Slider sliderREL;
     Slider sliderBRI;
     Slider sliderPAN;
+    Slider sliderOCT;
 
     // https://professionalcomposers.com/midi-cc-list/
     public static byte ccVOL = 7;
@@ -1847,6 +1849,7 @@ public class Main extends Application {
                     sliderBRI.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getBRI());
                     sliderMOD.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getMOD());
                     sliderPAN.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
+                    sliderOCT.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getOctaveTran());
 
                     // **** Update the MIDI Channel Out Layer checkboxes
                     //String strChannelOut = dopresets.getPreset(presetIdx * 16 + channelIdx).getChannelOutIdx();
@@ -1898,6 +1901,7 @@ public class Main extends Application {
             sliderBRI.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getBRI());
             sliderMOD.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getMOD());
             sliderPAN.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
+            sliderOCT.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getOctaveTran());
 
             // Apply the Voice to MIDI Channel
             PlayMidi playmidifile = PlayMidi.getInstance();
@@ -2537,7 +2541,7 @@ public class Main extends Application {
         });
         sliderATK.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getATK());
 
-        // Create TIM (Timber/Resonance) slider
+        // Create REL (Release) slider
         sliderREL = new Slider(0, 127, 0);
         sliderREL.setOrientation(Orientation.VERTICAL);
         sliderREL.setShowTickLabels(true);
@@ -2564,7 +2568,7 @@ public class Main extends Application {
         });
         sliderREL.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getREL());
 
-        // Create TIM (Timber/Resonance) slider
+        // Create BRI (Brightness) slider
         sliderBRI = new Slider(0, 127, 0);
         sliderBRI.setOrientation(Orientation.VERTICAL);
         sliderBRI.setShowTickLabels(true);
@@ -2590,6 +2594,30 @@ public class Main extends Application {
             labelstatus.setText(" Status: CHAN " + (channelIdx + 1) + " BRI: " + newValue.intValue());
         });
         sliderBRI.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getBRI());
+
+        // Create OCT (Octave) slider
+        sliderOCT = new Slider(-2, 2, 0);
+        sliderOCT.setOrientation(Orientation.VERTICAL);
+        sliderOCT.setShowTickLabels(true);
+        sliderOCT.setShowTickMarks(true);
+        sliderOCT.setMajorTickUnit(1);
+        sliderOCT.setBlockIncrement(1);
+        sliderOCT.setPrefHeight(yslider);
+        Rotate rotateOct = new Rotate();
+        sliderOCT.valueProperty().addListener((observable, oldValue, newValue) -> {
+            //Setting the angle for the rotation
+            rotateOct.setAngle((double) newValue);
+
+            System.out.println("Main: Old Oct Value " + dopresets.getPreset(presetIdx * 16 + channelIdx).getOctaveTran());
+            dopresets.getPreset(presetIdx * 16 + channelIdx).setOctaveTran(newValue.intValue());
+            System.out.println("Main: New Oct Value " + dopresets.getPreset(presetIdx * 16 + channelIdx).getOctaveTran());
+
+            buttonSave.setDisable(false);
+            flgDirtyPreset = true;      // Need to save updated Preset
+
+            labelstatus.setText(" Status: CHAN " + (channelIdx + 1) + " OCT: " + newValue.intValue());
+        });
+        sliderOCT.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getBRI());
 
         flowpane.getChildren().add(pstbutton1);
         flowpane.getChildren().add(pstbutton2);
@@ -2642,6 +2670,8 @@ public class Main extends Application {
         brilabel.setStyle(styletextwhitesmall);
         Label panlabel = new Label("PAN");
         panlabel.setStyle(styletextwhitesmall);
+        Label octlabel = new Label("OCT");
+        octlabel.setStyle(styletextwhitesmall);
 
         GridPane gridEffects = new GridPane();
         gridEffects.add(new VBox(vollabel, sliderVOL), 0, 1, 1, 1);
@@ -2654,6 +2684,7 @@ public class Main extends Application {
         gridEffects.add(new VBox(rellabel, sliderREL), 8, 1, 1, 1);
         gridEffects.add(new VBox(brilabel, sliderBRI), 9, 1, 1, 1);
         gridEffects.add(new VBox(panlabel, sliderPAN), 10, 1, 1, 1);
+        gridEffects.add(new VBox(octlabel, sliderOCT), 11, 1, 1, 1);
 
         // Effects and Slider Default or deeper Configurations
         HBox hboxEffects = new HBox();
@@ -2756,6 +2787,16 @@ public class Main extends Application {
             flgDirtyPreset = true;      // Need to save updated Preset
         });
 
+        cfgOCTbutton = new Button("SET");
+        cfgOCTbutton.setStyle(smallstyletext);
+        cfgOCTbutton.setPrefSize(xsmallestbtn, ysmallestbtn);
+        cfgOCTbutton.setOnAction(e -> {
+            sliderOCT.setValue(0);
+
+            buttonSave.setDisable(false);
+            flgDirtyPreset = true;      // Need to save updated Preset
+        });
+
         hboxEffects.getChildren().add(cfgVOLbutton);
         hboxEffects.getChildren().add(cfgEXPbutton);
         hboxEffects.getChildren().add(cfgREVbutton);
@@ -2766,6 +2807,7 @@ public class Main extends Application {
         hboxEffects.getChildren().add(cfgRELbutton);
         hboxEffects.getChildren().add(cfgBRIbutton);
         hboxEffects.getChildren().add(cfgPANbutton);
+        hboxEffects.getChildren().add(cfgOCTbutton);
         hboxEffects.setPadding(new Insets(5,0,0,0));
 
         vboxEffects.getChildren().add(labeleffects);
@@ -2822,7 +2864,7 @@ public class Main extends Application {
 
         // Send Presets to MIDI Module Button
         Button buttonApplyPreset = new Button("Cur Channel");
-        buttonApplyPreset.setPrefSize(xbutton / 1.2, ybutton);
+        buttonApplyPreset.setPrefSize(xbutton / 1.5, ybutton);
         buttonApplyPreset.setStyle(btnplayOff);
         buttonApplyPreset.setOnAction(event -> {
             MidiPreset applypreset = dopresets.getPreset(presetIdx * 16 + channelIdx);
@@ -2833,7 +2875,7 @@ public class Main extends Application {
 
         // Send All Presets to MIDI Module Button
         Button buttonApplyAllPresets = new Button("All Channels");
-        buttonApplyAllPresets.setPrefSize(xbutton / 1.2, ybutton);
+        buttonApplyAllPresets.setPrefSize(xbutton / 1.5, ybutton);
         buttonApplyAllPresets.setStyle(btnplayOff);
         buttonApplyAllPresets.setOnAction(event -> {
             for (int idx = 0; idx < 16; idx++) {
@@ -2846,7 +2888,7 @@ public class Main extends Application {
 
         // Copy all Presets to Next Preset. Makes it easier to set next one up - especially when it is incremental
         Button buttonCopyPresets = new Button("Copy Next");
-        buttonCopyPresets.setPrefSize(xbutton / 1.2, ybutton / 1.15);
+        buttonCopyPresets.setPrefSize(xbutton / 1.5, ybutton / 1.15);
         buttonCopyPresets.setStyle(selectcolorOff);
         buttonCopyPresets.setOnAction(event -> {
             if (presetIdx >= 7) {

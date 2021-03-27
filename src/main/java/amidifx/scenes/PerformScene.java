@@ -298,6 +298,7 @@ public class PerformScene {
     Slider sliderMOD;
     Slider sliderBRI;
     Slider sliderPAN;
+    Slider sliderOCT;
     int rotvalue = 0;
 
     // https://professionalcomposers.com/midi-cc-list/
@@ -3245,6 +3246,28 @@ public class PerformScene {
             });
             sliderPAN.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getPAN());
 
+            // Create OCT slider
+            sliderOCT = new Slider(-2, 2, 0);
+            sliderOCT.setOrientation(Orientation.VERTICAL);
+            sliderOCT.setShowTickLabels(true);
+            sliderOCT.setShowTickMarks(true);
+            sliderOCT.setMajorTickUnit(1);
+            sliderOCT.setBlockIncrement(1);
+            Rotate rotateOct = new Rotate();
+            sliderOCT.valueProperty().addListener((observable, oldValue, newValue) -> {
+                //Setting the angle for the rotation
+                rotateOct.setAngle((double) newValue);
+
+                midiButtons.getButtonById(lastVoiceButton, 0).setOctaveTran((int)sliderOCT.getValue());
+
+                buttonSave.setDisable(false);
+                flgDirtyPreset = true;      // Need to save updated Preset
+
+                if (lastVoiceButton != null)
+                    labelstatusOrg.setText(" Status: Button " + lastVoiceButton + " OCT= " + newValue.intValue());
+            });
+            sliderOCT.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getOctaveTran());
+
             Label vollabel = new Label("VOL");
             vollabel.setStyle(styletextwhitesmall);
             Label revlabel = new Label("REV");
@@ -3257,6 +3280,8 @@ public class PerformScene {
             brilabel.setStyle(styletextwhitesmall);
             Label panlabel = new Label("PAN");
             panlabel.setStyle(styletextwhitesmall);
+            Label octlabel = new Label("OCT");
+            octlabel.setStyle(styletextwhitesmall);
 
             GridPane gridEffects = new GridPane();
             gridEffects.add(new VBox(vollabel, sliderVOL), 0, 1, 1, 1);
@@ -3265,7 +3290,8 @@ public class PerformScene {
             gridEffects.add(new VBox(modlabel, sliderMOD), 3, 1, 1, 1);
             gridEffects.add(new VBox(brilabel, sliderBRI), 4, 1, 1, 1);
             gridEffects.add(new VBox(panlabel, sliderPAN), 5, 1, 1, 1);
-            gridEffects.setHgap(5);
+            gridEffects.add(new VBox(octlabel, sliderOCT), 6, 1, 1, 1);
+            gridEffects.setHgap(2);
             gridmidcenterPerform.add(gridEffects, 3, 5, 3, 2);
             gridmidcenterPerform.setStyle(styletext);
 
