@@ -45,7 +45,7 @@ public class SharedStatus {
     private boolean upper1kbdlayerenabled = true;
     private boolean upper2kbdlayerenabled = true;
 
-    byte[] octchannel = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    int[] octchannel = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
     private String timeSig = "4/4";
 
@@ -323,7 +323,10 @@ public class SharedStatus {
         return expchannel;
     }
 
-    public void setOctaveCHAN(int channel, byte octadjust) {
+    public void setOctaveCHAN(int channel, int octadjust) {
+
+        channel = channel - 1;
+        if (channel < 0) channel = 0;
 
         // Prevent excessive layer up or down transpose
         if (octadjust < -2 || octadjust > 2) {
@@ -340,8 +343,7 @@ public class SharedStatus {
         }
     }
 
-    public byte getOctaveCHAN(int channel) {
-
+    public int getOctaveCHAN(int channel) {
         return this.octchannel[channel];
     }
 
