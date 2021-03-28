@@ -360,14 +360,15 @@ public class MidiDevices {
             byte channel = (byte) (message.getStatus() & 0x0f);
 
             // Testing device and channel, e.g. Trellis M4
-            //if (channel == 0) channel = 13;
-
-            // Octave Translate incoming note
-            bytes[1] = octaveTran(channel, bytes[1]);
+            if (channel == 0) channel = 13;
 
             // Do not layer any source channels below Lower Keyboard, including Bass Pedals and Drums
             if (channel < (byte) (sharedstatus.getLower1CHAN() - 1)) {
                 //receiver.send(message, timeStamp);
+
+                // Octave Translate incoming note
+                bytes[1] = octaveTran(channel, bytes[1]);
+
                 try {
                     shortmessage = new ShortMessage();
                     shortmessage.setMessage(command, channel, byteToInt(bytes[1]), byteToInt(bytes[2]));
@@ -395,6 +396,9 @@ public class MidiDevices {
                         // Layer first/origin Upper Channel if not 0 (off/muted)
                         byte chan = layerUpper[chan14idx];
                         if ((chan != 0)) {
+                            // Octave Translate incoming note
+                            bytes[1] = octaveTran(chan, bytes[1]);
+
                             shortmessage = new ShortMessage();
                             shortmessage.setMessage(command, channel, byteToInt(bytes[1]), byteToInt(bytes[2]));
                             receiver.send(shortmessage, timeStamp);
@@ -406,6 +410,9 @@ public class MidiDevices {
                         // Layer Upper Channel + 1 if not 0 (off/muted)
                         chan = layerUpper[chan15idx];
                         if ((chan != 0)) {
+                            // Octave Translate layered note
+                            bytes[1] = octaveTran(chan, bytes[1]);
+
                             shortmessage = new ShortMessage();
                             shortmessage.setMessage(command, channel + 1, byteToInt(bytes[1]), byteToInt(bytes[2]));
                             receiver.send(shortmessage, timeStamp);
@@ -417,6 +424,9 @@ public class MidiDevices {
                         // Layer Upper Channel + 2 if not 0 (off/muted)
                         chan = layerUpper[chan16idx];
                         if ((chan != 0)) {
+                            // Octave Translate layered note
+                            bytes[1] = octaveTran(chan, bytes[1]);
+
                             shortmessage = new ShortMessage();
                             shortmessage.setMessage(command, channel + 2, byteToInt(bytes[1]), byteToInt(bytes[2]));
                             receiver.send(shortmessage, timeStamp);
@@ -437,6 +447,10 @@ public class MidiDevices {
 
                     try {
                         // Layer first/origin Upper Channel if not 0 (off/muted)
+
+                        // Octave Translate incoming note off
+                        bytes[1] = octaveTran(channel, bytes[1]);
+
                         shortmessage = new ShortMessage();
                         shortmessage.setMessage(command, channel, byteToInt(bytes[1]), byteToInt(bytes[2]));
                         receiver.send(shortmessage, timeStamp);
@@ -445,6 +459,9 @@ public class MidiDevices {
                         //System.out.println("layerOutMessages: Layer Upper index[80]: " + (sharedstatus.getUpper1CHAN()) + ", " + bytes[1] + ", " + bytes[2] + " L=" + trackupper14opennotes + " #=" + uppernoteson);
 
                         // Check if the same note on Channel 15 is on, and turn it off too
+                        // Octave Translate incoming note off
+                        bytes[1] = octaveTran(channel + 1, bytes[1]);
+
                         shortmessage = new ShortMessage();
                         shortmessage.setMessage(0x80, (channel + 1), bytes[1], 0);
                         receiver.send(shortmessage, timeStamp);
@@ -456,6 +473,9 @@ public class MidiDevices {
 
                             //Clear out all remaining open notes tracked to prevent hanging notes
                             if (uppernoteson == 0) {
+                                // Octave Translate incoming note off
+                                bytes[1] = octaveTran(channel + 1, bytes[1]);
+
                                 shortmessage = new ShortMessage();
                                 shortmessage.setMessage(0x80, (channel + 1), bytes[1], 0);
                                 receiver.send(shortmessage, timeStamp);
@@ -478,6 +498,9 @@ public class MidiDevices {
                         }
 
                         // Check if the same note on Channel 16 is on, and turn it off too
+                        // Octave Translate incoming note off
+                        bytes[1] = octaveTran(channel + 2, bytes[1]);
+
                         shortmessage = new ShortMessage();
                         shortmessage.setMessage(0x80, (channel + 2), bytes[1], 0);
                         receiver.send(shortmessage, timeStamp);
@@ -489,6 +512,9 @@ public class MidiDevices {
 
                             //Clear out all remaining open notes tracked to prevent hanging notes
                             if (uppernoteson == 0) {
+                                // Octave Translate incoming note off
+                                bytes[1] = octaveTran(channel + 2, bytes[1]);
+
                                 shortmessage = new ShortMessage();
                                 shortmessage.setMessage(0x80, (channel + 2), bytes[1], 0);
                                 receiver.send(shortmessage, timeStamp);
@@ -529,6 +555,9 @@ public class MidiDevices {
                         // Layer the first/origin Upper Channel if not 0 (off/muted)
                         byte chan = layerLower[chan12idx];
                         if ((chan != 0)) {
+                            // Octave Translate incoming note on
+                            bytes[1] = octaveTran(chan, bytes[1]);
+
                             shortmessage = new ShortMessage();
                             shortmessage.setMessage(command, channel, byteToInt(bytes[1]), byteToInt(bytes[2]));
                             receiver.send(shortmessage, timeStamp);
@@ -540,6 +569,9 @@ public class MidiDevices {
                         // Layer Lower + 1 if not 0 (off muted)
                         chan = layerLower[chan13idx];
                         if ((chan != 0)) {
+                            // Octave Translate incoming note on
+                            bytes[1] = octaveTran(chan, bytes[1]);
+
                             shortmessage = new ShortMessage();
                             shortmessage.setMessage(command, channel + 1, byteToInt(bytes[1]), byteToInt(bytes[2]));
                             receiver.send(shortmessage, timeStamp);
@@ -559,6 +591,9 @@ public class MidiDevices {
                     lowernoteson--;
 
                     try {
+                        // Octave Translate incoming note off
+                        bytes[1] = octaveTran(channel, bytes[1]);
+
                         shortmessage = new ShortMessage();
                         shortmessage.setMessage(command, channel, byteToInt(bytes[1]), byteToInt(bytes[2]));
                         receiver.send(shortmessage, timeStamp);
@@ -568,6 +603,9 @@ public class MidiDevices {
                         //System.out.println("layerOutMessages: Layer Lower index[80]: " + channel + ", " + bytes[1] + ", " + bytes[2] + " L=" + tracklower12opennotes + " #=" + lowernoteson);
 
                         // Check if the same note on Channel 13 (Lower + 1) is on, and turn it off too
+                        // Octave Translate layered note off
+                        bytes[1] = octaveTran(channel + 1, bytes[1]);
+
                         shortmessage = new ShortMessage();
                         shortmessage.setMessage(0x80, channel + 1, bytes[1], bytes[2]);
                         receiver.send(shortmessage, timeStamp);
@@ -579,6 +617,9 @@ public class MidiDevices {
 
                             //Clear out all remaining open notes tracked to prevent hanging notes
                             if (lowernoteson == 0) {
+                                // Octave Translate layered note off
+                                bytes[1] = octaveTran(channel + 1, bytes[1]);
+
                                 shortmessage = new ShortMessage();
                                 shortmessage.setMessage(0x80, channel + 1, bytes[1], 0);
                                 receiver.send(shortmessage, timeStamp);

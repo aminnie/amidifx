@@ -180,7 +180,7 @@ public class PerformScene {
     boolean ppressed8 = false;
 
     String lastVoiceButton = "U1-1";
-    int lastVoiceChannel = 1;
+    int lastVoiceChannel = 14;
 
     // Tracking Upper1 Buttons
     Button rbutton11 = new Button();
@@ -326,6 +326,7 @@ public class PerformScene {
         try {
             // Create instance of Shared Status to report back to Scenes
             sharedStatus = SharedStatus.getInstance();
+            lastVoiceChannel = sharedStatus.getUpper1CHAN();
 
             AppConfig config = AppConfig.getInstance();
 
@@ -3319,6 +3320,7 @@ public class PerformScene {
                 rotateOct.setAngle((double) newValue);
 
                 midiButtons.getButtonById(lastVoiceButton, 0).setOctaveTran((int)sliderOCT.getValue());
+                sharedStatus.setOctaveCHAN(lastVoiceChannel, (byte)sliderOCT.getValue());
 
                 buttonSave.setDisable(false);
                 flgDirtyPreset = true;      // Need to save updated Preset
