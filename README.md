@@ -58,7 +58,7 @@ AMIDIFX is a replacement solution 6-7 years later. This time round we want to si
 
 Earlier in 2020, Deebach (https://www.deebach.eu/#xl_xr_page_blackbox) made the new Blackbox hardware sound module available. To listen, visit their Youtube channel: https://www.youtube.com/channel/UCNsB0ht9ZPpWABu3nxK_K1Q. This module offers a rich set of sounds and control paramteres at a very reasonable price. BlackBox offers two versions, the Blockbox-Y that integrates with the Yamaha Tyros, and the other - well a black box! I decided to order the BlackBox. The Deebach team has been very responsive and supportive, and initially engaged in a conversation to validate that I understand the BlackBox unit will require custom integration into my equipment. And that is the journey we are on now.
 
-## What do I need to run AMIDFX?
+## What do I need to build AMIDFX?
 
 You need the following hardware and software to run AMIDIFX:
 * A Windows 10 (for now) 64-bit host prepared to host and run JavaFX development - see https://docs.oracle.com/javafx/release-documentation.html.
@@ -165,9 +165,9 @@ How to Use Song screen:
   * A Song Name (up to 25 characters)
   * A MIDI file that you select from the file system. In 8.3 format with every file extension .mid
   * Track Mutes:
-   * Find the MIDI tracks that contain the Bass, Upper and Lower MIDI channels. MIDI Tracks abd Channels are not the same! Start playing the Song and stop and see the tracks detected to assist with Track Mute input a swell as Preset configurations. Ideally change the channels to the the Drum (10) and Bass (11), Lower (12), Upper (13) MIDI channels usng e.g. MidiYodi or equvalent software.
+    * Find the MIDI tracks that contain the Bass, Upper and Lower MIDI channels. MIDI Tracks abd Channels are not the same! Start playing the Song and stop and see the tracks detected to assist with Track Mute input a swell as Preset configurations. Ideally change the channels to the the Drum (10) and Bass (11), Lower (12), Upper (13) MIDI channels usng e.g. MidiYodi or equvalent software.
   * Signature:
-   * At this time the system support 3/4, 4/4 and 6/8 time signatures. 
+    * At this time the system support 3/4, 4/4 and 6/8 time signatures. 
   * A Preset file that you can copy form an existing during the New Song operation. In 8.3 format with the extension .csv (yes Excel text file)
   * Note: All Songs and Preset files are contained in the folder: c:\amidifx\midifiles. Any new MIDI files should be added to this direct. Please take care with the file names and working with directory as overwriting the wrong files will cuase issues, and may leave the system inoperable. It is a good idea to keep a recent backup of the midifiles folder somewhere else incase you need to restore to a good state.
 * New Button
