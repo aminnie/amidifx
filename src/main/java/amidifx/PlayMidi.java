@@ -5,6 +5,7 @@ import amidifx.models.MidiPreset;
 import amidifx.models.MidiSong;
 import amidifx.models.SharedStatus;
 import amidifx.utils.AppConfig;
+import amidifx.utils.MidiDevices;
 import javafx.application.Platform;
 
 import javax.sound.midi.*;
@@ -360,7 +361,7 @@ public class PlayMidi {
             Receiver midircv = sharedStatus.getRxDevice();
 
             if (NOTEON) {
-                midiMsg.setMessage(ShortMessage.NOTE_ON, CHAN, NOTE, 48);
+                midiMsg.setMessage(ShortMessage.NOTE_ON, CHAN, NOTE, 96);
                 midircv.send(midiMsg, timeStamp);
                 //System.out.println("PlayMidi: Sent MIDI Note ON " + midiMsg.toString());
             } else {
@@ -891,7 +892,8 @@ public class PlayMidi {
 
         resetcurPresetList();
 
-        sharedStatus.resetOctaveCHAN();
+        MidiDevices mididevice = MidiDevices.getInstance();
+        mididevice.resetOctaveCHAN();
 
         sharedStatus.setStatusText("MIDI PANIC Sent");
 

@@ -304,7 +304,7 @@ public class Main extends Application {
 
         // *** Create Top Navigation Bar
 
-        Button buttonsc1 = new Button("Perform");
+        Button buttonsc1 = new Button("Manual");
         buttonsc1.setStyle(btnMenuOff);
         buttonsc1.setOnAction(e -> {
             System.out.println(("Main: Changing to Organ Scene: " + sharedStatus.getPerformScene().toString()));
@@ -1408,7 +1408,7 @@ public class Main extends Application {
         borderPane1.setStyle(bgpanecolor);
 
         // Create top bar navigation buttons
-        Button buttonsc1 = new Button("Perform");
+        Button buttonsc1 = new Button("Manual");
         buttonsc1.setStyle(btnMenuOff);
         //buttonsc1.setOnAction(e -> stage.setScene(sceneOrgan));
         buttonsc1.setOnAction(e -> {

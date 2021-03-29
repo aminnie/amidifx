@@ -184,7 +184,7 @@ public class HomeScene {
 
             // Create top bar navigation buttons
 
-            Button buttonsc1 = new Button("Perform");
+            Button buttonsc1 = new Button("Manual");
             buttonsc1.setStyle(btnMenuOff);
             buttonsc1.setDisable(true);
             buttonsc1.setOnAction(e -> {

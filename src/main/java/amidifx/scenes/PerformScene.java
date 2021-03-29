@@ -420,7 +420,7 @@ public class PerformScene {
 
             // Create top bar navigation buttons
 
-            Button buttonsc1 = new Button("Perform");
+            Button buttonsc1 = new Button("Manual");
             buttonsc1.setStyle(btnMenuOn);
             buttonsc1.setOnAction(e -> {
                 // Reset Channel layering to default every time we switch Scenes to avoid unwanted layering
@@ -3320,7 +3320,7 @@ public class PerformScene {
                 rotateOct.setAngle((double) newValue);
 
                 midiButtons.getButtonById(lastVoiceButton, 0).setOctaveTran((int)sliderOCT.getValue());
-                sharedStatus.setOctaveCHAN(lastVoiceChannel, (byte)sliderOCT.getValue());
+                mididevices.setOctaveCHAN(lastVoiceChannel, (byte)sliderOCT.getValue());
 
                 buttonSave.setDisable(false);
                 flgDirtyPreset = true;      // Need to save updated Preset

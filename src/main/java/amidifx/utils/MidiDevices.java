@@ -1,5 +1,6 @@
 package amidifx.utils;
 
+import amidifx.PlayMidi;
 import amidifx.models.SharedStatus;
 
 import javax.sound.midi.*;
@@ -25,6 +26,7 @@ public class MidiDevices {
 
     AppConfig config;
     SharedStatus sharedstatus;
+    PlayMidi playmidi;
 
     private String selindevice = "default";
     private String seloutdevice = "default";
@@ -92,6 +94,9 @@ public class MidiDevices {
 
     long bass1layerofftime;
 
+    // Track Octave Transpose Values -2 to +2
+    int[] octchannel = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
     // Static variable single_instance of type PlayMidi
     private static MidiDevices single_MidiDevices_Instance = null;
 
@@ -122,6 +127,8 @@ public class MidiDevices {
         config.setOutDevice(seloutdevice);
 
         sharedstatus = SharedStatus.getInstance();
+
+        playmidi = PlayMidi.getInstance();
 
         // Prepare arrays to track open notes
         createNotesTracker();
@@ -444,6 +451,7 @@ public class MidiDevices {
                 // Check for Upper Channel Note Off or Note On with Velocity = 0
                 else if ((command == 0x80) || ((command == 0x90) && (bytes[2] == 0))) {
                     uppernoteson--;
+                    if (uppernoteson < 0) uppernoteson = 0;
 
                     try {
                         // Layer first/origin Upper Channel if not 0 (off/muted)
@@ -589,6 +597,7 @@ public class MidiDevices {
                 // Close out Lower Channel 1 and 2 Open Notes
                 else if ((command == 0x80) || ((command == 0x90) && (bytes[2] == 0))) {
                     lowernoteson--;
+                    if (lowernoteson < 0) lowernoteson = 0;
 
                     try {
                         // Octave Translate incoming note off
@@ -711,7 +720,7 @@ public class MidiDevices {
 
         private byte octaveTran(int channel, byte note) {
 
-            int octavesadj = sharedstatus.getOctaveCHAN(channel);
+            int octavesadj = getOctaveCHAN(channel);
 
             int octnote = note + (byte)(octavesadj * 12);
             if (octnote < 21 || octnote > 108)
@@ -1110,6 +1119,54 @@ public class MidiDevices {
         for (int i = 0; i < 128; i++) {
             upper3notestrack[i] = 0;
         }
+    }
+
+    public void setOctaveCHAN(int channelusr, int octadjust) {
+
+        int channelidx = channelusr - 1;
+        if (channelidx < 0) channelidx = 0;
+
+        // Prevent excessive layer up or down transpose
+        if (octadjust < -2 || octadjust > 2) {
+            octadjust = 0;
+        }
+
+        // To do: For now until more sophisticated logic worked out (e.g. queuing the request until all notes on channel closed,
+        //       reset all potential open notes on the channel
+        //       This is done to prevent hanging notes during live play at the instant of octave transpose
+        PlayMidi playMidi = PlayMidi.getInstance();
+        for (byte idx = 21; idx < 108; idx++) {
+            playMidi.sendMidiNote((byte)(channelusr & 0XFF), idx, false);
+
+            // If Upper and Layered, then clear Upper 1 and 2 layers as well
+            if (channelusr == sharedstatus.getUpper1CHAN()) {
+                if (sharedstatus.getUpper1KbdLayerEnabled()) {
+                    playMidi.sendMidiNote((byte) ((channelusr + 1) & 0XFF), idx, false);
+                }
+                if (sharedstatus.getupper2Kbdlayerenabled()) {
+                    playMidi.sendMidiNote((byte) ((channelusr + 2) & 0XFF), idx, false);
+                }
+            }
+            // If Upper and Layered, then clear Upper 1 and 2 layers as well
+            else if (channelusr == sharedstatus.getLower1CHAN()) {
+                if (sharedstatus.getupper2Kbdlayerenabled()) {
+                    playMidi.sendMidiNote((byte) ((channelusr + 1) & 0XFF), idx, false);
+                }
+            }
+        }
+
+        this.octchannel[channelidx] = octadjust;
+    }
+
+    public void resetOctaveCHAN() {
+
+        for (int channelidx = 0; channelidx < 16; channelidx++) {
+            octchannel[channelidx] = 0;
+        }
+    }
+
+    public int getOctaveCHAN(int channelidx) {
+        return this.octchannel[channelidx];
     }
 
 }

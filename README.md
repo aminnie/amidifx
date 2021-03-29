@@ -3,12 +3,13 @@
 Last Update: 23 March 2021
 
 Most recent updates:
-* Added USB MIDI Keyboard IN support
-* Added home screen for MIDI IN and OUT Device Selects
+* Added Octave Transpose to every voice on Upper and Lower Manual and every Presets Channel/Voice
 * Added Layering modes for Lower 1 + 2 and Upper 1 + 2 + 3 Keyboards
 * Added MIDI Expression Pedal support to Upper, Lower and Bass channels via input CHAN 16
 * Added additional Midi CC controllers (VOL, EXP, REV, CHO, MOD, TIM, ATK, REL, TIM, PAN)
 * Added Sound Module Support. AMDIFIX Supports MIDI GM, Deebach BlackBox and Roland Integra 7
+* Added USB MIDI Keyboard IN support
+* Added home screen for MIDI IN and OUT Device Selects
 
 For a download of the latest Windows X64 build, please contact the author at: a_minnie@hotmail.com
 

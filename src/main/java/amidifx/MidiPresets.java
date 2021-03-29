@@ -5,6 +5,7 @@ import amidifx.models.MidiPatch;
 import amidifx.models.MidiPreset;
 import amidifx.models.SharedStatus;
 import amidifx.utils.ArduinoUtils;
+import amidifx.utils.MidiDevices;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ public class MidiPresets {
     String presetFile;
 
     SharedStatus sharedStatus;
+
+    MidiDevices mididevices;
 
     // List for holding Patch objects
     final List<MidiPreset> presetList = new ArrayList<>();
@@ -66,6 +69,8 @@ public class MidiPresets {
 
         // Create instance of Shared Status to report back to Scenes
         sharedStatus = SharedStatus.getInstance();
+
+        mididevices = MidiDevices.getInstance();
 
         // To do: Need to validate this
         presetList.clear();
@@ -333,7 +338,7 @@ public class MidiPresets {
 
             playmidifile.sendMidiProgramChange(CHANOUT, PC, LSB, MSB);
 
-            sharedStatus.setOctaveCHAN(CHANOUT - 1, (byte)(preset.getOctaveTran() & 0XFF));
+            mididevices.setOctaveCHAN(CHANOUT, (byte)(preset.getOctaveTran() & 0XFF));
 
             int VOL = preset.getVOL() & 0x7F;
             playmidifile.sendMidiControlChange((byte) CHANOUT, ccVOL, (byte) VOL);

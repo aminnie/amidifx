@@ -45,8 +45,6 @@ public class SharedStatus {
     private boolean upper1kbdlayerenabled = true;
     private boolean upper2kbdlayerenabled = true;
 
-    int[] octchannel = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
     private String timeSig = "4/4";
 
     private Receiver RxDevice;          // Selected MIDI Device
@@ -321,30 +319,6 @@ public class SharedStatus {
         }
 
         return expchannel;
-    }
-
-    public void setOctaveCHAN(int channel, int octadjust) {
-
-        channel = channel - 1;
-        if (channel < 0) channel = 0;
-
-        // Prevent excessive layer up or down transpose
-        if (octadjust < -2 || octadjust > 2) {
-            octadjust = 0;
-        }
-
-        this.octchannel[channel] = octadjust;
-    }
-
-    public void resetOctaveCHAN() {
-
-        for (int i = 0; i < 16; i++) {
-            octchannel[i] = (byte)0;
-        }
-    }
-
-    public int getOctaveCHAN(int channel) {
-        return this.octchannel[channel];
     }
 
     public void setSelInDevice(String selindevice) {
