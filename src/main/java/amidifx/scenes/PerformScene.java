@@ -457,8 +457,34 @@ public class PerformScene {
             buttonsc3.setStyle(btnMenuOff);
             buttonsc3.setDisable(true);
             buttonsc3.setOnAction(e -> {
-                // Reset Channel layering to default every time we switch Scenes to avoid unwanted layering
+                // Reset Channel Layering to default every time we switch Scenes to avoid unwanted Layering while working the Presets
                 defaultChannelLayering();
+
+                // Only allow Preset edits on correct, connected sound module
+                if (sharedStatus.getModuleidx() != dosongs.getSong(idxSongList).getModuleIdx()) {
+
+                    MidiModules midimodule = new MidiModules();
+                    labelstatusOrg.setText(" Status: To edit Presets, connect module " + midimodule.getModuleName(dosongs.getSong(idxSongList).getModuleIdx()));
+                    return;
+                }
+
+                // For newly selected Song, change to the first Preset and 16 Channels
+                presetFile = sharedStatus.getPresetFile();
+                dopresets.makeMidiPresets(presetFile);
+
+                for (int idx = 0; idx < 16; idx++) {
+                    MidiPreset midiPreset = new MidiPreset();
+                    midiPreset = dopresets.getPreset(idx);
+
+                    String strName = Integer.toString(idx + 1).concat(":").concat(midiPreset.getPatchName());
+                    sharedStatus.getPresetListView().getItems().set(idx, strName);
+                }
+                sharedStatus.getPresetCombo().getSelectionModel().select(0);
+                sharedStatus.getPresetListView().refresh();
+
+                // Switch to Presets Scene, and initialize appropriately, e.g. ensure Song Details is updated and Save Button is off
+                Button buttonPresetSceneInit = sharedStatus.getButtonPresetSceneInit();
+                buttonPresetSceneInit.fire();
 
                 //System.out.println(("PerformScene: Changing to Presets Scene " + sharedStatus.getPresetsScene().toString()));
                 primaryStage.setScene(sharedStatus.getPresetsScene());
@@ -565,6 +591,8 @@ public class PerformScene {
             borderPaneTop.setRight(toolbarRight);
 
             // Build the Song Title Selection Controls
+
+            // Middle Song Click Button
             Button buttonSongLoad = new Button(songTitle);
             buttonSongLoad.setStyle(selectcolorOff);
             buttonSongLoad.setPrefSize(xbtnleftright, ybtnleftright);
@@ -582,6 +610,9 @@ public class PerformScene {
                 // Preset Time Signature for correct Bar Time Display
                 sharedStatus.setTimeSig(dosongs.getSong(idxSongList).getTimeSig());
 
+                MidiSong midiSong = dosongs.getSong(idxSongList);
+                sharedStatus.setCurrentSong(midiSong);
+
                 // Check if Sound Module matches the active Module, enable/disable Presets and Autoload Preset 0
                 boolean modulematch = disablePresetButtons(sharedStatus.getModuleidx(), dosongs.getSong(idxSongList).getModuleIdx());
                 if (modulematch) {
@@ -591,9 +622,11 @@ public class PerformScene {
                     labelstatusOrg.setText(" Status: Loaded Presets for " + dosongs.getSong(idxSongList).getSongTitle());
                     labelstatusOrg.setStyle(styletext);
 
-                    // Enable Song Play Button
+                    // Enable Song Play, Backing and Edit Presets Buttons
                     btnplay.setDisable(false);
                     btnbacking.setDisable(false);
+                    buttonsc3.setDisable(false);
+
                 }
                 else {
                     labelstatusOrg.setText(" Status: Connect Module "
@@ -621,6 +654,7 @@ public class PerformScene {
                 // New Song to be selected for Play
                 buttonSongLoad.setStyle(selectcolorOff);
                 btnplay.setDisable(true);
+                buttonsc3.setDisable(true);
 
                 offAllPresetButtons();
 
@@ -640,6 +674,7 @@ public class PerformScene {
                 // New Song selected
                 buttonSongLoad.setStyle(selectcolorOff);
                 btnplay.setDisable(true);
+                buttonsc3.setDisable(true);
 
                 offAllPresetButtons();
 
