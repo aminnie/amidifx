@@ -3,6 +3,9 @@ package amidifx.models;
 import amidifx.MidiSongs;
 import amidifx.utils.AppConfig;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 
 import javax.sound.midi.Receiver;
 import javax.sound.midi.Sequencer;
@@ -52,12 +55,19 @@ public class SharedStatus {
     private Sequencer SeqDevice;
     private int moduleidx = 0;          // Sound Module index (defaults to Deebach, unless not found)
 
+    private Scene sceneHome;
     private Scene scenePerform;
     private Scene sceneSongs;
     private Scene scenePresets;
-    private Scene sceneHome;
 
+    Button buttonPresetSceneInit;
+
+    MidiSong curmidisong = null;
     private MidiSongs dosongs;
+
+    ListView presetListView;
+    ComboBox moduleCombo;
+    ComboBox presetCombo;
 
     private String instruments = "";
 
@@ -123,6 +133,14 @@ public class SharedStatus {
         return this.sceneHome;
     }
 
+    public void setButtonPresetSceneInit(Button buttonPresetSceneInit) {
+        this.buttonPresetSceneInit = buttonPresetSceneInit;
+    }
+
+    public Button getButtonPresetSceneInit() {
+        return buttonPresetSceneInit;
+    }
+
     public void setDoSongs(MidiSongs dosongs) {
         this.dosongs = dosongs;
     }
@@ -130,6 +148,7 @@ public class SharedStatus {
     public MidiSongs getDoSongs() {
         return this.dosongs;
     }
+
 
     public void setRxDevice(Receiver RxDevice) {
         this.RxDevice = RxDevice;
@@ -147,6 +166,7 @@ public class SharedStatus {
         return this.TxDevice;
     }
 
+
     public void setSeqDevice(Sequencer SeqDevice) {
         this.SeqDevice = SeqDevice;
     }
@@ -154,6 +174,7 @@ public class SharedStatus {
     public Sequencer getSeqDevice() {
         return this.SeqDevice;
     }
+
 
     public void setMidiFile(String midiFile) {
         this.MidiFile = midiFile;
@@ -179,11 +200,21 @@ public class SharedStatus {
         return this.SongTitle;
     }
 
+
     public String getStatusText() {
         return this.StatusText;
     }
 
     public void setStatusText(String statusText) {  this.StatusText = statusText; }
+
+    public String getSongDetails() {
+        String songdetail = " Song: " + getCurrentSong().getSongTitle();
+        songdetail = songdetail.concat("   Midi: " + getCurrentSong().getMidiFile());
+        songdetail = songdetail.concat("   Preset: " + getCurrentSong().getPresetFile());
+
+        return songdetail;
+    }
+
 
     public int getModuleidx() {
         return this.moduleidx;
@@ -194,7 +225,7 @@ public class SharedStatus {
         System.out.println("Setting moduleIdx = " + this.moduleidx);
     }
 
-    // Return Deebach MaxPlus (1), Roland Integra7, or MIDI GM (0)
+    // Return Deebach MaxPlus (1), Roland Integra7 (2), or MIDI GM (0)
     public String getModuleName(int moduleidx) {
 
         if (moduleidx == 1)
@@ -207,6 +238,7 @@ public class SharedStatus {
         return modulename0;
     }
 
+
     public String getInstruments() {
         return instruments;
     }
@@ -214,6 +246,7 @@ public class SharedStatus {
     public void setInstruments(String instruments) {
         this.instruments = instruments;
     }
+
 
     public void setTimeSig(String timeSig) {
         this.timeSig = timeSig;
@@ -238,6 +271,7 @@ public class SharedStatus {
     public void setSongReload(boolean presetreload) {
         this.songreload = songreload;
     }
+
 
     public int getUpper1CHAN() {
         return UPPERKBD;
@@ -270,6 +304,7 @@ public class SharedStatus {
     public int getDrumCHAN() {
         return DRUMS;
     }
+
 
     public void setLower1KbdLayerEnabled(boolean lower1kbdlayerenabled) {
         this.lower1kbdlayerenabled = lower1kbdlayerenabled;
@@ -321,6 +356,7 @@ public class SharedStatus {
         return expchannel;
     }
 
+
     public void setSelInDevice(String selindevice) {
         this.selindevice = selindevice;
     }
@@ -337,6 +373,7 @@ public class SharedStatus {
         return this.seloutdevice;
     }
 
+
     public void setSongList(String songlist) {
         this.songlist = songlist;
     }
@@ -344,6 +381,7 @@ public class SharedStatus {
     public String getSongList() {
         return this.songlist;
     }
+
 
     public void setMIDDirectory(String MID_DIRECTORY) {
         this.MID_DIRECTORY = MID_DIRECTORY;
@@ -359,6 +397,39 @@ public class SharedStatus {
 
     public String getCFGDirectory() {
         return CFG_DIRECTORY;
+    }
+
+
+    public void setCurrentSong(MidiSong midisong) {
+        this.curmidisong = midisong;
+    }
+
+    public MidiSong getCurrentSong() {
+        return curmidisong;
+    }
+
+    public void setPresetListView(ListView presetListView) {
+        this.presetListView = presetListView;
+    }
+
+    public ListView getPresetListView() {
+        return presetListView;
+    }
+
+    public void setPresetCombo(ComboBox presetCombo) {
+        this.presetCombo = presetCombo;
+    }
+
+    public ComboBox getPresetCombo() {
+        return presetCombo;
+    }
+
+    public void setModuleCombo(ComboBox moduleCombo) {
+        this.moduleCombo = moduleCombo;
+    }
+
+    public ComboBox getModuleCombo() {
+        return moduleCombo;
     }
 
     public void isMidirunning(boolean midirunning) {
