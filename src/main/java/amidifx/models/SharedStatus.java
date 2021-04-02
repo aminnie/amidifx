@@ -48,6 +48,8 @@ public class SharedStatus {
     private boolean upper1kbdlayerenabled = true;
     private boolean upper2kbdlayerenabled = true;
 
+    private boolean ispanic = false;
+
     private String timeSig = "4/4";
 
     private Receiver RxDevice;          // Selected MIDI Device
@@ -352,6 +354,7 @@ public class SharedStatus {
             AppConfig appconfig = AppConfig.getInstance();
             this.expchannel = appconfig.getExpressionChannel();
         }
+        System.out.println("Expression Channel: " + expchannel);
 
         return expchannel;
     }
@@ -430,6 +433,14 @@ public class SharedStatus {
 
     public ComboBox getModuleCombo() {
         return moduleCombo;
+    }
+
+    public void setInit(boolean ispanic) {
+        this.ispanic = ispanic;
+    }
+
+    public boolean getPanic() {
+        return ispanic;
     }
 
     public void isMidirunning(boolean midirunning) {

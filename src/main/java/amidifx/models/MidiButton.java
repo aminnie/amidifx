@@ -137,6 +137,7 @@ public class MidiButton {
     public int getOctaveTran() {
         return octaveTran;
     }
+
     public void setOctaveTran(int octaveTran) {
         this.octaveTran = octaveTran;
     }

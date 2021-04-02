@@ -24,8 +24,6 @@ public class PlayMidi {
     // Create instance of Shared Status to report back to Scenes
     final SharedStatus sharedStatus = SharedStatus.getInstance();
 
-    private static final String MID_DIRECTORY = "C:/amidifx/midifiles/";
-
     // Hardcoded keyboard channels for now. Note channels are coded from 0 - 15!
     private static final int DRUMS = 10;
     private static final int BASSKBD = 11;
@@ -36,6 +34,7 @@ public class PlayMidi {
     private int TimeSigNum = 4;
     private int TimeSigDen = 4;
 
+    // Track all PC and CC changes for current MIDI channels and only apply deltas to manage # of commands invoked on controller
     final List<MidiPreset> curPresetList = new ArrayList<>();
 
     File mfile;
@@ -98,7 +97,7 @@ public class PlayMidi {
         presetFile = midiSong.getPresetFile();
 
         readpresets = MidiPresets.getInstance();
-        readpresets.makeMidiPresets(presetFile);
+        readpresets.loadMidiPresets(presetFile);
 
         System.out.println("*** PlayMidi: Playing Song " + midiSong.getSongTitle() + " in mode " + mode);
         System.out.println("*** PlayMidi: Using Preset " + midiSong.getPresetFile());
@@ -164,7 +163,7 @@ public class PlayMidi {
 
             System.out.println("PlayMidi: Starting Sequencer Play " + midiFile);
 
-            mfile = new File(MID_DIRECTORY + midiFile);
+            mfile = new File(sharedStatus.getMIDDirectory() + midiFile);
             if (!mfile.exists()) {
                 sharedStatus.setStatusText("Playing " + midiFile + ". File not found!");
 
@@ -400,8 +399,11 @@ public class PlayMidi {
             if ((curPresetList.get(CHAN).getMSB() == MSB) &&
                     (curPresetList.get(CHAN).getLSB() == LSB) && (curPresetList.get(CHAN).getPC() == PC)) {
 
-                //System.out.println("PlayMidi: Duplicate Program Change on CHAN "  + (CHAN + 1) + ", PC " + PC + " MSB:" + MSB + " LSB:" + LSB + " ignored");
-                return false;
+                // Proceed to overrride if in Panic mode
+                if (sharedStatus.getPanic() == false) {
+                    //System.out.println("PlayMidi: Duplicate Program Change on CHAN "  + (CHAN + 1) + ", PC " + PC + " MSB:" + MSB + " LSB:" + LSB + " ignored");
+                    return false;
+                }
             }
 
             midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN, 0, MSB & 0xFF); //(int)(LSB & 0xFF));
@@ -413,12 +415,13 @@ public class PlayMidi {
             midircv.send(midiMsg, timeStamp);
 
             // Log the newly sent PC to compare against next send
-            ////curPresetList.get(CHAN).setMSB(MSB);
-            ////curPresetList.get(CHAN).setLSB(LSB);
-            ////curPresetList.get(CHAN).setPC(PC);
+            curPresetList.get(CHAN).setMSB(MSB);
+            curPresetList.get(CHAN).setLSB(LSB);
+            curPresetList.get(CHAN).setPC(PC);
 
             //System.out.println("PlayMidi: Sent MIDI Program Message: CHAN: " + (CHAN + 1) + " PC:" + PC + " MSB:" + MSB + " LSB:" + LSB);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             System.err.println("PlayMidi Error: Sent MIDI Program Change: " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " PC:" + PC + " MSB:" + MSB + " LSB:" + LSB);
             System.err.println(ex);
             return false;
@@ -436,6 +439,9 @@ public class PlayMidi {
             return false;
         }
 
+        boolean isinit = sharedStatus.getPanic();
+
+
         try {
             //System.out.println("PlayMidi: sendMidiControlChange sending MIDI Control Change:  CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
 
@@ -449,57 +455,77 @@ public class PlayMidi {
             switch (CTRL) {
                 case ccVOL:
                     //System.out.println("VOL setting change requested: " + VAL);
-                    //if (curPresetList.get(CHAN).getVOL() != VAL) {
-                    midircv.send(midiMsg, timeStamp);
+                    if ((curPresetList.get(CHAN).getVOL() != VAL) || isinit) {
+                        midircv.send(midiMsg, timeStamp);
 
-                    ////curPresetList.get(CHAN).setVOL(VAL);
-                    //System.out.println("VOL setting changed! " + VAL);
-                    //}
+                        curPresetList.get(CHAN).setVOL(VAL);
+                        //System.out.println("VOL setting changed! " + VAL);
+                    }
                     //else
                     //    System.out.println("VOL setting NOT changed! " + VAL);
-                    break;
+                    //break;
                 case ccEXP:
-                    //if (curPresetList.get(CHAN).getEXP() != VAL) {
-                    midircv.send(midiMsg, timeStamp);
+                    if ((curPresetList.get(CHAN).getEXP() != VAL) || isinit) {
+                        midircv.send(midiMsg, timeStamp);
 
-                    ////curPresetList.get(CHAN).setEXP(VAL);
-                    //}
+                        curPresetList.get(CHAN).setEXP(VAL);
+                    }
                     break;
                 case ccREV:
-                    //if (curPresetList.get(CHAN).getREV() != VAL) {
-                    midircv.send(midiMsg, timeStamp);
+                    if ((curPresetList.get(CHAN).getREV() != VAL) || isinit) {
+                        midircv.send(midiMsg, timeStamp);
 
-                    ////curPresetList.get(CHAN).setREV(VAL);
-                    //}
+                        curPresetList.get(CHAN).setREV(VAL);
+                    }
                     break;
                 case ccCHO:
-                    //if (curPresetList.get(CHAN).getCHO() != VAL) {
-                    midircv.send(midiMsg, timeStamp);
+                    if ((curPresetList.get(CHAN).getCHO() != VAL) || isinit) {
+                        midircv.send(midiMsg, timeStamp);
 
-                    ////curPresetList.get(CHAN).setCHO(VAL);
-                    //}
+                        curPresetList.get(CHAN).setCHO(VAL);
+                    }
                     break;
-                case ccROT:
-                    //if (curPresetList.get(CHAN).getROT() != VAL) {
-                    midircv.send(midiMsg, timeStamp);
-                    //System.out.println("PlayMidi: Sent MIDI Control Message: " + midiMsg.toString() + " CHAN: " + (CHAN + 1) + " CTRL:" + CTRL + " VAL:" + VAL);
+                case ccTIM:
+                    if ((curPresetList.get(CHAN).getTIM() != VAL) || isinit) {
+                        midircv.send(midiMsg, timeStamp);
 
-                    //curPresetList.get(CHAN).setROT(VAL);
-                    //}
+                        curPresetList.get(CHAN).setTIM(VAL);
+                    }
                     break;
-                case ccMOD:
-                    //if (curPresetList.get(CHAN).getMOD() != VAL) {
-                    midircv.send(midiMsg, timeStamp);
+                case ccATK:
+                    if ((curPresetList.get(CHAN).getATK() != VAL) || isinit) {
+                        midircv.send(midiMsg, timeStamp);
 
-                    ////curPresetList.get(CHAN).setMOD(VAL);
-                    //}
+                        curPresetList.get(CHAN).setATK(VAL);
+                    }
+                    break;
+                case ccREL:
+                    if ((curPresetList.get(CHAN).getREL() != VAL) || isinit) {
+                        midircv.send(midiMsg, timeStamp);
+
+                        curPresetList.get(CHAN).setREL(VAL);
+                    }
+                    break;
+                case ccBRI:
+                    if ((curPresetList.get(CHAN).getBRI() != VAL) || isinit) {
+                       midircv.send(midiMsg, timeStamp);
+
+                        curPresetList.get(CHAN).setBRI(VAL);
+                    }
                     break;
                 case ccPAN:
-                    //if (curPresetList.get(CHAN).getPAN() != VAL) {
-                    midircv.send(midiMsg, timeStamp);
+                    if ((curPresetList.get(CHAN).getPAN() != VAL) || isinit) {
+                        midircv.send(midiMsg, timeStamp);
 
-                    ////curPresetList.get(CHAN).setPAN(VAL);
-                    //}
+                        curPresetList.get(CHAN).setPAN(VAL);
+                    }
+                    break;
+                case ccMOD:
+                    if ((curPresetList.get(CHAN).getMOD() != VAL) || isinit) {
+                        midircv.send(midiMsg, timeStamp);
+
+                        curPresetList.get(CHAN).setMOD(VAL);
+                    }
                     break;
                 case ccGP1:
                     midircv.send(midiMsg, timeStamp);
@@ -527,7 +553,7 @@ public class PlayMidi {
         int rotarystep[] = {0*6, 1*4, 2*5, 3*6, 4*6, 5*6, 6*7, 7*7, 8*7, 63};
 
         Receiver midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
-        System.out.println("PlayMidi: Created getReceiver: " + midircv.toString());
+        //System.out.println("PlayMidi: Created getReceiver: " + midircv.toString());
 
         ShortMessage midiMsg = new ShortMessage();
 
@@ -554,7 +580,7 @@ public class PlayMidi {
                     midircv.send(midiMsg, timeStamp);
                 }
 
-                System.out.println("Upper Rotary On!");
+                //System.out.println("Upper Rotary On!");
             }
             catch (InvalidMidiDataException ex) {
                 System.err.println(ex);
@@ -568,7 +594,7 @@ public class PlayMidi {
                 midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, ccROT & 0XFF, 0 & 0XFF);
                 midircv.send(midiMsg, timeStamp);
 
-                System.out.println("Upper Rotary Off! ");
+                //System.out.println("Upper Rotary Off! ");
             }
             catch (InvalidMidiDataException ex) {
                 System.err.println(ex);
@@ -585,7 +611,7 @@ public class PlayMidi {
         int rotarystep[] = {0*6, 1*4, 2*5, 3*6, 4*6, 5*6, 6*7, 7*7, 8*7, 63};
 
         Receiver midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
-        System.out.println("PlayMidi: Got Receiver: " + midircv.toString());
+        //System.out.println("PlayMidi: Got Receiver: " + midircv.toString());
 
         ShortMessage midiMsg = new ShortMessage();
 
@@ -610,7 +636,7 @@ public class PlayMidi {
                         midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, ccROT & 0XFF, rotarystep[i] & 0XFF);
                         midircv.send(midiMsg, timeStamp);
 
-                        System.out.println("Rotary Fast: " + rotarystep[i]);
+                        //System.out.println("Rotary Fast: " + rotarystep[i]);
                         Thread.sleep(200);
                     }
                     catch (InvalidMidiDataException ex) {
@@ -633,7 +659,7 @@ public class PlayMidi {
                         midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, ccROT & 0XFF, rotarystep[i] & 0XFF);
                         midircv.send(midiMsg, timeStamp);
 
-                        System.out.println("Rotary Slow: " + rotarystep[i]);
+                        //System.out.println("Rotary Slow: " + rotarystep[i]);
                         Thread.sleep(200);
                     }
                     catch (InvalidMidiDataException ex) {
@@ -657,7 +683,7 @@ public class PlayMidi {
         int rotarystep[] = {0*6, 1*4, 2*5, 3*6, 4*6, 5*6, 6*7, 7*7, 8*7, 63};
 
         Receiver midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
-        System.out.println("PlayMidi: Created getReceiver: " + midircv.toString());
+        //System.out.println("PlayMidi: Created getReceiver: " + midircv.toString());
 
         ShortMessage midiMsg = new ShortMessage();
 
@@ -684,7 +710,7 @@ public class PlayMidi {
                     midircv.send(midiMsg, timeStamp);
                 }
 
-                System.out.println("Lower Rotary On!");
+                //System.out.println("Lower Rotary On!");
             }
             catch (InvalidMidiDataException ex) {
                 System.err.println(ex);
@@ -698,7 +724,7 @@ public class PlayMidi {
                 midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, ccROT & 0XFF, 0 & 0XFF);
                 midircv.send(midiMsg, timeStamp);
 
-                System.out.println("Lower Rotary Off! ");
+                //System.out.println("Lower Rotary Off! ");
             }
             catch (InvalidMidiDataException ex) {
                 System.err.println(ex);
@@ -715,7 +741,7 @@ public class PlayMidi {
         int rotarystep[] = {0*6, 1*4, 2*5, 3*6, 4*6, 5*6, 6*7, 7*7, 8*7, 63};
 
         Receiver midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
-        System.out.println("PlayMidi: Got Receiver: " + midircv.toString());
+        //System.out.println("PlayMidi: Got Receiver: " + midircv.toString());
 
         ShortMessage midiMsg = new ShortMessage();
 
@@ -740,7 +766,7 @@ public class PlayMidi {
                         midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, ccROT & 0XFF, rotarystep[i] & 0XFF);
                         midircv.send(midiMsg, timeStamp);
 
-                        System.out.println("Lower Rotary Fast: " + rotarystep[i]);
+                        //System.out.println("Lower Rotary Fast: " + rotarystep[i]);
                         Thread.sleep(200);
                     }
                     catch (InvalidMidiDataException ex) {
@@ -763,7 +789,7 @@ public class PlayMidi {
                         midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, CHAN & 0XFF, ccROT & 0XFF, rotarystep[i] & 0XFF);
                         midircv.send(midiMsg, timeStamp);
 
-                        System.out.println("Rotary Slow: " + rotarystep[i]);
+                        //System.out.println("Rotary Slow: " + rotarystep[i]);
                         Thread.sleep(200);
                     }
                     catch (InvalidMidiDataException ex) {
@@ -841,15 +867,19 @@ public class PlayMidi {
         try {
             long timeStamp = -1;
 
-            byte ccALLSoundOFF = 120;
-            byte ccAllControllersOff = 121;
-            byte ccAllNotesOff = 123;
+            final byte ccALLSoundOFF = 120;
+            final byte ccAllControllersOff = 121;
+            final byte ccAllNotesOff = 123;
+
             byte VAL = 0;
+
+            sharedStatus.setInit(true);
 
             midircv = sharedStatus.getRxDevice(); //MidiSystem.getReceiver();
             //System.out.println("PlayMidi: Created getReceiver: " + midircv.toString());
 
             for (int chanidx = 0; chanidx < 16; chanidx++) {
+
                 midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, chanidx, ccALLSoundOFF, VAL);
                 midircv.send(midiMsg, timeStamp);
 
@@ -859,12 +889,20 @@ public class PlayMidi {
                 midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, chanidx, ccAllNotesOff, VAL);
                 midircv.send(midiMsg, timeStamp);
 
+                // Default VOL to default for now
+                midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, chanidx & 0XFF, ccVOL & 0XFF, 96 & 0XFF);
+                midircv.send(midiMsg, timeStamp);
+
                 // Default EXP to default for now
                 midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, chanidx & 0XFF, ccEXP & 0XFF, 127 & 0XFF);
                 midircv.send(midiMsg, timeStamp);
 
-                // Default BRI to default for now
-                midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, chanidx & 0XFF, ccBRI & 0XFF, 64 & 0XFF);
+                // Default REV to default for now
+                midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, chanidx & 0XFF, ccREV & 0XFF, 24 & 0XFF);
+                midircv.send(midiMsg, timeStamp);
+
+                // Default CHO to default for now
+                midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, chanidx & 0XFF, ccCHO & 0XFF, 16 & 0XFF);
                 midircv.send(midiMsg, timeStamp);
 
                 // Default TIM to default for now
@@ -878,6 +916,17 @@ public class PlayMidi {
                 // Default REL to default for now
                 midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, chanidx & 0XFF, ccREL & 0XFF, 0 & 0XFF);
                 midircv.send(midiMsg, timeStamp);
+
+                // Default BRI to default for now
+                midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, chanidx & 0XFF, ccBRI & 0XFF, 64 & 0XFF);
+                midircv.send(midiMsg, timeStamp);
+
+                // Default PAN to default for now
+                midiMsg.setMessage(ShortMessage.CONTROL_CHANGE, chanidx & 0XFF, ccPAN & 0XFF, 64 & 0XFF);
+                midircv.send(midiMsg, timeStamp);
+
+                // Wait for commands to take effect before proceeding to next Channel
+                Thread.sleep(100);
 
                 //System.out.println("PlayMidi: PANIC Sound, Controllers, Notes off sent on channel: " + chanidx);
             }
@@ -894,6 +943,8 @@ public class PlayMidi {
 
         MidiDevices mididevice = MidiDevices.getInstance();
         mididevice.resetOctaveCHAN();
+
+        sharedStatus.setInit(false);
 
         sharedStatus.setStatusText("MIDI PANIC Sent");
 
@@ -1044,7 +1095,7 @@ public class PlayMidi {
 
         try {
             if (sequencer == null) {
-                ////midircv = MidiSystem.getReceiver();
+                //midircv = MidiSystem.getReceiver();
                 midircv = sharedStatus.getRxDevice();
 
                 sequencer = MidiSystem.getSequencer();
@@ -1144,6 +1195,10 @@ public class PlayMidi {
            curPresetList.get(chanidx).setEXP(0);
            curPresetList.get(chanidx).setREV(0);
            curPresetList.get(chanidx).setCHO(0);
+           curPresetList.get(chanidx).setTIM(0);
+           curPresetList.get(chanidx).setATK(0);
+           curPresetList.get(chanidx).setREL(0);
+           curPresetList.get(chanidx).setBRI(0);
            curPresetList.get(chanidx).setMOD(0);
            curPresetList.get(chanidx).setPAN(0);
        }

@@ -388,7 +388,7 @@ public class PresetScene {
         buttonSave.setDisable(true);
         buttonSave.setOnAction(event -> {
             if (flgDirtyPreset) {
-                boolean bsave = dopresets.savePresets(presetFile);
+                boolean bsave = dopresets.saveMidiPresets(presetFile);
                 if (bsave) {
                     labelstatus.setText(" Status: Song Presets saved");
                 } else {
@@ -406,7 +406,7 @@ public class PresetScene {
         buttonReload.setDisable(false);
         buttonReload.setOnAction(event -> {
             presetFile = sharedStatus.getPresetFile();
-            dopresets.makeMidiPresets(presetFile);
+            dopresets.loadMidiPresets(presetFile);
 
             // Update the newly selected Preset MIDI Channel Voice list
             for (int idx = 0; idx < 16; idx++) {
@@ -602,7 +602,7 @@ public class PresetScene {
 
         // Load MIDI Default MIDI Preset file on start up
         dopresets = MidiPresets.getInstance();
-        dopresets.makeMidiPresets(presetFile);
+        dopresets.loadMidiPresets(presetFile);
         System.out.println("Main Init: Loaded new Preset file: " + presetFile);
 
         // **** Show Right Pane: MIDI Sound Bank List

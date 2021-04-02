@@ -123,26 +123,24 @@ public class MidiButtons {
         buttonMaps.add(0, new buttonMap("L1-2", 15, sharedstatus.getLower1CHAN() ));
         buttonMaps.add(0, new buttonMap("L1-3", 16, sharedstatus.getLower1CHAN() ));
         buttonMaps.add(0, new buttonMap("L1-4", 17, sharedstatus.getLower1CHAN() ));
-        buttonMaps.add(0, new buttonMap("L1-5", 18, sharedstatus.getLower1CHAN() ));
-        buttonMaps.add(0, new buttonMap("L1-6", 19, sharedstatus.getLower1CHAN() ));
 
         // Lower 2 Buttons
-        buttonMaps.add(0, new buttonMap("L2-1", 20, sharedstatus.getLower2CHAN() ));
-        buttonMaps.add(0, new buttonMap("L2-2", 21, sharedstatus.getLower2CHAN() ));
-        buttonMaps.add(0, new buttonMap("L2-3", 22, sharedstatus.getLower2CHAN() ));
-        buttonMaps.add(0, new buttonMap("L2-4", 23, sharedstatus.getLower2CHAN() ));
+        buttonMaps.add(0, new buttonMap("L2-1", 18, sharedstatus.getLower2CHAN() ));
+        buttonMaps.add(0, new buttonMap("L2-2", 19, sharedstatus.getLower2CHAN() ));
+        buttonMaps.add(0, new buttonMap("L2-3", 20, sharedstatus.getLower2CHAN() ));
+        buttonMaps.add(0, new buttonMap("L2-4", 21, sharedstatus.getLower2CHAN() ));
 
         // Bass Buttons
-        buttonMaps.add(0, new buttonMap("B1-1", 24, sharedstatus.getBassCHAN() ));
-        buttonMaps.add(0, new buttonMap("B1-2", 25, sharedstatus.getBassCHAN() ));
-        buttonMaps.add(0, new buttonMap("B1-3", 26, sharedstatus.getBassCHAN() ));
-        buttonMaps.add(0, new buttonMap("B1-4", 27, sharedstatus.getBassCHAN() ));
+        buttonMaps.add(0, new buttonMap("B1-1", 22, sharedstatus.getBassCHAN() ));
+        buttonMaps.add(0, new buttonMap("B1-2", 23, sharedstatus.getBassCHAN() ));
+        buttonMaps.add(0, new buttonMap("B1-3", 24, sharedstatus.getBassCHAN() ));
+        buttonMaps.add(0, new buttonMap("B1-4", 25, sharedstatus.getBassCHAN() ));
 
         // Drum Buttons
-        buttonMaps.add(0, new buttonMap("D1-1", 28, sharedstatus.getDrumCHAN() ));
-        buttonMaps.add(0, new buttonMap("D1-2", 29, sharedstatus.getDrumCHAN() ));
-        buttonMaps.add(0, new buttonMap("D1-3", 30, sharedstatus.getDrumCHAN() ));
-        buttonMaps.add(0, new buttonMap("D1-4", 31, sharedstatus.getDrumCHAN() ));
+        buttonMaps.add(0, new buttonMap("D1-1", 26, sharedstatus.getDrumCHAN() ));
+        buttonMaps.add(0, new buttonMap("D1-2", 27, sharedstatus.getDrumCHAN() ));
+        buttonMaps.add(0, new buttonMap("D1-3", 28, sharedstatus.getDrumCHAN() ));
+        buttonMaps.add(0, new buttonMap("D1-4", 29, sharedstatus.getDrumCHAN() ));
     }
 
     // Load specific Button Config file
@@ -186,7 +184,7 @@ public class MidiButtons {
                             Integer.parseInt(buttonDetails[8]),     // pc
                             Integer.parseInt(buttonDetails[9]),     // lsb
                             Integer.parseInt(buttonDetails[10]),    // msb
-                            Integer.parseInt(buttonDetails[11]),    //
+                            Integer.parseInt(buttonDetails[11]),    // module
                             Integer.parseInt(buttonDetails[12]),    // vol
                             Integer.parseInt(buttonDetails[13]),    // exp
                             Integer.parseInt(buttonDetails[14]),    // rev

@@ -24,7 +24,6 @@ import javafx.stage.Stage;
 import javax.sound.midi.Receiver;
 import javax.sound.midi.Sequencer;
 import javax.sound.midi.Transmitter;
-import java.io.File;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -114,9 +113,6 @@ public class PerformScene {
     final String styletextred = "-fx-text-fill: red; -fx-font-size: " + fsize ;
     final String styletexttitle = "-fx-font-size: " + fsizetitle;
 
-    Stage primaryStage;
-    Scene returnScene;
-
     SharedStatus sharedStatus;
     PlayMidi playmidifile;
     ArduinoUtils arduinoUtils;
@@ -130,8 +126,6 @@ public class PerformScene {
     MidiPatches dopatches;
     MidiModules midimodules;
     MidiButtons midiButtons;
-
-    File fstyle;
 
     String songTitle;
     String songFile;
@@ -253,10 +247,10 @@ public class PerformScene {
     boolean lpressed24 = false;
 
     // Tracking Bass Buttons
-    Button bleft1 = new Button();
-    Button bleft2 = new Button();
-    Button bleft3 = new Button();
-    Button bleft4 = new Button();
+    Button bass1 = new Button();
+    Button bass2 = new Button();
+    Button bass3 = new Button();
+    Button bass4 = new Button();
 
     boolean bpressed1 = false;
     boolean bpressed2 = false;
@@ -264,10 +258,10 @@ public class PerformScene {
     boolean bpressed4 = false;
 
     // Tracking Drum Buttons
-    Button dleft1 = new Button();
-    Button dleft2 = new Button();
-    Button dleft3 = new Button();
-    Button dleft4 = new Button();
+    Button drum1 = new Button();
+    Button drum2 = new Button();
+    Button drum3 = new Button();
+    Button drum4 = new Button();
 
     boolean dpressed1 = false;
     boolean dpressed2 = false;
@@ -356,7 +350,7 @@ public class PerformScene {
             // Load MIDI Default MIDI Preset file on start up
             dopresets = MidiPresets.getInstance();
             presetFile = sharedStatus.getPresetFile();
-            dopresets.makeMidiPresets(presetFile);
+            dopresets.loadMidiPresets(presetFile);
             System.out.println("PerformScene Init: Loaded new Preset file: " + presetFile);
 
             // Load Song List
@@ -470,7 +464,7 @@ public class PerformScene {
 
                 // For newly selected Song, change to the first Preset and 16 Channels
                 presetFile = sharedStatus.getPresetFile();
-                dopresets.makeMidiPresets(presetFile);
+                dopresets.loadMidiPresets(presetFile);
 
                 for (int idx = 0; idx < 16; idx++) {
                     MidiPreset midiPreset = new MidiPreset();
@@ -1059,24 +1053,24 @@ public class PerformScene {
             });
             mididevices.layerChannel(11, true);
 
-            bleft1 = new Button(" Bass 1");
-            bleft1.setId("B1-1");
-            bleft1.setMaxSize(xvoicebtn, yvoicebtn);
-            bleft1.setMinSize(xvoicebtn, yvoicebtn);
-            bleft1.setStyle(bcolorOff);
-            bleft1.setWrapText(true);
-            bleft1.setWrapText(true);
-            bleft1.setTextAlignment(TextAlignment.CENTER);
-            bleft1.setOnAction(event -> {
+            bass1 = new Button(" Bass 1");
+            bass1.setId("B1-1");
+            bass1.setMaxSize(xvoicebtn, yvoicebtn);
+            bass1.setMinSize(xvoicebtn, yvoicebtn);
+            bass1.setStyle(bcolorOff);
+            bass1.setWrapText(true);
+            bass1.setWrapText(true);
+            bass1.setTextAlignment(TextAlignment.CENTER);
+            bass1.setOnAction(event -> {
                 offAllBassButtons();
-                int buttonidx = midiButtons.lookupButtonIdx(bleft1.getId());
+                int buttonidx = midiButtons.lookupButtonIdx(bass1.getId());
 
-                lastVoiceButton = bleft1.getId();
-                lastVoiceChannel = midiButtons.getButtonChannel(bleft1.getId());
+                lastVoiceButton = bass1.getId();
+                lastVoiceChannel = midiButtons.getButtonChannel(bass1.getId());
 
                 // New Voice available to be programmed into this button
                 if (bnewpatchselected) {
-                    bleft1.setText(dopatches.getMIDIPatch(patchidx).getPatchName());
+                    bass1.setText(dopatches.getMIDIPatch(patchidx).getPatchName());
 
                     // Save the Patch Changes to the Perform file
                     midiButtons.getMidiButton(buttonidx, 0).setPatchId((int)dopatches.getMIDIPatch(patchidx).getPatchId());
@@ -1096,7 +1090,7 @@ public class PerformScene {
                     int CHAN = sharedStatus.getBassCHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
-                    MidiButton midibutton = midiButtons.getButtonById(bleft1.getId(), 0);
+                    MidiButton midibutton = midiButtons.getButtonById(bass1.getId(), 0);
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
@@ -1105,33 +1099,33 @@ public class PerformScene {
                     sliderBRI.setValue(midibutton.getBRI());
                     sliderOCT.setValue(midibutton.getOctaveTran());
 
-                    bleft1.setStyle(bcolorOn);
+                    bass1.setStyle(bcolorOn);
                 }
                 else {
-                    bleft1.setStyle(bcolorOff);
+                    bass1.setStyle(bcolorOff);
                 }
                 bpressed1 = !bpressed1;
 
                 labelstatusOrg.setText(" Status: Applied B1");
             });
 
-            bleft2.setText(" Bass 2");
-            bleft2.setMaxSize(xvoicebtn, yvoicebtn);
-            bleft2.setMinSize(xvoicebtn, yvoicebtn);
-            bleft2.setId("B1-2");
-            bleft2.setStyle(bcolorOff);
-            bleft2.setWrapText(true);
-            bleft2.setTextAlignment(TextAlignment.CENTER);
-            bleft2.setOnAction(event -> {
+            bass2.setText(" Bass 2");
+            bass2.setMaxSize(xvoicebtn, yvoicebtn);
+            bass2.setMinSize(xvoicebtn, yvoicebtn);
+            bass2.setId("B1-2");
+            bass2.setStyle(bcolorOff);
+            bass2.setWrapText(true);
+            bass2.setTextAlignment(TextAlignment.CENTER);
+            bass2.setOnAction(event -> {
                 offAllBassButtons();
-                int buttonidx = midiButtons.lookupButtonIdx(bleft2.getId());
+                int buttonidx = midiButtons.lookupButtonIdx(bass2.getId());
 
-                lastVoiceButton = bleft2.getId();
-                lastVoiceChannel = midiButtons.getButtonChannel(bleft2.getId());
+                lastVoiceButton = bass2.getId();
+                lastVoiceChannel = midiButtons.getButtonChannel(bass2.getId());
 
                 // New Voice available to be programmed into this button
                 if (bnewpatchselected) {
-                    bleft2.setText(dopatches.getMIDIPatch(patchidx).getPatchName());
+                    bass2.setText(dopatches.getMIDIPatch(patchidx).getPatchName());
 
                     // Save the Patch Changes to the Perform file
                     midiButtons.getMidiButton(buttonidx, 0).setPatchId((int)dopatches.getMIDIPatch(patchidx).getPatchId());
@@ -1151,7 +1145,7 @@ public class PerformScene {
                     int CHAN = sharedStatus.getBassCHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
-                    MidiButton midibutton = midiButtons.getButtonById(bleft2.getId(), 0);
+                    MidiButton midibutton = midiButtons.getButtonById(bass2.getId(), 0);
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
@@ -1160,33 +1154,33 @@ public class PerformScene {
                     sliderBRI.setValue(midibutton.getBRI());
                     sliderOCT.setValue(midibutton.getOctaveTran());
 
-                    bleft2.setStyle(bcolorOn);
+                    bass2.setStyle(bcolorOn);
                 }
                 else {
-                    bleft2.setStyle(bcolorOff);
+                    bass2.setStyle(bcolorOff);
                 }
                 bpressed2 = !bpressed2;
 
                 labelstatusOrg.setText(" Status: Applied B2");
             });
 
-            bleft3.setText(" Bass 3");
-            bleft3.setMaxSize(xvoicebtn, yvoicebtn);
-            bleft3.setMinSize(xvoicebtn, yvoicebtn);
-            bleft3.setId("B1-3");
-            bleft3.setStyle(bcolorOff);
-            bleft3.setWrapText(true);
-            bleft3.setTextAlignment(TextAlignment.CENTER);
-            bleft3.setOnAction(event -> {
+            bass3.setText(" Bass 3");
+            bass3.setMaxSize(xvoicebtn, yvoicebtn);
+            bass3.setMinSize(xvoicebtn, yvoicebtn);
+            bass3.setId("B1-3");
+            bass3.setStyle(bcolorOff);
+            bass3.setWrapText(true);
+            bass3.setTextAlignment(TextAlignment.CENTER);
+            bass3.setOnAction(event -> {
                 offAllBassButtons();
-                int buttonidx = midiButtons.lookupButtonIdx(bleft3.getId());
+                int buttonidx = midiButtons.lookupButtonIdx(bass3.getId());
 
-                lastVoiceButton = bleft3.getId();
-                lastVoiceChannel = midiButtons.getButtonChannel(bleft3.getId());
+                lastVoiceButton = bass3.getId();
+                lastVoiceChannel = midiButtons.getButtonChannel(bass3.getId());
 
                 // New Voice available to be programmed into this button
                 if (bnewpatchselected) {
-                    bleft3.setText(dopatches.getMIDIPatch(patchidx).getPatchName());
+                    bass3.setText(dopatches.getMIDIPatch(patchidx).getPatchName());
 
                     // Save the Patch Changes to the Perform file
                     midiButtons.getMidiButton(buttonidx, 0).setPatchId((int)dopatches.getMIDIPatch(patchidx).getPatchId());
@@ -1206,7 +1200,7 @@ public class PerformScene {
                     int CHAN = sharedStatus.getBassCHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
-                    MidiButton midibutton = midiButtons.getButtonById(bleft3.getId(), 0);
+                    MidiButton midibutton = midiButtons.getButtonById(bass3.getId(), 0);
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
@@ -1215,33 +1209,33 @@ public class PerformScene {
                     sliderBRI.setValue(midibutton.getBRI());
                     sliderOCT.setValue(midibutton.getOctaveTran());
 
-                    bleft3.setStyle(bcolorOn);
+                    bass3.setStyle(bcolorOn);
                 }
                 else {
-                    bleft3.setStyle(bcolorOff);
+                    bass3.setStyle(bcolorOff);
                 }
                 bpressed3 = !bpressed3;
 
                 labelstatusOrg.setText(" Status: Applied B3");
             });
             
-            bleft4.setText(" Bass 4");
-            bleft4.setId("B1-4");
-            bleft4.setMaxSize(xvoicebtn, yvoicebtn);
-            bleft4.setMinSize(xvoicebtn, yvoicebtn);
-            bleft4.setStyle(bcolorOff);
-            bleft4.setWrapText(true);
-            bleft4.setTextAlignment(TextAlignment.CENTER);
-            bleft4.setOnAction(event -> {
+            bass4.setText(" Bass 4");
+            bass4.setId("B1-4");
+            bass4.setMaxSize(xvoicebtn, yvoicebtn);
+            bass4.setMinSize(xvoicebtn, yvoicebtn);
+            bass4.setStyle(bcolorOff);
+            bass4.setWrapText(true);
+            bass4.setTextAlignment(TextAlignment.CENTER);
+            bass4.setOnAction(event -> {
                 offAllBassButtons();
-                int buttonidx = midiButtons.lookupButtonIdx(bleft4.getId());
+                int buttonidx = midiButtons.lookupButtonIdx(bass4.getId());
 
-                lastVoiceButton = bleft4.getId();
-                lastVoiceChannel = midiButtons.getButtonChannel(bleft4.getId());
+                lastVoiceButton = bass4.getId();
+                lastVoiceChannel = midiButtons.getButtonChannel(bass4.getId());
 
                 // New Voice available to be programmed into this button
                 if (bnewpatchselected) {
-                    bleft4.setText(dopatches.getMIDIPatch(patchidx).getPatchName());
+                    bass4.setText(dopatches.getMIDIPatch(patchidx).getPatchName());
 
                     // Save the Patch Changes to the Perform file
                     midiButtons.getMidiButton(buttonidx, 0).setPatchId((int)dopatches.getMIDIPatch(patchidx).getPatchId());
@@ -1261,7 +1255,7 @@ public class PerformScene {
                     int CHAN = sharedStatus.getBassCHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
-                    MidiButton midibutton = midiButtons.getButtonById(bleft4.getId(), 0);
+                    MidiButton midibutton = midiButtons.getButtonById(bass4.getId(), 0);
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
@@ -1270,10 +1264,10 @@ public class PerformScene {
                     sliderBRI.setValue(midibutton.getBRI());
                     sliderOCT.setValue(midibutton.getOctaveTran());
 
-                    bleft4.setStyle(bcolorOn);
+                    bass4.setStyle(bcolorOn);
                 }
                 else {
-                    bleft4.setStyle(bcolorOff);
+                    bass4.setStyle(bcolorOff);
                 }
                 bpressed4 = !bpressed4;
 
@@ -1281,10 +1275,10 @@ public class PerformScene {
             });
 
             gridmidcenterPerform.add(b1layerbtn, 0, 0, 1, 1);
-            gridmidcenterPerform.add(bleft1, 0, 1, 1, 1);
-            gridmidcenterPerform.add(bleft2, 1, 1, 1, 1);
-            gridmidcenterPerform.add(bleft3, 0, 2, 1, 1);
-            gridmidcenterPerform.add(bleft4, 1, 2, 1, 1);
+            gridmidcenterPerform.add(bass1, 0, 1, 1, 1);
+            gridmidcenterPerform.add(bass2, 1, 1, 1, 1);
+            gridmidcenterPerform.add(bass3, 0, 2, 1, 1);
+            gridmidcenterPerform.add(bass4, 1, 2, 1, 1);
 
             Button d1layerbtn = new Button("Drums [10]");
             d1layerbtn.setStyle(styletext);
@@ -1306,23 +1300,23 @@ public class PerformScene {
             lblbeatcount.setText("  Bar: 0.0");
             lblbeatcount.setFont(Font.font(null, FontWeight.BOLD, 20));
 
-            dleft1.setText(" Drums 1");
-            dleft1.setId("D1-1");
-            dleft1.setMaxSize(xvoicebtn, yvoicebtn);
-            dleft1.setMinSize(xvoicebtn, yvoicebtn);
-            dleft1.setStyle(dcolorOff);
-            dleft1.setWrapText(true);
-            dleft1.setTextAlignment(TextAlignment.CENTER);
-            dleft1.setOnAction(event -> {
+            drum1.setText(" Drums 1");
+            drum1.setId("D1-1");
+            drum1.setMaxSize(xvoicebtn, yvoicebtn);
+            drum1.setMinSize(xvoicebtn, yvoicebtn);
+            drum1.setStyle(dcolorOff);
+            drum1.setWrapText(true);
+            drum1.setTextAlignment(TextAlignment.CENTER);
+            drum1.setOnAction(event -> {
                 offAllDrumButtons();
-                int buttonidx = midiButtons.lookupButtonIdx(dleft1.getId());
+                int buttonidx = midiButtons.lookupButtonIdx(drum1.getId());
 
-                lastVoiceButton = dleft1.getId();
-                lastVoiceChannel = midiButtons.getButtonChannel(dleft1.getId());
+                lastVoiceButton = drum1.getId();
+                lastVoiceChannel = midiButtons.getButtonChannel(drum1.getId());
 
                 // New Voice available to be programmed into this button
                 if (bnewpatchselected) {
-                    dleft1.setText(dopatches.getMIDIPatch(patchidx).getPatchName());
+                    drum1.setText(dopatches.getMIDIPatch(patchidx).getPatchName());
 
                     // Save the Patch Changes to the Perform file
                     midiButtons.getMidiButton(buttonidx, 0).setPatchId((int)dopatches.getMIDIPatch(patchidx).getPatchId());
@@ -1342,7 +1336,7 @@ public class PerformScene {
                     int CHAN = sharedStatus.getDrumCHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
-                    MidiButton midibutton = midiButtons.getButtonById(dleft1.getId(), 0);
+                    MidiButton midibutton = midiButtons.getButtonById(drum1.getId(), 0);
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
@@ -1351,33 +1345,33 @@ public class PerformScene {
                     sliderBRI.setValue(midibutton.getBRI());
                     sliderOCT.setValue(0);
 
-                    dleft1.setStyle(dcolorOn);
+                    drum1.setStyle(dcolorOn);
                 }
                 else {
-                    dleft1.setStyle(dcolorOff);
+                    drum1.setStyle(dcolorOff);
                 }
                 dpressed1 = !dpressed1;
 
                 labelstatusOrg.setText(" Status: Applied D1");
             });
 
-            dleft2.setText(" Drums 2");
-            dleft2.setId("D1-2");
-            dleft2.setMaxSize(xvoicebtn, yvoicebtn);
-            dleft2.setMinSize(xvoicebtn, yvoicebtn);
-            dleft2.setStyle(dcolorOff);
-            dleft2.setWrapText(true);
-            dleft2.setTextAlignment(TextAlignment.CENTER);
-            dleft2.setOnAction(event -> {
+            drum2.setText(" Drums 2");
+            drum2.setId("D1-2");
+            drum2.setMaxSize(xvoicebtn, yvoicebtn);
+            drum2.setMinSize(xvoicebtn, yvoicebtn);
+            drum2.setStyle(dcolorOff);
+            drum2.setWrapText(true);
+            drum2.setTextAlignment(TextAlignment.CENTER);
+            drum2.setOnAction(event -> {
                 offAllDrumButtons();
-                int buttonidx = midiButtons.lookupButtonIdx(dleft2.getId());
+                int buttonidx = midiButtons.lookupButtonIdx(drum2.getId());
 
-                lastVoiceButton = dleft2.getId();
-                lastVoiceChannel = midiButtons.getButtonChannel(dleft2.getId());
+                lastVoiceButton = drum2.getId();
+                lastVoiceChannel = midiButtons.getButtonChannel(drum2.getId());
 
                 // New Voice available to be programmed into this button
                 if (bnewpatchselected) {
-                    dleft2.setText(dopatches.getMIDIPatch(patchidx).getPatchName());
+                    drum2.setText(dopatches.getMIDIPatch(patchidx).getPatchName());
 
                     // Save the Patch Changes to the Perform file
                     midiButtons.getMidiButton(buttonidx, 0).setPatchId((int)dopatches.getMIDIPatch(patchidx).getPatchId());
@@ -1397,7 +1391,7 @@ public class PerformScene {
                     int CHAN = sharedStatus.getDrumCHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
-                    MidiButton midibutton = midiButtons.getButtonById(dleft2.getId(), 0);
+                    MidiButton midibutton = midiButtons.getButtonById(drum2.getId(), 0);
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
@@ -1406,33 +1400,33 @@ public class PerformScene {
                     sliderBRI.setValue(midibutton.getBRI());
                     sliderOCT.setValue(0);
 
-                    dleft2.setStyle(dcolorOn);
+                    drum2.setStyle(dcolorOn);
                 }
                 else {
-                    dleft2.setStyle(dcolorOff);
+                    drum2.setStyle(dcolorOff);
                 }
                 dpressed2 = !dpressed2;
 
                 labelstatusOrg.setText(" Status: Applied D2");
             });
 
-            dleft3.setText(" Drums 3");
-            dleft3.setId("D1-3");
-            dleft3.setMaxSize(xvoicebtn, yvoicebtn);
-            dleft3.setMinSize(xvoicebtn, yvoicebtn);
-            dleft3.setStyle(dcolorOff);
-            dleft3.setWrapText(true);
-            dleft3.setTextAlignment(TextAlignment.CENTER);
-            dleft3.setOnAction(event -> {
+            drum3.setText(" Drums 3");
+            drum3.setId("D1-3");
+            drum3.setMaxSize(xvoicebtn, yvoicebtn);
+            drum3.setMinSize(xvoicebtn, yvoicebtn);
+            drum3.setStyle(dcolorOff);
+            drum3.setWrapText(true);
+            drum3.setTextAlignment(TextAlignment.CENTER);
+            drum3.setOnAction(event -> {
                 offAllDrumButtons();
-                int buttonidx = midiButtons.lookupButtonIdx(dleft3.getId());
+                int buttonidx = midiButtons.lookupButtonIdx(drum3.getId());
 
-                lastVoiceButton = dleft3.getId();
-                lastVoiceChannel = midiButtons.getButtonChannel(dleft3.getId());
+                lastVoiceButton = drum3.getId();
+                lastVoiceChannel = midiButtons.getButtonChannel(drum3.getId());
 
                 // New Voice available to be programmed into this button
                 if (bnewpatchselected) {
-                    dleft3.setText(dopatches.getMIDIPatch(patchidx).getPatchName());
+                    drum3.setText(dopatches.getMIDIPatch(patchidx).getPatchName());
 
                     // Save the Patch Changes to the Perform file
                     midiButtons.getMidiButton(buttonidx, 0).setPatchId((int)dopatches.getMIDIPatch(patchidx).getPatchId());
@@ -1452,7 +1446,7 @@ public class PerformScene {
                     int CHAN = sharedStatus.getDrumCHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
-                    MidiButton midibutton = midiButtons.getButtonById(dleft3.getId(), 0);
+                    MidiButton midibutton = midiButtons.getButtonById(drum3.getId(), 0);
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
@@ -1461,34 +1455,34 @@ public class PerformScene {
                     sliderBRI.setValue(midibutton.getBRI());
                     sliderOCT.setValue(0);
 
-                    dleft3.setStyle(dcolorOn);
+                    drum3.setStyle(dcolorOn);
                 }
                 else {
-                    dleft3.setStyle(dcolorOff);
+                    drum3.setStyle(dcolorOff);
                 }
                 dpressed3 = !dpressed3;
 
                 labelstatusOrg.setText(" Status: Applied D3");
             });
 
-            dleft4.setText(" Drums 4");
-            dleft4.setId("D1-4");
-            dleft4.setMaxSize(xvoicebtn, yvoicebtn);
-            dleft4.setMinSize(xvoicebtn, yvoicebtn);
-            dleft4.setStyle(dcolorOff);
-            dleft4.setWrapText(true);
-            dleft4.setTextAlignment(TextAlignment.CENTER);
-            dleft4.setOnAction(event -> {
+            drum4.setText(" Drums 4");
+            drum4.setId("D1-4");
+            drum4.setMaxSize(xvoicebtn, yvoicebtn);
+            drum4.setMinSize(xvoicebtn, yvoicebtn);
+            drum4.setStyle(dcolorOff);
+            drum4.setWrapText(true);
+            drum4.setTextAlignment(TextAlignment.CENTER);
+            drum4.setOnAction(event -> {
                 offAllDrumButtons();
 
-                lastVoiceButton = dleft4.getId();
-                lastVoiceChannel = midiButtons.getButtonChannel(dleft4.getId());
+                lastVoiceButton = drum4.getId();
+                lastVoiceChannel = midiButtons.getButtonChannel(drum4.getId());
 
-                int buttonidx = midiButtons.lookupButtonIdx(dleft4.getId());
+                int buttonidx = midiButtons.lookupButtonIdx(drum4.getId());
 
                 // New Voice available to be programmed into this button
                 if (bnewpatchselected) {
-                    dleft4.setText(dopatches.getMIDIPatch(patchidx).getPatchName());
+                    drum4.setText(dopatches.getMIDIPatch(patchidx).getPatchName());
 
                     // Save the Patch Changes to the Perform file
                     midiButtons.getMidiButton(buttonidx, 0).setPatchId((int)dopatches.getMIDIPatch(patchidx).getPatchId());
@@ -1508,7 +1502,7 @@ public class PerformScene {
                     int CHAN = sharedStatus.getDrumCHAN();
                     applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
 
-                    MidiButton midibutton = midiButtons.getButtonById(dleft4.getId(), 0);
+                    MidiButton midibutton = midiButtons.getButtonById(drum4.getId(), 0);
                     sliderVOL.setValue(midibutton.getVOL());
                     sliderREV.setValue(midibutton.getREV());
                     sliderCHO.setValue(midibutton.getCHO());
@@ -1517,10 +1511,10 @@ public class PerformScene {
                     sliderBRI.setValue(midibutton.getBRI());
                     sliderOCT.setValue(0);
 
-                    dleft4.setStyle(dcolorOn);
+                    drum4.setStyle(dcolorOn);
                 }
                 else {
-                    dleft4.setStyle(dcolorOff);
+                    drum4.setStyle(dcolorOff);
                 }
                 dpressed4 = !dpressed4;
 
@@ -1529,10 +1523,10 @@ public class PerformScene {
 
             gridmidcenterPerform.add(d1layerbtn, 0, 3, 1, 1);
             gridmidcenterPerform.add(lblbeatcount, 1, 3, 1, 1);
-            gridmidcenterPerform.add(dleft1, 0, 4, 1, 1);
-            gridmidcenterPerform.add(dleft2, 1, 4, 1, 1);
-            gridmidcenterPerform.add(dleft3, 0, 5, 1, 1);
-            gridmidcenterPerform.add(dleft4, 1, 5, 1, 1);
+            gridmidcenterPerform.add(drum1, 0, 4, 1, 1);
+            gridmidcenterPerform.add(drum2, 1, 4, 1, 1);
+            gridmidcenterPerform.add(drum3, 0, 5, 1, 1);
+            gridmidcenterPerform.add(drum4, 1, 5, 1, 1);
 
             // Lower Buttons
 
@@ -3091,8 +3085,9 @@ public class PerformScene {
                             labelstatusOrg.setText(" Status: " + sharedStatus.getStatusText());
                         }
                         else {
-                            // Disable Songs menu switch while playing
+                            // Disable Songs and Preset menu switch while playing
                             buttonsc2.setDisable(true);
+                            buttonsc3.setDisable(true);
 
                             // Song Play Repeating Timer: Collects Beat Timer and Play Status every 250ms
                             Timer songPlayTimer = new Timer();
@@ -3144,8 +3139,9 @@ public class PerformScene {
 
                         bplaying = false;
 
-                        // Enable Songs menu switch once stopped playing
+                        // Enable Songs and Preset menu switch once stopped playing
                         buttonsc2.setDisable(false);
+                        buttonsc3.setDisable(false);
                     }
                 }
                 catch (Exception exception) {
@@ -3437,10 +3433,10 @@ public class PerformScene {
             // In MIDI GM Mode: Preset all Sounds and Wire up the Sliders to default to Upper 1-1
             if (moduleidx == 0) {
                 d1layerbtn.setVisible(false);
-                dleft1.setVisible(false);
-                dleft2.setVisible(false);
-                dleft3.setVisible(false);
-                dleft4.setVisible(false);
+                drum1.setVisible(false);
+                drum2.setVisible(false);
+                drum3.setVisible(false);
+                drum4.setVisible(false);
 
                 // Disable Organ Rotary Buttons in MIDI GM Mode
                 lbutton15.setVisible(false);
@@ -3449,8 +3445,8 @@ public class PerformScene {
                 rbutton18.setVisible(false);
             }
             else
-                dleft1.fire();
-                bleft1.fire();
+                drum1.fire();
+                bass1.fire();
                 lbutton21.fire();
                 lbutton11.fire();
                 rbutton31.fire();
@@ -3488,7 +3484,7 @@ public class PerformScene {
 
     void buttonPresetLoad(String presetFile) {
 
-        dopresets.makeMidiPresets(presetFile);
+        dopresets.loadMidiPresets(presetFile);
 
         defaultChannelLayering();
 
@@ -3519,7 +3515,7 @@ public class PerformScene {
 
             // Reload Preset file if changed, e.g. in Preset Scene
             if (sharedStatus.getPresetReload() == true) {
-                dopresets.makeMidiPresets(presetFile);
+                dopresets.loadMidiPresets(presetFile);
             }
 
             // Apply selected Preset Program and Control Changes to MIDI output
@@ -3584,23 +3580,23 @@ public class PerformScene {
 
             // Bass 1
             preset = dopresets.getPreset(presetIdx * 16  + sharedStatus.getBassCHAN() - 1);
-            buttonidx = midiButtons.lookupButtonIdx(bleft1.getId());
+            buttonidx = midiButtons.lookupButtonIdx(bass1.getId());
             midibutton = midiButtons.getMidiButton(buttonidx, 0);
             midiButtons.copyPresetToMidiButton(preset, midibutton);
 
-            bleft1.setText(preset.getPatchName());
+            bass1.setText(preset.getPatchName());
             offAllBassButtons();
-            bleft1.setStyle(bcolorOn);
+            bass1.setStyle(bcolorOn);
 
             // Drum 1
             preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getDrumCHAN() - 1);
-            buttonidx = midiButtons.lookupButtonIdx(dleft1.getId());
+            buttonidx = midiButtons.lookupButtonIdx(drum1.getId());
             midibutton = midiButtons.getMidiButton(buttonidx, 0);
             midiButtons.copyPresetToMidiButton(preset, midibutton);
 
-            dleft1.setText(preset.getPatchName());
+            drum1.setText(preset.getPatchName());
             offAllDrumButtons();
-            dleft1.setStyle(dcolorOn);
+            drum1.setStyle(dcolorOn);
         }
         catch (Exception ex) {
             System.out.println("OrganScene buttonPresetAction: Exception occurred");
@@ -3697,24 +3693,24 @@ public class PerformScene {
 
     private void offAllBassButtons() {
         bpressed1 = false;
-        bleft1.setStyle(bcolorOff);
+        bass1.setStyle(bcolorOff);
         bpressed2 = false;
-        bleft2.setStyle(bcolorOff);
+        bass2.setStyle(bcolorOff);
         bpressed3 = false;
-        bleft3.setStyle(bcolorOff);
+        bass3.setStyle(bcolorOff);
         bpressed4 = false;
-        bleft4.setStyle(bcolorOff);
+        bass4.setStyle(bcolorOff);
     }
 
     private void offAllDrumButtons() {
         dpressed1 = false;
-        dleft1.setStyle(dcolorOff);
+        drum1.setStyle(dcolorOff);
         dpressed2 = false;
-        dleft2.setStyle(dcolorOff);
+        drum2.setStyle(dcolorOff);
         dpressed3 = false;
-        dleft3.setStyle(dcolorOff);
+        drum3.setStyle(dcolorOff);
         dpressed4 = false;
-        dleft4.setStyle(dcolorOff);
+        drum4.setStyle(dcolorOff);
     }
 
     /** Save and Apply MIDI Patch for Button just pressed **/
@@ -3797,23 +3793,23 @@ public class PerformScene {
             patchid = midiButtons.getButtonById(lbutton24.getId(), 0).getPatchId();
             lbutton24.setText(dopatches.getMIDIPatch(patchid).getPatchName());
 
-            patchid = midiButtons.getButtonById(bleft1.getId(), 0).getPatchId();
-            bleft1.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-            patchid = midiButtons.getButtonById(bleft2.getId(), 0).getPatchId();
-            bleft2.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-            patchid = midiButtons.getButtonById(bleft3.getId(), 0).getPatchId();
-            bleft3.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-            patchid = midiButtons.getButtonById(bleft4.getId(), 0).getPatchId();
-            bleft4.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(bass1.getId(), 0).getPatchId();
+            bass1.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(bass2.getId(), 0).getPatchId();
+            bass2.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(bass3.getId(), 0).getPatchId();
+            bass3.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(bass4.getId(), 0).getPatchId();
+            bass4.setText(dopatches.getMIDIPatch(patchid).getPatchName());
 
-            patchid = midiButtons.getButtonById(dleft1.getId(), 0).getPatchId();
-            dleft1.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-            patchid = midiButtons.getButtonById(dleft2.getId(), 0).getPatchId();
-            dleft2.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-            patchid = midiButtons.getButtonById(dleft3.getId(), 0).getPatchId();
-            dleft3.setText(dopatches.getMIDIPatch(patchid).getPatchName());
-            patchid = midiButtons.getButtonById(dleft4.getId(), 0).getPatchId();
-            dleft4.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(drum1.getId(), 0).getPatchId();
+            drum1.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(drum2.getId(), 0).getPatchId();
+            drum2.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(drum3.getId(), 0).getPatchId();
+            drum3.setText(dopatches.getMIDIPatch(patchid).getPatchName());
+            patchid = midiButtons.getButtonById(drum4.getId(), 0).getPatchId();
+            drum4.setText(dopatches.getMIDIPatch(patchid).getPatchName());
 
         }
         catch (Exception ex) {

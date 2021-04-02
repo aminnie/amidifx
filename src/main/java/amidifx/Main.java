@@ -132,23 +132,11 @@ public class Main extends Application {
     Label labeleffects;     // Midi Channel Effects
     //CheckBox[] chkBoxArray; // MIDI Out Channel Layer
 
-    int patchIdx = 100;     // On Screen Voice Index Started
-    int selpatchIdx = 0;    // Selected on Screen Voice Index
-    //int songIdx = 0;
-    int moduleIdx = 0;
-    int presetIdx = 0;
-    int channelIdx = 0;
-    int checkIdx = 0;
-
     private TableView tableSongList;
     private ObservableList songData;
     private Text statusSong;
 
-    boolean flgDirtyPreset = false; // Track need to save changes Presets
     boolean bplaying = false;
-    boolean btestnote = false;
-
-    Button buttonSave;
 
     Button midichooser;
     Button presetchooser;
@@ -164,7 +152,6 @@ public class Main extends Application {
     Label labelsongtitle = new Label(" ");
     Label labelmidifile = new Label(" ");
     Label labelpresetfile = new Label("  ");
-    Label labelstatusSng = new Label(" ");
 
     Image applicationIcon;
 
@@ -609,7 +596,7 @@ public class Main extends Application {
 
             // For newly selected Song, change to the first Preset and 16 Channels
             presetFile = txtPresetFile.getText();
-            dopresets.makeMidiPresets(presetFile);
+            dopresets.loadMidiPresets(presetFile);
 
             for (int idx = 0; idx < 16; idx++) {
                 midiPreset = dopresets.getPreset(idx);
@@ -1111,7 +1098,7 @@ public class Main extends Application {
 
                     // Reload the Preset file for current Song in case it has changed
                     presetFile = sharedStatus.getPresetFile();
-                    dopresets.makeMidiPresets(presetFile);
+                    dopresets.loadMidiPresets(presetFile);
 
                     buttondemo.setText("Stop Play");
                     buttondemo.setStyle(btnplayOn);

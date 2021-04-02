@@ -97,6 +97,22 @@ public class MidiDevices {
     // Track Octave Transpose Values -2 to +2
     int[] octchannel = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
+    // https://professionalcomposers.com/midi-cc-list/
+    public static final byte ccVOL = 7;
+    public static final byte ccEXP = 11;
+    public static final byte ccREV = 91;
+    public static final byte ccROT = 74;
+    public static final byte ccCHO = 93;
+    public static final byte ccMOD = 1;
+    public static final byte ccPAN = 10;
+    public static final byte ccGP1 = 80;
+    public static final byte ccGP2 = 81;
+
+    public static final byte ccTIM = 71;
+    public static final byte ccREL = 72;
+    public static final byte ccATK = 73;
+    public static final byte ccBRI = 74;
+
     // Static variable single_instance of type PlayMidi
     private static MidiDevices single_MidiDevices_Instance = null;
 
@@ -314,7 +330,10 @@ public class MidiDevices {
 
             //receiver.send(message, timeStamp);
 
+            byte[] bytes = message.getMessage();
             int status = message.getStatus();
+            int command = message.getStatus() & 0xf0;
+            byte channel = (byte) (message.getStatus() & 0x0f);
 
             // Do not route status and timing messages
             if ((status == 0xf8) || (status == 0xfe)) {
@@ -326,24 +345,33 @@ public class MidiDevices {
 
             // These statuses have MIDI channel numbers and data (except 0xf0 thru 0xff)
             // Strip channel number out of status
-            int highNibble = status & 0xf0;
-            switch (highNibble) {
+            switch (command) {
                 case 0x80:      //displayNoteOff(message);
                 case 0x90:      //displayNoteOn(message);
-                    layerOutMessages(message, timeStamp);
+                    layerNoteMessage(message, timeStamp);
                     break;
                 case 0xa0:      //displayKeyPressure(message);
+                    receiver.send(message, timeStamp);
+                    break;
                 case 0xb0:
                     // Duplicate Expression Pedal Message to All Keyboard Channels just like Organ
-                    LayerExpressionMessage(message, timeStamp);
+                    if (bytes[1] == ccEXP)
+                        LayerExpressionMessage(message, timeStamp);
+                    else
+                        receiver.send(message, timeStamp);
                     break;
                 case 0xc0:      //displayProgramChange(message);
+                    receiver.send(message, timeStamp);
+                    break;
                 case 0xd0:      //displayChannelPressure(message);
+                    receiver.send(message, timeStamp);
+                    break;
                 case 0xe0:      //displayPitchBend(message);
+                    receiver.send(message, timeStamp);
+                    break;
                 case 0xf0:
-                    //receiver.send(message, timeStamp);
-                    //layerOutMessages(message, timeStamp);
-                    //break;
+                    receiver.send(message, timeStamp);
+                    break;
                 default:
                     // Message not recognized, but forward?
                     receiver.send(message, timeStamp);
@@ -352,7 +380,7 @@ public class MidiDevices {
 
 
         // Play MIDI Note On/Off IN messages and perform all Channel OUT layering as needed
-        private void layerOutMessages(MidiMessage message, long timeStamp) {
+        private void layerNoteMessage(MidiMessage message, long timeStamp) {
 
             ShortMessage shortmessage;
 
@@ -729,7 +757,7 @@ public class MidiDevices {
             return (byte)(octnote & 0XFF);
         }
 
-        // Layer MIDI Expression Messages received from Keyboard or Organ
+        // Layer MIDI Expression Messages received from Keyboard or Organ if on CHannel 16
         private void LayerExpressionMessage(MidiMessage message, long timeStamp) {
 
             ShortMessage shortmessage;
@@ -741,24 +769,16 @@ public class MidiDevices {
 
             // Now dissect to determine if Layering is needed and forward in layered channels
             byte[] bytes = message.getMessage();
-            int command = message.getStatus() & 0xf0;
-            byte channel = (byte) (message.getStatus() & 0x0f);
+            int command = message.getStatus() & 0xF0;
+            byte channel = (byte) (message.getStatus() & 0x0F);
 
             //System.out.println("LayerExpressionMessage: Expression[0x0B] " + channel + ", " + bytes[1] + ", " + bytes[2]);
 
-            // if command is not Expression, then ignore applying it and send on
-            if (command != 0xB0) {
+            // if command is not Expression on Channel 16, then ignore applying it and send on
+            if ((bytes[1] != ccEXP) && (channel != (byte) (sharedstatus.getExpressionCHAN() - 1))) {
                 receiver.send(message, timeStamp);
 
-                System.out.println("LayerExpressionMessage: Not Expression Command " + (channel + 1) + ", " + command + ", " + bytes[1] + ", " + bytes[2]);
-                return;
-            }
-
-            // Do not Layer Channel Expression Messages if not coming from Designated Channel
-            if (channel != (byte) (sharedstatus.getExpressionCHAN() - 1)) {
-                receiver.send(message, timeStamp);
-
-                //System.out.println("LayerExpressionMessage: Not Layering Expression[0xB0] " + (channel + 1) + ", " + bytes[1] + ", " + bytes[2]);
+                System.out.println("LayerExpressionMessage: Not Expression Command on " + (channel + 1) + ", " + command + ", " + bytes[1] + ", " + bytes[2]);
                 return;
             }
 
@@ -1130,7 +1150,7 @@ public class MidiDevices {
         if (octadjust < -2 || octadjust > 2) {
             octadjust = 0;
         }
-
+/*
         // To do: For now until more sophisticated logic worked out (e.g. queuing the request until all notes on channel closed,
         //       reset all potential open notes on the channel
         //       This is done to prevent hanging notes during live play at the instant of octave transpose
@@ -1154,7 +1174,7 @@ public class MidiDevices {
                 }
             }
         }
-
+*/
         this.octchannel[channelidx] = octadjust;
     }
 

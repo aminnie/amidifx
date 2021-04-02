@@ -61,7 +61,7 @@ public class MidiPresets {
     }
 
     // Load specific Preset file
-    public void makeMidiPresets(String presetFile) {
+    public void loadMidiPresets(String presetFile) {
 
         this.presetFile = presetFile;
 
@@ -97,14 +97,14 @@ public class MidiPresets {
                     //Save the patch details in patch object
                     // int patchId, int patchType, int PC, int MSB, int LSB, String patchName
                     MidiPreset mPreset = new MidiPreset(
-                            Integer.parseInt(presetDetails[0]),
-                            Integer.parseInt(presetDetails[1]),
-                            presetDetails[2],
-                            Integer.parseInt(presetDetails[3]),
-                            Integer.parseInt(presetDetails[4]),
-                            Integer.parseInt(presetDetails[5]),
-                            Integer.parseInt(presetDetails[6]),
-                            Integer.parseInt(presetDetails[7]),
+                            Integer.parseInt(presetDetails[0]),     // PresetIdx
+                            Integer.parseInt(presetDetails[1]),     // ChanIdxIn
+                            presetDetails[2],                       // ChanIdxOut
+                            Integer.parseInt(presetDetails[3]),     // OctaveTran
+                            Integer.parseInt(presetDetails[4]),     // PC
+                            Integer.parseInt(presetDetails[5]),     // MSB
+                            Integer.parseInt(presetDetails[6]),     // LSB
+                            Integer.parseInt(presetDetails[7]),     // ModuleIdx
                             Integer.parseInt(presetDetails[8]),     // VOL
                             Integer.parseInt(presetDetails[9]),     // EXP
                             Integer.parseInt(presetDetails[10]),    // REV
@@ -115,10 +115,10 @@ public class MidiPresets {
                             Integer.parseInt(presetDetails[15]),    // BRI
                             Integer.parseInt(presetDetails[16]),    // PAN
                             Integer.parseInt(presetDetails[17]),    // MOD
-                            Integer.parseInt(presetDetails[18]),
-                            Integer.parseInt(presetDetails[19]),
-                            Integer.parseInt(presetDetails[20]),
-                            presetDetails[21]);
+                            Integer.parseInt(presetDetails[18]),    // BankIdx
+                            Integer.parseInt(presetDetails[19]),    // FontIdx
+                            Integer.parseInt(presetDetails[20]),    // PatchIdx
+                            presetDetails[21]);                     // PatchName
                     presetList.add(mPreset);
                 }
             }
@@ -232,7 +232,7 @@ public class MidiPresets {
     }
 
     // Save current Preset to Disk
-    public boolean savePresets(String presetFle) {
+    public boolean saveMidiPresets(String presetFle) {
 
         boolean bsaved = false;
 
@@ -337,8 +337,6 @@ public class MidiPresets {
             int MSB = preset.getMSB() & 0xFF;
 
             playmidifile.sendMidiProgramChange(CHANOUT, PC, LSB, MSB);
-
-            mididevices.setOctaveCHAN(CHANOUT, (byte)(preset.getOctaveTran() & 0XFF));
 
             int VOL = preset.getVOL() & 0x7F;
             playmidifile.sendMidiControlChange((byte) CHANOUT, ccVOL, (byte) VOL);
