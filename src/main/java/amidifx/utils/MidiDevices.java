@@ -32,7 +32,7 @@ public class MidiDevices {
     private String seloutdevice = "default";
 
     // Layered channels out (defaulted): presetIdx, channelInIdx, (ChannelOutIdx & ModuleIdx) * 10, OctaveTran
-    private byte[] channelOutStruct = {0, 13, 0, 0, 14, 0, 15, 0, 16, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
+    //private byte[] channelOutStruct = {0, 13, 0, 0, 14, 0, 15, 0, 16, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
 
     long noteofftimeout = 10000;
 
@@ -397,8 +397,8 @@ public class MidiDevices {
             // Testing device and channel, e.g. Trellis M4
             ////if (channel == 0) channel = 13;
 
-            // Do not layer any source channels below Lower Keyboard, including Bass Pedals and Drums
-            if (channel < (byte) (sharedstatus.getLower1CHAN() - 1)) {
+            // Do not layer any MIDI source channels above Upper Keyboard Channel 4
+            if (channel > (byte) (sharedstatus.getUpper1CHAN() - 1)) {
                 //receiver.send(message, timeStamp);
 
                 // Octave Translate incoming note
