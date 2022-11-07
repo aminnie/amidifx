@@ -46,7 +46,7 @@ You will find really great MIDI SMF files for free or sale on the internet. The 
 
 ## Why am I building AMIDIFX?
 
-AMDIDFX is the 4th incarnation of a solution that started life as a simple preset controller to help manage an Integra7 that I have connected to my Roland Atelier 90S Console organ. The preset swicthes are syncrohonized with the organ based on a MIDI command from the organ everytime a preset in the organ is changed. The most recent version and pre-cursor to AMDIDFX consists of:
+AMDIDFX is the 4th incarnation of a solution that started life as a simple preset controller to help manage an Integra7 that I have connected to my Roland Atelier 900C  organ. The preset swicthes are syncrohonized with the organ based on a MIDI command from the organ everytime a preset in the organ is changed. The most recent version and pre-cursor to AMDIDFX consists of:
 * 3 x Teensy 3.2 microcontrollers: 
   * A keyboard controller that handles channel layering, expression pedal duplication
   * A 16 channel MIDI Sequencer along with a MIDI Song Playlist
@@ -234,6 +234,5 @@ Next up:
   * Updating the Song screen to list all active tracks and channels along with a track mute buttons for an easy play along mode
   * AMIDIFX was developed in JavaFX. It is portable to numerous operating systems and devices, including IOS, Android, Linux, etc.
   * Adding a USB based controller hardware with real buttons and rotary switches, and of course one or more sets of drawbars
-  * More testing, and usability improvements based on user feedback
- 
+  
 -- More to follow  ---
