@@ -312,28 +312,28 @@ public class HomeScene {
             lbltopspacer.setMaxHeight(50);
 
             String introline1 = "Welcome to AMIDIFX!";
-            String introline2 = "AMIDIFX integrates MIDI sound modules with keyboards enabling live play with backing tracks.";
-            String introline3 = "At this time we support the Deebach BlackBox as well as MIDI GM compliant modules with more planned.";
+            String introline2 = "AMIDIFX integrates MIDI keyboards, organs and sound modules enabling live play with backing tracks.\n";
+            String introline3 = "AMIDIFX supsorts: Deebach BlackBox, Roland Integra 7, and MIDI GM compliant modules.\n";
             String introlines = introline1 + System.getProperty("line.separator") +
                     System.getProperty("line.separator") +
                     introline2 + System.getProperty("line.separator") +
                     introline3;
             TextArea txtIntro = new TextArea(introlines);
             txtIntro.setStyle("-fx-background-color: #CCCCCC; ");
-            txtIntro.setPrefSize(400, 250);
+            txtIntro.setPrefSize(300, 250);
             txtIntro.setWrapText(true);
-            txtIntro.setDisable(true);
+            txtIntro.setEditable(false);
 
-            String keyboards0 = "MIDI Keyboard Channels:";
-            String keyboards1 = "     Solo: Channel " +  sharedStatus.getSoloCHAN();
-            String keyboards2 = "     Bass: Channel " +  sharedStatus.getBassCHAN();
+            String keyboards0 = "Keyboard MIDI Channels:";
+            String keyboards1 = "       Solo: Channel " +  sharedStatus.getSoloCHAN();
+            String keyboards2 = "       Bass: Channel " +  sharedStatus.getBassCHAN();
             String keyboards3 = "  Lower 1: Channel " +  sharedStatus.getLower1CHAN();
             String keyboards4 = "  Upper 1: Channel " + sharedStatus.getUpper1CHAN();
             String keyboards5 = "  Lower 2: Channel " +  sharedStatus.getLower2CHAN();
             String keyboards6 = "  Upper 2: Channel " + sharedStatus.getUpper2CHAN();
             String keyboards7 = "  Upper 3: Channel " + sharedStatus.getUpper3CHAN();
             String keyboards8 = "    Drums: Channel " + sharedStatus.getDrumCHAN();
-            String keyboards9 = "     Expr: Channel " + sharedStatus.getExpressionCHAN();
+            String keyboards9 = "        Expr: Channel " + sharedStatus.getExpressionCHAN();
             String keyboards = keyboards0 + System.getProperty("line.separator") + System.getProperty("line.separator") +
                     keyboards1 + System.getProperty("line.separator") +
                     keyboards2 + System.getProperty("line.separator") +
@@ -345,13 +345,13 @@ public class HomeScene {
                     keyboards8 + System.getProperty("line.separator") +
                     keyboards9;
             TextArea txtKeyboard = new TextArea(keyboards);
-            txtKeyboard.setStyle("-fx-background-color: #CCCCCC; ");
+            txtKeyboard.setStyle("-fx-background-color: #CACACA; ");
             txtKeyboard.setPrefSize(200, 250);
             txtKeyboard.setWrapText(true);
-            txtKeyboard.setDisable(true);
+            txtKeyboard.setEditable(false);
 
             Label lblspace = new Label();
-            lblspace.setPrefSize(520, 250);
+            lblspace.setPrefSize(720, 250);
 
             GridPane gridIntroKeyboard = new GridPane();
             gridIntroKeyboard.setPadding(new Insets(10, 10, 10, 10));
