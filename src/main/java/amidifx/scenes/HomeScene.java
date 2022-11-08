@@ -140,6 +140,15 @@ public class HomeScene {
             sharedStatus.setSelInDevice(appconfig.getInDevice());
             sharedStatus.setSelOutDevice(appconfig.getOutDevice());
 
+            sharedStatus.setDrumCHAN(appconfig.getDrumChannel());
+            sharedStatus.setSoloCHAN(appconfig.getSoloChannel());
+            sharedStatus.setBassCHAN(appconfig.getBassChannel());
+            sharedStatus.setLower1CHAN(appconfig.getLower1Channel());
+            sharedStatus.setLower2CHAN(appconfig.getLower2Channel());
+            sharedStatus.setUpper1CHAN(appconfig.getUpper1Channel());
+            sharedStatus.setUpper2CHAN(appconfig.getUpper2Channel());
+            sharedStatus.setUpper3CHAN(appconfig.getUpper3Channel());
+
             // Initialize Input and Output Device Lists
             MidiUtils midiutils = new MidiUtils();
             midiutils.loadMidiDevices();
@@ -310,32 +319,34 @@ public class HomeScene {
                     introline2 + System.getProperty("line.separator") +
                     introline3;
             TextArea txtIntro = new TextArea(introlines);
-            txtIntro.setStyle("-fx-background-color: #999999; ");
+            txtIntro.setStyle("-fx-background-color: #CCCCCC; ");
             txtIntro.setPrefSize(400, 250);
             txtIntro.setWrapText(true);
             txtIntro.setDisable(true);
 
-            String keyboards1 = "MIDI Keyboard Channels:";
-            String keyboards20 = "  Upper 1: Channel 14";
-            String keyboards21 = "  Upper 2: Channel 15";
-            String keyboards22 = "  Upper 3: Channel 16";
-            String keyboards30 = "  Lower 1: Channel 12";
-            String keyboards31 = "  Lower 2: Channel 13";
-            String keyboards4 = "       Bass: Channel 11";
-            String keyboards5 = "    Drums: Channel 10";
-            String keyboards6 = "Expression:Channel 16";
-            String keyboards = keyboards1 + System.getProperty("line.separator") + System.getProperty("line.separator") +
-                    keyboards20 + System.getProperty("line.separator") +
-                    keyboards21 + System.getProperty("line.separator") +
-                    keyboards22 + System.getProperty("line.separator") +
-                    keyboards30 + System.getProperty("line.separator") +
-                    keyboards31 + System.getProperty("line.separator") +
+            String keyboards0 = "MIDI Keyboard Channels:";
+            String keyboards1 = "     Solo: Channel " +  sharedStatus.getSoloCHAN();
+            String keyboards2 = "     Bass: Channel " +  sharedStatus.getBassCHAN();
+            String keyboards3 = "  Lower 1: Channel " +  sharedStatus.getLower1CHAN();
+            String keyboards4 = "  Upper 1: Channel " + sharedStatus.getUpper1CHAN();
+            String keyboards5 = "  Lower 2: Channel " +  sharedStatus.getLower2CHAN();
+            String keyboards6 = "  Upper 2: Channel " + sharedStatus.getUpper2CHAN();
+            String keyboards7 = "  Upper 3: Channel " + sharedStatus.getUpper3CHAN();
+            String keyboards8 = "    Drums: Channel " + sharedStatus.getDrumCHAN();
+            String keyboards9 = "     Expr: Channel " + sharedStatus.getExpressionCHAN();
+            String keyboards = keyboards0 + System.getProperty("line.separator") + System.getProperty("line.separator") +
+                    keyboards1 + System.getProperty("line.separator") +
+                    keyboards2 + System.getProperty("line.separator") +
+                    keyboards3 + System.getProperty("line.separator") +
                     keyboards4 + System.getProperty("line.separator") +
-                    keyboards5 + System.getProperty("line.separator") + System.getProperty("line.separator") +
-                    keyboards6;
+                    keyboards5 + System.getProperty("line.separator") +
+                    keyboards6 + System.getProperty("line.separator") +
+                    keyboards7 + System.getProperty("line.separator") +
+                    keyboards8 + System.getProperty("line.separator") +
+                    keyboards9;
             TextArea txtKeyboard = new TextArea(keyboards);
-            txtKeyboard.setStyle("-fx-background-color: #999999; ");
-            txtKeyboard.setPrefSize(300, 250);
+            txtKeyboard.setStyle("-fx-background-color: #CCCCCC; ");
+            txtKeyboard.setPrefSize(200, 250);
             txtKeyboard.setWrapText(true);
             txtKeyboard.setDisable(true);
 

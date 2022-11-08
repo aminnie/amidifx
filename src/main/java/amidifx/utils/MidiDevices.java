@@ -44,9 +44,9 @@ public class MidiDevices {
     private byte upper3notestrack[] = new byte[128];
 
     private byte[] layerUpper = {0, 14, 0, 0, 14, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
-    private static final byte chan14idx = 4;
-    private static final byte chan15idx = 6;
-    private static final byte chan16idx = 8;
+    private static final byte upper1idx = 4;
+    private static final byte upper2idx = 6;
+    private static final byte upper3idx = 8;
 
     // Track Layering requests and close out on queued basis to ensure no hung notes
     private boolean upper1layeron = false;
@@ -65,8 +65,8 @@ public class MidiDevices {
     long upper3layerofftime;
 
     private byte[] layerLower = {0, 12, 0, 0, 12, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
-    private static final byte chan12idx = 4;
-    private static final byte chan13idx = 6;
+    private static final byte lower1idx = 4;
+    private static final byte lower2idx = 6;
 
     // Track Layering requests and close out on queued basis to ensure no hung notes
     private boolean lower1layeron = false;
@@ -82,7 +82,7 @@ public class MidiDevices {
     long lower2layerofftime;
 
     private byte[] layerBass = {0, 11, 0, 0, 11, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
-    private static final byte chan11idx = 4;
+    private static final byte bass1idx = 4;
 
     // Track Layering requests and close out on queued basis to ensure no hung notes
     private boolean bass1layeron = false;
@@ -397,7 +397,7 @@ public class MidiDevices {
             // Testing device and channel, e.g. Trellis M4
             ////if (channel == 0) channel = 13;
 
-            // Do not layer any MIDI source channels above Upper Keyboard Channel 4
+            // Do not layer any MIDI source channels above Upper Keyboard TX Channel
             if (channel > (byte) (sharedstatus.getUpper1CHAN() - 1)) {
                 //receiver.send(message, timeStamp);
 
@@ -429,7 +429,7 @@ public class MidiDevices {
 
                     try {
                         // Layer first/origin Upper Channel if not 0 (off/muted)
-                        byte chan = layerUpper[chan14idx];
+                        byte chan = layerUpper[upper1idx];
                         if ((chan != 0)) {
                             // Octave Translate incoming note
                             byte bytes1 = octaveTran(channel, bytes[1]);
@@ -443,7 +443,7 @@ public class MidiDevices {
                         }
 
                         // Layer Upper Channel + 1 if not 0 (off/muted)
-                        chan = layerUpper[chan15idx];
+                        chan = layerUpper[upper2idx];
                         if ((chan != 0)) {
                             // Octave Translate layered note
                             byte bytes1 = octaveTran(channel + 1, bytes[1]);
@@ -457,7 +457,7 @@ public class MidiDevices {
                         }
 
                         // Layer Upper Channel + 2 if not 0 (off/muted)
-                        chan = layerUpper[chan16idx];
+                        chan = layerUpper[upper3idx];
                         if ((chan != 0)) {
                             // Octave Translate layered note
                             byte bytes1 = octaveTran(channel + 2, bytes[1]);
@@ -589,7 +589,7 @@ public class MidiDevices {
 
                     try {
                         // Layer the first/origin Upper Channel if not 0 (off/muted)
-                        byte chan = layerLower[chan12idx];
+                        byte chan = layerLower[lower1idx];
                         if ((chan != 0)) {
                             // Octave Translate incoming note on
                             byte bytes1 = octaveTran(channel, bytes[1]);
@@ -603,7 +603,7 @@ public class MidiDevices {
                         }
 
                         // Layer Lower + 1 if not 0 (off muted)
-                        chan = layerLower[chan13idx];
+                        chan = layerLower[lower2idx];
                         if ((chan != 0)) {
                             // Octave Translate incoming note on
                             byte bytes1 = octaveTran(channel + 1, bytes[1]);
@@ -702,7 +702,7 @@ public class MidiDevices {
 
                     try {
                         // Layer the first/origin Upper Channel if not 0 (off/muted)
-                        byte chan = layerBass[chan11idx];
+                        byte chan = layerBass[bass1idx];
                         if ((chan != 0)) {
                             shortmessage = new ShortMessage();
                             shortmessage.setMessage(command, channel, byteToInt(bytes[1]), byteToInt(bytes[2]));
@@ -1019,12 +1019,12 @@ public class MidiDevices {
         // Layer Upper Keyboard Channels
         if (chan == sharedstatus.getUpper1CHAN()) {
             if (layeron) {
-                layerUpper[chan14idx] = (byte)(chan & 0xFF);
+                layerUpper[upper1idx] = (byte)(chan & 0xFF);
                 upper1layeron = true;
                 uppernoteson = 0;
             }
             else {
-                layerUpper[chan14idx] = (byte)(0);
+                layerUpper[upper1idx] = (byte)(0);
                 upper1layeron = false;
                 upper1layerofftime = System.currentTimeMillis();
                 trackupper1opennotes = true;            // Interim state until all notes closed out on keyboard - triggers real layer off
@@ -1033,12 +1033,12 @@ public class MidiDevices {
         }
         else if (chan == sharedstatus.getUpper2CHAN()) {
             if (layeron) {
-                layerUpper[chan15idx] = (byte)(chan & 0xFF);
+                layerUpper[upper2idx] = (byte)(chan & 0xFF);
                 upper2layeron = true;
                 uppernoteson = 0;
             }
             else {
-                layerUpper[chan15idx] = (byte)(0);
+                layerUpper[upper2idx] = (byte)(0);
                 ////upper15layeron = false;
                 upper2layerofftime = System.currentTimeMillis();
                 trackupper2opennotes = true;            // Interim state until all notes closed out on keyboard - triggers real layer off
@@ -1047,12 +1047,12 @@ public class MidiDevices {
         }
         else if (chan == sharedstatus.getUpper3CHAN()) {
             if (layeron) {
-                layerUpper[chan16idx] = (byte) (chan & 0xFF);
+                layerUpper[upper3idx] = (byte) (chan & 0xFF);
                 upper3layeron = true;
                 uppernoteson = 0;
             }
             else {
-                layerUpper[chan16idx] = (byte)(0);
+                layerUpper[upper3idx] = (byte)(0);
                 ////upper16layeron = false;
                 upper3layerofftime = System.currentTimeMillis();
                 trackupper3opennotes = true;            // Interim state until all notes closed out on keyboard - triggers real layer off
@@ -1063,12 +1063,12 @@ public class MidiDevices {
         // Layer Lower Keyboard Channels
         else if (chan == sharedstatus.getLower1CHAN()) {
             if (layeron) {
-                layerLower[chan12idx] = (byte) (chan & 0xFF);
+                layerLower[lower1idx] = (byte) (chan & 0xFF);
                 lower1layeron = true;
                 lowernoteson = 0;
             }
             else {
-                layerLower[chan12idx] = (byte) (0);
+                layerLower[lower1idx] = (byte) (0);
                 lower1layeron = false;
                 lower1layerofftime = System.currentTimeMillis();
                 tracklower1opennotes = true;            // Interim state until all notes closed out on keyboard - triggers real layer off
@@ -1078,12 +1078,12 @@ public class MidiDevices {
 
         else if (chan == sharedstatus.getLower2CHAN()) {
             if (layeron) {
-                layerLower[chan13idx] = (byte) (chan & 0xFF);
+                layerLower[lower2idx] = (byte) (chan & 0xFF);
                 lower2layeron = true;
                 lowernoteson = 0;
             }
             else {
-                layerLower[chan13idx] = (byte) (0);
+                layerLower[lower2idx] = (byte) (0);
                 ////lower13layeron = false;
                 lower2layerofftime = System.currentTimeMillis();
                 tracklower2opennotes = true;            // Interim state until all notes closed out on keyboard - triggers real layer off
@@ -1094,12 +1094,12 @@ public class MidiDevices {
         // Layer Bass Keyboard Channels
         else if (chan == sharedstatus.getBassCHAN()) {
             if (layeron) {
-                layerBass[chan11idx] = (byte)(chan & 0xFF);
+                layerBass[bass1idx] = (byte)(chan & 0xFF);
                 bass1layeron = true;
                 bassnoteson = 0;
             }
             else {
-                layerBass[chan11idx] = (byte)(0);
+                layerBass[bass1idx] = (byte)(0);
                 bass1layeron = false;
                 bass1layerofftime = System.currentTimeMillis();
                 trackbass1opennotes = true;            // Interim state until all notes closed out on keyboard - triggers real layer off

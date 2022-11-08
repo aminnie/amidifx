@@ -172,6 +172,10 @@ public class AppConfig {
         return moduleidx;
     }
 
+    public String getSongsFile() {
+        return configProps.getProperty("songsfile");
+    }
+
     public int getExpressionChannel() {
         Integer expchannelidx = 0;
 
@@ -190,8 +194,148 @@ public class AppConfig {
         return expchannelidx;
     }
 
-    public String getSongsFile() {
-        return configProps.getProperty("songsfile");
+    public int getSoloChannel() {
+        Integer channelidx = 0;
+
+        try {
+            String channelidxstr = configProps.getProperty("midisolo");
+            channelidx = new Integer(channelidxstr);
+
+            // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
+            if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
+        }
+        catch (Exception ex) {
+            System.err.println("AppConfig: Error read MIDI Expression CHannel from AppConfig file");
+            System.err.println(ex);
+        }
+
+        return channelidx;
+    }
+
+    public int getBassChannel() {
+        Integer channelidx = 0;
+
+        try {
+            String channelidxstr = configProps.getProperty("midibass");
+            channelidx = new Integer(channelidxstr);
+
+            // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
+            if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
+        }
+        catch (Exception ex) {
+            System.err.println("AppConfig: Error read MIDI Expression CHannel from AppConfig file");
+            System.err.println(ex);
+        }
+
+        return channelidx;
+    }
+
+    public int getDrumChannel() {
+        Integer channelidx = 0;
+
+        try {
+            String channelidxstr = configProps.getProperty("mididrums");
+            channelidx = new Integer(channelidxstr);
+
+            // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
+            if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
+        }
+        catch (Exception ex) {
+            System.err.println("AppConfig: Error read MIDI Drum CHannel from AppConfig file");
+            System.err.println(ex);
+        }
+
+        return channelidx;
+    }
+
+    public int getUpper1Channel() {
+        Integer channelidx = 0;
+
+        try {
+            String channelidxstr = configProps.getProperty("midiupper1");
+            channelidx = new Integer(channelidxstr);
+
+            // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
+            if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
+        }
+        catch (Exception ex) {
+            System.err.println("AppConfig: Error read MIDI Upper 1 CHannel from AppConfig file");
+            System.err.println(ex);
+        }
+
+        return channelidx;
+    }
+
+    public int getUpper2Channel() {
+        Integer channelidx = 0;
+
+        try {
+            String channelidxstr = configProps.getProperty("midiupper2");
+            channelidx = new Integer(channelidxstr);
+
+            // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
+            if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
+        }
+        catch (Exception ex) {
+            System.err.println("AppConfig: Error read MIDI Upper 2 CHannel from AppConfig file");
+            System.err.println(ex);
+        }
+
+        return channelidx;
+    }
+
+    public int getUpper3Channel() {
+        Integer channelidx = 0;
+
+        try {
+            String channelidxstr = configProps.getProperty("midiupper3");
+            channelidx = new Integer(channelidxstr);
+
+            // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
+            if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
+        }
+        catch (Exception ex) {
+            System.err.println("AppConfig: Error read MIDI Upper 3 CHannel from AppConfig file");
+            System.err.println(ex);
+        }
+
+        return channelidx;
+    }
+
+    public int getLower1Channel() {
+        Integer channelidx = 0;
+
+        try {
+            String channelidxstr = configProps.getProperty("midilower1");
+            channelidx = new Integer(channelidxstr);
+
+            // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
+            if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
+        }
+        catch (Exception ex) {
+            System.err.println("AppConfig: Error read MIDI Lower 1 CHannel from AppConfig file");
+            System.err.println(ex);
+        }
+
+        return channelidx;
+    }
+
+    public int getLower2Channel() {
+        Integer channelidx = 0;
+
+        try {
+            String channelidxstr = configProps.getProperty("midilower2");
+            channelidx = new Integer(channelidxstr);
+
+            // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
+            if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
+        }
+        catch (Exception ex) {
+            System.err.println("AppConfig: Error read MIDI Lower 2 CHannel from AppConfig file");
+            System.err.println(ex);
+        }
+
+        return channelidx;
     }
 
     public boolean getApplicationLock() {

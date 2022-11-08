@@ -26,10 +26,10 @@ public class PlayMidi {
 
     // Hardcoded keyboard channels for now. Note channels are coded from 0 - 15!
     private static final int DRUMS = 10;
-    private static final int BASSKBD = 11;
-    private static final int LOWERKBD = 12;
-    private static final int UPPERKBD = 14;
-    private static final int SOLOKBD = 16;
+    private static final int BASSKBD = 2; //11;
+    private static final int LOWERKBD = 3; //12;
+    private static final int UPPERKBD = 4; //14;
+    private static final int SOLOKBD = 1; //16;
 
     private int TimeSigNum = 4;
     private int TimeSigDen = 4;

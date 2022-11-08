@@ -51,16 +51,19 @@ public class PerformScene {
     int xtoolbarright = (int)(150 * xmul);
 
     int xleftright = (int)(50 * xmul);
-    int yleftright = (int)(25 * ymul);
+    int yleftright = (int)(35 * ymul);
 
     int xbtnleftright = (int)(190 * xmul);
-    int ybtnleftright = (int)(25 * ymul);
+    int ybtnleftright = (int)(35 * ymul);
 
     int xbtnpreset = (int)(120 * xmul);
     int ybtnpreset = (int)(50 * ymul);
 
     int xvoicebtn = (int)(130 * xmul);
     int yvoicebtn = (int)(50 * ymul);
+
+    int xlayerbtn = xvoicebtn;
+    int ylayerbtn = (int)(35 * ymul);
 
     int xstatusleft = (int)(400 * xmul);
 
@@ -677,7 +680,7 @@ public class PerformScene {
 
             // Assemble the Song Navigation Controls
             HBox hboxSong = new HBox();
-            hboxSong.setSpacing(2);
+            hboxSong.setSpacing(5);
             hboxSong.getChildren().add(buttonSongNameLeft);
             hboxSong.getChildren().add(buttonSongLoad);
             hboxSong.getChildren().add(buttonSongNameRight);
@@ -738,7 +741,7 @@ public class PerformScene {
 
             // Assemble the Song Navigation Controls
             HBox hboxBank = new HBox();
-            hboxBank.setSpacing(2);
+            hboxBank.setSpacing(5);
             hboxBank.getChildren().add(buttonSoundBankLeft);
             hboxBank.getChildren().add(buttonSoundBank);
             hboxBank.getChildren().add(buttonSoundBankRight);
@@ -852,7 +855,7 @@ public class PerformScene {
             // Add Song, Bank and Font Select to Top Line
             GridPane gridTopLine = new GridPane();
             gridTopLine.setHgap(10);
-            gridTopLine.setVgap(10);
+            gridTopLine.setVgap(20);
             gridTopLine.add(flowSong, 0, 0, 1, 1);
             gridTopLine.add(flowBank, 1, 0, 1, 1);
             gridTopLine.add(flowFont, 2, 0, 1, 1);
@@ -1031,7 +1034,8 @@ public class PerformScene {
 
             b1layerbtn = new Button("Bass [11]");
             b1layerbtn.setStyle(lrpressedOn);
-            b1layerbtn.setMaxWidth(xvoicebtn);
+            b1layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
+            b1layerbtn.setMinSize(xlayerbtn, ylayerbtn);
             //b1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             b1layerbtn.setOnAction(event -> {
                 if (b1pressed == false) {
@@ -1283,8 +1287,8 @@ public class PerformScene {
             Button d1layerbtn = new Button("Drums [10]");
             d1layerbtn.setStyle(styletext);
             d1layerbtn.setStyle(lrpressedOn);
-            d1layerbtn.setMaxWidth(xvoicebtn);
-            d1layerbtn.setMaxHeight(yvoicebtn / 2);
+            d1layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
+            d1layerbtn.setMinSize(xlayerbtn, ylayerbtn);
 
             // Do Beat Counter in large font
             DropShadow ds1 = new DropShadow();
@@ -1532,7 +1536,8 @@ public class PerformScene {
 
             l1layerbtn = new Button("Lower 1 [12]   ");       // Lefthand Layering Buttons
             l1layerbtn.setStyle(lrpressedOn);
-            l1layerbtn.setMaxWidth(xvoicebtn);
+            l1layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
+            l1layerbtn.setMinSize(xlayerbtn, ylayerbtn);
             //l1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             l1layerbtn.setOnAction(event -> {
                 if (l1pressed == false) {
@@ -1557,7 +1562,8 @@ public class PerformScene {
 
             l2layerbtn = new Button("Lower 2 [13]   ");
             l2layerbtn.setStyle(lrpressedOff);
-            l2layerbtn.setMaxWidth(xvoicebtn);
+            l2layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
+            l2layerbtn.setMinSize(xlayerbtn, ylayerbtn);
             l2layerbtn.setDisable(!sharedStatus.getlower1Kbdlayerenabled());
             //l2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             l2layerbtn.setOnAction(event -> {
@@ -1810,7 +1816,6 @@ public class PerformScene {
             lbutton15.setWrapText(true);
             lbutton15.setTextAlignment(TextAlignment.CENTER);
             lbutton15.setOnAction(event -> {
-
                 labelstatusOrg.setText(" Status: Lower 1 Rotary On/Off");
                 if (!lpressed15) {
                     lbutton15.setStyle(orgcolorOn);
@@ -1841,8 +1846,8 @@ public class PerformScene {
             lbutton16.setWrapText(true);
             lbutton16.setTextAlignment(TextAlignment.CENTER);
             lbutton16.setOnAction(event -> {
-
                 labelstatusOrg.setText(" Status: Lower 1 Rotary On/Off");
+                lbutton16.setDisable(true);
                 if (!lpressed16) {
                     lbutton16.setStyle(orgcolorOn);
                     lbutton16.setText(" Lower 1 Rotary Fast");
@@ -1866,6 +1871,7 @@ public class PerformScene {
                     lbutton16.setDisable(false);
                 }
                 lpressed16 = !lpressed16;
+                lbutton16.setDisable(false);
             });
 
             lbutton21 = new Button(" Lower 2-1");
@@ -2104,7 +2110,8 @@ public class PerformScene {
 
             r1layerbtn = new Button("Upper 1 [14]   ");       // Righthand Layering Buttons
             r1layerbtn.setStyle(lrpressedOn);
-            r1layerbtn.setMaxWidth(xvoicebtn);
+            r1layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
+            r1layerbtn.setMinSize(xlayerbtn, ylayerbtn);
             //r1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r1layerbtn.setOnAction(event -> {
                 if (r1pressed == false) {
@@ -2129,7 +2136,8 @@ public class PerformScene {
 
             r2layerbtn = new Button("Upper 2 [15]   ");
             r2layerbtn.setStyle(lrpressedOff);
-            r2layerbtn.setMaxWidth(xvoicebtn);
+            r2layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
+            r2layerbtn.setMinSize(xlayerbtn, ylayerbtn);
             r2layerbtn.setDisable(!sharedStatus.getUpper1KbdLayerEnabled());
             //r2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r2layerbtn.setOnAction(event -> {
@@ -2155,7 +2163,8 @@ public class PerformScene {
 
             r3layerbtn = new Button("Upper 3 [16]   ");
             r3layerbtn.setStyle(lrpressedOff);
-            r3layerbtn.setMaxWidth(xvoicebtn);
+            r3layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
+            r3layerbtn.setMinSize(xlayerbtn, ylayerbtn);
             r3layerbtn.setDisable(!sharedStatus.getupper2Kbdlayerenabled());
             //r3layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r3layerbtn.setOnAction(event -> {
@@ -2463,7 +2472,6 @@ public class PerformScene {
                 labelstatusOrg.setText(" Status: Applied U1-5");
             });
 
-            // Organ Button + Rotary On/Off and Brake
             rbutton16.setText(" Upper 1-6");
             rbutton16.setId("U1-6");
             rbutton16.setMaxSize(xvoicebtn, yvoicebtn);
@@ -2529,7 +2537,6 @@ public class PerformScene {
             rbutton17.setWrapText(true);
             rbutton17.setTextAlignment(TextAlignment.CENTER);
             rbutton17.setOnAction(event -> {
-
                 labelstatusOrg.setText(" Status: Upper 1 Rotary On/Off");
                 if (!rpressed17) {
                     rbutton17.setStyle(orgcolorOn);
@@ -2560,8 +2567,8 @@ public class PerformScene {
             rbutton18.setWrapText(true);
             rbutton18.setTextAlignment(TextAlignment.CENTER);
             rbutton18.setOnAction(event -> {
-
                 labelstatusOrg.setText(" Status: Upper 1 Rotary On/Off");
+                rbutton18.setDisable(true);
                 if (!rpressed18) {
                     rbutton18.setStyle(orgcolorOn);
                     rbutton18.setText(" Upper 1 Rotary Fast");
@@ -2585,6 +2592,7 @@ public class PerformScene {
                     rbutton18.setDisable(false);
                 }
                 rpressed18 = !rpressed18;
+                rbutton18.setDisable(false);
             });
 
             // Upper 2 CHAN 15 + 16 Buttons

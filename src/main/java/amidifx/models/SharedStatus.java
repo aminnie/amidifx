@@ -35,12 +35,19 @@ public class SharedStatus {
     private String selindevice = "default";
     private String seloutdevice = "default";
 
-    // Hardcoded keyboard channels for now. Note channels are coded from 0 - 15!
-    private static final int DRUMS = 10;
-    private static final int BASSKBD = 11;
-    private static final int LOWERKBD = 12;
-    private static final int UPPERKBD = 14;
-    private static final int SOLOKBD = 16;
+    // Hardcoded keyboard channels for now. Roland AT900 TX Channels default. Can be overriden from AppConfig XML
+    private int SOLOKBD = 1;
+    private int BASSKBD = 2;
+    private int LOWER1KBD = 3;
+    private int UPPER1KBD = 4;
+    private int DRUMS = 11;
+
+    private int LOWER2KBD = 12;
+    private int UPPER2KBD = 14;
+    private int UPPER3KBD = 15;
+
+    private static final int PERCUSSION = 13;
+    private static final int CONTROL = 16;
 
     int expchannel = 0xFF; // Expression Channel Number if used. Value of 0 is not used, 0xFF if not yet set
 
@@ -142,6 +149,7 @@ public class SharedStatus {
     public Button getButtonPresetSceneInit() {
         return buttonPresetSceneInit;
     }
+
 
     public void setDoSongs(MidiSongs dosongs) {
         this.dosongs = dosongs;
@@ -274,35 +282,38 @@ public class SharedStatus {
         this.songreload = songreload;
     }
 
-
     public int getUpper1CHAN() {
-        return UPPERKBD;
+        return UPPER1KBD;
     }
+    public void setUpper1CHAN(int midichan) {UPPER1KBD = midichan; }
 
     public int getUpper2CHAN() {
-        return UPPERKBD+1;
+        return UPPER2KBD;
     }
+    public void setUpper2CHAN(int midichan) {UPPER2KBD = midichan; }
 
-    public int getUpper3CHAN() {
-        return UPPERKBD+2;
-    }
+    public int getUpper3CHAN() { return UPPER3KBD; }
+    public void setUpper3CHAN(int midichan) {UPPER3KBD = midichan; }
 
     public int getLower1CHAN() {
-        return LOWERKBD;
+        return LOWER1KBD;
     }
+    public void setLower1CHAN(int midichan) {LOWER1KBD = midichan; }
 
     public int getLower2CHAN() {
-        return LOWERKBD+1;
+        return LOWER2KBD;
     }
+    public void setLower2CHAN(int midichan) {LOWER2KBD = midichan; }
 
     public int getBassCHAN() {
         return BASSKBD;
     }
+    public void setBassCHAN(int midichan) { BASSKBD = midichan; }
 
-    public int getSoloCHAN() {
-        return SOLOKBD;
-    }
+    public int getSoloCHAN() { return SOLOKBD; }
+    public void setSoloCHAN(int midichan) {SOLOKBD = midichan; }
 
+    public void setDrumCHAN(int midichan) {DRUMS = midichan; }
     public int getDrumCHAN() {
         return DRUMS;
     }
@@ -358,7 +369,6 @@ public class SharedStatus {
 
         return expchannel;
     }
-
 
     public void setSelInDevice(String selindevice) {
         this.selindevice = selindevice;
