@@ -20,7 +20,7 @@ public class MidiDevices {
 
     Synthesizer synthesizer;
     Sequencer sequencer;
-    Receiver midircv;
+    Receiver midircvr;
     Transmitter miditrans;
     AMidiFXReceiver displayReceiver;
 
@@ -43,7 +43,9 @@ public class MidiDevices {
     private byte upper2notestrack[] = new byte[128];
     private byte upper3notestrack[] = new byte[128];
 
-    private byte[] layerUpper = {0, 14, 0, 0, 14, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
+    // Default MIDI Channels: Upper U1 = 4, U2 = 14, U3 = 15, and overriden during initialization with SharedStatus channels
+    // Next byte in array is used to indicate if Layering is active for a channel
+    private byte[] layerUpper = {0, 4, 0, 0, 4, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
     private static final byte upper1idx = 4;
     private static final byte upper2idx = 6;
     private static final byte upper3idx = 8;
@@ -64,7 +66,9 @@ public class MidiDevices {
     long upper2layerofftime;
     long upper3layerofftime;
 
-    private byte[] layerLower = {0, 12, 0, 0, 12, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
+    // Default MIDI Channels: Lower L1 = 2, L2 = 11, and overriden during initialization with SharedStatus channels
+    // Next byte in array is used to indicate if Layering is active for a channel
+    private byte[] layerLower = {0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
     private static final byte lower1idx = 4;
     private static final byte lower2idx = 6;
 
@@ -81,7 +85,7 @@ public class MidiDevices {
     long lower1layerofftime;
     long lower2layerofftime;
 
-    private byte[] layerBass = {0, 11, 0, 0, 11, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
+    private byte[] layerBass = {0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
     private static final byte bass1idx = 4;
 
     // Track Layering requests and close out on queued basis to ensure no hung notes
@@ -150,8 +154,8 @@ public class MidiDevices {
         createNotesTracker();
 
         try {
-            Receiver midircv = sharedstatus.getRxDevice();
-            midircv.close();
+            Receiver midircvr = sharedstatus.getRxDevice();
+            midircvr.close();
             Transmitter miditrans = sharedstatus.getTxDevice();
             miditrans.close();
             Sequencer midiseq = sharedstatus.getSeqDevice();
@@ -162,8 +166,8 @@ public class MidiDevices {
 
         try {
             // Get output Synth or external Sound Module
-            midircv = openMidiReceiver(seloutdevice);
-            if (midircv == null) {
+            midircvr = openMidiReceiver(seloutdevice);
+            if (midircvr == null) {
                 System.err.print("**** Error: Unable to open selected MIDI OUT device: " + seloutdevice);
 
                 sharedstatus.setStatusText("Error opening selected MIDI OUT device");
@@ -171,7 +175,7 @@ public class MidiDevices {
             }
 
             // Set Receiver into custom Class that enables custom Channel layering and routing
-            displayReceiver = new AMidiFXReceiver(midircv);
+            displayReceiver = new AMidiFXReceiver(midircvr);
             sharedstatus.setRxDevice(displayReceiver);
 
             miditrans = getTransmitter();
@@ -209,7 +213,7 @@ public class MidiDevices {
 
         try {
             sequencer.open();
-            sequencer.getTransmitter().setReceiver(midircv);
+            sequencer.getTransmitter().setReceiver(midircvr);
         } catch (Exception ex) {
             System.out.println("Error: Open Demo Sequencer");
         }
@@ -287,8 +291,7 @@ public class MidiDevices {
      * Rreturn a specific sequencer object by setting the system property, otherwise the default
      */
     private Sequencer getSequencer() {
-        if (!SEQ_DEV_NAME.isEmpty()
-                || !"default".equalsIgnoreCase(SEQ_DEV_NAME)) {
+        if ( !SEQ_DEV_NAME.isEmpty() || !"default".equalsIgnoreCase(SEQ_DEV_NAME) ) {
             System.setProperty(SEQ_PROP_KEY, SEQ_DEV_NAME);
         }
 
@@ -348,7 +351,7 @@ public class MidiDevices {
             switch (command) {
                 case 0x80:      //displayNoteOff(message);
                 case 0x90:      //displayNoteOn(message);
-                    layerNoteMessage(message, timeStamp);
+                    processNoteMessage(message, timeStamp);
                     break;
                 case 0xa0:      //displayKeyPressure(message);
                     receiver.send(message, timeStamp);
@@ -380,7 +383,7 @@ public class MidiDevices {
 
 
         // Play MIDI Note On/Off IN messages and perform all Channel OUT layering as needed
-        private void layerNoteMessage(MidiMessage message, long timeStamp) {
+        private void processNoteMessage(MidiMessage message, long timeStamp) {
 
             ShortMessage shortmessage;
 
@@ -398,6 +401,7 @@ public class MidiDevices {
             ////if (channel == 0) channel = 13;
 
             // Do not layer any MIDI source channels above Upper Keyboard TX Channel
+            // Send such messages directly to specified output channel
             if (channel > (byte) (sharedstatus.getUpper1CHAN() - 1)) {
                 //receiver.send(message, timeStamp);
 
@@ -427,15 +431,15 @@ public class MidiDevices {
                 if ((command == 0x90) && (bytes[2] != 0)) {
                     uppernoteson++;
 
+                    byte chan = layerUpper[upper1idx];
                     try {
                         // Layer first/origin Upper Channel if not 0 (off/muted)
-                        byte chan = layerUpper[upper1idx];
-                        if ((chan != 0)) {
+                        if ((chan != 0) && (layerUpper[upper1idx+1] != 0)) {
                             // Octave Translate incoming note
-                            byte bytes1 = octaveTran(channel, bytes[1]);
+                            byte bytes1 = octaveTran(chan, bytes[1]);
 
                             shortmessage = new ShortMessage();
-                            shortmessage.setMessage(command, channel, byteToInt(bytes1), byteToInt(bytes[2]));
+                            shortmessage.setMessage(command, chan, byteToInt(bytes1), byteToInt(bytes[2]));
                             receiver.send(shortmessage, timeStamp);
 
                             upper1notestrack[(int) bytes1] = (byte) 1;
@@ -444,12 +448,12 @@ public class MidiDevices {
 
                         // Layer Upper Channel + 1 if not 0 (off/muted)
                         chan = layerUpper[upper2idx];
-                        if ((chan != 0)) {
+                        if ((chan != 0) && (layerUpper[upper2idx+1] != 0)) {
                             // Octave Translate layered note
-                            byte bytes1 = octaveTran(channel + 1, bytes[1]);
+                            byte bytes1 = octaveTran(chan, bytes[1]);
 
                             shortmessage = new ShortMessage();
-                            shortmessage.setMessage(command, channel + 1, byteToInt(bytes1), byteToInt(bytes[2]));
+                            shortmessage.setMessage(command, chan, byteToInt(bytes1), byteToInt(bytes[2]));
                             receiver.send(shortmessage, timeStamp);
 
                             upper2notestrack[(int) bytes1] = (byte) 1;
@@ -458,12 +462,12 @@ public class MidiDevices {
 
                         // Layer Upper Channel + 2 if not 0 (off/muted)
                         chan = layerUpper[upper3idx];
-                        if ((chan != 0)) {
+                        if ((chan != 0) && (layerUpper[upper3idx+1] != 0)) {
                             // Octave Translate layered note
-                            byte bytes1 = octaveTran(channel + 2, bytes[1]);
+                            byte bytes1 = octaveTran(chan, bytes[1]);
 
                             shortmessage = new ShortMessage();
-                            shortmessage.setMessage(command, channel + 2, byteToInt(bytes1), byteToInt(bytes[2]));
+                            shortmessage.setMessage(command, chan, byteToInt(bytes1), byteToInt(bytes[2]));
                             receiver.send(shortmessage, timeStamp);
 
                             upper3notestrack[(int) bytes1] = (byte) 1;
@@ -471,7 +475,7 @@ public class MidiDevices {
                         }
                     }
                     catch (InvalidMidiDataException ex) {
-                        System.out.print("layerOutMessages: Invalid Upper Channel Layer Message" + channel);
+                        System.out.print("layerOutMessages: Invalid Upper Channel Layer Message" + channel + ", " + chan);
                         System.out.print(ex);
                     }
                 }
@@ -481,25 +485,26 @@ public class MidiDevices {
                     uppernoteson--;
                     if (uppernoteson < 0) uppernoteson = 0;
 
+                    byte chan = layerUpper[upper1idx];
                     try {
-                        // Layer first/origin Upper Channel if not 0 (off/muted)
 
                         // Octave Translate incoming note off
-                        byte bytes1 = octaveTran(channel, bytes[1]);
+                        byte bytes1 = octaveTran(chan, bytes[1]);
 
                         shortmessage = new ShortMessage();
-                        shortmessage.setMessage(command, channel, byteToInt(bytes1), byteToInt(bytes[2]));
+                        shortmessage.setMessage(command, chan, byteToInt(bytes1), byteToInt(bytes[2]));
                         receiver.send(shortmessage, timeStamp);
 
                         upper1notestrack[(int) bytes1] = (byte) 0;
                         //System.out.println("layerOutMessages: Layer Upper index[80]: " + (sharedstatus.getUpper1CHAN()) + ", " + bytes[1] + ", " + bytes[2] + " L=" + trackupper14opennotes + " #=" + uppernoteson);
 
-                        // Check if the same note on Channel 15 is on, and turn it off too
+                        // Check if the same note on Upper Channel 2 is on, and turn it off too
                         // Octave Translate incoming note off
-                        bytes1 = octaveTran(channel + 1, bytes[1]);
+                        chan = layerUpper[upper2idx];
+                        bytes1 = octaveTran(chan, bytes[1]);
 
                         shortmessage = new ShortMessage();
-                        shortmessage.setMessage(0x80, (channel + 1), bytes1, 0);
+                        shortmessage.setMessage(0x80, chan, bytes1, 0);
                         receiver.send(shortmessage, timeStamp);
 
                         upper2notestrack[bytes1] = (byte) 0;
@@ -510,21 +515,21 @@ public class MidiDevices {
                             //Clear out all remaining open notes tracked to prevent hanging notes
                             if (uppernoteson == 0) {
                                 // Octave Translate incoming note off
-                                bytes1 = octaveTran(channel + 1, bytes[1]);
+                                bytes1 = octaveTran(chan, bytes[1]);
 
                                 shortmessage = new ShortMessage();
-                                shortmessage.setMessage(0x80, (channel + 1), bytes1, 0);
+                                shortmessage.setMessage(0x80, chan, bytes1, 0);
                                 receiver.send(shortmessage, timeStamp);
                             }
                             else {
                                 for (int inote = 21; inote < 109; inote++) {
                                     if (upper2notestrack[inote] != 0) {
                                         shortmessage = new ShortMessage();
-                                        shortmessage.setMessage(0x80, channel + 1, inote, 0);
+                                        shortmessage.setMessage(0x80, chan, inote, 0);
                                         receiver.send(shortmessage, timeStamp);
 
                                         upper2notestrack[inote] = 0;
-                                        System.out.println("layerOutMessages: Timeout notes cleared on: " + (channel + 1) + ", " + inote);
+                                        System.out.println("layerOutMessages: Timeout notes cleared on: " + chan + ", " + inote);
                                     }
                                 }
                             }
@@ -535,10 +540,11 @@ public class MidiDevices {
 
                         // Check if the same note on Channel 16 is on, and turn it off too
                         // Octave Translate incoming note off
-                        bytes1 = octaveTran(channel + 2, bytes[1]);
+                        chan = layerUpper[upper3idx];
+                        bytes1 = octaveTran(chan, bytes[1]);
 
                         shortmessage = new ShortMessage();
-                        shortmessage.setMessage(0x80, (channel + 2), bytes1, 0);
+                        shortmessage.setMessage(0x80, chan, bytes1, 0);
                         receiver.send(shortmessage, timeStamp);
 
                         upper3notestrack[bytes1] = (byte) 0;
@@ -549,21 +555,21 @@ public class MidiDevices {
                             //Clear out all remaining open notes tracked to prevent hanging notes
                             if (uppernoteson == 0) {
                                 // Octave Translate incoming note off
-                                bytes1 = octaveTran(channel + 2, bytes[1]);
+                                bytes1 = octaveTran(chan, bytes[1]);
 
                                 shortmessage = new ShortMessage();
-                                shortmessage.setMessage(0x80, (channel + 2), bytes1, 0);
+                                shortmessage.setMessage(0x80, chan, bytes1, 0);
                                 receiver.send(shortmessage, timeStamp);
                             }
                             else {
                                 for (int inote = 21; inote < 109; inote++) {
                                     if (upper3notestrack[inote] != 0) {
                                         shortmessage = new ShortMessage();
-                                        shortmessage.setMessage(0x80, channel + 2, inote, 0);
+                                        shortmessage.setMessage(0x80, chan, inote, 0);
                                         receiver.send(shortmessage, timeStamp);
 
                                         upper3notestrack[inote] = 0;
-                                        System.out.println("layerOutMessages: Timeout notes cleared on: " + (channel + 2) + ", " + inote);
+                                        System.out.println("layerOutMessages: Timeout notes cleared on: " + chan + ", " + inote);
                                     }
                                 }
                             }
@@ -573,13 +579,13 @@ public class MidiDevices {
                         }
                     }
                     catch (InvalidMidiDataException ex) {
-                        System.out.println("layerOutMessages: Invalid Upper Channel Layer Message" + channel);
+                        System.out.println("layerOutMessages: Invalid Upper Channel Layer Message" + channel + ", " + chan);
                         System.out.println(ex);
                     }
                 }
             }
 
-            // Layer Lower Channel 12
+            // Layer Lower Channel 1
             else if (channel == (byte) (sharedstatus.getLower1CHAN() - 1)) {
 
                 // Track open notes to prevent hung notes. Close out all open notes before completing the layer off request
@@ -587,15 +593,16 @@ public class MidiDevices {
                 if ((command == 0x90) && (bytes[2] != 0)) {
                     lowernoteson++;
 
+                    byte chan = layerLower[lower1idx];
                     try {
                         // Layer the first/origin Upper Channel if not 0 (off/muted)
-                        byte chan = layerLower[lower1idx];
-                        if ((chan != 0)) {
+
+                        if ((chan != 0) && (layerLower[lower1idx+1] != 0)) {
                             // Octave Translate incoming note on
-                            byte bytes1 = octaveTran(channel, bytes[1]);
+                            byte bytes1 = octaveTran(chan, bytes[1]);
 
                             shortmessage = new ShortMessage();
-                            shortmessage.setMessage(command, channel, byteToInt(bytes1), byteToInt(bytes[2]));
+                            shortmessage.setMessage(command, chan, byteToInt(bytes1), byteToInt(bytes[2]));
                             receiver.send(shortmessage, timeStamp);
 
                             lower1notestrack[(int) bytes1] = (byte) 1;
@@ -604,12 +611,12 @@ public class MidiDevices {
 
                         // Layer Lower + 1 if not 0 (off muted)
                         chan = layerLower[lower2idx];
-                        if ((chan != 0)) {
+                        if ((chan != 0) && (layerLower[lower2idx+1] != 0)) {
                             // Octave Translate incoming note on
-                            byte bytes1 = octaveTran(channel + 1, bytes[1]);
+                            byte bytes1 = octaveTran(chan, bytes[1]);
 
                             shortmessage = new ShortMessage();
-                            shortmessage.setMessage(command, channel + 1, byteToInt(bytes1), byteToInt(bytes[2]));
+                            shortmessage.setMessage(command, chan, byteToInt(bytes1), byteToInt(bytes[2]));
                             receiver.send(shortmessage, timeStamp);
 
                             lower2notestrack[(int) bytes1] = (byte) 1;
@@ -617,7 +624,7 @@ public class MidiDevices {
                         }
                     }
                     catch (InvalidMidiDataException ex) {
-                        System.out.print("layerOutMessages: Invalid Upper Channel Layer Message" + channel);
+                        System.out.print("layerOutMessages: Invalid Upper Channel Layer Message" + channel + ", " + chan);
                         System.out.print(ex);
                     }
                 }
@@ -627,24 +634,26 @@ public class MidiDevices {
                     lowernoteson--;
                     if (lowernoteson < 0) lowernoteson = 0;
 
+                    byte chan = layerLower[lower1idx];
                     try {
                         // Octave Translate incoming note off
-                        byte bytes1 = octaveTran(channel, bytes[1]);
+                        byte bytes1 = octaveTran(chan, bytes[1]);
 
                         shortmessage = new ShortMessage();
-                        shortmessage.setMessage(command, channel, byteToInt(bytes1), byteToInt(bytes[2]));
+                        shortmessage.setMessage(command, chan, byteToInt(bytes1), byteToInt(bytes[2]));
                         receiver.send(shortmessage, timeStamp);
 
                         // Note Off for Channel Lower
                         lower1notestrack[(int) bytes1] = (byte) 0;
                         //System.out.println("layerOutMessages: Layer Lower index[80]: " + channel + ", " + bytes[1] + ", " + bytes[2] + " L=" + tracklower12opennotes + " #=" + lowernoteson);
 
-                        // Check if the same note on Channel 13 (Lower + 1) is on, and turn it off too
+                        // Check if the same note on Channel Lower 2 is on, and turn it off too
                         // Octave Translate layered note off
-                        bytes1 = octaveTran(channel + 1, bytes[1]);
+                        chan = layerLower[lower2idx];
+                        bytes1 = octaveTran(chan, bytes[1]);
 
                         shortmessage = new ShortMessage();
-                        shortmessage.setMessage(0x80, channel + 1, bytes1, bytes[2]);
+                        shortmessage.setMessage(0x80, chan, bytes1, bytes[2]);
                         receiver.send(shortmessage, timeStamp);
 
                         lower2notestrack[bytes1] = (byte) 0;
@@ -655,21 +664,21 @@ public class MidiDevices {
                             //Clear out all remaining open notes tracked to prevent hanging notes
                             if (lowernoteson == 0) {
                                 // Octave Translate layered note off
-                                bytes1 = octaveTran(channel + 1, bytes[1]);
+                                bytes1 = octaveTran(chan, bytes[1]);
 
                                 shortmessage = new ShortMessage();
-                                shortmessage.setMessage(0x80, channel + 1, bytes1, 0);
+                                shortmessage.setMessage(0x80, chan, bytes1, 0);
                                 receiver.send(shortmessage, timeStamp);
                             }
                             else {
                                 for (int inote = 21; inote < 109; inote++) {
                                     if (lower2notestrack[inote] != 0) {
                                         shortmessage = new ShortMessage();
-                                        shortmessage.setMessage(0x80, channel + 1, inote, 0);
+                                        shortmessage.setMessage(0x80, chan, inote, 0);
                                         receiver.send(shortmessage, timeStamp);
 
                                         lower2notestrack[inote] = 0;
-                                        System.out.println("layerOutMessages: Timeout notes cleared on: " + (channel + 1) + ", " + inote);
+                                        System.out.println("layerOutMessages: Timeout notes cleared on: " + chan + ", " + inote);
                                     }
                                 }
                             }
@@ -679,7 +688,7 @@ public class MidiDevices {
                         }
                     }
                     catch (InvalidMidiDataException ex) {
-                        System.out.println("layerOutMessages: Invalid Lower Channel Layer Message" + channel);
+                        System.out.println("layerOutMessages: Invalid Lower Channel Layer Message" + channel + ", " + chan);
                         System.out.println(ex);
                     }
                 }
@@ -700,12 +709,12 @@ public class MidiDevices {
                 if ((command == 0x90) && (bytes[2] != 0)) {
                     bassnoteson++;
 
+                    byte chan = layerBass[bass1idx];
                     try {
                         // Layer the first/origin Upper Channel if not 0 (off/muted)
-                        byte chan = layerBass[bass1idx];
                         if ((chan != 0)) {
                             shortmessage = new ShortMessage();
-                            shortmessage.setMessage(command, channel, byteToInt(bytes[1]), byteToInt(bytes[2]));
+                            shortmessage.setMessage(command, chan, byteToInt(bytes[1]), byteToInt(bytes[2]));
                             receiver.send(shortmessage, timeStamp);
 
                             bass1notestrack[(int) bytes[1]] = (byte) 1;
@@ -713,7 +722,7 @@ public class MidiDevices {
                         }
                     }
                     catch (InvalidMidiDataException ex) {
-                        System.out.print("layerOutMessages: Invalid Bass Channel Layer Message" + channel);
+                        System.out.print("layerOutMessages: Invalid Bass Channel Layer Message" + channel + ", " + chan);
                         System.out.print(ex);
                     }
                 }
@@ -722,9 +731,11 @@ public class MidiDevices {
                 else if ((command == 0x80) || ((command == 0x90) && (bytes[2] == 0))) {
                     bassnoteson--;
 
+                    byte chan = layerBass[bass1idx];
                     try {
+
                         shortmessage = new ShortMessage();
-                        shortmessage.setMessage(command, channel, byteToInt(bytes[1]), byteToInt(bytes[2]));
+                        shortmessage.setMessage(command, chan, byteToInt(bytes[1]), byteToInt(bytes[2]));
                         receiver.send(shortmessage, timeStamp);
 
                         // Note Off for Channel Lower
@@ -732,7 +743,7 @@ public class MidiDevices {
                         //System.out.println("layerOutMessages: Layer Lower index[80]: " + channel + ", " + bytes[1] + ", " + bytes[2] + " L=" + tracklower12opennotes + " #=" + lowernoteson);
                     }
                     catch (InvalidMidiDataException ex) {
-                        System.out.println("layerOutMessages: Invalid Bass Channel Layer Message" + channel);
+                        System.out.println("layerOutMessages: Invalid Bass Channel Layer Message" + channel + ", " + chan);
                         System.out.println(ex);
                     }
                 }
@@ -857,7 +868,7 @@ public class MidiDevices {
     // Check if at least one MIDI OUT device is correctly installed
     public Receiver openMidiReceiver(String seloutdevice) {
 
-        midircv = null;
+        midircvr = null;
         MidiDevice selectedDevice = null;
 
         // Default to MIDI GM Out device, and wait for Deebach BlackBox or Roland Integra 7 to override if present
@@ -873,7 +884,7 @@ public class MidiDevices {
 
             if (devices.length == 0) {
                 System.err.println("Error: No MIDI OUT sound modules found");
-                return midircv;
+                return midircvr;
             }
             else {
                 boolean binit = false; //true;
@@ -927,8 +938,8 @@ public class MidiDevices {
                         selectedDevice.open();
 
                         // Found output Device or Synth
-                        midircv = selectedDevice.getReceiver();
-                        sharedstatus.setRxDevice(midircv);
+                        midircvr = selectedDevice.getReceiver();
+                        sharedstatus.setRxDevice(midircvr);
 
                         System.out.println("Opened MIDI OUT Device *** " + selectedDevice.getDeviceInfo().getName() + " ***");
                     }
@@ -942,7 +953,7 @@ public class MidiDevices {
             System.err.println("Error: Could not open MIDI OUT device: " + ex);
         }
 
-        return midircv;
+        return midircvr;
     }
 
     // Create a sequence and set all MIDI events
@@ -1018,13 +1029,14 @@ public class MidiDevices {
 
         // Layer Upper Keyboard Channels
         if (chan == sharedstatus.getUpper1CHAN()) {
+            layerUpper[upper1idx] = (byte)(chan & 0xFF);
             if (layeron) {
-                layerUpper[upper1idx] = (byte)(chan & 0xFF);
+                layerUpper[upper1idx+1] = (byte)(1);
                 upper1layeron = true;
                 uppernoteson = 0;
             }
             else {
-                layerUpper[upper1idx] = (byte)(0);
+                layerUpper[upper1idx+1] = (byte)(0);
                 upper1layeron = false;
                 upper1layerofftime = System.currentTimeMillis();
                 trackupper1opennotes = true;            // Interim state until all notes closed out on keyboard - triggers real layer off
@@ -1032,28 +1044,28 @@ public class MidiDevices {
             return;
         }
         else if (chan == sharedstatus.getUpper2CHAN()) {
+            layerUpper[upper2idx] = (byte)(chan & 0xFF);
             if (layeron) {
-                layerUpper[upper2idx] = (byte)(chan & 0xFF);
+                layerUpper[upper2idx+1] = (byte)(1);
                 upper2layeron = true;
                 uppernoteson = 0;
             }
             else {
-                layerUpper[upper2idx] = (byte)(0);
-                ////upper15layeron = false;
+                layerUpper[upper2idx+1] = (byte)(0);
                 upper2layerofftime = System.currentTimeMillis();
                 trackupper2opennotes = true;            // Interim state until all notes closed out on keyboard - triggers real layer off
             }
             return;
         }
         else if (chan == sharedstatus.getUpper3CHAN()) {
+            layerUpper[upper3idx] = (byte)(chan & 0xFF);
             if (layeron) {
-                layerUpper[upper3idx] = (byte) (chan & 0xFF);
+                layerUpper[upper3idx+1] = (byte)(1);
                 upper3layeron = true;
                 uppernoteson = 0;
             }
             else {
-                layerUpper[upper3idx] = (byte)(0);
-                ////upper16layeron = false;
+                layerUpper[upper3idx+1] = (byte)(0);
                 upper3layerofftime = System.currentTimeMillis();
                 trackupper3opennotes = true;            // Interim state until all notes closed out on keyboard - triggers real layer off
             }
@@ -1062,13 +1074,14 @@ public class MidiDevices {
 
         // Layer Lower Keyboard Channels
         else if (chan == sharedstatus.getLower1CHAN()) {
+            layerLower[lower1idx] = (byte) (chan & 0xFF);
             if (layeron) {
-                layerLower[lower1idx] = (byte) (chan & 0xFF);
+                layerLower[lower1idx+1] = (byte)(1);
                 lower1layeron = true;
                 lowernoteson = 0;
             }
             else {
-                layerLower[lower1idx] = (byte) (0);
+                layerLower[lower1idx+1] = (byte)(0);
                 lower1layeron = false;
                 lower1layerofftime = System.currentTimeMillis();
                 tracklower1opennotes = true;            // Interim state until all notes closed out on keyboard - triggers real layer off
@@ -1077,13 +1090,14 @@ public class MidiDevices {
         }
 
         else if (chan == sharedstatus.getLower2CHAN()) {
+            layerLower[lower2idx] = (byte) (chan & 0xFF);
             if (layeron) {
-                layerLower[lower2idx] = (byte) (chan & 0xFF);
+                layerLower[lower2idx+1] = (byte)(1);
                 lower2layeron = true;
                 lowernoteson = 0;
             }
             else {
-                layerLower[lower2idx] = (byte) (0);
+                layerLower[lower2idx+1] = (byte) (0);
                 ////lower13layeron = false;
                 lower2layerofftime = System.currentTimeMillis();
                 tracklower2opennotes = true;            // Interim state until all notes closed out on keyboard - triggers real layer off
@@ -1093,13 +1107,14 @@ public class MidiDevices {
 
         // Layer Bass Keyboard Channels
         else if (chan == sharedstatus.getBassCHAN()) {
+            layerBass[bass1idx] = (byte)(chan & 0xFF);
             if (layeron) {
-                layerBass[bass1idx] = (byte)(chan & 0xFF);
+                layerBass[bass1idx+1] = (byte)(1);
                 bass1layeron = true;
                 bassnoteson = 0;
             }
             else {
-                layerBass[bass1idx] = (byte)(0);
+                layerBass[bass1idx+1] = (byte)(0);
                 bass1layeron = false;
                 bass1layerofftime = System.currentTimeMillis();
                 trackbass1opennotes = true;            // Interim state until all notes closed out on keyboard - triggers real layer off
