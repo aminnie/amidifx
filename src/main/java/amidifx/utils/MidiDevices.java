@@ -479,6 +479,7 @@ public class MidiDevices {
                             // Octave Translate incoming note off
                             bytes1 = octaveTran(chan, bytes[1]);
 
+                            // Send the layered note!
                             shortmessage = new ShortMessage();
                             shortmessage.setMessage(0x80, chan, bytes1, 0);
                             receiver.send(shortmessage, timeStamp);
@@ -498,7 +499,7 @@ public class MidiDevices {
                                         receiver.send(shortmessage, timeStamp);
 
                                         upper2notestrack[inote] = 0;
-                                        System.out.println("layerOutMessages: Timeout notes cleared on: " + chan + ", " + inote);
+                                        //System.out.println("layerOutMessages: Timeout notes cleared on: " + chan + ", " + inote);
                                     }
                                 }
                                 upper2layeron = false;
@@ -513,6 +514,7 @@ public class MidiDevices {
                             // Octave Translate incoming note off
                             bytes1 = octaveTran(chan, bytes[1]);
 
+                            // Send the layered note!
                             shortmessage = new ShortMessage();
                             shortmessage.setMessage(0x80, chan, bytes1, 0);
                             receiver.send(shortmessage, timeStamp);
@@ -532,7 +534,7 @@ public class MidiDevices {
                                         receiver.send(shortmessage, timeStamp);
 
                                         upper3notestrack[inote] = 0;
-                                        System.out.println("layerOutMessages: Timeout notes cleared on: " + chan + ", " + inote);
+                                        //System.out.println("layerOutMessages: Timeout notes cleared on: " + chan + ", " + inote);
                                     }
                                 }
                                 upper3layeron = false;
@@ -544,6 +546,10 @@ public class MidiDevices {
                         System.out.println("layerOutMessages: Invalid Upper Channel Layer Message" + channel + ", " + chan);
                         System.out.println(ex);
                     }
+                }
+                else {
+                    System.out.println("layerOutMessages: Upper Note ON or Note OFF that did not match: " + channel);
+                    return;
                 }
             }
 
@@ -634,7 +640,7 @@ public class MidiDevices {
                                         receiver.send(shortmessage, timeStamp);
 
                                         lower2notestrack[inote] = 0;
-                                        System.out.println("layerOutMessages: Timeout notes cleared on: " + chan + ", " + inote);
+                                        //System.out.println("layerOutMessages: Timeout notes cleared on: " + chan + ", " + inote);
                                     }
                                 }
                                 lower2layeron = false;
@@ -649,9 +655,7 @@ public class MidiDevices {
                 }
                 // Still fell through, send it anyway since it is likely channel Lower 2=13, Upper 2=15, Upper 3=16
                 else {
-                    //receiver.send(message, timeStamp);
-
-                    System.out.println("layerOutMessages: Sent Note ON aor Note OFF that did not match: " + channel);
+                    System.out.println("layerOutMessages: Lower Note ON or Note OFF that did not match: " + channel);
                     return;
                 }
             }
@@ -702,11 +706,8 @@ public class MidiDevices {
                         System.out.println(ex);
                     }
                 }
-                // Still fell through, send it anyway since it is likely channel Lower 2=13, Upper 2=15, Upper 3=16
                 else {
-                    //receiver.send(message, timeStamp);
-
-                    System.out.println("layerOutMessages: Sent Note ON aor Note OFF that did not match: " + channel);
+                    System.out.println("layerOutMessages: Bass Note ON or Note OFF that did not match: " + channel);
                     return;
                 }
             }
@@ -716,24 +717,20 @@ public class MidiDevices {
 
                 //if (channel > (byte) (sharedstatus.getUpper1CHAN() - 1)) {
 
-                    // Octave Translate incoming note
-                    //byte bytes1 = octaveTran(channel, bytes[1]);
-                    byte byte1 = bytes[1];
+                // Octave Translate incoming note
+                //byte bytes1 = octaveTran(channel, bytes[1]);
+                byte byte1 = bytes[1];
 
-                    //receiver.send(message, timeStamp);
-                    try {
-                        shortmessage = new ShortMessage();
-                        shortmessage.setMessage(command, channel, byteToInt(byte1), byteToInt(bytes[2]));
-                        receiver.send(shortmessage, timeStamp);
-                    }
-                    catch (InvalidMidiDataException ex) {
-                        System.out.print("layerOutMessages: Non-Keyboard MIDI Message send failed on " + channel);
-                        System.out.print(ex);
-                    }
-
-                    //return;
-                //}
-
+                //receiver.send(message, timeStamp);
+                try {
+                    shortmessage = new ShortMessage();
+                    shortmessage.setMessage(command, channel, byteToInt(byte1), byteToInt(bytes[2]));
+                    receiver.send(shortmessage, timeStamp);
+                }
+                catch (InvalidMidiDataException ex) {
+                    System.out.print("layerOutMessages: Non-Keyboard MIDI Message send failed on " + channel);
+                    System.out.print(ex);
+                }
             }
 
         }
@@ -1139,7 +1136,14 @@ public class MidiDevices {
         }
     }
 
-    public void setOctaveCHAN(int channelusr, int octadjust) {
+    public boolean setOctaveCHAN(int channelusr, int octadjust) {
+
+        if ( (uppernoteson != 0) && (channelusr == sharedstatus.getUpper1CHAN()) )
+            return false;
+        else if ( (lowernoteson != 0) && (channelusr == sharedstatus.getLower1CHAN()) )
+            return false;
+        else if ( (bassnoteson != 0) && (channelusr == sharedstatus.getBassCHAN()) )
+            return false;
 
         int channelidx = channelusr - 1;
         if (channelidx < 0) channelidx = 0;
@@ -1147,33 +1151,13 @@ public class MidiDevices {
         // Prevent excessive layer up or down transpose
         if (octadjust < -2 || octadjust > 2) {
             octadjust = 0;
+            return false;
         }
-/*
-        // To do: For now until more sophisticated logic worked out (e.g. queuing the request until all notes on channel closed,
-        //       reset all potential open notes on the channel
-        //       This is done to prevent hanging notes during live play at the instant of octave transpose
-        PlayMidi playMidi = PlayMidi.getInstance();
-        for (byte idx = 21; idx < 108; idx++) {
-            playMidi.sendMidiNote((byte)(channelusr & 0XFF), idx, false);
 
-            // If Upper and Layered, then clear Upper 1 and 2 layers as well
-            if (channelusr == sharedstatus.getUpper1CHAN()) {
-                if (sharedstatus.getUpper1KbdLayerEnabled()) {
-                    playMidi.sendMidiNote((byte) ((channelusr + 1) & 0XFF), idx, false);
-                }
-                if (sharedstatus.getupper2Kbdlayerenabled()) {
-                    playMidi.sendMidiNote((byte) ((channelusr + 2) & 0XFF), idx, false);
-                }
-            }
-            // If Upper and Layered, then clear Upper 1 and 2 layers as well
-            else if (channelusr == sharedstatus.getLower1CHAN()) {
-                if (sharedstatus.getupper2Kbdlayerenabled()) {
-                    playMidi.sendMidiNote((byte) ((channelusr + 1) & 0XFF), idx, false);
-                }
-            }
-        }
-*/
+        // Finally actave shift the channel
         this.octchannel[channelidx] = octadjust;
+
+        return true;
     }
 
     public void resetOctaveCHAN() {

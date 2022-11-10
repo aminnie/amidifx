@@ -291,6 +291,8 @@ public class PerformScene {
     Button b1layerbtn;
     boolean b1pressed = true;
 
+    boolean octaveflg = true;
+
     Slider sliderVOL;
     Slider sliderEXP;
     Slider sliderREV;
@@ -3350,6 +3352,7 @@ public class PerformScene {
             sliderPAN.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getPAN());
 
             // Create OCT slider
+            octaveflg = true;
             sliderOCT = new Slider(-2, 2, 0);
             sliderOCT.setOrientation(Orientation.VERTICAL);
             sliderOCT.setShowTickLabels(true);
@@ -3362,7 +3365,7 @@ public class PerformScene {
                 rotateOct.setAngle((double) newValue);
 
                 midiButtons.getButtonById(lastVoiceButton, 0).setOctaveTran((int)sliderOCT.getValue());
-                mididevices.setOctaveCHAN(lastVoiceChannel, (byte)sliderOCT.getValue());
+                octaveflg = mididevices.setOctaveCHAN(lastVoiceChannel, (byte)sliderOCT.getValue());
 
                 buttonSave.setDisable(false);
                 flgDirtyPreset = true;      // Need to save updated Preset
@@ -3370,7 +3373,13 @@ public class PerformScene {
                 if (lastVoiceButton != null)
                     labelstatusOrg.setText(" Status: Button " + lastVoiceButton + " OCT= " + newValue.intValue());
             });
-            sliderOCT.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getOctaveTran());
+            // Only Update slider if no open notes!
+            if (octaveflg) {
+                sliderOCT.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getOctaveTran());
+            }
+            else {
+                labelstatusOrg.setText(" Status: Octave change only allowed with all notes off");
+            }
 
             Label vollabel = new Label("VOL");
             vollabel.setStyle(styletextwhitesmall);
