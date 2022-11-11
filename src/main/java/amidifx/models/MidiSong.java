@@ -6,23 +6,23 @@ public class MidiSong {
     private String songTitle;   // Song Title
     private String presetFile;  // Song Preset file
     private String midiFile;    // Song MIDI file
-    private int chanBass;       // Bass MIDI Channel
-    private int chanLower;      // Lower MIDI Channel
-    private int chanUpper;      // Upper MIDI Channel
+    private int trkBass;       // Bass MIDI Channel
+    private int trkLower;      // Lower MIDI Channel
+    private int trkUpper;      // Upper MIDI Channel
     private int moduleIdx;      // MIDI Module
     private String timeSig;     // Time Signature
 
     public MidiSong () {
     }
 
-    public MidiSong(int songType, String songTitle, String presetFile, String midiFile, int chanBass, int chanLower, int chanUpper, int moduleIdx, String timeSig) {
+    public MidiSong(int songType, String songTitle, String presetFile, String midiFile, int trkBass, int trkLower, int trkUpper, int moduleIdx, String timeSig) {
         this.songType = songType;
         this.songTitle = songTitle;
         this.presetFile = presetFile;
         this.midiFile = midiFile;
-        this.chanBass = chanBass;
-        this.chanLower = chanLower;
-        this.chanUpper = chanUpper;
+        this.trkBass = trkBass;
+        this.trkLower = trkLower;
+        this.trkUpper = trkUpper;
         this.moduleIdx = moduleIdx;
         this.timeSig = timeSig;
     }
@@ -55,25 +55,25 @@ public class MidiSong {
         this.midiFile = midiFile;
     }
 
-    public int getChanBass() {
-        return chanBass;
+    public int getTrackBass() {
+        return trkBass;
     }
-    public void setChanBass(int chanBass) {
-        this.chanBass = chanBass;
-    }
-
-    public int getChanLower() {
-        return chanLower;
-    }
-    public void setChanLower(int chanLower) {
-        this.chanLower = chanLower;
+    public void setTrackBass(int trkBass) {
+        this.trkBass = trkBass;
     }
 
-    public int getChanUpper() {
-        return chanUpper;
+    public int getTrackLower() {
+        return trkLower;
     }
-    public void setChanUpper(int chanUpper) {
-        this.chanUpper = chanUpper;
+    public void setTrackLower(int trkLower) {
+        this.trkLower = trkLower;
+    }
+
+    public int getTrackUpper() {
+        return trkUpper;
+    }
+    public void setTrackUpper(int trkUpper) {
+        this.trkUpper = trkUpper;
     }
 
     public String getTimeSig() {
@@ -94,7 +94,7 @@ public class MidiSong {
     public String toString() {
         return "Song Listing [songType=" + this.songType + ", songTitle=" + this.songTitle
                 + ", presetFile=" + this.presetFile + ", midiFile=" + this.midiFile
-                + ", chanBass=" + this.getChanBass() + ", chanLower=" + this.getChanLower() + ", chanUpper=" + this.getChanUpper()
+                + ", chanBass=" + this.getTrackBass() + ", chanLower=" + this.getTrackLower() + ", chanUpper=" + this.getTrackUpper()
                 + ", timeSig=" + this.getTimeSig() + ", module=" + moduleIdx
                 + "]";
     }

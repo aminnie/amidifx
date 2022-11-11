@@ -179,7 +179,7 @@ public class MidiButtons {
                             buttonDetails[3],                       // patch name
                             Integer.parseInt(buttonDetails[4]),     // layer
                             Integer.parseInt(buttonDetails[5]),     // in chan
-                            buttonDetails[6],                       // out chan
+                            Integer.parseInt(buttonDetails[6]),                       // out chan
                             Integer.parseInt(buttonDetails[7]),     // octave
                             Integer.parseInt(buttonDetails[8]),     // pc
                             Integer.parseInt(buttonDetails[9]),     // lsb
@@ -313,7 +313,7 @@ public class MidiButtons {
                 buttonLine = buttonLine.concat(",").concat(button.getPatchName());
                 buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getLayerIdx()));
                 buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getChannelIdx()));
-                buttonLine = buttonLine.concat(",").concat(button.getChannelOutIdx());
+                buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getChannelOutIdx()));
                 buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getOctaveTran()));
                 buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getPC()));
                 buttonLine = buttonLine.concat(",").concat(Integer.toString(button.getLSB())).concat(",").concat(Integer.toString(button.getMSB()));
@@ -358,20 +358,10 @@ public class MidiButtons {
             PlayMidi playmidifile = PlayMidi.getInstance();
 
             // Read channel out values and apply Preset for the first output channel in the list
-            String channelIdxOut = button.getChannelOutIdx();
+            int channelIdxOut = button.getChannelOutIdx();
             //System.out.println("applyMIDIPreset Channel out: " + channelIdxOut);
 
-            int CHANOUT;
-            int idx = channelIdxOut.indexOf("|",0);
-
-            if ( idx != -1) {
-                CHANOUT = Integer.parseInt(channelIdxOut.substring(0, idx)) - 1;
-                //System.out.println("applyMIDIPreset: Channel = " + CHANOUT);
-            }
-            else {
-                CHANOUT = Integer.parseInt(channelIdxOut) - 1;
-                //System.out.println("applyMIDIPreset: Channel = " + CHANOUT);
-            }
+            int CHANOUT = channelIdx;
 
             if ((CHANOUT < 0) || (CHANOUT > 15)) {
                 System.err.println("applyMIDIPreset Error: Channel = " + CHANOUT);

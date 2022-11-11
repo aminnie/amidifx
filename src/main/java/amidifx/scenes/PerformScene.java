@@ -618,7 +618,7 @@ public class PerformScene {
                     ////dopresets.makeMidiPresets(sharedStatus.getPresetFile());
                     ////buttonPresetAction(0);
                     ////btnpreset1.setStyle(pcolorOn);
-                    labelstatusOrg.setText(" Status: Loaded Presets for " + dosongs.getSong(idxSongList).getSongTitle());
+                    labelstatusOrg.setText(" Status: Presets loaded for " + dosongs.getSong(idxSongList).getSongTitle());
                     labelstatusOrg.setStyle(styletext);
 
                     // Enable Song Play, Backing and Edit Presets Buttons
@@ -657,6 +657,7 @@ public class PerformScene {
 
                 offAllPresetButtons();
 
+                labelstatusOrg.setText(" Status: Click Song to select.");
                 //System.out.println("PerformScene: Previous Song " + songTitle);
             });
 
@@ -677,6 +678,7 @@ public class PerformScene {
 
                 offAllPresetButtons();
 
+                labelstatusOrg.setText(" Status: Click Song to select.");
                 //System.out.println("PerformScene: Next Song " + songTitle);
             });
 
@@ -709,6 +711,8 @@ public class PerformScene {
                 labelsynth.setText("Module: " + config.getOutDevice());
 
                 buttonSoundBank.setStyle(selectcolorOn);
+
+                labelstatusOrg.setText(" Status: Next select new Voice");
             });
 
             Button buttonSoundBankLeft = new Button("<<");
@@ -723,6 +727,7 @@ public class PerformScene {
                 buttonSoundFont.setStyle(selectcolorOff);
                 bnewpatchselected = false;
 
+                labelstatusOrg.setText(" Status: Click Sound Bank to select.");
                 //System.out.println("PerformScene: Previous Bank " + bankname);
             });
 
@@ -738,6 +743,7 @@ public class PerformScene {
                 buttonSoundFont.setStyle(selectcolorOff);
                 bnewpatchselected = false;
 
+                labelstatusOrg.setText(" Status: Click Sound Bank to select.");
                 //System.out.println("PerformScene: Previous Bank " + bankname);
             });
 
@@ -762,10 +768,10 @@ public class PerformScene {
                 //buttonPresetLoad(dosongs.getSong(songidx).getPresetFile());
 
                 buttonSoundFont.setStyle(selectcolorOn);
-                labelstatusOrg.setText(" Status: Loaded Voice for " + fontname + ". Press Voice Button to Add.");
 
                 bnewpatchselected = true;
 
+                labelstatusOrg.setText(" Status: Voice " + fontname + " loaded. Next add to a Voice Button.");
                 //System.out.println("PerformScene: Loaded Voice " + fontname);
             });
 
@@ -780,6 +786,7 @@ public class PerformScene {
                 ///// Get the Patch index so we can test voice
                 ////patchidx = dopatches.getMIDIPatch(patchidx).getPatchId();
 
+                labelstatusOrg.setText(" Status: Click Voice to select.");
                 //System.out.println("PerformScene: Previous Voice " + fontname);
             });
 
@@ -795,6 +802,7 @@ public class PerformScene {
                 ///// Get the Patch index so we can test voice
                 ////patchidx = dopatches.getMIDIPatch(patchidx).getPatchId();
 
+                labelstatusOrg.setText(" Status: Click Voice to select.");
                 //System.out.println("PerformScene: Next Voice " + fontname);
             });
 
@@ -843,6 +851,7 @@ public class PerformScene {
 
                         btestnote = false;
                     }
+                    labelstatusOrg.setText(" Status: ");
                 }
                 catch (Exception exception) {
                     exception.printStackTrace();
@@ -1034,14 +1043,14 @@ public class PerformScene {
             gridmidcenterPerform.setHgap(15);
             gridmidcenterPerform.setVgap(10);
 
-            b1layerbtn = new Button("Bass [11]");
+            b1layerbtn = new Button("Bass [" + sharedStatus.getBassCHAN() + "]");
             b1layerbtn.setStyle(lrpressedOn);
             b1layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
             b1layerbtn.setMinSize(xlayerbtn, ylayerbtn);
             //b1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             b1layerbtn.setOnAction(event -> {
                 if (b1pressed == false) {
-                    mididevices.layerChannel(11, true);
+                    mididevices.layerChannel(sharedStatus.getBassCHAN(), true);
 
                     b1layerbtn.setStyle(lrpressedOn);
                     b1pressed = true;
@@ -1049,7 +1058,7 @@ public class PerformScene {
                     labelstatusOrg.setText(" Status: Layer Bass On");
                 }
                 else {
-                    mididevices.layerChannel(11, false);
+                    mididevices.layerChannel(sharedStatus.getBassCHAN(), false);
 
                     b1layerbtn.setStyle(lrpressedOff);
                     b1pressed = false;
@@ -1057,7 +1066,7 @@ public class PerformScene {
                     labelstatusOrg.setText(" Status: Layer Bass Off");
                 }
             });
-            mididevices.layerChannel(11, true);
+            mididevices.layerChannel(sharedStatus.getBassCHAN(), true);
 
             bass1 = new Button(" Bass 1");
             bass1.setId("B1-1");
@@ -1286,7 +1295,7 @@ public class PerformScene {
             gridmidcenterPerform.add(bass3, 0, 2, 1, 1);
             gridmidcenterPerform.add(bass4, 1, 2, 1, 1);
 
-            Button d1layerbtn = new Button("Drums [10]");
+            Button d1layerbtn = new Button("Drums [" + sharedStatus.getBassCHAN() + "]");
             d1layerbtn.setStyle(styletext);
             d1layerbtn.setStyle(lrpressedOn);
             d1layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
@@ -1536,14 +1545,14 @@ public class PerformScene {
 
             // Lower Buttons
 
-            l1layerbtn = new Button("Lower 1 [12]   ");       // Lefthand Layering Buttons
+            l1layerbtn = new Button("Lower 1 [" + sharedStatus.getLower1CHAN() + "]   ");       // Lefthand Layering Buttons
             l1layerbtn.setStyle(lrpressedOn);
             l1layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
             l1layerbtn.setMinSize(xlayerbtn, ylayerbtn);
             //l1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             l1layerbtn.setOnAction(event -> {
                 if (l1pressed == false) {
-                    mididevices.layerChannel(12, true);
+                    mididevices.layerChannel(sharedStatus.getLower1CHAN(), true);
 
                     l1layerbtn.setStyle(lrpressedOn);
                     l1pressed = true;
@@ -1551,7 +1560,7 @@ public class PerformScene {
                     labelstatusOrg.setText(" Status: Layer Lower 1 On");
                 }
                 else {
-                    mididevices.layerChannel(12, false);
+                    mididevices.layerChannel(sharedStatus.getLower1CHAN(), false);
 
                     l1layerbtn.setStyle(lrpressedOff);
                     l1pressed = false;
@@ -1560,9 +1569,9 @@ public class PerformScene {
                 }
                 ////arduinoUtils.lefthandLayerSysexData(l1pressed, l2pressed);
             });
-            mididevices.layerChannel(12, true);
+            mididevices.layerChannel(sharedStatus.getLower1CHAN(), true);
 
-            l2layerbtn = new Button("Lower 2 [13]   ");
+            l2layerbtn = new Button("Lower 2 [" + sharedStatus.getLower2CHAN() + "]   ");
             l2layerbtn.setStyle(lrpressedOff);
             l2layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
             l2layerbtn.setMinSize(xlayerbtn, ylayerbtn);
@@ -1570,7 +1579,7 @@ public class PerformScene {
             //l2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             l2layerbtn.setOnAction(event -> {
                 if (l2pressed == false) {
-                    mididevices.layerChannel(13, true);
+                    mididevices.layerChannel(sharedStatus.getLower2CHAN(), true);
 
                     l2layerbtn.setStyle(lrpressedOn);
                     l2pressed = true;
@@ -1578,7 +1587,7 @@ public class PerformScene {
                     labelstatusOrg.setText(" Status: Layer Lower 2 On");
                 }
                 else {
-                    mididevices.layerChannel(13, false);
+                    mididevices.layerChannel(sharedStatus.getLower2CHAN(), false);
 
                     l2layerbtn.setStyle(lrpressedOff);
                     l2pressed = false;
@@ -1587,7 +1596,7 @@ public class PerformScene {
                 }
                 ////arduinoUtils.lefthandLayerSysexData(l1pressed, l2pressed);
             });
-            mididevices.layerChannel(13, false);
+            mididevices.layerChannel(sharedStatus.getLower2CHAN(), false);
 
             lbutton11.setText(" Lower 1-1");
             lbutton11.setId("L1-1");
@@ -2110,14 +2119,14 @@ public class PerformScene {
 
             // Upper Buttons
 
-            r1layerbtn = new Button("Upper 1 [14]   ");       // Righthand Layering Buttons
+            r1layerbtn = new Button("Upper 1 ["+sharedStatus.getUpper1CHAN()+"]   ");       // Righthand Layering Buttons
             r1layerbtn.setStyle(lrpressedOn);
             r1layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
             r1layerbtn.setMinSize(xlayerbtn, ylayerbtn);
             //r1layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r1layerbtn.setOnAction(event -> {
                 if (r1pressed == false) {
-                    mididevices.layerChannel(14, true);
+                    mididevices.layerChannel(sharedStatus.getUpper1CHAN(), true);
 
                     r1layerbtn.setStyle(lrpressedOn);
                     r1pressed = true;
@@ -2125,7 +2134,7 @@ public class PerformScene {
                     labelstatusOrg.setText(" Status: Layer Upper 1 On");
                 }
                 else {
-                    mididevices.layerChannel(14, false);
+                    mididevices.layerChannel(sharedStatus.getUpper1CHAN(), false);
 
                     r1layerbtn.setStyle(lrpressedOff);
                     r1pressed = false;
@@ -2134,9 +2143,9 @@ public class PerformScene {
                 }
                 ////arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
             });
-            mididevices.layerChannel(14, true);
+            mididevices.layerChannel(sharedStatus.getUpper1CHAN(), true);
 
-            r2layerbtn = new Button("Upper 2 [15]   ");
+            r2layerbtn = new Button("Upper 2 [" + sharedStatus.getUpper2CHAN() + "]   ");
             r2layerbtn.setStyle(lrpressedOff);
             r2layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
             r2layerbtn.setMinSize(xlayerbtn, ylayerbtn);
@@ -2144,7 +2153,7 @@ public class PerformScene {
             //r2layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r2layerbtn.setOnAction(event -> {
                 if (r2pressed == false) {
-                    mididevices.layerChannel(15, true);
+                    mididevices.layerChannel(sharedStatus.getUpper2CHAN(), true);
 
                     r2layerbtn.setStyle(lrpressedOn);
                     r2pressed = true;
@@ -2152,7 +2161,7 @@ public class PerformScene {
                     labelstatusOrg.setText(" Status: Layer Upper 2 On");
                 }
                 else {
-                    mididevices.layerChannel(15, false);
+                    mididevices.layerChannel(sharedStatus.getUpper2CHAN(), false);
 
                     r2layerbtn.setStyle(lrpressedOff);
                     r2pressed = false;
@@ -2161,9 +2170,9 @@ public class PerformScene {
                 }
                 ////arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
             });
-            mididevices.layerChannel(15, false);
+            mididevices.layerChannel(sharedStatus.getUpper2CHAN(), false);
 
-            r3layerbtn = new Button("Upper 3 [16]   ");
+            r3layerbtn = new Button("Upper 3 [" + sharedStatus.getUpper3CHAN() + "]   ");
             r3layerbtn.setStyle(lrpressedOff);
             r3layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
             r3layerbtn.setMinSize(xlayerbtn, ylayerbtn);
@@ -2171,7 +2180,7 @@ public class PerformScene {
             //r3layerbtn.setDisable(!arduinoUtils.hasARMPort());
             r3layerbtn.setOnAction(event -> {
                 if (r3pressed == false) {
-                    mididevices.layerChannel(16, true);
+                    mididevices.layerChannel(sharedStatus.getUpper3CHAN(), true);
 
                     r3layerbtn.setStyle(lrpressedOn);
                     r3pressed = true;
@@ -2179,7 +2188,7 @@ public class PerformScene {
                     labelstatusOrg.setText(" Status: Layer Upper 3 On");
                 }
                 else {
-                    mididevices.layerChannel(16, false);
+                    mididevices.layerChannel(sharedStatus.getUpper3CHAN(), false);
 
                     r3layerbtn.setStyle(lrpressedOff);
                     r3pressed = false;
@@ -2189,7 +2198,7 @@ public class PerformScene {
                 ////arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
 
             });
-            mididevices.layerChannel(16, false);
+            mididevices.layerChannel(sharedStatus.getUpper3CHAN(), false);
 
             rbutton11.setText(" Upper 1-1");
             rbutton11.setId("U1-1");
@@ -3181,7 +3190,7 @@ public class PerformScene {
 
                     PlayMidi playmidifile = PlayMidi.getInstance();
                     if (playmidifile.isMidiRunning()) {
-                        playmidifile.unmuteKeyboardChannels(dosongs.getSong(idxSongList));
+                        playmidifile.unmuteKeyboardTracks(dosongs.getSong(idxSongList));
                     }
                 }
                 else {
@@ -3191,7 +3200,7 @@ public class PerformScene {
 
                     PlayMidi playmidifile = PlayMidi.getInstance();
                     if (playmidifile.isMidiRunning()) {
-                        playmidifile.muteKeyboardChannels(dosongs.getSong(idxSongList));
+                        playmidifile.muteKeyboardTracks(dosongs.getSong(idxSongList));
                     }
                 }
             });
@@ -3750,11 +3759,11 @@ public class PerformScene {
 
         // Default Brightness for now - until in Organ PRF file and on screen
         for (int chan = 0; chan < 15; chan++) {
-            playmidifile.sendMidiProgramChange(chan + 1, ccEXP, 127, 0);
-            playmidifile.sendMidiProgramChange(chan + 1, ccBRI, 64, 0);
-            playmidifile.sendMidiProgramChange(chan + 1, ccTIM, 64, 0);
-            playmidifile.sendMidiProgramChange(chan + 1, ccATK, 0, 0);
-            playmidifile.sendMidiProgramChange(chan + 1, ccREL, 0, 0);
+            playmidifile.sendMidiProgramChange(chan, ccEXP, 127, 0);
+            playmidifile.sendMidiProgramChange(chan, ccBRI, 64, 0);
+            playmidifile.sendMidiProgramChange(chan, ccTIM, 64, 0);
+            playmidifile.sendMidiProgramChange(chan, ccATK, 0, 0);
+            playmidifile.sendMidiProgramChange(chan, ccREL, 0, 0);
         }
 
         //System.out.println("OrganScene: Initialized all Midi Button Patch Names");

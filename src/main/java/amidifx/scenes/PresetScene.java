@@ -673,7 +673,7 @@ public class PresetScene {
             MidiPreset midiPreset = dopresets.getPreset(presetIdx * 16 + idx);
             String name = midiPreset.getPatchName();
             //name = StringUtils.rightPad(name, 2);
-            presetListView.getItems().add((idx + 1) + ":" + name);
+            presetListView.getItems().add((idx) + ":" + name);
 
             //System.out.println("Main: Patch name " + name);
         }
@@ -755,10 +755,10 @@ public class PresetScene {
 
             // Apply the Voice to MIDI Channel
             PlayMidi playmidifile = PlayMidi.getInstance();
-            playmidifile.sendMidiProgramChange(channelIdx + 1, midiPatch.getPC(), midiPatch.getLSB(), midiPatch.getMSB());
+            playmidifile.sendMidiProgramChange(channelIdx, midiPatch.getPC(), midiPatch.getLSB(), midiPatch.getMSB());
 
             //System.out.println("Main: Updated selected Preset and Channel Voice");
-            labelstatus.setText(" Status: Applied CHAN Voice " + (channelIdx + 1) + " " + midiPatch.getPatchName());
+            labelstatus.setText(" Status: Applied CHAN Voice " + channelIdx + " " + midiPatch.getPatchName());
 
             buttonSave.setDisable(false);
             flgDirtyPreset = true;      // Need to save updated Preset
@@ -1073,20 +1073,20 @@ public class PresetScene {
                     MidiPatch patch = dopatches.getMIDIPatch(selpatchIdx);
                     //System.out.println("Main: Selecting patch " + patch.toString());
 
-                    playmidifile.sendMidiProgramChange((byte) (channelIdx + 1), (byte) patch.getPC(), (byte) patch.getLSB(), (byte) patch.getMSB());
+                    playmidifile.sendMidiProgramChange((byte) (channelIdx), (byte) patch.getPC(), (byte) patch.getLSB(), (byte) patch.getMSB());
 
-                    playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccVOL, (byte) sliderVOL.getValue());
-                    playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccEXP, (byte) sliderEXP.getValue());
-                    playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccREV, (byte) sliderREV.getValue());
-                    playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccCHO, (byte) sliderCHO.getValue());
-                    playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccMOD, (byte) sliderMOD.getValue());
-                    playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccPAN, (byte) sliderPAN.getValue());
-                    playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccTIM, (byte) sliderTIM.getValue());
-                    playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccATK, (byte) sliderATK.getValue());
-                    playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccREL, (byte) sliderREL.getValue());
-                    playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccBRI, (byte) sliderBRI.getValue());
+                    playmidifile.sendMidiControlChange((byte) (channelIdx), ccVOL, (byte) sliderVOL.getValue());
+                    playmidifile.sendMidiControlChange((byte) (channelIdx), ccEXP, (byte) sliderEXP.getValue());
+                    playmidifile.sendMidiControlChange((byte) (channelIdx), ccREV, (byte) sliderREV.getValue());
+                    playmidifile.sendMidiControlChange((byte) (channelIdx), ccCHO, (byte) sliderCHO.getValue());
+                    playmidifile.sendMidiControlChange((byte) (channelIdx), ccMOD, (byte) sliderMOD.getValue());
+                    playmidifile.sendMidiControlChange((byte) (channelIdx), ccPAN, (byte) sliderPAN.getValue());
+                    playmidifile.sendMidiControlChange((byte) (channelIdx), ccTIM, (byte) sliderTIM.getValue());
+                    playmidifile.sendMidiControlChange((byte) (channelIdx), ccATK, (byte) sliderATK.getValue());
+                    playmidifile.sendMidiControlChange((byte) (channelIdx), ccREL, (byte) sliderREL.getValue());
+                    playmidifile.sendMidiControlChange((byte) (channelIdx), ccBRI, (byte) sliderBRI.getValue());
 
-                    playmidifile.sendMidiNote((byte) (channelIdx + 1), (byte) 60, true);
+                    playmidifile.sendMidiNote((byte) (channelIdx), (byte) 60, true);
                     //playmidifile.startMidiDemo(channelIdx+1);
 
                     btestnote = true;
@@ -1095,7 +1095,7 @@ public class PresetScene {
                     btntest.setStyle(btnplayOff);
 
                     PlayMidi playmidifile = PlayMidi.getInstance();
-                    playmidifile.sendMidiNote((byte) 1, (byte) 60, false);
+                    playmidifile.sendMidiNote((byte) (channelIdx), (byte) 60, false);
 
                     btestnote = false;
                 }
@@ -1197,7 +1197,7 @@ public class PresetScene {
             rotateVol.setAngle((double) newValue);
 
             PlayMidi playmidifile = PlayMidi.getInstance();
-            playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccVOL, (byte) sliderVOL.getValue());
+            playmidifile.sendMidiControlChange(channelIdx, ccVOL, (byte) sliderVOL.getValue());
 
             dopresets.getPreset(presetIdx * 16 + channelIdx).setVOL(newValue.intValue());
 
@@ -1222,14 +1222,14 @@ public class PresetScene {
             rotateExp.setAngle((double) newValue);
 
             PlayMidi playmidifile = PlayMidi.getInstance();
-            playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccEXP, (byte) sliderEXP.getValue());
+            playmidifile.sendMidiControlChange(channelIdx, ccEXP, (byte) sliderEXP.getValue());
 
             dopresets.getPreset(presetIdx * 16 + channelIdx).setEXP(newValue.intValue());
 
             buttonSave.setDisable(false);
             flgDirtyPreset = true;      // Need to save updated Preset
 
-            labelstatus.setText(" Status; CHAN " + (channelIdx + 1) + " EXP: " + newValue.intValue());
+            labelstatus.setText(" Status; CHAN " + channelIdx + " EXP: " + newValue.intValue());
         });
         sliderEXP.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getEXP());
 
@@ -1247,7 +1247,7 @@ public class PresetScene {
             rotateRev.setAngle((double) newValue);
 
             PlayMidi playmidifile = PlayMidi.getInstance();
-            playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccREV, (byte) sliderREV.getValue());
+            playmidifile.sendMidiControlChange(channelIdx, ccREV, (byte) sliderREV.getValue());
 
             dopresets.getPreset(presetIdx * 16 + channelIdx).setREV(newValue.intValue());
 
@@ -1272,7 +1272,7 @@ public class PresetScene {
             rotateCho.setAngle((double) newValue);
 
             PlayMidi playmidifile = PlayMidi.getInstance();
-            playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccCHO, (byte) sliderCHO.getValue());
+            playmidifile.sendMidiControlChange(channelIdx, ccCHO, (byte) sliderCHO.getValue());
 
             dopresets.getPreset(presetIdx * 16 + channelIdx).setCHO(newValue.intValue());
 
@@ -1297,7 +1297,7 @@ public class PresetScene {
             rotateMod.setAngle((double) newValue);
 
             PlayMidi playmidifile = PlayMidi.getInstance();
-            playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccMOD, (byte) sliderMOD.getValue());
+            playmidifile.sendMidiControlChange(channelIdx, ccMOD, (byte) sliderMOD.getValue());
 
             dopresets.getPreset(presetIdx * 16 + channelIdx).setMOD(newValue.intValue());
 
@@ -1322,7 +1322,7 @@ public class PresetScene {
             rotatePan.setAngle((double) newValue);
 
             PlayMidi playmidifile = PlayMidi.getInstance();
-            playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccPAN, (byte) sliderPAN.getValue());
+            playmidifile.sendMidiControlChange(channelIdx, ccPAN, (byte) sliderPAN.getValue());
 
             //System.out.println("Main: Old Pan Value " + readpresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
             dopresets.getPreset(presetIdx * 16 + channelIdx).setPAN(newValue.intValue());
@@ -1349,7 +1349,7 @@ public class PresetScene {
             rotateTim.setAngle((double) newValue);
 
             PlayMidi playmidifile = PlayMidi.getInstance();
-            playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccTIM, (byte) sliderTIM.getValue());
+            playmidifile.sendMidiControlChange(channelIdx, ccTIM, (byte) sliderTIM.getValue());
 
             //System.out.println("Main: Old Pan Value " + readpresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
             dopresets.getPreset(presetIdx * 16 + channelIdx).setTIM(newValue.intValue());
@@ -1376,7 +1376,7 @@ public class PresetScene {
             rotateAtk.setAngle((double) newValue);
 
             PlayMidi playmidifile = PlayMidi.getInstance();
-            playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccATK, (byte) sliderATK.getValue());
+            playmidifile.sendMidiControlChange(channelIdx, ccATK, (byte) sliderATK.getValue());
 
             //System.out.println("Main: Old Pan Value " + readpresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
             dopresets.getPreset(presetIdx * 16 + channelIdx).setATK(newValue.intValue());
@@ -1403,7 +1403,7 @@ public class PresetScene {
             rotateRel.setAngle((double) newValue);
 
             PlayMidi playmidifile = PlayMidi.getInstance();
-            playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccREL, (byte) sliderREL.getValue());
+            playmidifile.sendMidiControlChange(channelIdx, ccREL, (byte) sliderREL.getValue());
 
             //System.out.println("Main: Old Pan Value " + readpresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
             dopresets.getPreset(presetIdx * 16 + channelIdx).setREL(newValue.intValue());
@@ -1430,7 +1430,7 @@ public class PresetScene {
             rotateBri.setAngle((double) newValue);
 
             PlayMidi playmidifile = PlayMidi.getInstance();
-            playmidifile.sendMidiControlChange((byte) (channelIdx + 1), ccBRI, (byte) sliderBRI.getValue());
+            playmidifile.sendMidiControlChange(channelIdx, ccBRI, (byte) sliderBRI.getValue());
 
             //System.out.println("Main: Old Pan Value " + readpresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
             dopresets.getPreset(presetIdx * 16 + channelIdx).setBRI(newValue.intValue());
@@ -1716,7 +1716,7 @@ public class PresetScene {
         buttonApplyPreset.setStyle(btnplayOff);
         buttonApplyPreset.setOnAction(event -> {
             MidiPreset applypreset = dopresets.getPreset(presetIdx * 16 + channelIdx);
-            dopresets.applyMidiPreset(applypreset, channelIdx + 1);
+            dopresets.applyMidiPreset(applypreset, channelIdx);
 
             labelstatus.setText(" Status: Preset " + (presetIdx + 1) + " CHAN " + (channelIdx + 1) + " MIDI sent");
         });
@@ -1728,7 +1728,7 @@ public class PresetScene {
         buttonApplyAllPresets.setOnAction(event -> {
             for (int idx = 0; idx < 16; idx++) {
                 MidiPreset applypreset = dopresets.getPreset(presetIdx * 16 + idx);
-                dopresets.applyMidiPreset(applypreset, idx + 1);
+                dopresets.applyMidiPreset(applypreset, idx);
             }
 
             labelstatus.setText(" Status: MIDI Sent all CHAN Presets");
@@ -1989,7 +1989,6 @@ public class PresetScene {
     }
 
     private void updateChannelOutIdx(int channelIdx) {
-        String strChannelIdxOut = "";
         boolean flgfirst = false;
 
         //for (int idx = 0; idx < 16; idx++) {
@@ -2004,8 +2003,7 @@ public class PresetScene {
         //    }
         //}
 
-        strChannelIdxOut = Integer.toString(channelIdx + 1);
-        dopresets.getPreset(presetIdx * 16 + channelIdx).setChannelOutIdx(strChannelIdxOut);
+        dopresets.getPreset(presetIdx * 16 + channelIdx).setChannelOutIdx(channelIdx);
         //System.out.println("Main: ChannelOutIdx " + strChannelIdxOut);
 
         flgDirtyPreset = true;      // Need to save updated Preset

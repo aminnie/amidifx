@@ -176,12 +176,12 @@ public class AppConfig {
         return configProps.getProperty("songsfile");
     }
 
-    public int getExpressionChannel() {
-        Integer expchannelidx = 0;
+    public byte getExpressionChannel() {
+        Byte expchannelidx = 0;
 
         try {
             String channelidxstr = configProps.getProperty("midiexpchan");
-            expchannelidx = new Integer(channelidxstr);
+            expchannelidx = new Byte(channelidxstr);
 
             // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
             if ((expchannelidx < -1) || (expchannelidx > 16)) expchannelidx = 0;
@@ -191,15 +191,15 @@ public class AppConfig {
             System.err.println(ex);
         }
 
-        return expchannelidx;
+        return (byte)(expchannelidx - 1);
     }
 
-    public int getSoloChannel() {
-        Integer channelidx = 0;
+    public byte getSoloChannel() {
+        byte channelidx = 0;
 
         try {
             String channelidxstr = configProps.getProperty("midisolo");
-            channelidx = new Integer(channelidxstr);
+            channelidx = new Byte(channelidxstr);
 
             // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
             if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
@@ -209,15 +209,15 @@ public class AppConfig {
             System.err.println(ex);
         }
 
-        return channelidx;
+        return (byte)(channelidx - 1);
     }
 
-    public int getBassChannel() {
-        Integer channelidx = 0;
+    public byte getBassChannel() {
+        Byte channelidx = 0;
 
         try {
             String channelidxstr = configProps.getProperty("midibass");
-            channelidx = new Integer(channelidxstr);
+            channelidx = new Byte(channelidxstr);
 
             // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
             if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
@@ -227,15 +227,15 @@ public class AppConfig {
             System.err.println(ex);
         }
 
-        return channelidx;
+        return (byte)(channelidx - 1);
     }
 
-    public int getDrumChannel() {
-        Integer channelidx = 0;
+    public byte getDrumChannel() {
+        Byte channelidx = 0;
 
         try {
             String channelidxstr = configProps.getProperty("mididrums");
-            channelidx = new Integer(channelidxstr);
+            channelidx = new Byte(channelidxstr);
 
             // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
             if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
@@ -245,15 +245,15 @@ public class AppConfig {
             System.err.println(ex);
         }
 
-        return channelidx;
+        return (byte)(channelidx - 1);
     }
 
-    public int getUpper1Channel() {
-        Integer channelidx = 0;
+    public byte getUpper1Channel() {
+        Byte channelidx = 0;
 
         try {
             String channelidxstr = configProps.getProperty("midiupper1");
-            channelidx = new Integer(channelidxstr);
+            channelidx = new Byte(channelidxstr);
 
             // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
             if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
@@ -263,15 +263,15 @@ public class AppConfig {
             System.err.println(ex);
         }
 
-        return channelidx;
+        return (byte)(channelidx - 1);
     }
 
-    public int getUpper2Channel() {
-        Integer channelidx = 0;
+    public byte getUpper2Channel() {
+        Byte channelidx = 0;
 
         try {
             String channelidxstr = configProps.getProperty("midiupper2");
-            channelidx = new Integer(channelidxstr);
+            channelidx = new Byte(channelidxstr);
 
             // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
             if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
@@ -281,15 +281,15 @@ public class AppConfig {
             System.err.println(ex);
         }
 
-        return channelidx;
+        return (byte)(channelidx - 1);
     }
 
-    public int getUpper3Channel() {
-        Integer channelidx = 0;
+    public byte getUpper3Channel() {
+        Byte channelidx = 0;
 
         try {
             String channelidxstr = configProps.getProperty("midiupper3");
-            channelidx = new Integer(channelidxstr);
+            channelidx = new Byte(channelidxstr);
 
             // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
             if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
@@ -299,15 +299,15 @@ public class AppConfig {
             System.err.println(ex);
         }
 
-        return channelidx;
+        return (byte)(channelidx - 1);
     }
 
-    public int getLower1Channel() {
-        Integer channelidx = 0;
+    public byte getLower1Channel() {
+        Byte channelidx = 0;
 
         try {
             String channelidxstr = configProps.getProperty("midilower1");
-            channelidx = new Integer(channelidxstr);
+            channelidx = new Byte(channelidxstr);
 
             // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
             if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
@@ -317,15 +317,15 @@ public class AppConfig {
             System.err.println(ex);
         }
 
-        return channelidx;
+        return (byte)(channelidx - 1);
     }
 
-    public int getLower2Channel() {
-        Integer channelidx = 0;
+    public byte getLower2Channel() {
+        Byte channelidx = 0;
 
         try {
             String channelidxstr = configProps.getProperty("midilower2");
-            channelidx = new Integer(channelidxstr);
+            channelidx = new Byte(channelidxstr);
 
             // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
             if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
@@ -335,7 +335,7 @@ public class AppConfig {
             System.err.println(ex);
         }
 
-        return channelidx;
+        return (byte)(channelidx - 1);
     }
 
     public boolean getApplicationLock() {

@@ -3,7 +3,7 @@ package amidifx.models;
 public class MidiPreset {
     private int presetIdx;
     private int channelIdx;
-    private String channelOutIdx;
+    private int channelOutIdx;
     private int octaveTran;
     private int PC;
     private int LSB;
@@ -26,7 +26,7 @@ public class MidiPreset {
 
     public MidiPreset() {
         this.setPresetIdx(0);
-        this.setChannelOutIdx("0");
+        this.setChannelOutIdx(0);
         this.setBankIdx(0);
         this.setPC(0);
         this.setLSB(0);
@@ -44,7 +44,7 @@ public class MidiPreset {
     }
 
     // 0,12,12,0,106,121,100,0,100,100,20,0,0,0,0,3,8,Klaus sein Sax
-    public MidiPreset(int presetIdx, int channelIdx, String channelOutIdx, int octaveTran,
+    public MidiPreset(int presetIdx, int channelIdx, int channelOutIdx, int octaveTran,
                       int PC, int LSB, int MSB, int moduleIdx,
                       int VOL, int EXP, int REV, int CHO,
                       int TIM, int ATK, int REL, int BRI,
@@ -89,10 +89,10 @@ public class MidiPreset {
         this.channelIdx = channelIdx;
     }
 
-    public String getChannelOutIdx() {
+    public int getChannelOutIdx() {
         return channelOutIdx;
     }
-    public void setChannelOutIdx(String channelOutIdx) {
+    public void setChannelOutIdx(int channelOutIdx) {
         this.channelOutIdx = channelOutIdx;
     }
 

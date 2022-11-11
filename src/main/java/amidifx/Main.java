@@ -504,9 +504,9 @@ public class Main extends Application {
             txtSongTitle.setText(midiSong.getSongTitle());
             txtSmfFile.setText(midiSong.getMidiFile());
             txtPresetFile.setText(midiSong.getPresetFile());
-            txtBass.setText(Integer.toString(midiSong.getChanBass()));
-            txtLower.setText(Integer.toString(midiSong.getChanLower()));
-            txtUpper.setText(Integer.toString(midiSong.getChanUpper()));
+            txtBass.setText(Integer.toString(midiSong.getTrackBass()));
+            txtLower.setText(Integer.toString(midiSong.getTrackLower()));
+            txtUpper.setText(Integer.toString(midiSong.getTrackUpper()));
             txtTimeSig.setText(midiSong.getTimeSig());
 
             sharedStatus.setSongTitle(midiSong.getSongTitle());
@@ -534,9 +534,9 @@ public class Main extends Application {
                     txtPresetFile.setText(midiSong.getPresetFile());
                     txtPresetSaveAsFile.setText("");
 
-                    txtBass.setText(Integer.toString(midiSong.getChanBass()));
-                    txtLower.setText(Integer.toString(midiSong.getChanLower()));
-                    txtUpper.setText(Integer.toString(midiSong.getChanUpper()));
+                    txtBass.setText(Integer.toString(midiSong.getTrackBass()));
+                    txtLower.setText(Integer.toString(midiSong.getTrackLower()));
+                    txtUpper.setText(Integer.toString(midiSong.getTrackUpper()));
                     txtTimeSig.setText(midiSong.getTimeSig());
 
                     MidiModules midimodule = new MidiModules();
@@ -797,9 +797,9 @@ public class Main extends Application {
                         midiSong.setSongTitle(txtSongTitle.getText());
                         midiSong.setMidiFile(txtSmfFile.getText());
                         midiSong.setPresetFile(txtPresetSaveAsFile.getText());
-                        midiSong.setChanBass(Integer.parseInt(txtBass.getText()));
-                        midiSong.setChanLower(Integer.parseInt(txtLower.getText()));
-                        midiSong.setChanUpper(Integer.parseInt(txtUpper.getText()));
+                        midiSong.setTrackBass(Integer.parseInt(txtBass.getText()));
+                        midiSong.setTrackLower(Integer.parseInt(txtLower.getText()));
+                        midiSong.setTrackUpper(Integer.parseInt(txtUpper.getText()));
                         midiSong.setModuleIdx(sharedStatus.getModuleidx());
                         midiSong.setTimeSig(txtTimeSig.getText());
 
@@ -830,9 +830,9 @@ public class Main extends Application {
                         midiSong.setSongTitle(txtSongTitle.getText());
                         midiSong.setMidiFile(txtSmfFile.getText());
                         midiSong.setPresetFile(txtPresetFile.getText());
-                        midiSong.setChanBass(Integer.parseInt(txtBass.getText()));
-                        midiSong.setChanLower(Integer.parseInt(txtLower.getText()));
-                        midiSong.setChanUpper(Integer.parseInt(txtUpper.getText()));
+                        midiSong.setTrackBass(Integer.parseInt(txtBass.getText()));
+                        midiSong.setTrackLower(Integer.parseInt(txtLower.getText()));
+                        midiSong.setTrackUpper(Integer.parseInt(txtUpper.getText()));
                         midiSong.setModuleIdx(sharedStatus.getModuleidx());
                         midiSong.setTimeSig(txtTimeSig.getText());
                         midiSong.setSongType(0);

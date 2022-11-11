@@ -14,13 +14,10 @@ package amidifx.models;
 public class MidiLayer {
     private int presetIdx;
     private int channelIdx;
-    private String channelOutIdx;
+    private int channelOutIdx;
     private int octaveTran;
     private int moduleIdx;
     private int patchIdx;
-
-    // Layered channels out (defaulted): presetIdx, channelInIdx, (ChannelOutIdx & ModuleIdx) * 10, OctaveTran
-    private byte[] channelOutStruct = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,};
 
     public MidiLayer(MidiPreset midipreset) {
 
@@ -30,12 +27,10 @@ public class MidiLayer {
         this.octaveTran = midipreset.getOctaveTran();
         this.moduleIdx = midipreset.getModuleIdx();
         this.patchIdx = midipreset.getPatchIdx();
-
-        parseChannelOut();
     }
 
     // 0,12,12,0,106,121,100,0,100,100,20,0,0,0,0,3,8,Klaus sein Sax
-    public MidiLayer(int presetIdx, int channelIdx, String channelOutIdx, int octaveTran,
+    public MidiLayer(int presetIdx, int channelIdx, int channelOutIdx, int octaveTran,
                       int moduleIdx, int patchIdx) {
 
         this.presetIdx = presetIdx;
@@ -44,8 +39,6 @@ public class MidiLayer {
         this.octaveTran = octaveTran;
         this.moduleIdx = moduleIdx;
         this.patchIdx = patchIdx;
-
-        parseChannelOut();
     }
 
     public int getPresetIdx() {
@@ -62,10 +55,10 @@ public class MidiLayer {
         this.channelIdx = channelIdx;
     }
 
-    public String getChannelOutIdx() {
+    public int getChannelOutIdx() {
         return channelOutIdx;
     }
-    public void setChannelOutIdx(String channelOutIdx) {
+    public void setChannelOutIdx(int channelOutIdx) {
         this.channelOutIdx = channelOutIdx;
     }
 
@@ -89,41 +82,6 @@ public class MidiLayer {
     public void setPatchIdx(int patchIdx) {
         this.patchIdx = patchIdx;
     }
-
-
-    // Parse Channel Out String into Byte Array to be shared with ARM Controller
-    // To do: In future, modify the Preset file structure to allow moduleIdx to be spcified at the Channel Out level
-    // in order to allow for multiplexing input channels to multiple output modules
-    private boolean parseChannelOut() {
-
-        channelOutStruct[0] = (byte)(presetIdx & 0xFF);
-        channelOutStruct[1] = (byte)(channelIdx & 0xFF);
-
-        // Convert the channel out string from preset into bytes
-        byte[] outchannels = channelOutIdx.getBytes();
-
-        int i = 0, j = 2;
-        while (i < outchannels.length) {
-            // Skip out channel separator
-            if (outchannels[i] == '|') {
-                i++;
-            }
-            channelOutStruct[j] = (byte)(moduleIdx & 0xFF);
-            channelOutStruct[j+1] = (byte)(outchannels[i++] - 48);
-            //System.out.print("moduleIdx: " + channelOutStruct[j] +  ", channelOutIdx: " + channelOutStruct[j+1]);
-
-            j = j + 2;
-        }
-        //System.out.println(" <- Channel out byte array");
-
-        return true;
-    }
-
-
-    public byte[] getChannelOut() {
-        return channelOutStruct;
-    }
-
 
     @Override
     public String toString() {

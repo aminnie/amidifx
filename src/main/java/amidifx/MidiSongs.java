@@ -175,9 +175,9 @@ public class MidiSongs {
                 songline = songline.concat(",").concat(song.getSongTitle());
                 songline = songline.concat(",").concat(song.getPresetFile());
                 songline = songline.concat(",").concat(song.getMidiFile());
-                songline = songline.concat(",").concat(Integer.toString(song.getChanBass()));
-                songline = songline.concat(",").concat(Integer.toString(song.getChanLower()));
-                songline = songline.concat(",").concat(Integer.toString(song.getChanUpper()));
+                songline = songline.concat(",").concat(Integer.toString(song.getTrackBass()));
+                songline = songline.concat(",").concat(Integer.toString(song.getTrackLower()));
+                songline = songline.concat(",").concat(Integer.toString(song.getTrackUpper()));
                 songline = songline.concat(",").concat(Integer.toString(song.getModuleIdx()));
                 songline = songline.concat(",").concat(song.getTimeSig()).concat("\r");
                 bw.write(songline);

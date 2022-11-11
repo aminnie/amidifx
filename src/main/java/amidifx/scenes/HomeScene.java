@@ -188,7 +188,8 @@ public class HomeScene {
 
             System.out.println("HomeScene: Scene HomeScene!");
 
-            labelstatusOrg = new Label(" Status: Ready");
+            labelstatusOrg = new Label(" Status: Select MIDI IN and OUT, click Configure.");
+
             labelstatusOrg.setStyle(styletext);
 
             // Create top bar navigation buttons
@@ -411,7 +412,7 @@ public class HomeScene {
                     }
                     dopatches.loadMidiPatches(modulefile);
 
-                    labelstatusOrg.setText(" Status: Ready to play. Test keyboard connection.");
+                    labelstatusOrg.setText(" Status: Ready to play. Test keyboard connection or click To Perform.");
                     labelstatusOrg.setStyle(styletext);
                 }
             });

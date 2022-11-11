@@ -35,16 +35,16 @@ public class SharedStatus {
     private String selindevice = "default";
     private String seloutdevice = "default";
 
-    // Hardcoded keyboard channels for now. Roland AT900 TX Channels default. Can be overriden from AppConfig XML
-    private int SOLOKBD = 1;
-    private int BASSKBD = 2;
-    private int LOWER1KBD = 3;
-    private int UPPER1KBD = 4;
-    private int DRUMS = 11;
+    // Hardcoded keyboard channels for now. Roland AT900 TX Channels default. Overriden from AppConfig XML after init.
+    private byte SOLOKBD = 1;
+    private byte BASSKBD = 2;
+    private byte LOWER1KBD = 3;
+    private byte UPPER1KBD = 4;
+    private byte DRUMS = 11;
 
-    private int LOWER2KBD = 12;
-    private int UPPER2KBD = 14;
-    private int UPPER3KBD = 15;
+    private byte LOWER2KBD = 12;
+    private byte UPPER2KBD = 14;
+    private byte UPPER3KBD = 15;
 
     private static final int PERCUSSION = 13;
     private static final int CONTROL = 16;
@@ -282,39 +282,39 @@ public class SharedStatus {
         this.songreload = songreload;
     }
 
-    public int getUpper1CHAN() {
+    public byte getUpper1CHAN() {
         return UPPER1KBD;
     }
-    public void setUpper1CHAN(int midichan) {UPPER1KBD = midichan; }
+    public void setUpper1CHAN(byte midichan) {UPPER1KBD = midichan; }
 
-    public int getUpper2CHAN() {
+    public byte getUpper2CHAN() {
         return UPPER2KBD;
     }
-    public void setUpper2CHAN(int midichan) {UPPER2KBD = midichan; }
+    public void setUpper2CHAN(byte midichan) {UPPER2KBD = midichan; }
 
-    public int getUpper3CHAN() { return UPPER3KBD; }
-    public void setUpper3CHAN(int midichan) {UPPER3KBD = midichan; }
+    public byte getUpper3CHAN() { return UPPER3KBD; }
+    public void setUpper3CHAN(byte midichan) {UPPER3KBD = midichan; }
 
-    public int getLower1CHAN() {
+    public byte getLower1CHAN() {
         return LOWER1KBD;
     }
-    public void setLower1CHAN(int midichan) {LOWER1KBD = midichan; }
+    public void setLower1CHAN(byte midichan) {LOWER1KBD = midichan; }
 
-    public int getLower2CHAN() {
+    public byte getLower2CHAN() {
         return LOWER2KBD;
     }
-    public void setLower2CHAN(int midichan) {LOWER2KBD = midichan; }
+    public void setLower2CHAN(byte midichan) {LOWER2KBD = midichan; }
 
-    public int getBassCHAN() {
+    public byte getBassCHAN() {
         return BASSKBD;
     }
-    public void setBassCHAN(int midichan) { BASSKBD = midichan; }
+    public void setBassCHAN(byte midichan) { BASSKBD = midichan; }
 
-    public int getSoloCHAN() { return SOLOKBD; }
-    public void setSoloCHAN(int midichan) {SOLOKBD = midichan; }
+    public byte getSoloCHAN() { return SOLOKBD; }
+    public void setSoloCHAN(byte midichan) {SOLOKBD = midichan; }
 
-    public void setDrumCHAN(int midichan) {DRUMS = midichan; }
-    public int getDrumCHAN() {
+    public void setDrumCHAN(byte midichan) {DRUMS = midichan; }
+    public byte getDrumCHAN() {
         return DRUMS;
     }
 

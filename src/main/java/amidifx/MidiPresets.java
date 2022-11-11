@@ -1,6 +1,5 @@
 package amidifx;
 
-import amidifx.models.MidiLayer;
 import amidifx.models.MidiPatch;
 import amidifx.models.MidiPreset;
 import amidifx.models.SharedStatus;
@@ -98,8 +97,8 @@ public class MidiPresets {
                     // int patchId, int patchType, int PC, int MSB, int LSB, String patchName
                     MidiPreset mPreset = new MidiPreset(
                             Integer.parseInt(presetDetails[0]),     // PresetIdx
-                            Integer.parseInt(presetDetails[1]),     // ChanIdxIn
-                            presetDetails[2],                       // ChanIdxOut
+                            Integer.parseInt(presetDetails[1]) - 1, // ChanIdxIn, compensate for channel that is stored as 1 higher in file
+                            Integer.parseInt(presetDetails[2]) - 1, // ChanIdxOut
                             Integer.parseInt(presetDetails[3]),     // OctaveTran
                             Integer.parseInt(presetDetails[4]),     // PC
                             Integer.parseInt(presetDetails[5]),     // MSB
@@ -124,10 +123,10 @@ public class MidiPresets {
             }
 
             // Print Preset Channels
-            //for (int i = 0; i < presetList.size(); i++) {
-            //    MidiPreset mPreset = presetList.get(i);
-            //    System.out.println("*** " +  mPreset.toString());
-            //}
+            for (int i = 0; i < presetList.size(); i++) {
+                MidiPreset mPreset = presetList.get(i);
+                System.out.println("*** " +  mPreset.toString());
+            }
         }
         catch (Exception ee) {
             ee.printStackTrace();
@@ -142,8 +141,8 @@ public class MidiPresets {
                     for (int i = 0; i < presetList.size(); i++) {
                         MidiPreset mPreset = presetList.get(i);
 
-                        MidiLayer midilayer = new MidiLayer(mPreset);
-                        arduinoutils.writeLayerSysexData((byte)2, midilayer.getChannelOut());
+                        //MidiLayer midilayer = new MidiLayer(mPreset);
+                        //arduinoutils.writeLayerSysexData((byte)2, midilayer.getChannelOutIdx());
 
                         //System.out.println("Sending to ARM Controller " + midilayer.toString());
                     }
@@ -240,10 +239,10 @@ public class MidiPresets {
         sharedStatus = SharedStatus.getInstance();
 
         // Print Preset Channels
-        //for (int i = 0; i < presetList.size(); i++) {
-        //    MidiPreset mPreset = presetList.get(i);
-        //    System.out.println(mPreset.toString());
-        //}
+        for (int i = 0; i < presetList.size(); i++) {
+            MidiPreset mPreset = presetList.get(i);
+            System.out.println(mPreset.toString());
+        }
 
         BufferedWriter bw = null;
         try {
@@ -263,8 +262,8 @@ public class MidiPresets {
 
                 String presetline = Integer.toString(preset.getPresetIdx());
                 presetline = presetline.concat(",").concat(Integer.toString(preset.getChannelIdx()));
-                presetline = presetline.concat(",").concat(preset.getChannelOutIdx());
-                presetline = presetline.concat(",").concat(Integer.toString(preset.getOctaveTran()));
+                presetline = presetline.concat(",").concat(Integer.toString(preset.getChannelOutIdx())) + 1;          // Adjust since we read channels as plus 1 externally
+                presetline = presetline.concat(",").concat(Integer.toString(preset.getOctaveTran())) + 1;
                 presetline = presetline.concat(",").concat(Integer.toString(preset.getPC()));
                 presetline = presetline.concat(",").concat(Integer.toString(preset.getLSB())).concat(",").concat(Integer.toString(preset.getMSB()));
                 presetline = presetline.concat(",").concat(Integer.toString(preset.getModuleIdx()));
@@ -312,22 +311,10 @@ public class MidiPresets {
             PlayMidi playmidifile = PlayMidi.getInstance();
 
             // Read channel out values and apply Preset for the first output channel in the list
-            String channelIdxOut = preset.getChannelOutIdx();
+            int CHANOUT = preset.getChannelOutIdx();
             //System.out.println("applyMIDIPreset Channel out: " + channelIdxOut);
 
-            int CHANOUT;
-            int idx = channelIdxOut.indexOf("|",0);
-
-            if ( idx != -1) {
-                CHANOUT = Integer.parseInt(channelIdxOut.substring(0, idx));
-                //System.out.println("applyMIDIPreset: Channel = " + CHANOUT);
-            }
-            else {
-                CHANOUT = Integer.parseInt(channelIdxOut);
-                //System.out.println("applyMIDIPreset: Channel = " + CHANOUT);
-            }
-
-            if ((CHANOUT < 1) || (CHANOUT > 16)) {
+            if ((CHANOUT < 0) || (CHANOUT > 15)) {
                 //System.out.println("applyMIDIPreset Error: Channel = " + CHANOUT);
                 return false;
             }

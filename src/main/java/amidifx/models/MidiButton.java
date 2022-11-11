@@ -8,7 +8,7 @@ public class MidiButton {
     private String patchName;
     private int layerIdx;
     private int channelIdx;
-    private String channelOutIdx;
+    private int channelOutIdx;
     private int octaveTran;
     private int PC;
     private int LSB;
@@ -32,7 +32,7 @@ public class MidiButton {
         this.setPatchName("No Voice");
         this.setLayerIdx(0);
         this.setChannelIdx(0);
-        this.setChannelOutIdx("0");
+        this.setChannelOutIdx(0);
         this.setOctaveTran(0);
         this.setPC(0);
         this.setLSB(0);
@@ -51,7 +51,7 @@ public class MidiButton {
 
     // ButtonIdx + ButtonId + 0,12,12,0,106,121,100,0,100,100,20,0,0,0,0,3,8,Klaus sein Sax
     public MidiButton(int buttonIdx, String buttonId, int patchId, String patchName, int layerIdx,
-                      int channelIdx, String channelOutIdx, int octaveTran,
+                      int channelIdx, int channelOutIdx, int octaveTran,
                       int PC, int LSB, int MSB, int moduleIdx,
                       int VOL, int EXP, int REV, int CHO, int MOD, int TIM, int ATK, int REL, int BRI, int PAN) {
         super();
@@ -127,10 +127,10 @@ public class MidiButton {
         this.channelIdx = channelIdx;
     }
 
-    public String getChannelOutIdx() {
+    public int getChannelOutIdx() {
         return channelOutIdx;
     }
-    public void setChannelOutIdx(String channelOutIdx) {
+    public void setChannelOutIdx(int channelOutIdx) {
         this.channelOutIdx = channelOutIdx;
     }
 
