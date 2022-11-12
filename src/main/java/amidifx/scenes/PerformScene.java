@@ -181,6 +181,7 @@ public class PerformScene {
 
     String lastVoiceButton = "U1-1";
     int lastVoiceChannel = 14;
+    int lastVoiceChannelSound = 14;
 
     // Tracking Upper1 Buttons
     Button rbutton11 = new Button();
@@ -840,6 +841,8 @@ public class PerformScene {
                         playmidifile.sendMidiControlChange((byte)lastVoiceChannel, ccPAN, (byte)sliderPAN.getValue());
                         //playmidifile.sendMidiControlChange((byte)lastVoiceChannel, ccTRE, (byte)sliderTRE.getValue());
 
+                        // Remember last voice channel that sounded, so that this one is remembered for turn off
+                        lastVoiceChannelSound = lastVoiceChannel;
                         btestnote = true;
                     }
                     else {
@@ -847,7 +850,7 @@ public class PerformScene {
                         btntest.setStyle(btnplayOff);
 
                         PlayMidi playmidifile = PlayMidi.getInstance();
-                        playmidifile.sendMidiNote((byte)lastVoiceChannel, (byte)60, false);
+                        playmidifile.sendMidiNote((byte)lastVoiceChannelSound, (byte)60, false);
 
                         btestnote = false;
                     }
@@ -1043,7 +1046,7 @@ public class PerformScene {
             gridmidcenterPerform.setHgap(15);
             gridmidcenterPerform.setVgap(10);
 
-            b1layerbtn = new Button("Bass [" + sharedStatus.getBassCHAN() + "]");
+            b1layerbtn = new Button("Bass [" + (sharedStatus.getBassCHAN() + 1) + "]");
             b1layerbtn.setStyle(lrpressedOn);
             b1layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
             b1layerbtn.setMinSize(xlayerbtn, ylayerbtn);
@@ -1295,7 +1298,7 @@ public class PerformScene {
             gridmidcenterPerform.add(bass3, 0, 2, 1, 1);
             gridmidcenterPerform.add(bass4, 1, 2, 1, 1);
 
-            Button d1layerbtn = new Button("Drums [" + sharedStatus.getBassCHAN() + "]");
+            Button d1layerbtn = new Button("Drums [" + (sharedStatus.getBassCHAN() + 1) + "]");
             d1layerbtn.setStyle(styletext);
             d1layerbtn.setStyle(lrpressedOn);
             d1layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
@@ -1545,7 +1548,7 @@ public class PerformScene {
 
             // Lower Buttons
 
-            l1layerbtn = new Button("Lower 1 [" + sharedStatus.getLower1CHAN() + "]   ");       // Lefthand Layering Buttons
+            l1layerbtn = new Button("Lower 1 [" + (sharedStatus.getLower1CHAN() + 1)+ "]   ");       // Lefthand Layering Buttons
             l1layerbtn.setStyle(lrpressedOn);
             l1layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
             l1layerbtn.setMinSize(xlayerbtn, ylayerbtn);
@@ -1571,7 +1574,7 @@ public class PerformScene {
             });
             mididevices.layerChannel(sharedStatus.getLower1CHAN(), true);
 
-            l2layerbtn = new Button("Lower 2 [" + sharedStatus.getLower2CHAN() + "]   ");
+            l2layerbtn = new Button("Lower 2 [" + (sharedStatus.getLower2CHAN() + 1) + "]   ");
             l2layerbtn.setStyle(lrpressedOff);
             l2layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
             l2layerbtn.setMinSize(xlayerbtn, ylayerbtn);
@@ -2119,7 +2122,7 @@ public class PerformScene {
 
             // Upper Buttons
 
-            r1layerbtn = new Button("Upper 1 ["+sharedStatus.getUpper1CHAN()+"]   ");       // Righthand Layering Buttons
+            r1layerbtn = new Button("Upper 1 ["+(sharedStatus.getUpper1CHAN() + 1) +"]   ");       // Righthand Layering Buttons
             r1layerbtn.setStyle(lrpressedOn);
             r1layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
             r1layerbtn.setMinSize(xlayerbtn, ylayerbtn);
@@ -2145,7 +2148,7 @@ public class PerformScene {
             });
             mididevices.layerChannel(sharedStatus.getUpper1CHAN(), true);
 
-            r2layerbtn = new Button("Upper 2 [" + sharedStatus.getUpper2CHAN() + "]   ");
+            r2layerbtn = new Button("Upper 2 [" + (sharedStatus.getUpper2CHAN() + 1) + "]   ");
             r2layerbtn.setStyle(lrpressedOff);
             r2layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
             r2layerbtn.setMinSize(xlayerbtn, ylayerbtn);
@@ -2172,7 +2175,7 @@ public class PerformScene {
             });
             mididevices.layerChannel(sharedStatus.getUpper2CHAN(), false);
 
-            r3layerbtn = new Button("Upper 3 [" + sharedStatus.getUpper3CHAN() + "]   ");
+            r3layerbtn = new Button("Upper 3 [" + (sharedStatus.getUpper3CHAN() + 1) + "]   ");
             r3layerbtn.setStyle(lrpressedOff);
             r3layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
             r3layerbtn.setMinSize(xlayerbtn, ylayerbtn);
@@ -3555,7 +3558,7 @@ public class PerformScene {
             // Set Voide Name on the Button, and copy Preset details & effects in Button's MidiButton object
 
             // Upper 1-1
-            MidiPreset preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getUpper1CHAN() - 1);
+            MidiPreset preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getUpper1CHAN());
             int buttonidx = midiButtons.lookupButtonIdx(rbutton11.getId());
             MidiButton midibutton = midiButtons.getMidiButton(buttonidx, 0);
             midiButtons.copyPresetToMidiButton(preset, midibutton);
@@ -3565,7 +3568,7 @@ public class PerformScene {
             rbutton11.setStyle(rcolorOn);
 
             // Upper 2-1
-            preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getUpper2CHAN() - 1);
+            preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getUpper2CHAN());
             buttonidx = midiButtons.lookupButtonIdx(rbutton21.getId());
             midibutton = midiButtons.getMidiButton(buttonidx, 0);
             midiButtons.copyPresetToMidiButton(preset, midibutton);
@@ -3575,7 +3578,7 @@ public class PerformScene {
             rbutton21.setStyle(rcolorOn);
 
             // Upper 3-1
-            preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getUpper3CHAN() - 1);
+            preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getUpper3CHAN());
             buttonidx = midiButtons.lookupButtonIdx(rbutton31.getId());
             midibutton = midiButtons.getMidiButton(buttonidx, 0);
             midiButtons.copyPresetToMidiButton(preset, midibutton);
@@ -3585,7 +3588,7 @@ public class PerformScene {
             rbutton31.setStyle(rcolorOn);
 
             // Lower 1-1
-            preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getLower1CHAN() - 1);
+            preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getLower1CHAN());
             buttonidx = midiButtons.lookupButtonIdx(lbutton11.getId());
             midibutton = midiButtons.getMidiButton(buttonidx, 0);
             midiButtons.copyPresetToMidiButton(preset, midibutton);
@@ -3595,7 +3598,7 @@ public class PerformScene {
             lbutton11.setStyle(lcolorOn);
 
             // Lower 2-1
-            preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getLower2CHAN() - 1);
+            preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getLower2CHAN());
             buttonidx = midiButtons.lookupButtonIdx(lbutton21.getId());
             midibutton = midiButtons.getMidiButton(buttonidx, 0);
             midiButtons.copyPresetToMidiButton(preset, midibutton);
@@ -3605,7 +3608,7 @@ public class PerformScene {
             lbutton21.setStyle(lcolorOn);
 
             // Bass 1
-            preset = dopresets.getPreset(presetIdx * 16  + sharedStatus.getBassCHAN() - 1);
+            preset = dopresets.getPreset(presetIdx * 16  + sharedStatus.getBassCHAN());
             buttonidx = midiButtons.lookupButtonIdx(bass1.getId());
             midibutton = midiButtons.getMidiButton(buttonidx, 0);
             midiButtons.copyPresetToMidiButton(preset, midibutton);
@@ -3615,7 +3618,7 @@ public class PerformScene {
             bass1.setStyle(bcolorOn);
 
             // Drum 1
-            preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getDrumCHAN() - 1);
+            preset = dopresets.getPreset(presetIdx * 16 + sharedStatus.getDrumCHAN());
             buttonidx = midiButtons.lookupButtonIdx(drum1.getId());
             midibutton = midiButtons.getMidiButton(buttonidx, 0);
             midiButtons.copyPresetToMidiButton(preset, midibutton);

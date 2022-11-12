@@ -351,7 +351,7 @@ public class MidiButtons {
     }
 
 
-    // Apply current current/selected MIDI Button
+    // Apply current/selected MIDI Button
     public boolean applyMidiButton(MidiButton button, int channelIdx) {
 
         try {

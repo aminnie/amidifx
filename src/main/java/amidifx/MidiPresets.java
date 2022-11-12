@@ -123,10 +123,10 @@ public class MidiPresets {
             }
 
             // Print Preset Channels
-            for (int i = 0; i < presetList.size(); i++) {
-                MidiPreset mPreset = presetList.get(i);
-                System.out.println("*** " +  mPreset.toString());
-            }
+            //for (int i = 0; i < presetList.size(); i++) {
+            //    MidiPreset mPreset = presetList.get(i);
+            //    System.out.println("*** " +  mPreset.toString());
+            //}
         }
         catch (Exception ee) {
             ee.printStackTrace();
@@ -186,9 +186,9 @@ public class MidiPresets {
         //System.out.println("Updated MIDI Preset " + idx + ": " + midiPatch.toString());
     }
 
-    // Copy provided Preset Channel to the next Preset same Channel
-    public void copyPreset(MidiPreset midipreset, int presetIdx, int nextpresetIdx) {
-        presetList.get(nextpresetIdx).setPresetIdx(nextpresetIdx);
+    // Copy provided Preset Channel to the next Preset same Channel for thr destination preset bank.
+    public void copyPreset(MidiPreset midipreset, int presetIdx, int nextpresetIdx, int presetbankidx) {
+        presetList.get(nextpresetIdx).setPresetIdx(presetbankidx);
         presetList.get(nextpresetIdx).setChannelIdx(midipreset.getChannelIdx());;
         presetList.get(nextpresetIdx).setChannelOutIdx(midipreset.getChannelOutIdx());;
         presetList.get(nextpresetIdx).setOctaveTran(midipreset.getOctaveTran());
@@ -239,10 +239,10 @@ public class MidiPresets {
         sharedStatus = SharedStatus.getInstance();
 
         // Print Preset Channels
-        for (int i = 0; i < presetList.size(); i++) {
-            MidiPreset mPreset = presetList.get(i);
-            System.out.println(mPreset.toString());
-        }
+        //for (int i = 0; i < presetList.size(); i++) {
+        //    MidiPreset mPreset = presetList.get(i);
+        //    System.out.println(mPreset.toString());
+        //}
 
         BufferedWriter bw = null;
         try {
@@ -261,9 +261,9 @@ public class MidiPresets {
                 MidiPreset preset = getPreset(idx);
 
                 String presetline = Integer.toString(preset.getPresetIdx());
-                presetline = presetline.concat(",").concat(Integer.toString(preset.getChannelIdx()));
-                presetline = presetline.concat(",").concat(Integer.toString(preset.getChannelOutIdx())) + 1;          // Adjust since we read channels as plus 1 externally
-                presetline = presetline.concat(",").concat(Integer.toString(preset.getOctaveTran())) + 1;
+                presetline = presetline.concat(",").concat(Integer.toString(preset.getChannelIdx() + 1));
+                presetline = presetline.concat(",").concat(Integer.toString(preset.getChannelOutIdx() + 1));          // Adjust since we read channels as plus 1 externally
+                presetline = presetline.concat(",").concat(Integer.toString(preset.getOctaveTran()));
                 presetline = presetline.concat(",").concat(Integer.toString(preset.getPC()));
                 presetline = presetline.concat(",").concat(Integer.toString(preset.getLSB())).concat(",").concat(Integer.toString(preset.getMSB()));
                 presetline = presetline.concat(",").concat(Integer.toString(preset.getModuleIdx()));

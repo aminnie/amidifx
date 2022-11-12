@@ -141,7 +141,7 @@ public class PresetScene {
     int moduleIdx = 0;
     int presetIdx = 0;
     int channelIdx = 0;
-
+    int channelIdxSound = 0;
     boolean flgDirtyPreset = false; // Track need to save changes Presets
     boolean bplaying = false;
     boolean btestnote = false;
@@ -388,6 +388,7 @@ public class PresetScene {
         buttonSave.setDisable(true);
         buttonSave.setOnAction(event -> {
             if (flgDirtyPreset) {
+                presetFile = sharedStatus.getPresetFile();
                 boolean bsave = dopresets.saveMidiPresets(presetFile);
                 if (bsave) {
                     labelstatus.setText(" Status: Song Presets saved");
@@ -571,6 +572,7 @@ public class PresetScene {
                         renderVoiceButtons(patchIdx, totalpatchcnt);
                     }
                     offAllButtons();
+                    pstbutton1.fire();
 
                     labelstatus.setText(" Status: Selected Bank " + selectedItem);
                 });
@@ -1089,6 +1091,8 @@ public class PresetScene {
                     playmidifile.sendMidiNote((byte) (channelIdx), (byte) 60, true);
                     //playmidifile.startMidiDemo(channelIdx+1);
 
+                    // Remember channel sounding so, we can turn this one off after we may have changed to another
+                    //channelIdxSound = channelIdx;
                     btestnote = true;
                 } else {
                     btntest.setText("Demo Voice");
@@ -1746,7 +1750,7 @@ public class PresetScene {
 
             for (int idx = 0; idx < 16; idx++) {
                 MidiPreset midipreset = dopresets.getPreset(presetIdx * 16 + idx);
-                dopresets.copyPreset(midipreset, presetIdx * 16 + idx, (presetIdx + 1) * 16 + idx);
+                dopresets.copyPreset(midipreset, presetIdx * 16 + idx, (presetIdx + 1) * 16 + idx, presetIdx + 1);
             }
             buttonSave.setDisable(false);
             flgDirtyPreset = true;

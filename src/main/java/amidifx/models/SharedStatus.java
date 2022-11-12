@@ -40,7 +40,7 @@ public class SharedStatus {
     private byte BASSKBD = 2;
     private byte LOWER1KBD = 3;
     private byte UPPER1KBD = 4;
-    private byte DRUMS = 11;
+    private byte DRUMS = 10;
 
     private byte LOWER2KBD = 12;
     private byte UPPER2KBD = 14;
@@ -285,25 +285,25 @@ public class SharedStatus {
     public byte getUpper1CHAN() {
         return UPPER1KBD;
     }
-    public void setUpper1CHAN(byte midichan) {UPPER1KBD = midichan; }
+    public void setUpper1CHAN(byte midichan) { UPPER1KBD = midichan; }
 
     public byte getUpper2CHAN() {
         return UPPER2KBD;
     }
-    public void setUpper2CHAN(byte midichan) {UPPER2KBD = midichan; }
+    public void setUpper2CHAN(byte midichan) { UPPER2KBD = midichan; }
 
     public byte getUpper3CHAN() { return UPPER3KBD; }
-    public void setUpper3CHAN(byte midichan) {UPPER3KBD = midichan; }
+    public void setUpper3CHAN(byte midichan) { UPPER3KBD = midichan; }
 
     public byte getLower1CHAN() {
         return LOWER1KBD;
     }
-    public void setLower1CHAN(byte midichan) {LOWER1KBD = midichan; }
+    public void setLower1CHAN(byte midichan) { LOWER1KBD = midichan; }
 
     public byte getLower2CHAN() {
         return LOWER2KBD;
     }
-    public void setLower2CHAN(byte midichan) {LOWER2KBD = midichan; }
+    public void setLower2CHAN(byte midichan) { LOWER2KBD = midichan; }
 
     public byte getBassCHAN() {
         return BASSKBD;
