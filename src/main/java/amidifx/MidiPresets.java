@@ -60,7 +60,8 @@ public class MidiPresets {
     }
 
     // Load specific Preset file
-    public void loadMidiPresets(String presetFile) {
+    public boolean loadMidiPresets(String presetFile) {
+        boolean floadsuccess = true;
 
         this.presetFile = presetFile;
 
@@ -117,8 +118,16 @@ public class MidiPresets {
                             Integer.parseInt(presetDetails[18]),    // BankIdx
                             Integer.parseInt(presetDetails[19]),    // FontIdx
                             Integer.parseInt(presetDetails[20]),    // PatchIdx
-                            presetDetails[21]);                     // PatchName
-                    presetList.add(mPreset);
+                            presetDetails[21]
+                    );                     // PatchName
+
+                    // Validate the ranges to ensure we are not loading a corrupt preset before adding to presetlist
+                    // Abort Preset load if an error is detected.
+                    if (validatePresetDetails(mPreset)) {
+                        presetList.add(mPreset);
+                    }
+                    else
+                        floadsuccess = false;
                 }
             }
 
@@ -128,8 +137,15 @@ public class MidiPresets {
             //    System.out.println("*** " +  mPreset.toString());
             //}
         }
+        catch (NumberFormatException nfe) {
+            System.out.println("*** Error parsing MIDI Preset String field into Integer " + presetFile);
+            nfe.printStackTrace();
+            floadsuccess = false;
+        }
         catch (Exception ee) {
+            System.out.println("*** Error reading MIDI Preset File " + presetFile);
             ee.printStackTrace();
+            floadsuccess = false;
         }
         finally {
             try {
@@ -152,12 +168,44 @@ public class MidiPresets {
                 sharedStatus.setPresetReload(false);
 
             }
-            catch (IOException ie) {
+            catch (IOException ioe) {
                 System.out.println("*** Error occured while closing the MIDI Preset BufferedReader ***");
-                ie.printStackTrace();
+                ioe.printStackTrace();
+                floadsuccess = false;
             }
         }
+        return floadsuccess;
     }
+
+    // Validate every field in Preset just loaded to verify that it contains an acceptable value and has not been corrupted on disk
+    boolean validatePresetDetails(MidiPreset mPreset) {
+        boolean perror = true;
+        //if (perror) return perror;
+
+        if ((mPreset.getPresetIdx() < 0) || (mPreset.getPresetIdx() > 127 )) return false;
+
+        if ((mPreset.getChannelIdx() < 0) || (mPreset.getChannelIdx() > 15)) return false;
+        if ((mPreset.getChannelOutIdx() < 0) || (mPreset.getChannelOutIdx() > 15)) return false;
+
+        if ((mPreset.getModuleIdx() < 0) || (mPreset.getModuleIdx() > sharedStatus.getModuleCount())) return false;
+        if ((mPreset.getOctaveTran() < -2) || (mPreset.getOctaveTran() > 2)) return false;
+
+        if ((mPreset.getVOL() < 0) || (mPreset.getVOL() > 127)) return false;
+        if ((mPreset.getEXP() < 0) || (mPreset.getEXP() > 127)) return false;
+
+        if ((mPreset.getREV() < 0) || (mPreset.getREV() > 127)) return false;
+        if ((mPreset.getCHO() < 0) || (mPreset.getCHO() > 127)) return false;
+        if ((mPreset.getMOD() < 0) || (mPreset.getMOD() > 127)) return false;
+
+        if ((mPreset.getATK() < 0) || (mPreset.getATK() > 127)) return false;
+        if ((mPreset.getREL() < 0) || (mPreset.getREL() > 127)) return false;
+        if ((mPreset.getBRI() < 0) || (mPreset.getBRI() > 127)) return false;
+        if ((mPreset.getTIM() < 0) || (mPreset.getTIM() > 127)) return false;
+        if ((mPreset.getPAN() < 0) || (mPreset.getPAN() > 127)) return false;
+
+        return perror;
+    }
+
 
     // Return Preset details at index number
     public MidiPreset getPreset(int idx) {

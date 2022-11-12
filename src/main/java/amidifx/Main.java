@@ -146,7 +146,7 @@ public class Main extends Application {
     ListView<String> presetListView;
     String songTitle = "Organ";
     String songFile = "amloop.mid";
-    String presetFile = "default.pre";
+    String presetFile = "defaultgm.pre";
     Label labelstatus = new Label(" ");
 
     Label labelsongtitle = new Label(" ");
@@ -595,8 +595,20 @@ public class Main extends Application {
             }
 
             // For newly selected Song, change to the first Preset and 16 Channels
+            // Abort if error loading Preset file
             presetFile = txtPresetFile.getText();
-            dopresets.loadMidiPresets(presetFile);
+            ////dopresets.loadMidiPresets(presetFile);
+            if (!dopresets.loadMidiPresets(presetFile))  {
+                labelstatusSng.setText(" Status: Error loading preset file " + presetFile);
+                labelstatusSng.setStyle(styletextred);
+
+                System.out.println("Fatal Error: Unable to load preset file " + presetFile);
+                try {
+                    wait(10000);
+                }
+                catch(Exception exception) {}
+                System.exit(-1);
+            }
 
             for (int idx = 0; idx < 16; idx++) {
                 midiPreset = dopresets.getPreset(idx);
@@ -781,9 +793,9 @@ public class Main extends Application {
                     if (bnewSong) {
                         System.out.println("Main: Creating new midi files for: " + txtSmfFile.getText());
 
-                        // Never overwrite default.pre. System needs to boot.
-                        if (txtPresetSaveAsFile.getText().equals("default.pre")) {
-                            System.err.println("### Main Error: Required file default.pre does not exist.");
+                        // Never overwrite defaultgm.pre. System needs to boot.
+                        if (txtPresetSaveAsFile.getText().equals("defaultgm.pre")) {
+                            System.err.println("### Main Error: Required file defaultgm.pre does not exist.");
                             return;
                         }
 
@@ -1098,7 +1110,17 @@ public class Main extends Application {
 
                     // Reload the Preset file for current Song in case it has changed
                     presetFile = sharedStatus.getPresetFile();
-                    dopresets.loadMidiPresets(presetFile);
+                    ////dopresets.loadMidiPresets(presetFile);
+                    if (!dopresets.loadMidiPresets(presetFile)) {
+                        labelstatusSng.setText(" Status: Error loading preset file " + presetFile);
+                        labelstatusSng.setStyle(styletextred);
+
+                        try {
+                            wait(10000);
+                        }
+                        catch(Exception exception) {}
+                        System.exit(-1);
+                    }
 
                     buttondemo.setText("Stop Play");
                     buttondemo.setStyle(btnplayOn);

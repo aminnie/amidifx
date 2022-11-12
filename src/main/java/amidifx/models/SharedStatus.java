@@ -14,7 +14,7 @@ import javax.sound.midi.Transmitter;
 public class SharedStatus {
 
     private String SongTitle = "Organ";          // Current Song Details
-    private String PresetFile = "default.csv";
+    private String PresetFile = "defaultgm.pre";    // Default Preset File
     private String MidiFile = "None";
     private String StatusText = "Ready";         // Latest Status Bar text
 
@@ -28,6 +28,7 @@ public class SharedStatus {
     private String modulename1 = "Deebach BlackBox";
     private String modulename2 = "Roland Integra7";
     private int defaultmoduleidx = 0;
+    private int modulecnt = 3;              // Change module validation count of more added
 
     private String MID_DIRECTORY = "C:/amidifx/midifiles/";
     private String CFG_DIRECTORY = "C:/amidifx/config/";
@@ -238,6 +239,7 @@ public class SharedStatus {
     // Return Deebach MaxPlus (1), Roland Integra7 (2), or MIDI GM (0)
     public String getModuleName(int moduleidx) {
 
+        // Return Deebach MaxPlus
         if (moduleidx == 1)
             return this.modulename1;
 
@@ -245,9 +247,13 @@ public class SharedStatus {
         if (moduleidx == 2)
             return this.modulename2;
 
+        // Return MIDIGM
         return modulename0;
     }
 
+    public int getModuleCount() {
+        return modulecnt;
+    }
 
     public String getInstruments() {
         return instruments;

@@ -356,7 +356,17 @@ public class PerformScene {
             // Load MIDI Default MIDI Preset file on start up
             dopresets = MidiPresets.getInstance();
             presetFile = sharedStatus.getPresetFile();
-            dopresets.loadMidiPresets(presetFile);
+            ////dopresets.loadMidiPresets(presetFile);
+            if (!dopresets.loadMidiPresets(presetFile)) {
+                labelstatusOrg.setText(" Status: Error loading preset file " + presetFile);
+                labelstatusOrg.setStyle(styletextred);
+
+                try {
+                    wait(10000);
+                }
+                catch(Exception exception) {}
+                ////System.exit(-1);
+            }
             System.out.println("PerformScene Init: Loaded new Preset file: " + presetFile);
 
             // Load Song List
@@ -470,7 +480,18 @@ public class PerformScene {
 
                 // For newly selected Song, change to the first Preset and 16 Channels
                 presetFile = sharedStatus.getPresetFile();
-                dopresets.loadMidiPresets(presetFile);
+                ////dopresets.loadMidiPresets(presetFile);
+                if (!dopresets.loadMidiPresets(presetFile)) {
+                    labelstatusOrg.setText(" Status: Error loading preset file " + presetFile);
+                    labelstatusOrg.setStyle(styletextred);
+
+                    try {
+                        wait(10000);
+                    }
+                    catch(Exception exception) {}
+                    ////System.exit(-1);
+                }
+                System.out.println("PerformScene Init: Loaded new Preset file: " + presetFile);
 
                 for (int idx = 0; idx < 16; idx++) {
                     MidiPreset midiPreset = new MidiPreset();
@@ -616,11 +637,23 @@ public class PerformScene {
                 // Check if Sound Module matches the active Module, enable/disable Presets and Autoload Preset 0
                 boolean modulematch = disablePresetButtons(sharedStatus.getModuleidx(), dosongs.getSong(idxSongList).getModuleIdx());
                 if (modulematch) {
-                    ////dopresets.makeMidiPresets(sharedStatus.getPresetFile());
-                    ////buttonPresetAction(0);
-                    ////btnpreset1.setStyle(pcolorOn);
-                    labelstatusOrg.setText(" Status: Presets loaded for " + dosongs.getSong(idxSongList).getSongTitle());
-                    labelstatusOrg.setStyle(styletext);
+                    ////dopresets.loadMidiPresets(sharedStatus.getPresetFile());
+                    if (!dopresets.loadMidiPresets(sharedStatus.getPresetFile())) {
+                        labelstatusOrg.setText(" Status: Error loading preset file " + sharedStatus.getPresetFile());
+                        labelstatusOrg.setStyle(styletextred);
+
+                        try {
+                            wait(10000);
+                        }
+                        catch(Exception exception) {}
+                        ////System.exit(-1);
+                    }
+                    else {
+                        buttonPresetAction(0);
+                        btnpreset1.setStyle(pcolorOn);
+                        labelstatusOrg.setText(" Status1: Presets loaded for " + dosongs.getSong(idxSongList).getSongTitle());
+                        labelstatusOrg.setStyle(styletext);
+                    }
 
                     // Enable Song Play, Backing and Edit Presets Buttons
                     btnplay.setDisable(false);
@@ -3513,7 +3546,18 @@ public class PerformScene {
 
     void buttonPresetLoad(String presetFile) {
 
-        dopresets.loadMidiPresets(presetFile);
+        ////dopresets.loadMidiPresets(presetFile);
+        if (!dopresets.loadMidiPresets(presetFile)) {
+            labelstatusOrg.setText(" Status: Error loading preset file " + presetFile);
+            labelstatusOrg.setStyle(styletextred);
+
+            try {
+                wait(10000);
+            }
+            catch(Exception exception) {}
+            ////System.exit(-1);
+        }
+        System.out.println("PerformScene Init: Loaded new Preset file: " + presetFile);
 
         defaultChannelLayering();
 
@@ -3544,7 +3588,19 @@ public class PerformScene {
 
             // Reload Preset file if changed, e.g. in Preset Scene
             if (sharedStatus.getPresetReload() == true) {
-                dopresets.loadMidiPresets(presetFile);
+                ////dopresets.loadMidiPresets(presetFile);
+                if (!dopresets.loadMidiPresets(presetFile)) {
+                    labelstatusOrg.setText(" Status: Error loading preset file " + presetFile);
+                    labelstatusOrg.setStyle(styletextred);
+
+                    try {
+                        wait(10000);
+                    }
+                    catch(Exception exception) {}
+                    ////System.exit(-1);
+                }
+                System.out.println("PerformScene Init: Loaded new Preset file: " + presetFile);
+
             }
 
             // Apply selected Preset Program and Control Changes to MIDI output

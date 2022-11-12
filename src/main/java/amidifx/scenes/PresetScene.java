@@ -149,7 +149,7 @@ public class PresetScene {
     ListView<String> presetListView;
     String songTitle = "Organ";
     String songFile = "amloop.mid";
-    String presetFile = "default.pre";
+    String presetFile = "defaultgm.pre";
 
     Label labelsongdetails = new Label(" ");
     Label labelstatus = new Label(" ");
@@ -407,29 +407,40 @@ public class PresetScene {
         buttonReload.setDisable(false);
         buttonReload.setOnAction(event -> {
             presetFile = sharedStatus.getPresetFile();
-            dopresets.loadMidiPresets(presetFile);
+            ////dopresets.loadMidiPresets(presetFile);
+            if (!dopresets.loadMidiPresets(presetFile)) {
+                labelstatus.setText(" Status: Error loading preset file " + presetFile);
+                labelstatus.setStyle(styletextred);
 
-            // Update the newly selected Preset MIDI Channel Voice list
-            for (int idx = 0; idx < 16; idx++) {
-                midiPreset = dopresets.getPreset(presetIdx * 16 + idx);
-
-                String strName = Integer.toString(idx + 1).concat(":").concat(midiPreset.getPatchName());
-                presetListView.getItems().set(idx, strName);
-
-                //System.out.println("Main: Patch name " + strName);
+                try {
+                    wait(10000);
+                }
+                catch(Exception exception) {}
+                ////System.exit(-1);
             }
-            channelIdx = 0;
-            presetListView.getSelectionModel().select(channelIdx);
-            presetListView.refresh();
+            else {
+                // Update the newly selected Preset MIDI Channel Voice list
+                for (int idx = 0; idx < 16; idx++) {
+                    midiPreset = dopresets.getPreset(presetIdx * 16 + idx);
 
-            presetCombo.requestFocus();
-            presetCombo.getSelectionModel().select(0);
+                    String strName = Integer.toString(idx + 1).concat(":").concat(midiPreset.getPatchName());
+                    presetListView.getItems().set(idx, strName);
 
-            // Force reload of all channels
-            PlayMidi playmidifile = PlayMidi.getInstance();
-            playmidifile.resetcurPresetList();
+                    //System.out.println("Main: Patch name " + strName);
+                }
+                channelIdx = 0;
+                presetListView.getSelectionModel().select(channelIdx);
+                presetListView.refresh();
 
-            labelstatus.setText(" Status: Reloaded Presets file " + presetFile);
+                presetCombo.requestFocus();
+                presetCombo.getSelectionModel().select(0);
+
+                // Force reload of all channels
+                PlayMidi playmidifile = PlayMidi.getInstance();
+                playmidifile.resetcurPresetList();
+
+                labelstatus.setText(" Status: Reloaded Presets file " + presetFile);
+            }
         });
 
         ToolBar toolbarLeft = new ToolBar(buttonsc1, buttonsc2, buttonsc3);
@@ -604,8 +615,19 @@ public class PresetScene {
 
         // Load MIDI Default MIDI Preset file on start up
         dopresets = MidiPresets.getInstance();
-        dopresets.loadMidiPresets(presetFile);
-        System.out.println("Main Init: Loaded new Preset file: " + presetFile);
+        ////dopresets.loadMidiPresets(presetFile);
+        if (!dopresets.loadMidiPresets(presetFile)) {
+            labelstatus.setText(" Status: Error loading preset file " + presetFile);
+            labelstatus.setStyle(styletextred);
+
+            try {
+                wait(10000);
+            }
+            catch(Exception exception) {}
+            ////System.exit(-1);
+        }
+        else
+            System.out.println("Main Init: Loaded new Preset file: " + presetFile);
 
         // **** Show Right Pane: MIDI Sound Bank List
 
