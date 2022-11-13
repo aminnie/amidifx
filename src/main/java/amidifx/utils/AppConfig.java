@@ -124,20 +124,37 @@ public class AppConfig {
     }
 
     // Get selected Out Midi device - Sound Module
-    public String getSoundModule(int idx) {
+    public String getSoundModuleName(int idx) {
         String strmodule;
 
         switch (idx) {
             case 1:
-                strmodule = configProps.getProperty("sndmodfil1");
+                strmodule = configProps.getProperty("sndmodfile1");
             case 2:
-                strmodule = configProps.getProperty("sndmodfil2");
+                strmodule = configProps.getProperty("sndmodfile2");
             default:
                 // Default to Midi GM file
-                strmodule = configProps.getProperty("sndmodfil0");
+                strmodule = configProps.getProperty("sndmodfile0");
         }
 
         return strmodule;
+    }
+
+    // Get selected Out Midi device - Sound Module
+    public String getPresetFileName(int idx) {
+        String strpreset;
+
+        switch (idx) {
+            case 1:
+                strpreset = configProps.getProperty("premodfile1");
+            case 2:
+                strpreset = configProps.getProperty("premodfile2");
+            default:
+                // Default to Midi GM file
+                strpreset = configProps.getProperty("premodfile0");
+        }
+
+        return strpreset;
     }
 
     public void setControllerTitle(String controllertitle) {
@@ -173,7 +190,30 @@ public class AppConfig {
     }
 
     public String getSongsFile() {
+
         return configProps.getProperty("songsfile");
+    }
+
+    public String getModuleFile(int moduleidx) {
+
+        if ((moduleidx < 0) || (moduleidx > 2))
+            moduleidx = 0;
+
+        if (moduleidx == 2) {
+            String premodfile2 = configProps.getProperty("premodfile2");
+            if (premodfile2.length() == 0) premodfile2 = "defaultin.pre";
+            return premodfile2;
+        }
+        else if (moduleidx == 1) {
+            String premodfile1 = configProps.getProperty("premodfile1");
+            if (premodfile1.length() == 0) premodfile1 = "defaultdb.pre";
+            return premodfile1;
+        }
+        else {    // (modulesidx == 0)
+            String premodfile0 = configProps.getProperty("premodfile0");
+            if (premodfile0.length() == 0) premodfile0 = "defaultgm.pre";
+            return premodfile0;
+        }
     }
 
     public byte getExpressionChannel() {
@@ -336,6 +376,35 @@ public class AppConfig {
         }
 
         return (byte)(channelidx - 1);
+    }
+
+    public int getDebugMode() {
+        Integer debugmode = 0;
+
+        try {
+            String debugmodestr = configProps.getProperty("debugmode");
+            debugmode = new Integer(debugmodestr);
+
+            // Debug modes: 0 = Production into Log Files, 1 = Logging into Dev Console
+            if ((debugmode < 0) || (debugmode > 1)) debugmode = 0;
+        }
+        catch (Exception ex) {
+            System.err.println("AppConfig: Error read MIDI Upper 1 CHannel from AppConfig file");
+            System.err.println(ex);
+        }
+
+        return debugmode;
+    }
+
+    public String getLogDirectory() {
+        return configProps.getProperty("dirlogs");
+    }
+
+    public String getMIDIDirectory() {
+        return configProps.getProperty("dirmidi");
+    }
+    public String getAppDirectoryDir() {
+        return configProps.getProperty("diramidifx");
     }
 
     public boolean getApplicationLock() {

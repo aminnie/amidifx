@@ -187,7 +187,12 @@ public class MidiPresets {
         if ((mPreset.getChannelIdx() < 0) || (mPreset.getChannelIdx() > 15)) return false;
         if ((mPreset.getChannelOutIdx() < 0) || (mPreset.getChannelOutIdx() > 15)) return false;
 
+        // Check if valid module range for number supported and validate that the module in preset is the same as
+        // currently and connected selected! We do not want to send invalid program changes to the wrong module.
         if ((mPreset.getModuleIdx() < 0) || (mPreset.getModuleIdx() > sharedStatus.getModuleCount())) return false;
+        if (mPreset.getModuleIdx() != sharedStatus.getModuleidx()) return false;
+
+        // No more tha two otaves up or down allowed to maintain instrument sound quality
         if ((mPreset.getOctaveTran() < -2) || (mPreset.getOctaveTran() > 2)) return false;
 
         if ((mPreset.getVOL() < 0) || (mPreset.getVOL() > 127)) return false;

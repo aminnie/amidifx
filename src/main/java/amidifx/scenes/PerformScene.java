@@ -331,20 +331,40 @@ public class PerformScene {
             sharedStatus = SharedStatus.getInstance();
             lastVoiceChannel = sharedStatus.getUpper1CHAN();
 
+            // Start Building the Scene
+            System.out.println("PerformScene: Scene PerformScene!");
+
+            BorderPane borderPaneOrg = new BorderPane();
+            borderPaneOrg.setStyle(bgpanecolor);
+
+            scenePerform = new Scene(borderPaneOrg, xscene, yscene);
+            scenePerform.getStylesheets().clear();
+            scenePerform.getStylesheets().add("style.css");
+
+            sharedStatus.setPerformScene(scenePerform);
+
+            labelstatusOrg = new Label(" Status: Ready");
+            labelstatusOrg.setStyle(styletext);
+            Label labelsongtitle = new Label("");
+            Label labelstatus = new Label("");
+
             AppConfig config = AppConfig.getInstance();
 
             // To Do: Generalize the first two Songs in the Song List and ensure cannot be deleted
             if (config.getSoundModuleIdx() == 1) {
-                sharedStatus.setPresetFile("defaultdb.pre");
-                idxSongList = 0;
+                ////sharedStatus.setPresetFile("defaultdb.pre");
+                sharedStatus.setPresetFile(config.getPresetFileName(1));
+                idxSongList = 1;
             }
             else if (config.getSoundModuleIdx() == 2) {
-                sharedStatus.setPresetFile("defaultin.pre");
+                ////sharedStatus.setPresetFile("defaultin.pre");
+                sharedStatus.setPresetFile(config.getPresetFileName(2));
                 idxSongList = 2;
             }
             else {
-                sharedStatus.setPresetFile("defaultgm.pre");
-                idxSongList = 1;
+                ////sharedStatus.setPresetFile("defaultgm.pre");
+                sharedStatus.setPresetFile(config.getPresetFileName(0));
+                idxSongList = 0;
             }
 
             // Get instance of Arduino Utilities
@@ -361,11 +381,11 @@ public class PerformScene {
                 labelstatusOrg.setText(" Status: Error loading preset file " + presetFile);
                 labelstatusOrg.setStyle(styletextred);
 
+                System.err.println("PerformScene Init: Error loading Preset file: " + presetFile);
                 try {
                     wait(10000);
                 }
                 catch(Exception exception) {}
-                ////System.exit(-1);
             }
             System.out.println("PerformScene Init: Loaded new Preset file: " + presetFile);
 
@@ -411,25 +431,20 @@ public class PerformScene {
             else {
                 System.err.println("### PerformScene Error: Perform file not found. Selected default: " + buttonFile);
             }
-            midiButtons.loadMidiButtons(buttonFile);
 
-            // Start Building the Scene
+            // Load the MIDI Button definitions
+            if (!midiButtons.loadMidiButtons(buttonFile)) {
+                labelstatusOrg.setText(" Status: Error loading Button PRF file " + buttonFile);
+                labelstatusOrg.setStyle(styletextred);
 
-            System.out.println("PerformScene: Scene PerformScene!");
+                System.err.println("PerformScene: Error loading PRF File " + buttonFile);
+                Thread.sleep(2500);
+                labelstatusOrg.setStyle(styletext);
+            }
+            System.out.println("PerformScene: Successfully loaded PRF File " + buttonFile);
 
-            BorderPane borderPaneOrg = new BorderPane();
-            borderPaneOrg.setStyle(bgpanecolor);
-
-            scenePerform = new Scene(borderPaneOrg, xscene, yscene);
-            scenePerform.getStylesheets().clear();
-            scenePerform.getStylesheets().add("style.css");
-
-            sharedStatus.setPerformScene(scenePerform);
-
-            labelstatusOrg = new Label(" Status: Ready");
+            labelstatusOrg.setText(" Status: Loaded Button PRF file " + buttonFile);
             labelstatusOrg.setStyle(styletext);
-            Label labelsongtitle = new Label("");
-            Label labelstatus = new Label("");
 
             // Create top bar navigation buttons
 
@@ -485,11 +500,12 @@ public class PerformScene {
                     labelstatusOrg.setText(" Status: Error loading preset file " + presetFile);
                     labelstatusOrg.setStyle(styletextred);
 
+                    System.err.println("PerformScene Init: Error loading Preset file: " + presetFile);
                     try {
                         wait(10000);
                     }
                     catch(Exception exception) {}
-                    ////System.exit(-1);
+                    labelstatusOrg.setStyle(styletext);
                 }
                 System.out.println("PerformScene Init: Loaded new Preset file: " + presetFile);
 
@@ -646,7 +662,7 @@ public class PerformScene {
                             wait(10000);
                         }
                         catch(Exception exception) {}
-                        ////System.exit(-1);
+                        labelstatusOrg.setStyle(styletext);
                     }
                     else {
                         buttonPresetAction(0);
@@ -3551,6 +3567,7 @@ public class PerformScene {
             labelstatusOrg.setText(" Status: Error loading preset file " + presetFile);
             labelstatusOrg.setStyle(styletextred);
 
+            System.err.println("PerformScene Init: Error loading Preset file: " + presetFile);
             try {
                 wait(10000);
             }
@@ -3593,6 +3610,7 @@ public class PerformScene {
                     labelstatusOrg.setText(" Status: Error loading preset file " + presetFile);
                     labelstatusOrg.setStyle(styletextred);
 
+                    System.err.println("PerformScene Init: Error loading Preset file: " + presetFile);
                     try {
                         wait(10000);
                     }

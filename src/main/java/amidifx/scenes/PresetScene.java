@@ -416,7 +416,6 @@ public class PresetScene {
                     wait(10000);
                 }
                 catch(Exception exception) {}
-                ////System.exit(-1);
             }
             else {
                 // Update the newly selected Preset MIDI Channel Voice list
@@ -624,7 +623,6 @@ public class PresetScene {
                 wait(10000);
             }
             catch(Exception exception) {}
-            ////System.exit(-1);
         }
         else
             System.out.println("Main Init: Loaded new Preset file: " + presetFile);

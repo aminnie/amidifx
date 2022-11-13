@@ -144,7 +144,8 @@ public class MidiButtons {
     }
 
     // Load specific Button Config file
-    public void loadMidiButtons(String buttonFile) {
+    public boolean loadMidiButtons(String buttonFile) {
+        boolean floadsuccess = true;
 
         this.buttonFile = buttonFile;
 
@@ -194,8 +195,16 @@ public class MidiButtons {
                             Integer.parseInt(buttonDetails[18]),    // atk
                             Integer.parseInt(buttonDetails[19]),    // rel
                             Integer.parseInt(buttonDetails[20]),    // bri
-                            Integer.parseInt(buttonDetails[21]));   // pan
-                    buttonList.add(mButton);
+                            Integer.parseInt(buttonDetails[21])
+                    );   // pan
+
+                    // Validate the ranges to ensure we are not loading a corrupt preset before adding to presetlist
+                    // Abort Preset load if an error is detected.
+                    if (validateButtonDetails(mButton)) {
+                        buttonList.add(mButton);
+                    }
+                    else
+                        floadsuccess = false;
                 }
             }
 
@@ -206,8 +215,15 @@ public class MidiButtons {
             //    System.out.println("*** " +  mButton.toString());
             //}
         }
+        catch (NumberFormatException nfe) {
+            System.out.println("*** Error parsing PRF Button String field into Integer " + buttonFile);
+            nfe.printStackTrace();
+            floadsuccess = false;
+        }
         catch (Exception ee) {
+            System.out.println("*** Error reading Button PRF File " + buttonFile);
             ee.printStackTrace();
+            floadsuccess = false;
         }
         finally {
             try {
@@ -218,6 +234,37 @@ public class MidiButtons {
                 ie.printStackTrace();
             }
         }
+        return floadsuccess;
+    }
+
+    // Validate every field in Preset just loaded to verify that it contains an acceptable value and has not been corrupted on disk
+    boolean validateButtonDetails(MidiButton mButton) {
+        boolean perror = true;
+        //if (perror) return perror;
+
+        // Validate that two sets of Perf Buttons exusting in file
+        if ((mButton.getButtonIdx() < 0) || (mButton.getButtonIdx() > 59 )) return false;
+
+        if ((mButton.getChannelIdx() < 0) || (mButton.getChannelIdx() > 15)) return false;
+        if ((mButton.getChannelOutIdx() < 0) || (mButton.getChannelOutIdx() > 15)) return false;
+
+        // No more tha two otaves up or down allowed to maintain instrument sound quality
+        if ((mButton.getOctaveTran() < -2) || (mButton.getOctaveTran() > 2)) return false;
+
+        if ((mButton.getVOL() < 0) || (mButton.getVOL() > 127)) return false;
+        if ((mButton.getEXP() < 0) || (mButton.getEXP() > 127)) return false;
+
+        if ((mButton.getREV() < 0) || (mButton.getREV() > 127)) return false;
+        if ((mButton.getCHO() < 0) || (mButton.getCHO() > 127)) return false;
+        if ((mButton.getMOD() < 0) || (mButton.getMOD() > 127)) return false;
+
+        if ((mButton.getATK() < 0) || (mButton.getATK() > 127)) return false;
+        if ((mButton.getREL() < 0) || (mButton.getREL() > 127)) return false;
+        if ((mButton.getBRI() < 0) || (mButton.getBRI() > 127)) return false;
+        if ((mButton.getTIM() < 0) || (mButton.getTIM() > 127)) return false;
+        if ((mButton.getPAN() < 0) || (mButton.getPAN() > 127)) return false;
+
+        return perror;
     }
 
 

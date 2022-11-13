@@ -33,6 +33,7 @@ public class SharedStatus {
     private String MID_DIRECTORY = "C:/amidifx/midifiles/";
     private String CFG_DIRECTORY = "C:/amidifx/config/";
 
+    private int debugmode = 0;
     private String selindevice = "default";
     private String seloutdevice = "default";
 
@@ -211,7 +212,6 @@ public class SharedStatus {
         return this.SongTitle;
     }
 
-
     public String getStatusText() {
         return this.StatusText;
     }
@@ -226,6 +226,14 @@ public class SharedStatus {
         return songdetail;
     }
 
+    public int getDebugmode() {
+        return this.debugmode;
+    }
+
+    public void SetDebugmode(int debugmode) {
+        this.debugmode = debugmode;
+        System.out.println("Setting debugmode = " + this.debugmode);
+    }
 
     public int getModuleidx() {
         return this.moduleidx;

@@ -11,17 +11,24 @@ public class Logger {
 
     private static final String fileLogOut = "logout.log";
     private static final String fileLogErr = "logerr.log";
-    private static final String LOG_DIRECTORY = "C:/amidifx/";
+    private static String logDirectory = "C:/amidifx/";
 
     public static void logSystemToFile () {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
 
-        System.out.println("Redirecting System.Out and System.Err Logger Files: " + dtf.format(now));
+        System.out.println("Redirecting System.Out and System.Err Logger Files if Prod: " + dtf.format(now));
 
-        setSystemErr();
-        //setSystemOut();
+        AppConfig apconfig = AppConfig.getInstance();
+        if (apconfig.getDebugMode() == 0) {
+            setSystemErr();
+            setSystemOut();
+        }
+
+        if (apconfig.getLogDirectory() != null) {
+            logDirectory = apconfig.getLogDirectory();
+        }
     }
 
     private static boolean setSystemOut() {
@@ -31,7 +38,7 @@ public class Logger {
             LocalDateTime now = LocalDateTime.now();
 
             // Create new Log Out file for every session
-            File fileOut = new File(LOG_DIRECTORY + fileLogOut);
+            File fileOut = new File(logDirectory + fileLogOut);
             if (fileOut.exists()) fileOut.delete();
 
             PrintStream outStream = new PrintStream(fileOut);
@@ -39,7 +46,7 @@ public class Logger {
             System.out.println("Starting System.out logger: " + dtf.format(now));
         }
         catch (Exception ex) {
-            System.err.println(" Exception while attempting to redirect System.out to: " + LOG_DIRECTORY + fileLogOut);
+            System.err.println(" Exception while attempting to redirect System.out to: " + logDirectory + fileLogOut);
             return false;
         }
 
@@ -53,7 +60,7 @@ public class Logger {
             LocalDateTime now = LocalDateTime.now();
 
             // Create new Log Err file for every session
-            File fileErr = new File(LOG_DIRECTORY + fileLogErr);
+            File fileErr = new File(logDirectory + fileLogErr);
             if (fileErr.exists()) fileErr.delete();
 
             PrintStream errStream = new PrintStream(fileErr);
@@ -61,7 +68,7 @@ public class Logger {
             System.err.println("Starting System.err logger: " + dtf.format(now));
         }
         catch (Exception ex) {
-            System.err.println(" Exception while attmnpting to redirect System.err to: " + LOG_DIRECTORY + fileLogErr);
+            System.err.println(" Exception while attmnpting to redirect System.err to: " + logDirectory + fileLogErr);
             return false;
         }
 
