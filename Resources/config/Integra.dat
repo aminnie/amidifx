@@ -1,0 +1,5409 @@
+1,Integra7 Instruments
+
+2,Acoustic Piano
+3,30,89,64,'68 Reed SNA
+3,10,89,64,'73 Pure SNA
+3,12,89,64,'73 Stage SNA
+3,14,89,64,'73 Tine SNA
+3,9,89,64,'76 Pure SNA
+3,11,89,64,'76 Stage SNA
+3,13,89,64,'76 Tine SNA
+3,15,89,64,'81 Tine SNA
+3,21,89,64,90 Shift EP SNA
+3,4,89,64,BrightGrand SNA
+3,26,89,64,Chorus Tine SNA
+3,3,89,64,Deep Grand SNA
+3,32,89,64,Dirty Reed SNA
+3,28,89,64,Dirty Tine SNA
+3,17,89,64,Dyno Tine SNA
+3,16,89,64,Felt Tine SNA
+3,25,89,64,Flanger Tine SNA
+3,0,89,64,Full Grand 1 SNA
+3,1,89,64,Full Grand 2 SNA
+3,2,89,64,Full Grand 3 SNA
+3,8,89,64,HonkyTonk Pf SNA
+3,27,89,64,JC ChorusEP SNA
+3,6,89,64,Mono Grand SNA
+3,20,89,64,Phaser Dyno SNA
+3,23,89,64,Phaser Tine SNA
+3,29,89,64,Pure Reed SNA
+3,7,89,64,Rock Grand SNA
+3,22,89,64,SlowSpin EP SNA
+3,19,89,64,Small Space SNA
+3,24,89,64,TcDlyEP CC18 SNA
+3,18,89,64,Tea Time SNA
+3,5,89,64,UprightPiano SNA
+3,31,89,64,Vibrato Reed SNA
+3,0,121,2,European Pf GM2
+3,3,121,0,Honky-tonk GM2
+3,3,121,1,Honky-tonk w GM2
+3,0,121,0,Piano 1 GM2
+3,0,121,1,Piano 1 w GM2
+3,1,121,0,Piano 2 GM2
+3,1,121,1,Piano 2 w GM2
+3,0,87,64,128voicePno PCM
+3,1,87,64,Bright Piano PCM
+3,12,87,64,Bs/Pno+Brs PCM
+3,9,87,68,ChoraLeader PCM
+3,2,87,64,Classique PCM
+3,1,87,68,Contemplate PCM
+3,7,87,64,E Grand PCM
+3,0,87,67,Echo Piano PCM
+3,0,87,68,Grand XV PCM
+3,6,87,64,House Piano PCM
+3,8,87,64,MIDIed Grand PCM
+3,3,87,64,Nice Piano PCM
+3,9,87,64,Piano Blend PCM
+3,4,87,64,Piano Thang PCM
+3,8,87,68,Piano+AirPad PCM
+3,5,87,68,Piano+SftPad PCM
+3,4,87,68,Pianomonics PCM
+3,11,87,64,PianoStrings PCM
+3,5,87,64,Power Grand PCM
+3,0,87,70,Power Octs PCM
+3,2,87,67,RD-1000 PCM
+3,2,87,68,Rock Piano PCM
+3,3,87,68,RockPiano Ch PCM
+3,1,87,67,Upright Pno PCM
+3,6,87,68,WarmVoxPiano PCM
+3,1,87,70,WaterPiano2 PCM
+3,10,87,64,West Coast PCM
+3,7,87,68,Y2K Concerto PCM
+
+2,Electric Piano
+3,65,95,72,80's EP SNA
+3,64,95,72,EP Belle SNA
+3,57,95,72,FM EP 1 SNA
+3,58,95,72,FM EP 2 SNA
+3,59,95,72,FM EP 3 SNA
+3,60,95,72,FM EP 4 SNA
+3,61,95,72,FM EP 5 SNA
+3,62,95,72,FM EP 6 SNA
+3,63,95,72,FM EPhaser SNA
+3,66,95,72,Spirit Tine SNA
+3,5,121,1,Detuned EP GM2
+3,4,121,0,E Piano 1 GM2
+3,5,121,0,E Piano 2 GM2
+3,4,121,2,EP Legend 1 GM2
+3,5,121,3,EP Legend 2 GM2
+3,5,121,4,EP Phase GM2
+3,2,121,0,Piano 3 GM2
+3,2,121,1,Piano 3 w GM2
+3,5,121,2,St FM EP GM2
+3,4,121,1,St Soft EP v
+3,4,121,3,Wurly GM2
+3,19,87,68,Ambi EP PCM
+3,6,87,70,Amped Wurlie PCM
+3,5,87,70,Back EP PCM
+3,4,87,70,Cold Roadz PCM
+3,4,87,67,D-50 EP PCM
+3,26,87,64,Delicate EP PCM
+3,18,87,64,Dig EP PCM
+3,7,87,70,Dirty Wurliev
+3,6,87,67,Echo EP PCM
+3,21,87,64,EP Mix PCM
+3,13,87,68,EP Trem PCM
+3,18,87,68,EP Trip PCM
+3,30,87,64,EP+Mod Pad PCM
+3,12,87,68,Fat EP PCM
+3,8,87,67,FM BellPiano PCM
+3,22,87,68,FM Delight PCM
+3,15,87,68,Hit EP PCM
+3,5,87,67,Innocent EP PCM
+3,29,87,64,JV EP+ PCM
+3,24,87,64,MK-80 EP PCM
+3,25,87,64,MK-80 Phaser PCM
+3,31,87,64,Mr Mellow PCM
+3,20,87,64,Nylon EP PCM
+3,19,87,64,Nylon EPiano PCM
+3,27,87,64,Octa EP 1 PCM
+3,28,87,64,Octa EP 2 PCM
+3,14,87,68,Phaser Dyno PCM
+3,3,87,67,Player's EP PCM
+3,17,87,68,Pluk EP PCM
+3,22,87,64,Psycho EP PCM
+3,11,87,68,Retro EP PCM
+3,20,87,68,Rholitzer PCM
+3,9,87,67,Ring E Piano PCM
+3,14,87,64,S A E P PCM
+3,15,87,64,SA EP 1 PCM
+3,16,87,64,SA EP 2 PCM
+3,7,87,67,See-Thru EP PCM
+3,10,87,68,SparklePiano PCM
+3,127,87,70,St LoFiNoise PCM
+3,17,87,64,Stiky EP PCM
+3,16,87,68,Sweet Tynes PCM
+3,2,87,70,Swimming EP PCM
+3,23,87,64,Tremo EP PCM
+3,13,87,64,Water EP PCM
+3,21,87,68,Wurlie PCM
+3,3,87,70,XV Crystal PCM
+
+2,Harpsichord
+3,6,121,1,Coupled Hps GM2
+3,6,121,3,Harpsi o GM2
+3,6,121,2,Harpsi w GM2
+3,6,121,0,Harpsichord GM2
+3,27,87,68,3PartInventn PCM
+3,15,87,67,PieceOfCheez PCM
+3,26,87,68,St Harpsichd PCM
+
+2,Electric Bass
+3,33,121,1,Finger Slap GM2
+3,33,121,0,Fingered Bs GM2
+3,35,121,0,Fretless Bs GM2
+3,34,121,0,Picked Bass GM2
+3,36,121,0,Slap Bass 1 GM2
+3,37,121,0,Slap Bass 2 GM2
+3,48,87,69,8-str F'less PCM
+3,47,87,69,Basic F'less PCM
+3,84,87,70,COSM Bass PCM
+3,12,87,65,Finger Bass PCM
+3,16,87,65,Fretls Dry PCM
+3,9,87,65,Hip Bass PCM
+3,11,87,65,Homey Bass PCM
+3,45,87,69,LookMaNoFret PCM
+3,51,87,69,PBs Chorus PCM
+3,10,87,65,Perc Bass PCM
+3,8,87,65,Pick Bass PCM
+3,50,87,69,Pop Bass PCM
+3,17,87,65,Slap Bass 1 PCM
+3,18,87,5,Slap Bass 2 PCM
+3,19,87,65,Slap Bass 3 PCM
+3,20,87,65,Slap Bass 4 PCM
+3,49,87,69,Tap Bass PCM
+3,52,87,69,TremCho Bs PCM
+3,15,87,65,Wet Fretls PCM
+3,46,87,69,XV Fretless PCM
+
+2,Acoustic Bass
+3,6,89,65,Ac Bass 1 SNA
+3,7,89,65,Ac Bass 2 SNA
+3,6,97,1,Acoustic Bs2 SNA
+3,10,89,65,Comp FingBs SNA
+3,20,89,65,CompFretless SNA
+3,8,89,65,Fing Bass 1 SNA
+3,9,89,65,Fing Bass 2 SNA
+3,18,89,65,Fretless 1 SNA
+3,19,89,65,Fretless 2 SNA
+3,16,89,65,LowBoostPick SNA
+3,21,89,65,Mr Fretless SNA
+3,15,89,65,Muted Bass SNA
+3,17,89,65,OD Pick Bass SNA
+3,11,89,65,Phaser Fing1 SNA
+3,12,89,65,Phaser Fing2 SNA
+3,14,89,65,Pick Bass SNA
+3,13,89,65,Slap Bass SNA
+3,32,121,0,Acoustic Bs GM2
+3,120,121,2,String Slap GM2
+3,14,87,65,Ac Upright SNS
+3,13,87,65,Nylon Bass SNS
+3,83,87,70,Punch Bass SNS
+3,44,87,69,XV Ac Bass SNS
+3,43,87,69,XV Upright SNS
+2,Accordion/Harmonica
+3,21,121,0,Accordion Fr GM2
+3,21,121,1,Accordion It GM2
+3,23,121,0,Bandoneon GM2
+3,22,121,0,Harmonica GM2
+3,120,87,65,BluesHarp PCM
+3,119,87,65,Harmo Blues PCM
+3,118,87,65,Harmonica PCM
+3,60,87,70,Harmonica XV PCM
+3,121,87,65,Hillbillys PCM
+3,32,89,65,Bandoneon 1 SNA
+3,33,89,65,Bandoneon 2 SNA
+3,36,89,65,Blues Reed SNA
+3,30,89,65,French Accrd SNA
+3,34,89,65,Harmonica SNA
+3,31,89,65,ItalianAccrd SNA
+3,35,89,65,Southern SNA
+
+2,Acoustic Guitar
+3,28,89,65,ArpegSteelGt SNA
+3,22,89,65,Classic Gtr SNA
+3,25,89,65,Flamenco Gtr SNA
+3,24,89,65,Gut Guitar SNA
+3,26,89,65,Rasgueado SNA
+3,23,89,65,Solid GutGt SNA
+3,29,89,65,StrumSteelGt SNA
+3,27,89,65,Warm Spanish SNA
+3,109,89,64,60s Fuzz SNA
+3,113,89,64,60s RockRiff SNA
+3,114,89,64,70s RockRiff SNA
+3,118,89,64,Apartment SNA
+3,0,89,65,Big Riff SNA
+3,107,89,64,Big Wing SNA
+3,116,89,64,Blues Master SNA
+3,127,89,64,BullsOnRage SNA
+3,111,89,64,Bunch Crunch SNA
+3,125,89,64,Cah Solo SNA
+3,4,89,65,Chorale SNA
+3,110,89,64,Cream Crunch SNA
+3,108,89,64,Crunch Chord SNA
+3,126,89,64,FeelGood Doc SNA
+3,121,89,64,Hi-Gain Rock SNA
+3,1,89,65,Hi-GainMetal SNA
+3,117,89,64,House Blues SNA
+3,105,89,64,Lead Legend SNA
+3,124,89,64,Lead Stack SNA
+3,122,89,64,Metal Stack SNA
+3,3,89,65,Mild Solo SNA
+3,2,89,65,Nice Touch SNA
+3,123,89,64,Purple Stack SNA
+3,112,89,64,Pwah OD CC18 SNA
+3,5,89,65,PwahDst CC18 SNA
+3,106,89,64,Rotary Riff SNA
+3,103,89,64,Stack Lead SNA
+3,115,89,64,Texas Tusher SNA
+3,119,89,64,TWah Lead SNA
+3,104,89,64,USA Legend SNA
+3,120,89,64,Warm Drive SNA
+3,25,121,1,12-str Gtr GM2
+3,120,121,0,Gt FretNoise GM2
+3,24,121,0,Nylon Gtr 1 GM2
+3,24,121,2,Nylon Gtr 1o v
+3,24,121,3,Nylon Gtr 2 GM2
+3,25,121,3,Steel + Body GM2
+3,25,121,0,Steel-str Gt GM2
+3,24,121,1,Ukulele PCM GM2
+3,111,87,64,12str Gtr 1 PCM
+3,112,87,64,12str Gtr 2 PCM
+3,34,87,69,Comp' Steel PCM
+3,30,87,67,DesertCrystl PCM
+3,35,87,69,Double Steel PCM
+3,36,87,69,Folk Guitar PCM
+3,108,87,64,Gtr Strings PCM
+3,110,87,64,Heavenly Gtr PCM
+3,31,87,69,Hybrid Nylon PCM
+3,30,87,69,Mutezzicato PCM
+3,107,87,64,Nylon Gtr PCM
+3,29,87,69,Nylozzicato PCM
+3,82,87,70,So nice! PCM
+3,28,87,69,Soft Nylon PCM
+3,29,87,67,Solo Steel PCM
+3,37,87,69,SpanishNight PCM
+3,109,87,64,Steel Away PCM
+3,32,87,69,XV SteelGt 1 PCM
+3,33,87,69,XV SteelGt 2 PCM
+
+2,Electric Guitar
+3,97,89,64,60s BritRock SNA
+3,78,89,64,AutoWah Back SNA
+3,102,89,64,Bright Live SNA
+3,89,89,64,ClassicClean SNA
+3,71,89,64,Clean Cutter SNA
+3,96,89,64,Clean Dirty SNA
+3,85,89,64,Clean Spirit SNA
+3,84,89,64,Clean Twin SNA
+3,80,89,64,CleanTheater SNA
+3,83,89,64,Crunch Phase SNA
+3,82,89,64,DelayedTwin SNA
+3,99,89,64,FingeredJazz SNA
+3,86,89,64,Flange Clean SNA
+3,72,89,64,Flanger Cut SNA
+3,73,89,64,Funk Cutting SNA
+3,79,89,64,FunkMeister SNA
+3,90,89,64,Groove Clean SNA
+3,87,89,64,Heart Break SNA
+3,91,89,64,JC-Chorus SNA
+3,100,89,64,Modern Jazz SNA
+3,101,89,64,Mr Octave SNA
+3,95,89,64,NY Clean SNA
+3,74,89,64,PhaseCutting SNA
+3,77,89,64,PwahCut CC18 SNA
+3,75,89,64,Retro Phaser SNA
+3,94,89,64,Smooth Clean SNA
+3,98,89,64,StandardJazz SNA
+3,92,89,64,Sweet Home SNA
+3,88,89,64,T-Bird Surf SNA
+3,93,89,64,Transistor SNA
+3,76,89,64,Twah Cutting SNA
+3,81,89,64,Warm Clean SNA
+3,27,121,1,Chorus Gtr GM2
+3,27,121,0,Clean Guitar GM2
+3,28,121,2,Funk Guitar GM2
+3,28,121,1,Funk Pop GM2
+3,120,121,1,Gt Cut Noise GM2
+3,26,121,0,Jazz Guitar GM2
+3,28,121,3,Jazz Man GM2
+3,27,121,2,Mid Tone Gtr GM2
+3,28,121,0,Muted Guitar GM2
+3,26,121,1,Pedal Steel GM2
+3,31,87,67,Clear Guitar PCM
+3,39,87,69,Fab 4 Guitar PCM
+3,115,87,64,Jazz Scat PCM
+3,117,87,64,JC Strat PCM
+3,119,87,64,JV Strat PCM
+3,113,87,64,Jz Gtr Hall v
+3,114,87,64,LetterFrmPat PCM
+3,116,87,64,Lounge Gig v
+3,122,87,64,Muted Gtr PCM
+3,38,87,69,Plug n' Play PCM
+3,121,87,64,Rotary Gtr PCM
+3,32,87,67,Solo Strat PCM
+3,123,87,64,SwitchOnMute PCM
+3,120,87,64,Syn Strat PCM
+3,118,87,64,Twin Strats PCM
+3,6,87,65,Velo-Wah GtrPCM
+
+2,Distorted Guitar 
+3,30,121,2,Dist Rtm Gtr GM2
+3,30,121,0,DistortionGt GM2
+3,30,121,1,Gt Feedback1 GM2
+3,31,121,1,Gt Feedback2 GM2
+3,31,121,0,Gt Harmonics GM2
+3,29,121,1,Guitar Pinch GM2
+3,29,121,0,Overdrive Gt GM2
+3,75,87,70,2-Stack Over PCM
+3,81,87,70,Alt Dist Gtr PCM
+3,5,87,65,Black Widow PCM
+3,78,87,70,Blue Mutes PCM
+3,36,87,67,Blusey OD PCM PCM
+3,77,87,70,COSM Loud Gt PCM
+3,76,87,70,COSM Searing PCM
+3,35,87,67,Creamy PCM
+3,80,87,70,Crunch Phase PCM
+3,125,87,64,Crunch Split PCM
+3,70,87,70,Crying Solo PCM
+3,0,87,65,Dist Gtr 1 PCM
+3,1,87,65,Dist Gtr 2 PCM
+3,33,87,67,Feed Me! PCM
+3,37,87,67,Grindstone PCM
+3,4,87,65,Grungeroni PCM
+3,42,87,69,LouderPlease PCM
+3,73,87,70,Match Drive PCM
+3,79,87,70,Metal 5150 PCM
+3,7,87,65,Mod-Wah Gtr PCM
+3,38,87,67,OD 5ths PCM
+3,3,87,65,Phripphuzz PCM
+3,124,87,64,Power Trip PCM
+3,41,87,69,Punker PCM
+3,2,87,65,R&R Chunk PCM
+3,126,87,64,Rezodrive PCM
+3,127,87,64,RockYurSocks PCM
+3,40,87,69,Searing Lead PCM
+3,71,87,70,Southern Fry PCM
+3,74,87,70,Stacked PCM
+3,72,87,70,Strum Distrt PCM
+3,34,87,67,Tube Smoke PCM
+
+2,Organ
+3,57,89,64,B3 Bossa SNA
+3,56,89,64,B3 Full D SNA
+3,49,89,64,B3 Jazz 1 SNA
+3,50,89,64,B3 Jazz 2 SNA
+3,51,89,64,B3 Jazz 3 SNA
+3,52,89,64,B3 Jazz 4 SNA
+3,53,89,64,B3 Jazz 5 SNA
+3,54,89,64,B3 Jazz 6 SNA
+3,55,89,64,B3 Jazz 7 SNA
+3,58,89,64,C3 Rock 1 SNA
+3,59,89,64,C3 Rock 2 SNA
+3,60,89,64,C3 Rock 3 SNA
+3,61,89,64,C3 Rock 4 SNA
+3,62,89,64,C3 Rock 5 SNA
+3,63,89,64,C3 Rock 6 SNA
+3,67,89,64,Nostalgie 1 SNA
+3,68,89,64,Nostalgie 2 SNA
+3,69,89,64,Nostalgie 3 SNA
+3,70,89,64,Nostalgie 4 SNA
+3,64,89,64,Pure Wheel 1 SNA
+3,65,89,64,Pure Wheel 2 SNA
+3,66,89,64,Pure Wheel 3 SNA
+3,67,95,72,70's E Org 1 SNA
+3,68,95,72,70's E Org 2 SNA
+3,69,95,72,Theater 1 SNA
+3,70,95,72,Theater 2 SNA
+3,71,95,72,Theater 3 SNA
+3,16,121,2,60's Organ GM2
+3,16,121,3,70's E Organ GM2
+3,17,121,1,Chorus Organ GM2
+3,19,121,0,Church Org 1 GM2
+3,19,121,1,Church Org 2 GM2
+3,19,121,2,Church Org 3 GM2
+3,16,121,0,Organ 1 GM2
+3,17,121,0,Organ 2 GM2
+3,18,121,0,Organ 3 GM2
+3,17,121,2,Perc Organ GM2
+3,20,121,1,Puff Organ GM2
+3,20,121,0,Reed Organ GM2
+3,16,121,1,Trem Organ GM2
+3,56,87,64,60's LeadORG PCM
+3,38,87,68,96 Years PCM
+3,57,87,64,Assalt Organ PCM
+3,48,87,64,AugerMentive PCM
+3,46,87,64,Ballad B PCM
+3,14,87,70,Boogie Organ PCM
+3,33,87,68,British B PCM
+3,41,87,68,Cathdr Harmn PCM
+3,59,87,64,Cathedral PCM
+3,40,87,68,Church Harmn PCM
+3,60,87,64,Church Pipes PCM
+3,58,87,64,D-50 Organ PCM
+3,11,87,67,Dirty Organ PCM
+3,12,87,70,Distorted B PCM
+3,10,87,70,Drew's Bee PCM
+3,45,87,64,Full Stops PCM
+3,29,87,68,Fullness PCM
+3,39,87,68,Glory Us Rok PCM
+3,51,87,64,Gospel Spin PCM
+3,37,87,68,Happy 60s PCM
+3,9,87,70,Klubb Organ PCM
+3,47,87,64,Mellow Bars PCM
+3,13,87,67,Organesque PCM
+3,30,87,68,Paleface 1 PCM
+3,31,87,68,Paleface 2 PCM
+3,36,87,68,PercInterval PCM
+3,49,87,64,Perky B PCM
+3,14,87,67,pp Harmonium PCM
+3,55,87,64,Purple Spin PCM
+3,13,87,70,Radikal B PCM
+3,34,87,68,Rocker Org PCM
+3,53,87,64,Rocker Spin PCM
+3,52,87,64,Roller Spin PCM
+3,10,87,67,Soap Opera PCM
+3,32,87,68,Soft B PCM
+3,28,87,68,Soft Perky PCM
+3,35,87,68,Split B PCM
+3,12,87,67,Surf's Up! PCM
+3,50,87,64,The Big Spin PCM
+3,54,87,64,Tone Wh Solo PCM
+3,11,87,70,Velvet Organ PCM
+
+2,Strings
+3,76,89,65,5th Down Str SNA
+3,127,89,65,AirFromChina SNA
+3,63,89,65,Cello 1 SNA
+3,64,89,65,Cello 2 SNA
+3,70,89,65,Cello1 Pizz SNA
+3,72,89,65,Cello1 Stac SNA
+3,71,89,65,Cello2 Pizz SNA
+3,65,89,65,Contrabass SNA
+3,73,89,65,ContrabassPz SNA
+3,126,89,65,Erhu SNA
+3,79,89,65,Marcato Str SNA
+3,80,89,65,MarcatoWarm SNA
+3,77,89,65,Slow Strings SNA
+3,82,89,65,Strings Pizz SNA
+3,81,89,65,Strings Stac SNA
+3,83,89,65,Strings Trem SNA
+3,74,89,65,StringsSect1 SNA
+3,75,89,65,StringsSect2 SNA
+3,78,89,65,Tape Strings SNA
+3,62,89,65,Viola SNA
+3,69,89,65,Viola Pizz SNA
+3,60,89,65,Violin 1 SNA
+3,61,89,65,Violin 2 SNA
+3,66,89,65,Violin1 Pizz SNA
+3,68,89,65,Violin1 Stac SNA
+3,67,89,65,Violin2 Pizz SNA
+3,42,121,0,Cello GM2
+3,43,121,0,Contrabass GM2
+3,110,121,0,Fiddle GM2
+3,48,121,2,Oct Strings GM2
+3,48,121,1,Orchestra GM2
+3,45,121,0,PizzicatoStr v
+3,49,121,0,Slow Strings GM2
+3,40,121,1,Slow Violin GM2
+3,48,121,0,Strings GM2
+3,44,121,0,Tremolo Str GM2
+3,41,121,0,Viola GM2
+3,40,121,0,Violin GM2
+3,46,87,66,Bass Pizz PCM
+3,54,87,70,Brassy Symph PCM
+3,38,87,66,Bright Str PCM
+3,85,87,68,ChamberPlyrs PCM
+3,41,87,66,Chambers PCM
+3,77,87,68,ChamberSect PCM
+3,76,87,68,ChmbrQuartet PCM
+3,70,87,68,Dolce p/m/f PCM
+3,75,87,68,End Titles PCM
+3,69,87,68,Fat Strings PCM
+3,45,87,66,Film Layers PCM
+3,44,87,66,Film Octaves PCM
+3,109,87,65,Film Orch PCM
+3,49,87,70,Filt Strings PCM
+3,49,87,67,Full Orchest PCM
+3,78,87,68,FullChmbrStr PCM
+3,80,87,68,Henry VIII PCM
+3,83,87,68,Hornz PCM
+3,53,87,70,HybOrchestra PCM
+3,50,87,70,HybStringsXV PCM
+3,48,87,70,Jupiter 21 PCM
+3,72,87,68,Lush Strings PCM
+3,37,87,66,Marcato PCM
+3,74,87,68,Marcato Str PCM
+3,81,87,68,Prelude PCM
+3,47,87,66,Real Pizz PCM
+3,71,87,68,Sad Strings PCM
+3,51,87,70,Soft Symphny PCM
+3,36,87,66,Somber Str PCM
+3,34,87,66,St Strings PCM
+3,50,87,67,Str + Winds PCM
+3,82,87,68,Str&Brs Orch PCM
+3,39,87,66,String Ens PCM
+3,73,87,68,Strings4Film PCM
+3,43,87,66,Symphonique PCM
+3,79,87,68,Tape Strings PCM
+3,40,87,66,TremoloStrng PCM
+3,84,87,68,TudorFanfare PCM
+3,42,87,66,ViolinCello PCM
+3,99,87,64,Voicey Pizz PCM
+3,35,87,66,Warm Strings PCM
+3,52,87,70,Wood Symphny PCM
+3,68,87,68,XV Strings PCM
+3,76,95,72,Mood String SNS
+3,5,89,96,Sarangi
+
+2,Woodwind
+3,116,89,65,ClassicFlute SNA
+3,117,89,65,Jazz Flute SNA
+3,119,89,65,Pan Flute SNA
+3,118,89,65,Piccolo Fl SNA
+3,123,89,65,Shakuhachi SNA
+3,97,87,65,Air Lead PCM
+3,91,87,68,Ambience Flt PCM
+3,93,87,68,Deja Vlute PCM
+3,88,87,68,Dual Flutes PCM
+3,94,87,65,Flute PCM
+3,51,87,67,Flute 2080 PCM
+3,89,87,68,Jazzer Flute PCM
+3,90,87,68,LegatoBamboo PCM
+3,98,87,65,Pan Pipes PCM
+3,95,87,65,Piccolo PCM
+3,101,87,65,Raya Shaku PCM
+3,100,87,65,Taj Mahal PCM
+3,92,87,68,The Andes PCM
+3,61,87,70,Tooters Lead PCM
+3,96,87,65,VOX Flute PCM
+3,76,121,0,Bottle Blow GM2
+3,121,121,0,Breath Noise GM2
+3,121,121,1,Fl Key Click GM2
+3,73,121,0,Flute GM2
+3,75,121,0,Pan Flute GM2
+3,72,121,0,Piccolo GM2
+3,77,121,0,Shakuhachi GM2
+3,125,89,65,Bag Pipes SNA
+3,113,89,65,Bassoon SNA
+3,114,89,65,Clarinet 1 SNA
+3,115,89,65,Clarinet 2 SNA
+3,111,89,65,Oboe 1 SNA
+3,112,89,65,Oboe 2 SNA
+3,124,89,65,UilleanPipes SNA
+3,109,121,0,Bagpipe GM2
+3,70,121,0,Bassoon GM2
+3,71,121,0,Clarinet GM2
+3,69,121,0,English Horn GM2
+3,68,121,0,Oboe GM2
+3,111,121,0,Shanai GM2
+3,79,121,0,Ocarina GM2
+3,74,121,0,Recorder GM2
+3,78,121,0,Whistle GM2
+3,107,87,65,ChamberWinds PCM
+3,108,87,65,ChamberWoods PCM
+3,105,87,65,ClariExpress PCM
+3,104,87,65,Clarinet mp PCM
+3,86,87,68,Flute/Clari PCM
+3,122,87,65,French Bags PCM
+3,59,87,70,Lonely Oboe PCM
+3,106,87,65,Mitzva Split PCM
+3,103,87,65,Oboe Express PCM
+3,102,87,65,Oboe mf PCM
+3,87,87,68,Orch Reeds PCM
+3,58,87,70,Wind Wood PCM
+3,6,89,96,Ryuteki Flute
+3,16,89,96,Tin Whistle Fluye
+
+2,Sax
+3,105,89,65,A Sax 1 Soft SNA
+3,104,89,65,Alto Sax 1 SNA
+3,110,89,65,B Sax 1 Soft SNA
+3,109,89,65,Bari Sax 1 SNA
+3,102,89,65,Sop Sax 1 SNA
+3,103,89,65,SopSax1 Soft SNA
+3,107,89,65,T Sax 1 Soft SNA
+3,108,89,65,T Sax Growl SNA
+3,106,89,65,TenorSax 1 SNA
+3,65,121,0,Alto Sax GM2
+3,67,121,0,Baritone Sax GM2
+3,64,121,0,Soprano Sax GM2
+3,66,121,0,Tenor Sax GM2
+3,111,87,65,Alto Sax PCM
+3,112,87,65,AltoLead Sax PCM
+3,114,87,65,Baritone Sax PCM
+3,117,87,65,Bigband Sax PCM
+3,115,87,67,Blue Notes PCM
+3,111,87,68,Full Saxz PCM
+3,110,87,68,Honker Bari PCM
+3,57,87,70,LA Sax's PCM
+3,53,87,67,Sax Choir PCM
+3,116,87,65,Sax Section PCM
+3,108,87,68,Solo AltoSax PCM
+3,107,87,68,Solo SoprSax PCM
+3,110,87,65,Sop Sax mf PCM
+3,115,87,65,Take A Tenor PCM
+3,113,87,65,Tenor Sax PCM
+3,109,87,68,XV DynoTenor PCM
+
+2,Brass
+3,100,89,65,Bold MuteTb SNA
+3,93,89,65,Bold MuteTp SNA
+3,97,89,65,Breathy Tb SNA
+3,94,89,65,DooBapMuteTp SNA
+3,101,89,65,French Horn SNA
+3,90,89,65,Light Tp SNA
+3,91,89,65,Mellow Tp SNA
+3,99,89,65,Muted Tb SNA
+3,92,89,65,MutedTrumpet SNA
+3,98,89,65,Tb Staccato SNA
+3,96,89,65,Trombone 1 SNA
+3,89,89,65,Trumpet 1 SNA
+3,95,89,65,Wah Trumpet SNA
+3,61,121,0,Brass 1 GM2
+3,61,121,1,Brass 2 GM2
+3,57,121,2,Bright Tb GM2
+3,56,121,1,Dark TrumpetGM2
+3,60,121,0,F Horn Sect GM2
+3,60,121,1,French Horn GM2
+3,59,121,0,MuteTrumpet1 GM2
+3,59,121,1,MuteTrumpet2 GM2
+3,57,121,0,Trombone 1 GM2
+3,57,121,1,Trombone 2 GM2
+3,56,121,0,Trumpet GM2
+3,58,121,0,Tuba GM2
+3,125,87,65,2Trumpets PCM
+3,54,87,67,Ballad Trump PCM
+3,99,87,68,BigBrassBand PCM
+3,55,87,70,Biggie Brass PCM
+3,56,87,70,BiggieBrass2 PCM
+3,57,87,67,Brass Mutes PCM
+3,3,87,66,Brass Sect PCM
+3,71,87,69,Brass Tubes PCM
+3,96,87,68,Dragnet PCM
+3,95,87,68,FullSt BrassPCM
+3,113,87,70,Happy Brass PCM
+3,0,87,66,Harmon Mute PCM
+3,8,87,66,Horn Swell PCM
+3,5,87,66,Hybrid BonesPCM
+3,100,87,68,Lil' BigHornzPCM
+3,123,87,65,Majestic Tpt PCM
+3,7,87,66,Massed Horns PCM
+3,127,87,65,Mute TP mod PCM
+3,97,87,68,NewR&RBrass PCM
+3,6,87,66,Noble Horns PCM
+3,56,87,67,Royale PCM
+3,2,87,66,Sax+Tp+Tb PCM
+3,94,87,68,Simply BrassPCM
+3,55,87,67,Sm Brass Grp PCM
+3,102,87,68,Symph Horns PCM
+3,98,87,68,Tower Trumps PCM
+3,1,87,66,Tp&Sax Sect PCM
+3,126,87,65,Tpt Sect PCM
+3,4,87,66,Trombone PCM
+3,103,87,68,Trombone Atm PCM
+3,124,87,65,Voluntare PCM
+3,101,87,68,VoyagerBrass PCM
+3,104,87,68,XV Trombone PCM
+3,105,87,68,XV Trumpet PCM
+
+2,Bell/Mallet
+3,46,89,65,Glocken Cho SNA
+3,44,89,65,Glocken Hard SNA
+3,45,89,65,Glocken Soft SNA
+3,48,89,65,Hard Xylo SNA
+3,41,89,65,Marimba SNA
+3,43,89,65,Marimba Hard SNA
+3,42,89,65,Marimba Soft SNA
+3,49,89,65,TubulrBells1 SNA
+3,50,89,65,TubulrBells2 SNA
+3,38,89,65,Vibes Hard SNA
+3,40,89,65,Vibes Soft SNA
+3,39,89,65,Vibes Trem SNA
+3,37,89,65,Vibraphone SNA
+3,47,89,65,Xylophone SNA
+3,14,121,2,Carillon GM2
+3,14,121,1,Church Bell GM2
+3,98,121,0,Crystal GM2
+3,9,121,0,Glockenspiel GM2
+3,12,121,0,Marimba GM2
+3,12,121,1,Marimba w GM2
+3,10,121,0,Music Box GM2
+3,114,121,0,Steel Drums GM2
+3,112,121,0,Tinkle Bell GM2
+3,14,121,0,TubularBells GM2
+3,11,121,0,Vibraphone GM2
+3,11,121,1,Vibraphone w GM2
+3,13,121,0,Xylophone GM2
+3,90,87,64,AmbienceVibe PCM
+3,93,87,64,Bass Marimba PCM
+3,85,87,64,Beauty Bells PCM
+3,21,87,67,Belfry Chime PCM
+3,80,87,64,Childlike PCM
+3,69,87,69,Chime Bells PCM
+3,92,87,64,Dyna Marimba PCM
+3,87,87,70,Echo Vibe PCM
+3,95,87,64,Ethno Metals PCM
+3,17,87,67,Exotic Velo PCM
+3,60,87,65,Hammer Bell PCM
+3,96,87,64,Islands Mlt PCM
+3,90,87,70,Marimbula PCM
+3,86,87,64,Music Bells PCM
+3,81,87,64,Music Box PCM
+3,8,87,70,Musicbox XV PCM
+3,94,87,64,Nomad Perc PCM
+3,20,87,67,Prefab Chime PCM
+3,87,87,64,Pretty Bells PCM
+3,86,87,70,Shufe Bell PCM
+3,98,87,64,Steel Drums PCM
+3,97,87,64,Steelin Keys PCM
+3,85,87,70,Stream Bell PCM
+3,82,87,64,Toy Box PCM
+3,88,87,70,Tremolo Vibe PCM
+3,84,87,64,Tria Bells PCM
+3,89,87,70,True Vibe PCM
+3,91,87,64,Warm Vibes PCM
+3,83,87,64,Wave Bells PCM
+3,89,87,64,Wide Tubular PCM
+3,1,95,68,Bell 1 SNS
+3,2,95,68,Bell 2 SNS
+3,3,95,68,Bell 3 SNS
+3,4,95,68,Bell 4 SNS
+3,5,95,68,Bell 5 SNS
+3,6,95,68,Bell 6 SNS
+3,7,95,68,Bell 7 SNS
+3,8,95,68,Bell 8 SNS
+3,9,95,68,Bell 9 SNS
+3,10,95,68,Bell 10 SNS
+3,11,95,68,Bell 11 SNS
+3,12,95,68,Bell 12 SNS
+3,13,95,68,Bell 13 SNS
+3,14,95,68,Bell 14 SNS
+3,15,95,68,Bell 15 SNS
+3,16,95,68,Bell 16 SNS
+3,17,95,68,Bell 17 SNS
+3,18,95,68,Bell 18 SNS
+3,19,95,68,Bell 19 SNS
+3,20,95,68,Bell 20 SNS
+3,21,95,68,Bell 21 SNS
+3,22,95,68,Bell 22 SNS
+3,31,95,68,Digi Crystal SNS
+3,75,95,72,Ethno Keys SNS
+3,30,95,68,Glass Amb SNS
+3,32,95,68,Icy Keys SNS
+3,33,95,68,JP-8 PatchH1 SNS
+3,29,95,68,JP80 Bell SNS
+3,28,95,68,Kalimbell SNS
+3,25,95,68,OrganBell 1 SNS
+3,26,95,68,OrganBell 2 SNS
+3,27,95,68,OrganBell 3 SNS
+3,23,95,68,Tower Bell SNS
+3,73,95,72,Toy Box 1 SNS
+3,74,95,72,Toy Box 2 SNS
+3,24,95,68,Tubular Bell SNS
+
+2,Vox/Choir
+3,86,89,65,BoysChoir Ah SNA
+3,87,89,65,BoysChoir Oo SNA
+3,88,89,65,Choir Pad SNA
+3,84,89,65,LargeChoirAh SNA
+3,85,89,65,LargeChoirOo SNA
+3,54,121,1,Analog Voice GM2
+3,52,121,0,Choir Aahs GM2
+3,52,121,1,Chorus Aahs GM2
+3,53,121,1,Humming GM2
+3,91,121,1,Itopia GM2
+3,91,121,0,Space Voice GM2
+3,54,121,0,SynVox GM2
+3,53,121,0,Voice Oohs GM2
+3,17,87,66,Angels Sing PCM
+3,20,87,66,Arasian Morn PCM
+3,21,87,66,Beauty Vox PCM
+3,23,87,66,Belltree Vox PCM
+3,58,87,68,Brite Vox 1 PCM
+3,59,87,68,Brite Vox 2 PCM
+3,15,87,66,Dark Vox PCM
+3,30,87,66,Doos PCM
+3,90,87,67,Enlighten PCM
+3,26,87,66,Glass Voices
+3,88,87,69,Jet Voxs PCM
+3,19,87,66,Longing PCM
+3,22,87,66,Mary-AnneVox PCM
+3,60,87,68,Ooh)Aah Mod PCM
+3,18,87,66,Pvox Oooze PCM
+3,16,87,66,RandomVowels PCM
+3,66,87,68,Sacred Tree PCM
+3,65,87,68,SampleThe80s PCM
+3,52,87,67,Scat Flute PCM
+3,25,87,66,Spaced Voxx PCM
+3,64,87,68,St Choir PCM
+3,87,87,69,Suite Combo PCM
+3,31,87,66,Synvox Comps PCM
+3,27,87,66,Tubular Vox PCM
+3,28,87,66,Velo Voxx PCM
+3,32,87,66,Vocal Oohz PCM
+3,63,87,68,Vocals: Boys PCM
+3,61,87,68,Vocals: Ooh PCM
+3,62,87,68,Vocals: Scat PCM
+3,24,87,66,Vox Panner PCM
+3,67,87,68,VP330 OctEko PCM
+3,29,87,66,Wavox PCM
+3,47,87,70,Whisper Vox PCM
+3,124,95,65,5th Vox Pad SNS
+3,127,95,65,HyperVentChr SNS
+3,117,95,65,JD80 SoftVox SNS
+3,125,95,65,Moving Chr SNS
+3,1,95,66,Scat Dow SNS
+3,114,95,65,Syn Vox 1 SNS
+3,115,95,65,Syn Vox 2 SNS
+3,116,95,65,Syn Vox 3 SNS
+3,118,95,65,Valley Air SNS
+3,0,95,66,Vento Choir SNS
+3,119,95,65,Vox Pad 1 SNS
+3,120,95,65,Vox Pad 2 SNS
+3,121,95,65,Vox Pad 3 SNS
+3,122,95,65,Vox Pad 4 SNS
+3,123,95,65,Vox Pad 5 SNS
+3,126,95,65,VP-330 Chr SNS
+
+2,Clavier
+3,46,89,64,Awah Clav SNA
+3,38,89,64,Deep Clav SNA
+3,40,89,64,Dist Clav SNA
+3,39,89,64,Drive Clav SNA
+3,41,89,64,Phaser Clav1 SNA
+3,42,89,64,Phaser Clav2 SNA
+3,34,89,64,Pure ClavCA1 SNA
+3,35,89,64,Pure ClavCA2 SNA
+3,36,89,64,Pure ClavCB1 SNA
+3,37,89,64,Pure ClavCB2 SNA
+3,47,89,64,PwahClv1CC18 SNA
+3,48,89,64,PwahClv2CC18 SNA
+3,44,89,64,SoftSpinClav SNA
+3,43,89,64,Spacy Clav SNA
+3,33,89,64,Super Clav SNA
+3,45,89,64,Twah Clav SNA
+3,72,95,72,Pulse Clav
+3,7,121,0,Clav GM2
+3,7,121,1,Pulse Clav Gm2
+3,42,87,64,Analog Clav1 PCM
+3,43,87,64,Analog Clav2 PCM
+3,38,87,64,Chorus Clav PCM
+3,41,87,64,Clavicembalo PCM
+3,39,87,64,Claviduck PCM
+3,32,87,64,Comp Clav PCM
+3,23,87,68,Cutter Clav PCM
+3,16,87,67,Harpsy Clav PCM
+3,33,87,64,Klavinet PCM
+3,44,87,64,Metal Clav PCM
+3,24,87,68,Mute Clav D6 PCM
+3,35,87,64,Phaze Clav 1 PCM
+3,36,87,64,Phaze Clav 2 PCM
+3,25,87,68,PhazeWahClav PCM
+3,37,87,64,Phuzz Clav PCM
+3,40,87,64,Velo-Rez Clv PCM
+3,34,87,64,Winger Clav PCM
+3,8,121,0,Celesta GM2
+3,70,87,69,Celestabox GM2
+
+2,SNA Drum Kits SRX-12
+3,15,88,64,80's Live
+3,14,88,64,Alternative
+3,22,88,64,BD/T/HH Menu
+3,17,88,64,Big Garage
+3,18,88,64,Bit Crash
+3,23,88,64,Cymbal Menu
+3,4,88,64,Dry Funk Kit
+3,7,88,64,Dry Jazz Kit
+3,16,88,64,Fat Kit
+3,8,88,64,Jazz Brushes
+3,6,88,64,Jazz Kit
+3,9,88,64,LA Studio
+3,19,88,64,Lo-Fi Kit
+3,5,88,64,Loud Gig
+3,10,88,64,Medium Room
+3,12,88,64,MufedMaple
+3,20,88,64,Orchestra
+3,24,88,64,Perc Menu 1
+3,25,88,64,Perc Menu 2
+3,3,88,64,Regular Kit
+3,0,88,64,Session Kit
+3,21,88,64,Snare Menu
+3,13,88,64,Solid Kit
+3,1,88,64,Studio Kit
+3,2,88,64,Tight Kit
+3,11,88,64,Vintage Rock
+
+2,Hit
+3,55,121,2,6th Hit GM2
+3,55,121,1,Bass Hit GM2
+3,55,121,3,Euro Hit GM2
+3,55,121,0,OrchestraHit GM2
+3,94,87,70,3rdTeenChord PCM
+3,69,87,65,4 Hits 4 You PCM
+3,92,87,70,80s LoFi Hit PCM
+3,93,87,70,Auto Chord PCM
+3,95,87,70,Bend a Chord PCM
+3,59,87,65,Blow Hit PCM
+3,89,87,69,Dirty Hit PCM
+3,96,87,70,DiscreteChrd PCM
+3,91,87,70,Hit Bitz PCM
+3,70,87,65,Impact PCM
+3,90,87,69,MOVE! PCM
+3,92,87,69,OffTheRecord PCM
+3,71,87,65,Phase Hit PCM
+3,91,87,69,Reel Slam PCM
+3,75,87,65,Reverse Hit PCM
+3,72,87,65,Tekno Hit 1 PCM
+3,73,87,65,Tekno Hit 2 PCM
+3,74,87,65,Tekno Hit 3 PCM
+3,82,95,72,House Hit 1 SNS
+3,83,95,72,House Hit 2 SNS
+3,84,95,72,LoFi Hit SNS
+3,77,95,72,Orch Hit SNS
+3,78,95,72,Philly Hit 1 SNS
+3,79,95,72,Philly Hit 2 SNS
+3,80,95,72,Philly Hit 3 SNS
+3,81,95,72,Philly Hit 4 SNS
+
+2,Percussion
+3,51,89,65,Steel Drums SNA
+3,52,89,65,Timpani SNA
+3,53,89,65,Timpani Roll SNA
+3,118,121,1,808 Tom GM2
+3,113,121,0,Agogo GM2
+3,115,121,0,Castanets GM2
+3,116,121,1,Concert BD GM2
+3,118,121,2,Elec Perc GM2
+3,117,121,0,Melo Tom 1 GM2
+3,117,121,1,Melo Tom 2 GM2
+3,119,121,0,Reverse Cymb v
+3,118,121,0,Synth Drum GM2
+3,116,121,0,Taiko GM2
+3,47,121,0,Timpani GM2
+3,115,121,0,Woodblock GM2
+3,104,87,66,CeremonyTimp PCM
+3,105,87,66,Dyno Toms PCM
+3,125,87,67,Perky Noize PCM
+3,86,87,69,Slap Timps PCM
+
+2,Plucked/Stroked
+3,122,89,65,Elec Sitar SNA
+3,58,89,65,Gliss C Dori SNA
+3,57,89,65,Gliss C HMin SNA
+3,56,89,65,Gliss C Mixo SNA
+3,55,89,65,Gliss Dim SNA
+3,54,89,65,Harp SNA
+3,59,89,65,Harp Nail SNA
+3,120,89,65,Sitar 1 SNA
+3,121,89,65,Sitar 2 SNA
+3,105,121,0,Banjo GM2
+3,46,121,0,Harp GM2
+3,108,121,0,Kalimba GM2
+3,107,121,0,Koto GM2
+3,25,121,2,Mandolin GM2
+3,15,121,0,Santur GM2
+3,106,121,0,Shamisen GM2
+3,104,121,0,Sitar 1 GM2
+3,104,121,1,Sitar 2 GM2
+3,107,121,1,Taisho Koto GM2
+3,46,121,1,Yang Qin GM2
+3,75,87,69,AmbiPizza PCM
+3,74,87,69,Andreas Cave GM2
+3,83,87,69,AsiaPlectrum GM2
+3,41,87,67,Atmos Harp GM2
+3,82,87,69,Byzantine GM2
+3,78,87,69,Celtic Harp GM2
+3,101,87,64,Drone Split GM2
+3,104,87,64,Dulcimer GM2
+3,40,87,67,Dulcitar GM2
+3,39,87,67,East Europe GM2
+3,105,87,64,East Melody GM2
+3,77,87,69,EastrnEurope GM2
+3,102,87,64,Ethnopluck GM2
+3,49,87,66,Harp GM2
+3,48,87,66,Harp On It GM2
+3,103,87,64,Jamisen GM2
+3,106,87,64,MandolinTrem GM2
+3,81,87,69,MountainFolk GM2
+3,42,87,67,Pilgrimage GM2
+3,85,87,69,Pluckaphone GM2
+3,79,87,69,Reso Sitar GM2
+3,100,87,64,Sitar GM2
+3,80,87,69,The Ganges GM2
+3,84,87,69,VelHarp)Harm GM2
+3,76,87,69,Voxy Nylon GM2
+3,36,87,70,5080 Random PCM
+3,109,87,69,Acid JaZZ PCM
+3,46,87,65,Acid Line PCM
+3,79,87,67,Afterlife PCM
+3,93,87,66,Albion PCM
+3,55,87,65,Alive PCM
+3,45,87,65,Alternative PCM
+3,51,87,65,Blade Racer PCM
+3,111,87,69,Blades PCM
+3,26,87,70,Bounce Baby! PCM
+3,27,87,70,Bounce Daddy PCM
+3,28,87,70,Bounce Mama! PCM
+3,29,87,70,Bounce Noize PCM
+3,33,87,70,BrushingSaw1 PCM
+3,34,87,70,BrushingSaw2 PCM
+3,35,87,70,Cultivate PCM
+3,110,87,69,Cutter>ModWh PCM
+3,82,87,67,Cyber Dreams PCM
+3,19,87,70,DanceMachina PCM
+3,98,87,66,Flying Waltz PCM
+3,54,87,65,Fooled Again PCM
+3,108,87,69,GermanBounce PCM
+3,24,87,70,Ionizer PCM
+3,33,87,66,LFO Vox PCM
+3,112,87,69,Mad Bender PCM
+3,25,87,70,MilleniumStr PCM
+3,31,87,70,Mini Sequenz PCM
+3,15,87,70,Mood Ringz PCM
+3,68,87,65,Paz <==> Zap PCM
+3,101,87,66,Phazweep PCM
+3,78,87,67,Planet Asia PCM
+3,22,87,70,PressureDome PCM
+3,81,87,67,Pulsatronic PCM
+3,23,87,70,Quasar /Aft PCM
+3,50,87,65,Raggatronic PCM
+3,96,87,66,Random Pad PCM
+3,105,87,69,Rippling PCM
+3,94,87,66,Running Pad PCM
+3,17,87,70,S O S trings PCM
+3,52,87,65,S&H Pad PCM
+3,32,87,70,Slice & Dice PCM
+3,21,87,70,SlicingSyVox PCM
+3,97,87,66,SoundtrkDANC PCM
+3,95,87,66,Stepped Pad PCM
+3,106,87,69,SteppingPhsr PCM
+3,92,87,66,Strobe Mode PCM
+3,18,87,70,Syncronicity PCM
+3,53,87,65,Syncrosonix PCM
+3,77,87,67,Temple of JV PCM
+3,107,87,69,Trance Fair PCM
+3,80,87,67,Trancing Pad PCM
+3,20,87,70,Vox Chopper PCM
+3,16,87,70,Wedo-Wodo PCM
+3,30,87,70,What a Gate! PCM
+3,67,87,65,X-Mod Man PCM
+3,102,95,65,12303 SNS
+3,112,95,65,Dronifed SNS
+3,103,95,65,Experiment SNS
+3,89,95,65,Fist Pumper1 v
+3,90,95,65,Fist Pumper2 SNS
+3,109,95,65,Glassphemia SNS
+3,86,95,65,Goes A Pad SNS
+3,97,95,65,JayMeJay SNS
+3,105,95,65,Jazz Bubbles SNS
+3,98,95,65,Karmalog SNS
+3,85,95,65,LFO Hollow SNS
+3,92,95,65,LFO Poly SNS
+3,96,95,65,LFO Ripple SNS
+3,93,95,65,LFO Saw 1 SNS
+3,94,95,65,LFO Saw 2 SNS
+3,87,95,65,Metal PLS SNS
+3,99,95,65,MINIM-L SNS
+3,68,95,65,PLS Pad 1 SNS
+3,69,95,65,PLS Pad 2 SNS
+3,70,95,65,PLS Pad 3 SNS
+3,71,95,65,PLS Pad 4 SNS
+3,72,95,65,PLS Pad 5 SNS
+3,73,95,65,PLS Pad 6 SNS
+3,74,95,65,PLS Pad 7 SNS
+3,75,95,65,PLS Pad 8 SNS
+3,76,95,65,PLS Pad 9 SNS
+3,77,95,65,PLS Pad 10 SNS
+3,78,95,65,PLS Pad 11 SNS
+3,79,95,65,PLS Pad 12 SNS
+3,80,95,65,PLS Pad 13 SNS
+3,81,95,65,PLS Pad 14 SNS
+3,82,95,65,PLS Pad 15 SNS
+3,83,95,65,PLS Pad 16 SNS
+3,84,95,65,PLS Strings SNS
+3,106,95,65,Psychoscilo SNS
+3,91,95,65,Pulsatron SNS
+3,104,95,65,Pulserelay SNS
+3,107,95,65,PXZoon SNS
+3,101,95,65,Radanceky SNS
+3,111,95,65,Sawﬂutter SNS
+3,110,95,65,Strobe Bell SNS
+3,95,95,65,Thick Pans SNS
+3,100,95,65,Trance Staff SNS
+3,88,95,65,Trip 2 Mars SNS
+3,113,95,65,Tri-Vector SNS
+3,108,95,65,Welding Bell SNS
+
+2,Sound FX
+3,126,121,0,Applause GM2
+3,123,121,0,Bird 1
+3,123,121,3,Bird 2
+3,122,121,5,Bubble
+3,125,121,9,Burst Noise
+3,125,121,4,Car Crash
+3,125,121,1,Car Engine
+3,125,121,3,Car Pass
+3,125,121,2,Car Stop
+3,123,121,1,Dog
+3,124,121,3,Door
+3,124,121,2,DoorCreaking
+3,102,121,1,Echo Bell
+3,102,121,0,Echo Drops
+3,127,121,3,Explosion
+3,126,121,5,Footsteps
+3,101,121,0,Goblin
+3,127,121,0,Gun Shot
+3,126,121,4,Heart Beat
+3,125,121,0,Helicopter
+3,123,121,2,Horse Gallop
+3,125,121,7,Jetplane
+3,127,121,2,Laser Gun
+3,126,121,1,Laughing
+3,127,121,1,Machine Gun
+3,126,121,3,Punch
+3,122,121,1,Rain
+3,124,121,4,Scratch
+3,126,121,2,Screaming
+3,122,121,0,Seashore
+3,125,121,5,Siren
+3,125,121,8,Starship
+3,122,121,4,Stream
+3,124,121,0,Telephone 1
+3,124,121,1,Telephone 2
+3,122,121,2,Thunder
+3,125,121,6,Train
+3,122,121,3,Wind
+3,124,121,5,Wind Chimes
+3,118,87,67,2 0 8 0 PCM
+3,100,87,70,5ths in 4ths
+3,127,87,69,Atmospherics
+3,122,87,66,Biosphere
+3,122,87,70,Bowed Bell
+3,111,87,66,Cascade
+3,115,87,66,Chime Wash
+3,125,87,66,ComputerRoom
+3,117,87,70,Cosmic Rain
+3,121,87,66,Cyber Space
+3,116,87,69,Dark Side
+3,120,87,70,DigitalDrone
+3,118,87,66,Dissimilate
+3,125,87,70,Dream Diver
+3,126,87,67,Droplet
+3,115,87,70,Dropplets
+3,124,87,70,DUB!!!
+3,119,87,66,Dunes
+3,126,87,70,Flashback
+3,114,87,69,ForestMoon
+3,120,87,67,Glistening
+3,123,87,69,Gruvacious
+3,121,87,69,Halographix
+3,123,87,67,Helium Queen
+3,48,87,65,Hihat Tekno
+3,125,87,69,Ice Blasts
+3,116,87,70,Indian Guru
+3,107,87,66,Inertia
+3,126,87,66,Inverted
+3,122,87,69,Moon Rise
+3,113,87,66,NextFrontier
+3,120,87,69,Nexus
+3,116,87,66,Night Shade
+3,120,87,66,Ocean Floor
+3,117,87,67,Phobos
+3,119,87,69,Planet Meta
+3,115,87,69,Predator 2
+3,114,87,66,Pure Tibet
+3,127,87,67,Rain Forest
+3,126,87,69,Ringy Thingy
+3,116,87,67,RiversOfTime
+3,114,87,70,Runaway Rez
+3,106,87,66,Sands ofTime
+3,124,87,67,Sci-Fi FX x4
+3,121,87,67,Sci-Fi Str
+3,122,87,67,Shadows
+3,113,87,69,Shapeshifter
+3,112,87,66,Shattered
+3,121,87,70,Space Race
+3,119,87,70,Space Whiz
+3,127,87,66,Terminate
+3,117,87,69,The Beast
+3,117,87,66,Tortured
+3,118,87,70,Trying Winds
+3,119,87,67,Unearthly
+3,99,87,66,Vanishing
+3,108,87,66,Vektogram
+3,124,87,69,Windy Dunes
+3,99,87,70,Xcuse me
+3,118,87,69,X-mod Reso
+3,123,87,70,X-Tension
+3,54,95,72,Angry Words SNS
+3,53,95,72,Atomspheric
+3,55,95,72,F6 = Critter
+3,56,95,72,FreeJazz
+3,24,95,72,FX 1
+3,25,95,72,FX 2
+3,26,95,72,FX 3
+3,27,95,72,FX 4
+3,28,95,72,FX 5
+3,29,95,72,FX 6
+3,30,95,72,FX 7
+3,31,95,72,FX 8
+3,32,95,72,FX 9
+3,33,95,72,FX 10
+3,34,95,72,FX 11
+3,35,95,72,FX 12
+3,36,95,72,FX 13
+3,37,95,72,FX 14
+3,38,95,72,FX 15
+3,39,95,72,FX 16
+3,40,95,72,FX 17
+3,41,95,72,FX 18
+3,42,95,72,FX 19
+3,43,95,72,FX 20
+3,44,95,72,FX 21
+3,45,95,72,FX 22
+3,46,95,72,FX 23
+3,47,95,72,FX 24
+3,48,95,72,FX 25
+3,50,95,72,Sci-Fi Sweep
+3,52,95,72,Vox FX
+3,51,95,72,War Drum
+3,49,95,72,Zapper
+
+2,Synth Bass
+3,38,121,2,Acid Bass GM2
+3,39,121,3,Attack Pulse GM2
+3,38,121,3,Clav Bass GM2
+3,38,121,4,Hammer Bass GM2
+3,39,121,2,Rubber Bass GM2
+3,39,121,1,SynSlap Bass GM2
+3,38,121,0,Synth Bass 1 GM2
+3,39,121,0,Synth Bass 2 GM2
+3,38,121,1,SynthBass101 GM2
+3,27,87,65,101 Bass PCM
+3,43,87,67,202 Rude Bs PCM
+3,44,87,67,2pole Bass PCM
+3,21,87,65,4 Pole Bass PCM
+3,45,87,67,4pole Bass PCM
+3,61,87,69,700 Bassboy PCM
+3,62,87,69,8VCO MonoSyn PCM
+3,48,87,67,Acid TB PCM
+3,26,87,65,Bass In Face PCM
+3,34,87,65,BritelowBass PCM
+3,54,87,69,Buster Bass PCM
+3,25,87,65,Clk AnalogBs PCM
+3,53,87,69,Creamy Bass PCM
+3,39,87,65,Deep Bass PCM
+3,43,87,65,Euro Bass PCM
+3,58,87,69,Grounded Bs PCM
+3,67,87,69,Hefty Bass PCM
+3,42,87,65,HI-Ring Bass PCM
+3,23,87,65,House Bass PCM
+3,31,87,65,Hugo Bass PCM
+3,64,87,69,Kickin' Bass PCM
+3,66,87,69,Liquid Bass PCM
+3,47,87,67,Miniphaser PCM
+3,33,87,65,Moist Bass PCM
+3,24,87,65,Mondo Bass PCM
+3,32,87,65,Multi Bass PCM
+3,57,87,69,Muscle Bass PCM
+3,28,87,65,Noiz Bass PCM
+3,30,87,65,Occitan Bass PCM
+3,46,87,67,Phaser MC PCM
+3,63,87,69,ResoMoist Bs PCM
+3,36,87,65,Rubber Bass PCM
+3,68,87,69,Severe Ow Bs PCM
+3,44,87,65,SinusoidRave PCM
+3,60,87,69,Snap Bass PCM
+3,37,87,65,Stereoww Bs PCM
+3,65,87,69,Sub Zero PCM
+3,29,87,65,Super Jup Bs PCM
+3,40,87,65,Super JX Bs PCM
+3,55,87,69,TB Squelch PCM
+3,22,87,65,Tick Bass PCM
+3,56,87,69,Ticker Bass PCM
+3,35,87,65,Untamed Bass PCM
+3,41,87,65,W<RED>-Bass PCM
+3,59,87,69,West End Bs PCM
+3,38,87,65,Wonder Bass PCM
+3,120,95,68,106 Bass 1 SNS
+3,121,95,68,106 Bass 2 SNS
+3,122,95,68,106 Bass 3 SNS
+3,123,95,68,106 Bass 4 SNS
+3,124,95,68,106 Bass 5 SNS
+3,100,95,69,Acid Bs 1 SNS
+3,101,95,69,Acid Bs 2 SNS
+3,102,95,69,Acid Bs 3 SNS
+3,103,95,69,Acid Bs 4 SNS
+3,104,95,69,Acid Bs 5 SNS
+3,105,95,69,Acid Bs 6 SNS
+3,49,95,69,Agresso Bass SNS
+3,112,95,68,Alpha Bs 1 SNS
+3,113,95,68,Alpha Bs 2 SNS
+3,114,95,68,Alpha Bs 3 SNS
+3,118,95,69,Arpaccio SNS
+3,41,95,70,Basschunk SNS
+3,37,95,69,BASSH 10 SNS
+3,20,95,70,Bit Bs 1 SNS
+3,21,95,70,Bit Bs 2 SNS
+3,22,95,70,Bit Bs 3 SNS
+3,23,95,70,Bit Bs 4 SNS
+3,125,95,68,Breakdown Bs SNS
+3,89,95,69,Camblast SNS
+3,119,95,69,Carmelcorn SNS
+3,38,95,69,Chow Bs 1 SNS
+3,39,95,69,Chow Bs 2 SNS
+3,8,95,69,Compu Bass 1 SNS
+3,9,95,69,Compu Bass 2 SNS
+3,40,95,70,Crackbass SNS
+3,31,95,69,D-50 Bs SNS
+3,116,95,68,Decay Bs 1 SNS
+3,117,95,68,Decay Bs 2 SNS
+3,118,95,68,Decay Bs 3 SNS
+3,119,95,68,Decay Bs 4 SNS
+3,10,95,69,Detune Bs 1 SNS
+3,11,95,69,Detune Bs 2 SNS
+3,12,95,69,Detune Bs 3 SNS
+3,13,95,69,Detune Bs 4 SNS
+3,126,95,68,Dopebass SNS
+3,97,95,69,Dynamic Bs 1 SNS
+3,98,95,69,Dynamic Bs 2 SNS
+3,63,95,69,Fat Analog 1 SNS
+3,64,95,69,Fat Analog 2 SNS
+3,91,95,69,Fat SynBs SNS
+3,115,95,68,Flat6Bs SNS
+3,5,95,69,FM Bs 1 SNS
+3,6,95,69,FM Bs 2 SNS
+3,53,95,69,Garage Bs 1 SNS
+3,54,95,69,Garage Bs 2 SNS
+3,108,95,69,H&S Bass SNS
+3,112,95,69,HH Bs 1 SNS
+3,113,95,69,HH Bs 2 SNS
+3,114,95,69,HH Bs 3 SNS
+3,115,95,69,HH Bs 4 SNS
+3,116,95,69,HH Bs 5 SNS
+3,117,95,69,HH Bs 6 SNS
+3,42,95,70,Hi-Energy Bs SNS
+3,40,95,69,House Bs SNS
+3,14,95,69,Intrusive Bs SNS
+3,7,95,69,JP Bs SNS
+3,41,95,69,JP-4 Bs SNS
+3,30,95,69,Juno60 Bs SNS
+3,43,95,69,JunoSqr Bs 1 SNS
+3,44,95,69,JunoSqr Bs 2 SNS
+3,90,95,69,LA SynBs SNS
+3,36,95,70,LFO Bs 1 SNS
+3,37,95,70,LFO Bs 2 SNS
+3,38,95,70,LFO Bs 3 SNS
+3,39,95,70,LFO Bs 4 SNS
+3,55,95,69,Low Bs 1 SNS
+3,56,95,69,Low Bs 2 SNS
+3,57,95,69,Low Bs 3 SNS
+3,58,95,69,Low Bs 4 SNS
+3,59,95,69,Low Bs 5 SNS
+3,60,95,69,Low Bs 6 SNS
+3,127,95,68,MC202 Bs 1 SNS
+3,0,95,69,MC202 Bs 2 SNS
+3,84,95,68,MG Bs 1 SNS
+3,85,95,68,MG Bs 2 SNS
+3,86,95,68,MG Bs 3 SNS
+3,87,95,68,MG Bs 4 SNS
+3,88,95,68,MG Bs 5 SNS
+3,89,95,68,MG Bs 6 SNS
+3,90,95,68,MG Bs 7 SNS
+3,91,95,68,MG Bs 8 SNS
+3,92,95,68,MG Bs 9 SNS
+3,93,95,68,MG Bs 10 SNS
+3,94,95,68,MG Bs 11 SNS
+3,95,95,68,MG Bs 12 SNS
+3,96,95,68,MG Bs 13 SNS
+3,97,95,68,MG Bs 14 SNS
+3,98,95,68,MG Bs 15 SNS
+3,99,95,68,MG Bs 16 SNS
+3,100,95,68,MG Bs 17 SNS
+3,101,95,68,MG Bs 18 SNS
+3,102,95,68,MG Bs 19 SNS
+3,103,95,68,MG Bs 20 SNS
+3,104,95,68,MG Bs 21 SNS
+3,105,95,68,MG Bs 22 SNS
+3,106,95,68,MG Bs 23 SNS
+3,107,95,68,MG Bs 24 SNS
+3,108,95,68,MG Bs 25 SNS
+3,109,95,68,MG Bs 26 SNS
+3,32,95,69,MKS-50 Bs SNS
+3,2,95,70,Modular Bs 1
+3,3,95,70,Modular Bs 2
+3,4,95,70,Modular Bs 3
+3,5,95,70,Modular Bs 4
+3,6,95,70,Modular Bs 5
+3,7,95,70,Modular Bs 6
+3,12,95,70,Monster Bs 1
+3,13,95,70,Monster Bs 2
+3,14,95,70,Monster Bs 3
+3,15,95,70,Monster Bs 4
+3,16,95,70,Monster Bs 5
+3,17,95,70,Monster Bs 6
+3,18,95,70,Monster Bs 7
+3,19,95,70,Monster Bs 8
+3,52,95,69,Mufed Bass
+3,120,95,69,NoiseBs
+3,51,95,69,Organ Bs
+3,25,95,69,P5 Bs 1
+3,26,95,69,P5 Bs 2
+3,27,95,69,P5 Bs 3
+3,28,95,69,P5 Bs 4
+3,29,95,69,P5 Bs 5
+3,111,95,68,Plastic Bs
+3,1,95,69,Pulse Bs 1
+3,2,95,69,Pulse Bs 2
+3,3,95,69,Pulse Bs 3
+3,4,95,69,Pulse Bs 4
+3,0,95,70,PWM Bass 1
+3,1,95,70,PWM Bass 2
+3,75,95,68,R&B Bs 1
+3,76,95,68,R&B Bs 2
+3,77,95,68,R&B Bs 3
+3,78,95,68,R&B Bs 4
+3,79,95,68,R&B Bs 5
+3,80,95,68,R&B Bs 6
+3,81,95,68,R&B Bs 7
+3,82,95,68,R&B Bs 8
+3,83,95,68,R&B Bs 9
+3,35,95,70,Ramp Bs
+3,65,95,69,Reso Bs 1
+3,66,95,69,Reso Bs 2
+3,67,95,69,Reso Bs 3
+3,68,95,69,Reso Bs 4
+3,69,95,69,Reso Bs 5
+3,70,95,69,Reso Bs 6
+3,71,95,69,Reso Bs 7
+3,72,95,69,Reso Bs 8
+3,73,95,69,Reso Bs 9
+3,74,95,69,Reso Bs 10
+3,75,95,69,Reso Bs 11
+3,76,95,69,Reso Bs 12
+3,77,95,69,Reso Bs 13
+3,78,95,69,Reso Bs 14
+3,79,95,69,Reso Bs 15
+3,80,95,69,Reso Bs 16
+3,81,95,69,Reso Bs 17
+3,82,95,69,Reso Bs 18
+3,83,95,69,Reso Bs 19
+3,84,95,69,Reso Bs 20
+3,85,95,69,Reso Bs 21
+3,86,95,69,Reso Bs 22
+3,87,95,69,Reso Bs 23
+3,88,95,69,Reso Bs 24
+3,99,95,69,Round Bs
+3,95,95,69,Rubber Bs 1
+3,96,95,69,Rubber Bs 2
+3,24,95,69,Rubbertouch
+3,42,95,69,SH Square Bs
+3,15,95,69,SH-101 Bs 1
+3,16,95,69,SH-101 Bs 2
+3,109,95,69,Short Bs 1
+3,110,95,69,Short Bs 2
+3,111,95,69,Short Bs 3
+3,50,95,69,Show Me Low
+3,122,95,69,Slow Bs
+3,121,95,69,Soft Bs
+3,106,95,69,Spike Bs 1
+3,107,95,69,Spike Bs 2
+3,123,95,69,Square Bs 1
+3,124,95,69,Square Bs 2
+3,125,95,69,Square Bs 3
+3,126,95,69,Square Bs 4
+3,127,95,69,Squaresville
+3,33,95,70,SubOSC Bs 1
+3,34,95,70,SubOSC Bs 2
+3,24,95,70,SuperSawBs 1
+3,25,95,70,SuperSawBs 2
+3,26,95,70,SuperSawBs 3
+3,27,95,70,SuperSawBs 4
+3,28,95,70,SuperSawBs 5
+3,17,95,69,Sweep Bs 1
+3,18,95,69,Sweep Bs 2
+3,19,95,69,Sweep Bs 3
+3,20,95,69,Sweep Bs 4
+3,21,95,69,Sweep Bs 5
+3,22,95,69,Sweep Bs 6
+3,23,95,69,Sweep Bs 7
+3,92,95,69,Syn Bs 1
+3,93,95,69,Syn Bs 2
+3,94,95,69,Syn Bs 3
+3,29,95,70,Sync Bs 1
+3,30,95,70,Sync Bs 2
+3,31,95,70,Sync Bs 3
+3,32,95,70,Sync Bs 4
+3,45,95,69,TB Bass 1
+3,46,95,69,TB Bass 2
+3,47,95,69,TB Dist Bs 1
+3,48,95,69,TB Dist Bs 2
+3,110,95,68,Thickness Bs
+3,61,95,69,Tri Bass 1
+3,62,95,69,Tri Bass 2
+3,8,95,70,Unison Bs 1
+3,9,95,70,Unison Bs 2
+3,10,95,70,Unison Bs 3
+3,11,95,70,Unison Bs 4
+3,33,95,69,Wide Bs 1
+3,34,95,69,Wide Bs 2
+3,35,95,69,Wide Bs 3
+3,36,95,69,Wide Bs 4
+
+2,Synth Bellpad
+3,99,121,0,Atmosphere GM2
+3,100,121,0,Brightness GM2
+3,88,121,0,Fantasia GM2
+3,96,121,0,Ice Rain GM2
+3,23,87,67,2 2 Bell Pad PCM
+3,77,87,64,BellVox 1080 GM2
+3,39,87,70,Belly Pad GM2
+3,87,87,66,Chime Pad GM2
+3,104,87,67,D'light GM2
+3,65,87,70,D-2000 GM2
+3,70,87,64,D-50 Stack GM2
+3,71,87,64,Fantasia JV GM2
+3,78,87,64,Fantasy Vox GM2
+3,91,87,67,Glass Blower GM2
+3,113,87,68,Glass Orbit GM2
+3,73,87,64,Heavenals GM2
+3,18,87,67,HolidayCheer GM2
+3,75,87,64,Huff N Stuff GM2
+3,72,87,64,Jimmee Dee GM2
+3,74,87,64,Mallet Pad GM2
+3,51,87,68,Moonchimes GM2
+3,19,87,67,Morning Lite GM2
+3,50,87,68,Paradise GM2
+3,40,87,70,Spectre GM2
+3,22,87,67,Stacc Heaven GM2
+
+2,Synth Supernatural
+3,111,95,67,Analog Dream SNS
+3,119,95,67,AnalogBell 1 SNS
+3,120,95,67,AnalogBell 2 SNS
+3,121,95,67,AnalogBell 3 SNS
+3,122,95,67,AnalogBell 4 SNS
+3,99,95,67,D50 Stack SNS
+3,100,95,67,D-52 Babe v
+3,108,95,67,Dreambell SNS
+3,101,95,67,Dreaming 1 SNS
+3,102,95,67,Dreaming 2 SNS
+3,103,95,67,Dreaming 3 SNS
+3,104,95,67,Dreaming 4 SNS
+3,105,95,67,Dreaming 5 SNS
+3,106,95,67,Dreaming 6 SNS
+3,107,95,67,Dreaming 7 SNS
+3,109,95,67,DreamingBox SNS
+3,98,95,67,EP-Cool Pad SNS
+3,91,95,67,Fantasy 1 SNS
+3,92,95,67,Fantasy 2 SNS
+3,93,95,67,Fantasy 3 SNS
+3,94,95,67,Fantasy 4 SNS
+3,95,95,67,Fantasy 5 SNS
+3,96,95,67,Fantasy Pad SNS
+3,112,95,67,Huge MIDI 1 SNS
+3,113,95,67,Huge MIDI 2 SNS
+3,114,95,67,Huge MIDI 3 SNS
+3,125,95,67,Icycle SNS
+3,0,95,68,JP80 SynHarp SNS
+3,118,95,67,Magichand SNS
+3,115,95,67,MIDI Key SNS
+3,110,95,67,New Jupiter SNS
+3,126,95,67,Pipe Chatter SNS
+3,116,95,67,Pipe Key SNS
+3,127,95,67,Spring Wind SNS
+3,123,95,67,Synth Sniper SNS
+3,124,95,67,Temper Bell SNS
+3,117,95,67,Vox Key SNS
+3,97,95,67,What Key! SNS
+
+2,Synth Brass
+3,62,121,1,JP Brass GM2
+3,62,121,3,Jump Brass GM2
+3,62,121,2,Oct SynBrass GM2
+3,63,121,1,SynBrass sfz GM2
+3,62,121,0,Synth Brass1 GM2
+3,63,121,0,Synth Brass2 GM2
+3,63,121,2,Velo Brass GM2
+3,59,87,67,3 Osc Brass PCM
+3,66,87,66,Afro Horns PCM
+3,11,87,66,Archimede PCM
+3,10,87,66,Brass Attack PCM
+3,9,87,66,Brass It! PCM
+3,58,87,67,Breathy Brs PCM
+3,106,87,68,JupiterHorns PCM
+3,13,87,66,MKS-80 Brass PCM
+3,60,87,67,P5 Polymod PCM
+3,67,87,64,Poly Brass PCM
+3,12,87,66,Rugby Horn PCM
+3,112,87,68,Soaring Hrns PCM
+3,41,87,70,SoaringHrns2 PCM
+3,61,87,67,Triumph Brs PCM
+3,14,87,66,True ANALOG PCM
+3,75,95,66,42 Brass SNS
+3,20,95,66,80s Brs 1
+3,29,95,66,80s Brs 10
+3,30,95,66,80s Brs 11
+3,21,95,66,80s Brs 2
+3,22,95,66,80s Brs 3
+3,23,95,66,80s Brs 4
+3,24,95,66,80s Brs 5
+3,25,95,66,80s Brs 6
+3,26,95,66,80s Brs 7
+3,27,95,66,80s Brs 8
+3,28,95,66,80s Brs 9
+3,76,95,66,80sBrsScoop1
+3,77,95,66,80sBrsScoop2
+3,32,95,66,Analog Brs 1
+3,33,95,66,Analog Brs 2
+3,34,95,66,Analog Brs 3
+3,35,95,66,Analog Brs 4
+3,58,95,66,Brassrub
+3,56,95,66,Dyn SynBrs
+3,37,95,66,Euro Express
+3,69,95,66,FM Brass
+3,70,95,66,Hybrid Brass
+3,2,95,66,JP8 Brs 1
+3,3,95,66,JP8 Brs 2
+3,4,95,66,JP8 Brs 3
+3,5,95,66,JP8 Brs 4
+3,6,95,66,JP8 Brs 5
+3,7,95,66,JP8 Brs 6
+3,18,95,66,JP8000 Brs 1
+3,19,95,66,JP8000 Brs 2
+3,8,95,66,JUNO Brs 1
+3,17,95,66,JUNO Brs 10
+3,9,95,66,JUNO Brs 2
+3,10,95,66,JUNO Brs 3
+3,11,95,66,JUNO Brs 4
+3,12,95,66,JUNO Brs 5
+3,13,95,66,JUNO Brs 6
+3,14,95,66,JUNO Brs 7
+3,15,95,66,JUNO Brs 8
+3,16,95,66,JUNO Brs 9
+3,73,95,66,Love Brs
+3,74,95,66,LoveBrs Pad
+3,36,95,66,OB Brs
+3,64,95,66,Octa Brass
+3,59,95,66,Poly Brass 1
+3,60,95,66,Poly Brass 2
+3,61,95,66,Poly Brass 3
+3,62,95,66,Poly Brass 4
+3,63,95,66,Poly Brass 5
+3,79,95,66,Porta Brs
+3,71,95,66,Power JP
+3,72,95,66,Power SynBrs
+3,57,95,66,Quiet Brs
+3,65,95,66,Reso Brs 1
+3,66,95,66,Reso Brs 2
+3,78,95,66,ResoSweepBrs
+3,67,95,66,Slow Brs 1
+3,68,95,66,Slow Brs 2
+3,51,95,66,Soft SynBrs1
+3,52,95,66,Soft SynBrs2
+3,53,95,66,Soft SynBrs3
+3,54,95,66,Soft SynBrs4
+3,55,95,66,Soft SynBrs5
+3,38,95,66,Syn Brs 1
+3,39,95,66,Syn Brs 2
+3,40,95,66,Syn Brs 3
+3,41,95,66,Syn Brs 4
+3,42,95,66,Syn Brs 5
+3,43,95,66,Syn Brs 6
+3,44,95,66,Syn Brs 7
+3,45,95,66,Syn Brs 8
+3,46,95,66,Syn Brs 9
+3,47,95,66,Syn Brs 10
+3,48,95,66,Syn Brs 11
+3,49,95,66,Syn Brs 12
+3,50,95,66,Syn Brs 13
+3,31,95,66,SynBrs Str
+3,80,95,66,Xpand Brs 1
+3,81,95,66,Xpand Brs 2
+
+2,Synth Lead
+3,80,121,2,2600 Sine GM2
+3,86,121,0,5th Saw Wave GM2
+3,87,121,0,Bass & Lead GM2
+3,84,121,0,Charang GM2
+3,83,121,0,Chiffer Lead GM2
+3,87,121,1,Delayed Lead GM2
+3,81,121,2,Doctor Solo GM2
+3,80,121,1,MG Square GM2
+3,81,121,3,Natural Lead GM2
+3,81,121,1,OB2 Saw GM2
+3,81,121,0,Saw Wave GM2
+3,85,121,0,Solo Vox GM2
+3,80,121,0,Square Wave GM2
+3,82,121,0,Syn Calliope GM2
+3,84,121,1,Wire Lead GM2
+3,93,87,69,2ndRateChord PCM
+3,93,87,65,5th Lead
+3,89,87,67,Adrenaline
+3,97,87,69,Agent X
+3,112,87,70,AM 05:59
+3,92,87,65,Analog Lead
+3,47,87,65,Auto TB-303
+3,79,87,65,Belly Lead
+3,18,87,69,Blistering
+3,11,87,69,BOG
+3,68,87,67,Booster Bips
+3,106,87,70,Boss'd Synth
+3,26,87,69,Creamer
+3,107,87,70,Cross Fire
+3,101,87,69,DeeperBeeper
+3,16,87,69,Dirty Sync
+3,76,87,67,Dist TB-303
+3,17,87,69,DistortaSync
+3,81,87,65,Edye Boost
+3,20,87,69,Flyin' High
+3,83,87,65,FXM Saw Lead
+3,110,87,70,GenderBender
+3,109,87,70,Generator
+3,19,87,69,Guttural
+3,66,87,67,House Chord
+3,87,87,67,Jay Vee Solo
+3,69,87,70,Jet Sync
+3,25,87,69,Lamb Lead
+3,15,87,69,Leads United
+3,90,87,65,Little Devil
+3,14,87,69,LivingInSync
+3,99,87,69,Looney 2nz
+3,91,87,65,Loud SynLead
+3,68,87,70,Mean Thing
+3,65,87,67,Mental Chord
+3,87,87,65,MG Interval
+3,86,87,65,MG Lead
+3,82,87,65,MG Solo
+3,95,87,69,MinorIncidnt
+3,24,87,69,Nasal Spray
+3,96,87,69,Phunky DC
+3,67,87,70,Powersoaker
+3,88,87,67,Progresso Ld
+3,88,87,65,Pulse Lead 1
+3,89,87,65,Pulse Lead 2
+3,84,87,67,Pure Pipe
+3,94,87,69,RageInYouth
+3,58,87,65,Raverborg
+3,74,87,67,Resojuice
+3,13,87,69,Retro Lead
+3,84,87,65,Sawteeth
+3,85,87,67,SH-2000
+3,27,87,69,Sine System
+3,85,87,65,Smoothe
+3,9,87,69,Soaring Saws
+3,22,87,69,Soaring Sqr
+3,23,87,69,Soaring Sync
+3,21,87,69,Soft Tooth
+3,10,87,69,Square Roots
+3,76,87,65,SquareLead 1
+3,77,87,65,SquareLead 2
+3,12,87,69,Talking Box
+3,108,87,70,Techno Cave
+3,49,87,65,Velo Tekno 1
+3,69,87,67,VintagePlunk
+3,83,87,67,Warm Pipe
+3,80,87,65,WhistlinAtom
+3,86,87,67,X ? Whistle
+3,111,87,70,Xtremities
+3,78,87,65,You and Luck
+3,38,95,71,5th SawLead1 SNS
+3,39,95,71,5th SawLead2
+3,99,95,70,Abakababra
+3,30,95,71,Air Lead 1
+3,31,95,71,Air Lead 2
+3,13,95,71,AnaVox Ld 1
+3,14,95,71,AnaVox Ld 2
+3,15,95,71,AnaVox Ld 3
+3,16,95,71,AnaVox Ld 4
+3,93,95,70,Bad Axe
+3,22,95,71,Bell Lead 1
+3,23,95,71,Bell Lead 2
+3,24,95,71,Bell Lead 3
+3,20,95,71,BellSaw Ld 1
+3,21,95,71,BellSaw Ld 2
+3,118,95,70,Bodyart
+3,101,95,70,Borrowed
+3,97,95,70,Bright Pls
+3,59,95,71,Brite Sqr 1
+3,60,95,71,Brite Sqr 2
+3,61,95,71,Brite Sqr 3
+3,23,95,72,Broken Lead
+3,94,95,70,Buzz Cut
+3,119,95,70,Buzz Synth
+3,88,95,70,CC Saw Ld 1
+3,89,95,70,CC Saw Ld 2
+3,90,95,70,CC Saw Ld 3
+3,91,95,70,CC Saw Ld 4
+3,92,95,70,CC Saw Ld 5
+3,114,95,70,Chubby Lead
+3,62,95,71,Cpt McSquare
+3,112,95,70,CR Lead
+3,69,95,71,Crawler
+3,100,95,70,Crossfre
+3,95,95,70,Cutting Lead
+3,121,95,70,Dance Saw 1
+3,122,95,70,Dance Saw 2
+3,25,95,71,Dig n D
+3,91,95,71,Digi Lead 1
+3,92,95,71,Digi Lead 2
+3,104,95,70,Dirty Saw Ld
+3,19,95,72,Distroubled
+3,90,95,71,Disturb Sync
+3,108,95,70,EQ Lead 1
+3,109,95,70,EQ Lead 2
+3,96,95,70,Fat GR Lead
+3,117,95,70,Flangepig
+3,123,95,70,Funky Lead
+3,33,95,71,Growl Lead
+3,120,95,70,Hard Synth
+3,113,95,70,Hip Lead
+3,20,95,72,Hover Dive 1
+3,21,95,72,Hover Dive 2
+3,18,95,72,JP80 Ring-80
+3,98,95,70,Juicy JP
+3,26,95,71,Juicy Lead 1
+3,27,95,71,Juicy Lead 2
+3,127,95,70,Juno Soft Ld
+3,105,95,70,Leadership
+3,126,95,70,LFO Saw Ld
+3,107,95,70,Love Lead
+3,116,95,70,NuWave
+3,70,95,71,OB Lead 1
+3,71,95,71,OB Lead 2
+3,0,95,71,Oct Lead
+3,111,95,70,Octa Juice
+3,64,95,71,Octa Square
+3,22,95,72,OhWowWow
+3,82,95,71,OSC-SyncLd 1
+3,83,95,71,OSC-SyncLd 2
+3,84,95,71,OSC-SyncLd 3
+3,85,95,71,OSC-SyncLd 4
+3,86,95,71,OSC-SyncLd 5
+3,87,95,71,OSC-SyncLd 6
+3,88,95,71,OSC-SyncLd 7
+3,89,95,71,OSC-SyncLd 8
+3,28,95,71,Portament Ld
+3,17,95,71,Pulse Lead 1
+3,18,95,71,Pulse Lead 2
+3,19,95,71,Pulse Lead 3
+3,102,95,70,PulstarLd 1
+3,103,95,70,PulstarLd 2
+3,65,95,71,Pure Square
+3,98,95,71,Release Ld
+3,29,95,71,Reso Juno
+3,32,95,71,Reso Pulser
+3,106,95,70,Ripping Mini
+3,41,95,71,Round Sqr 1
+3,42,95,71,Round Sqr 2
+3,43,95,70,Saw Lead 1
+3,44,95,70,Saw Lead 2
+3,45,95,70,Saw Lead 3
+3,46,95,70,Saw Lead 4
+3,47,95,70,Saw Lead 5
+3,48,95,70,Saw Lead 6
+3,49,95,70,Saw Lead 7
+3,50,95,70,Saw Lead 8
+3,51,95,70,Saw Lead 9
+3,52,95,70,Saw Lead 10
+3,53,95,70,Saw Lead 11
+3,54,95,70,Saw Lead 12
+3,55,95,70,Saw Lead 13
+3,56,95,70,Saw Lead 14
+3,57,95,70,Saw Lead 15
+3,58,95,70,Saw Lead 16
+3,59,95,70,Saw Lead 17
+3,60,95,70,Saw Lead 18
+3,61,95,70,Saw Lead 19
+3,62,95,70,Saw Lead 20
+3,63,95,70,Saw Lead 21
+3,64,95,70,Saw Lead 22
+3,65,95,70,Saw Lead 23
+3,66,95,70,Saw Lead 24
+3,67,95,70,Saw Lead 25
+3,68,95,70,Saw Lead 26
+3,69,95,70,Saw Lead 27
+3,70,95,70,Saw Lead 28
+3,71,95,70,Saw Lead 29
+3,72,95,70,Saw Lead 30
+3,73,95,70,Saw Lead 31
+3,74,95,70,Saw Lead 32
+3,75,95,70,Saw Lead 33
+3,76,95,70,Saw Lead 34
+3,77,95,70,Saw Lead 35
+3,78,95,70,Saw Lead 36
+3,79,95,70,Saw Lead 37
+3,80,95,70,Saw Lead 38
+3,81,95,70,Saw Lead 39
+3,82,95,70,Saw Lead 40
+3,83,95,70,Saw Lead 41
+3,84,95,70,Saw Lead 42
+3,85,95,70,Saw Lead 43
+3,86,95,70,Saw Lead 44
+3,87,95,70,Saw Lead 45
+3,40,95,71,Simple Sqr
+3,77,95,71,Sine Lead 1
+3,78,95,71,Sine Lead 2
+3,79,95,71,Sine Lead 3
+3,80,95,71,Sine Lead 4
+3,81,95,71,Sine Lead 5
+3,1,95,71,Slow Lead 1
+3,2,95,71,Slow Lead 2
+3,3,95,71,Slow Lead 3
+3,4,95,71,Slow Lead 4
+3,5,95,71,Slow Lead 5
+3,6,95,71,Slow Lead 6
+3,7,95,71,Slow Lead 7
+3,8,95,71,Slow Lead 8
+3,9,95,71,Slow Lead 9
+3,10,95,71,Slow Lead 10
+3,11,95,71,Slow Lead 11
+3,12,95,71,Slow Lead 12
+3,76,95,71,Softy Lead
+3,97,95,71,SoloNzPeaker
+3,43,95,71,Square Ld 1
+3,44,95,71,Square Ld 2
+3,45,95,71,Square Ld 3
+3,46,95,71,Square Ld 4
+3,47,95,71,Square Ld 5
+3,48,95,71,Square Ld 6
+3,49,95,71,Square Ld 7
+3,50,95,71,Square Ld 8
+3,51,95,71,Square Ld 9
+3,52,95,71,Square Ld 10
+3,53,95,71,Square Ld 11
+3,54,95,71,Square Ld 12
+3,55,95,71,Square Ld 13
+3,56,95,71,Square Ld 14
+3,57,95,71,Square Ld 15
+3,58,95,71,Squareoff
+3,94,95,71,Stitcher
+3,110,95,70,Stn MG Lead
+3,115,95,70,Super Saws
+3,37,95,71,SuperSaw Ld
+3,95,95,71,Sweet 5th 1
+3,96,95,71,Sweet 5th 2
+3,99,95,71,Syn Lead 1
+3,100,95,71,Syn Lead 2
+3,101,95,71,Syn Lead 3
+3,102,95,71,Syn Lead 4
+3,103,95,71,Syn Lead 5
+3,104,95,71,Syn Lead 6
+3,105,95,71,Syn Lead 7
+3,106,95,71,Syn Lead 8
+3,107,95,71,Syn Lead 9
+3,108,95,71,Syn Lead 10
+3,109,95,71,Syn Lead 11
+3,125,95,70,Synchro Lead
+3,66,95,71,SynOcarina 1
+3,67,95,71,SynOcarina 2
+3,68,95,71,SynOcarina 3
+3,110,95,71,Tekno Ld 1
+3,111,95,71,Tekno Ld 2
+3,112,95,71,Tekno Ld 3
+3,113,95,71,Tekno Ld 4
+3,114,95,71,Tekno Ld 5
+3,115,95,71,Tekno Ld 6
+3,116,95,71,Tekno Ld 7
+3,117,95,71,Tekno Ld 8
+3,118,95,71,Tekno Ld 9
+3,119,95,71,Tekno Ld 10
+3,120,95,71,Tekno Ld 11
+3,121,95,71,Tekno Ld 12
+3,122,95,71,Tekno Ld 13
+3,123,95,71,Tekno Ld 14
+3,124,95,71,Tekno Ld 15
+3,125,95,71,Tekno Ld 16
+3,126,95,71,Tekno Ld 17
+3,127,95,71,Tekno Ld 18
+3,0,95,72,Tekno Ld 19
+3,1,95,72,Tekno Ld 20
+3,2,95,72,Tekno Ld 21
+3,3,95,72,Tekno Ld 22
+3,4,95,72,Tekno Ld 23
+3,5,95,72,Tekno Ld 24
+3,6,95,72,Tekno Ld 25
+3,7,95,72,Tekno Ld 26
+3,8,95,72,Tekno Ld 27
+3,9,95,72,Tekno Ld 28
+3,10,95,72,Tekno Ld 29
+3,11,95,72,Tekno Ld 30
+3,12,95,72,Tekno Ld 31
+3,13,95,72,Tekno Ld 32
+3,14,95,72,Tekno Ld 33
+3,15,95,72,Tekno Ld 34
+3,16,95,72,Tekno Ld 35
+3,17,95,72,Tekno Ld 36
+3,63,95,71,Tekno Sqr
+3,72,95,71,Tri Lead 1
+3,73,95,71,Tri Lead 2
+3,74,95,71,Tri Lead 3
+3,75,95,71,Tri Lead 4
+3,34,95,71,Vintager 1
+3,35,95,71,Vintager 2
+3,36,95,71,Vintager 3
+3,93,95,71,Waspy Lead
+3,124,95,70,WaveShape Ld
+
+2,Synth Pad/Strings
+3,92,121,0,Bowed Glass GM2
+3,94,121,0,Halo Pad GM2
+3,93,121,0,Metal Pad GM2
+3,89,121,1,Sine Pad GM2
+3,97,121,0,Soundtrack GM2
+3,103,121,0,Star Theme GM2
+3,95,121,0,Sweep Pad GM2
+3,50,121,0,Syn Strings1 GM2
+3,51,121,0,Syn Strings2 GM2
+3,50,121,1,Syn Strings3 GM2
+3,89,121,0,Warm Pad GM2
+3,80,87,66,3D Flanged PCM
+3,114,87,68,5th Atm /Aft
+3,100,87,66,5th Sweep
+3,43,87,68,Air Pad
+3,96,87,67,Analog Drama
+3,120,87,68,Analogue Str
+3,91,87,66,Aurora
+3,100,87,67,BandPass Mod
+3,45,87,70,Borealis
+3,46,87,68,ClassicJPpad
+3,118,87,68,Combing
+3,109,87,66,Crash Pad
+3,65,87,66,D-50 Heaven
+3,113,87,67,D50FantaPerc
+3,103,87,67,Darkshine
+3,90,87,66,Dawn 2 Dusk
+3,105,87,67,December Sky
+3,60,87,66,Deep Strings
+3,94,87,67,Dimensional
+3,68,87,66,Dreamesque
+3,92,87,67,Earth Blow
+3,52,87,66,E-Motion Pad
+3,54,87,68,Ethereal Str
+3,81,87,66,Fantawine
+3,48,87,68,Fat Pad
+3,110,87,66,Feedback VOX
+3,56,87,66,Gigantalog
+3,84,87,66,Glasswaves
+3,82,87,66,Glassy Pad
+3,99,87,67,Gluey Pad
+3,110,87,67,GR500 TmpDly
+3,49,87,68,GR700 Pad
+3,63,87,66,Greek Power
+3,64,87,66,Harmonicum
+3,72,87,66,Heirborne
+3,73,87,66,Hush Pad
+3,124,87,66,Ice Hall
+3,38,87,70,India Garden
+3,74,87,66,Jet Pad 1
+3,75,87,66,Jet Pad 2
+3,78,87,66,Jet Str Ens
+3,70,87,66,JP-8 Hollow
+3,50,87,66,JP-8 Str 1
+3,51,87,66,JP-8 Str 2
+3,53,87,66,JP-8 Str 3
+3,71,87,66,JP-8Haunting
+3,107,87,67,JUNO Power!
+3,55,87,66,JUNO Strings
+3,47,87,68,Jupiter Str
+3,95,87,67,Jupiterings
+3,93,87,67,JX SqrCarpet
+3,115,87,68,Lo-f Sweep
+3,121,87,68,Lunar Strngs
+3,111,87,67,Mod DirtyWav
+3,116,87,68,Modular Life
+3,42,87,68,Morph Pad
+3,83,87,66,Moving Glass
+3,56,87,68,NothrnLights
+3,106,87,67,Octapad
+3,59,87,66,ORBit Pad
+3,46,87,70,OvertoneScan
+3,53,87,68,PhasingPad
+3,76,87,66,Phaze Pad
+3,77,87,66,Phaze Str
+3,79,87,66,Pivotal Pad
+3,67,87,66,Pop Pad
+3,62,87,66,Pulse Pad
+3,61,87,66,Pulsify
+3,57,87,66,PWM Strings
+3,97,87,67,Rich Dynapad
+3,119,87,68,Rolling 5ths
+3,89,87,66,Rotary Pad
+3,114,87,67,Rotodreams
+3,42,87,70,Sabbath Day
+3,86,87,66,ShiftedGlass
+3,85,87,66,Shiny Pad
+3,112,87,67,Silicon Str
+3,98,87,67,Silky Way
+3,44,87,68,Soft Padding
+3,101,87,67,Soundtraque
+3,108,87,67,Spectrum Mod
+3,88,87,66,Spin Pad
+3,69,87,66,Square Pad
+3,109,87,67,Stringsheen
+3,57,87,68,Sun Dive
+3,52,87,68,SusPed Swap
+3,102,87,67,Translucence
+3,55,87,68,Velcropad
+3,54,87,66,Vintage Orch
+3,58,87,66,Warmth
+3,45,87,68,Warmth Pad
+3,44,87,70,White Arcade
+3,43,87,70,XV BlowPad
+3,37,87,70,XV Stepping
+3,56,95,65,5th Pad 1 SNS
+3,57,95,65,5th Pad 2
+3,58,95,65,5th Pad 3
+3,97,95,64,Air Pad
+3,51,95,65,Alan's Pad
+3,90,95,64,Awakening
+3,72,95,64,Boreal Pad
+3,68,95,64,Brite Str 1
+3,69,95,64,Brite Str 2
+3,70,95,64,Brite Str 3
+3,71,95,64,Brite Str 4
+3,89,95,64,ChordOfCnada
+3,37,95,65,Chronic Pad
+3,55,95,65,Cincosoft
+3,65,95,64,Cloud Pad
+3,47,95,65,Deepity
+3,80,95,64,Digi Pad 1
+3,81,95,64,Digi Pad 2
+3,82,95,64,Digi Pad 3
+3,83,95,64,Digi Pad 4
+3,78,95,64,Digi Str 1
+3,79,95,64,Digi Str 2
+3,52,95,65,Dreamwarp
+3,53,95,65,Emote String
+3,48,95,65,Fair Pad
+3,46,95,65,Fanta Synth
+3,4,95,65,FireFlies
+3,73,95,64,Flange Str
+3,99,95,64,Flute Pad
+3,66,95,65,Gate Game
+3,62,95,65,Glass Forest
+3,98,95,64,Glass Pad
+3,61,95,65,GlassFx Pad
+3,84,95,64,Heaven Pad 1
+3,85,95,64,Heaven Pad 2
+3,86,95,64,Heaven Pad 3
+3,87,95,64,Heaven Pad 4
+3,94,95,64,Hollow Pad 1
+3,95,95,64,Hollow Pad 2
+3,67,95,65,Horror Pad
+3,40,95,65,HPF Pad
+3,65,95,65,HPF Strings
+3,124,95,64,Hybrid Str 1
+3,125,95,64,Hybrid Str 2
+3,126,95,64,Hybrid Str 3
+3,2,95,65,I Sync So
+3,41,95,65,Iso Pad
+3,91,95,64,JP8 Hollow 1
+3,92,95,64,JP8 Hollow 2
+3,93,95,64,JP8 Hollow 3
+3,16,95,64,JP-8 Pad 1
+3,17,95,64,JP-8 Pad 2
+3,18,95,64,JP-8 Pad 3
+3,19,95,64,JP-8 Pad 4
+3,18,95,65,JP8 Stone 1
+3,19,95,65,JP8 Stone 2
+3,0,95,64,JP8 Strings 1
+3,1,95,64,JP8 Strings 2
+3,2,95,64,JP8 Strings 3
+3,3,95,64,JP8 Strings 4
+3,4,95,64,JP8 Strings 5
+3,5,95,64,JP8 Strings 6
+3,6,95,64,JP8 Strings 7
+3,7,95,64,JP8 Strings 8
+3,8,95,64,JP8 Strings 9
+3,9,95,64,JP8Strings 10
+3,10,95,64,JP8Strings 11
+3,11,95,64,JP8Strings 12
+3,12,95,64,JP8Strings 13
+3,13,95,64,JP8Strings 14
+3,14,95,64,JP8Strings 15
+3,15,95,64,JP8Strings 16
+3,63,95,65,Jungle-Pool
+3,20,95,64,JUNO Str 1
+3,21,95,64,JUNO Str 2
+3,22,95,64,JUNO Str 3
+3,23,95,64,JX Strings
+3,60,95,65,Legend Pad
+3,127,95,64,LFO Pad 1
+3,0,95,65,LFO Pad 2
+3,59,95,65,Metal Pad
+3,24,95,64,OB Strings 1
+3,25,95,64,OB Strings 2
+3,26,95,64,OB Strings 3
+3,27,95,64,OB Strings 4
+3,28,95,64,OB Strings 5
+3,29,95,64,OB Strings 6
+3,58,95,64,Oct Str 1
+3,59,95,64,Oct Str 2
+3,60,95,64,Oct Str 3
+3,61,95,64,Oct Str 4
+3,62,95,64,Oct Str 5
+3,63,95,64,Oct Str 6
+3,64,95,64,Oct Str 7
+3,74,95,64,Organ Pad 1
+3,75,95,64,Organ Pad 2
+3,76,95,64,Organ Pad 3
+3,77,95,64,Organ Pad 4
+3,5,95,65,Particles
+3,6,95,65,Phr Str 1
+3,7,95,65,Phr Str 2
+3,8,95,65,Phr Str 3
+3,9,95,65,Phr Str 4
+3,10,95,65,Phr Str 5
+3,11,95,65,Phr Str 6
+3,12,95,65,Phr Str 7
+3,13,95,65,Phr Str 8
+3,14,95,65,Phr Str 9
+3,15,95,65,Phr Str 10
+3,16,95,65,Phr Str 11
+3,54,95,65,PortamentPad
+3,43,95,65,PWM Pad 1
+3,44,95,65,PWM Pad 2
+3,1,95,65,RETROX 139
+3,49,95,65,Revalation
+3,42,95,65,Reverie Pad
+3,3,95,65,Sea Waves
+3,100,95,64,Seek Flute
+3,96,95,64,Simple Air
+3,66,95,64,Slow Pad 1
+3,67,95,64,Slow Pad 2
+3,41,95,64,Soft Pad 1
+3,42,95,64,Soft Pad 2
+3,43,95,64,Soft Pad 3
+3,44,95,64,Soft Pad 4
+3,45,95,64,Soft Pad 5
+3,46,95,64,Soft Pad 6
+3,47,95,64,Soft Pad 7
+3,48,95,64,Soft Pad 8
+3,49,95,64,Soft Pad 9
+3,50,95,64,Soft Pad 10
+3,51,95,64,Soft Pad 11
+3,52,95,64,Soft Pad 12
+3,53,95,64,Soft Pad 13
+3,54,95,64,Soft Pad 14
+3,55,95,64,Soft Pad 15
+3,56,95,64,Soft Pad 16
+3,57,95,64,Soft Pad 17
+3,45,95,65,Stack Pad
+3,17,95,65,Stone Pad
+3,38,95,65,Sweep JD
+3,20,95,65,Sweep Pad 1
+3,21,95,65,Sweep Pad 2
+3,22,95,65,Sweep Pad 3
+3,23,95,65,Sweep Pad 4
+3,24,95,65,Sweep Pad 5
+3,25,95,65,Sweep Pad 6
+3,26,95,65,Sweep Pad 7
+3,27,95,65,Sweep Pad 8
+3,28,95,65,Sweep Pad 9
+3,29,95,65,Sweep Pad 10
+3,30,95,65,Sweep Pad 11
+3,31,95,65,Sweep Pad 12
+3,32,95,65,Sweep Pad 13
+3,33,95,65,Sweep Pad 14
+3,34,95,65,Sweep Pad 15
+3,35,95,65,Sweep Pad 16
+3,36,95,65,Sweep Pad 17
+3,39,95,65,SweepNz Pad
+3,101,95,64,Syn Pad 1
+3,102,95,64,Syn Pad 2
+3,103,95,64,Syn Pad 3
+3,104,95,64,Syn Pad 4
+3,105,95,64,Syn Pad 5
+3,106,95,64,Syn Pad 6
+3,107,95,64,Syn Pad 7
+3,108,95,64,Syn Pad 8
+3,109,95,64,Syn Pad 9
+3,110,95,64,Syn Pad 10
+3,111,95,64,Syn Pad 11
+3,112,95,64,Syn Pad 12
+3,113,95,64,Syn Pad 13
+3,114,95,64,Syn Pad 14
+3,115,95,64,Syn Pad 15
+3,116,95,64,Syn Pad 16
+3,117,95,64,Syn Pad 17
+3,118,95,64,Syn Pad 18
+3,119,95,64,Syn Pad 19
+3,120,95,64,Syn Pad 20
+3,121,95,64,Syn Pad 21
+3,122,95,64,Syn Pad 22
+3,123,95,64,Syn Pad 23
+3,50,95,65,Trance Pad
+3,30,95,64,Vintage 1
+3,31,95,64,Vintage 2
+3,32,95,64,Vintage 3
+3,33,95,64,Vintage 4
+3,34,95,64,Vintage 5
+3,35,95,64,Vintage 6
+3,36,95,64,Vintage 7
+3,37,95,64,Vintage 8
+3,38,95,64,Vintage 9
+3,39,95,64,Vintage 10
+3,40,95,64,Vintage 11
+3,88,95,64,Voice Heaven
+3,64,95,65,Xadecimal
+
+2,Synth PolyKey
+3,90,121,0,Poly Synth GM2
+3,98,121,1,Syn Mallet GM2
+3,0,87,69,80s Retrosyn PCM
+3,66,87,70,Ackward East
+3,99,87,65,Airplaaane
+3,6,87,69,AirSoThin
+3,7,87,69,Analogical
+3,75,87,67,B'on d'moov!
+3,5,87,69,Bag O' Bones
+3,102,87,66,Big BPF
+3,3,87,69,Big Bubbles
+3,122,87,68,BPFsweep Mod
+3,104,87,69,Choir Bounce
+3,64,87,67,Civilization
+3,62,87,70,Digi Phased
+3,2,87,69,Don't Jump
+3,72,87,69,Dreams East
+3,64,87,64,Dual Profs
+3,24,87,67,Far East
+3,103,87,69,Filter Morph
+3,126,87,68,Galactic
+3,28,87,67,Glider
+3,64,87,70,Harm is Fine
+3,65,87,65,Impact Vox
+3,62,87,65,Intentions
+3,73,87,67,Keep :-)
+3,103,87,66,MG Sweep
+3,63,87,67,Organizer
+3,117,87,68,Oscillations
+3,102,87,69,Percolator
+3,26,87,67,PhaseBlipper
+3,63,87,65,Pick It
+3,61,87,64,Poly Key
+3,63,87,64,Poly Pulse
+3,69,87,64,Poly Rock
+3,62,87,64,Poly Saws
+3,66,87,64,Poly Split
+3,1,87,69,Power Stack
+3,127,87,68,Powerwiggle
+3,101,87,70,Pretty Ugly
+3,76,87,64,Puff 1080
+3,88,87,64,Pulse Key
+3,123,87,68,Queen V
+3,57,87,65,Rezoid
+3,65,87,64,Saw Mass
+3,104,87,70,Saw n' 202
+3,98,87,70,Say Yeah !
+3,67,87,67,Sequalog
+3,100,87,69,Shortrave
+3,124,87,68,SkinnyBounce
+3,79,87,64,Square Keys
+3,125,87,68,SquareBounce
+3,68,87,64,Stackoid
+3,27,87,67,Sweep Clav
+3,73,87,69,Synergistic
+3,63,87,70,Synth Ethics
+3,62,87,67,Techno Dream
+3,105,87,70,Technoheadz
+3,66,87,65,TeknoSoloVox
+3,8,87,69,Waspy Pulse
+3,25,87,67,Wire Pad
+3,4,87,69,X-mod Sweep
+3,70,95,67,3Delay Poly SNS
+3,28,95,67,5th Key
+3,24,95,67,5th Poly 1
+3,25,95,67,5th Poly 2
+3,26,95,67,5th Poly 3
+3,77,95,67,A Log 4 Ana
+3,85,95,67,Analog Key 1
+3,86,95,67,Analog Key 2
+3,79,95,67,Androdrops
+3,81,95,67,ANORMANALOG
+3,14,95,67,Bit Poly 1
+3,15,95,67,Bit Poly 2
+3,16,95,67,Bit Poly 3
+3,17,95,67,Bit Poly 4
+3,18,95,67,Bit Poly 5
+3,19,95,67,Bit Poly 6
+3,20,95,67,Bit Poly 7
+3,21,95,67,Bit Poly 8
+3,22,95,67,Bit Poly 9
+3,23,95,67,Bit Poly 10
+3,31,95,67,BPF Poly 1
+3,32,95,67,BPF Poly 2
+3,2,95,67,Brusky Key
+3,3,95,67,Cutter Key
+3,69,95,67,Delay Reso
+3,6,95,67,Digi Key 1
+3,7,95,67,Digi Key 2
+3,8,95,67,Digi Key 3
+3,9,95,67,Digi Key 4
+3,10,95,67,Digi Key 5
+3,11,95,67,Digi Key 6
+3,12,95,67,Digi Poly 1
+3,13,95,67,Digi Poly 2
+3,75,95,67,DLM SUM
+3,82,95,67,Don't you
+3,84,95,67,EinsZweiDry
+3,126,95,66,Fusion Decay
+3,76,95,67,H@sWillFall
+3,5,95,67,Harpsitone
+3,29,95,67,HPF Poly 1
+3,30,95,67,HPF Poly 2
+3,125,95,66,Jester
+3,90,95,67,JP-8 PatchF2
+3,71,95,67,JP80 FatPoly
+3,97,95,66,JP80 WaveSyn
+3,45,95,67,J-Pop Kira 1
+3,46,95,67,J-Pop Kira 2
+3,92,95,66,Laserthroat
+3,78,95,67,Log An A
+3,83,95,67,Nailbiter
+3,87,95,67,Paperclip
+3,27,95,67,Poly Aug 5th
+3,72,95,67,Poly Fat
+3,93,95,66,Poly Key 1
+3,94,95,66,Poly Key 2
+3,95,95,66,Poly Key 3
+3,96,95,66,Poly Key 4
+3,98,95,66,Poly Syn 1
+3,99,95,66,Poly Syn 2
+3,100,95,66,Poly Syn 3
+3,101,95,66,Poly Syn 4
+3,102,95,66,Poly Syn 5
+3,103,95,66,Poly Syn 6
+3,104,95,66,Poly Syn 7
+3,105,95,66,Poly Syn 8
+3,106,95,66,Poly Syn 9
+3,107,95,66,Poly Syn 10
+3,108,95,66,Poly Syn 11
+3,109,95,66,Poly Syn 12
+3,110,95,66,Poly Syn 13
+3,111,95,66,Poly Syn 14
+3,112,95,66,Poly Syn 15
+3,113,95,66,Poly Syn 16
+3,114,95,66,Poly Syn 17
+3,115,95,66,Poly Syn 18
+3,116,95,66,Poly Syn 19
+3,117,95,66,Poly Syn 20
+3,118,95,66,Poly Syn 21
+3,119,95,66,Poly Syn 22
+3,120,95,66,Poly Syn 23
+3,121,95,66,Poly Syn 24
+3,122,95,66,Poly Syn 25
+3,123,95,66,Poly Syn 26
+3,127,95,66,Polysubito
+3,4,95,67,PolySyn Atk
+3,124,95,66,Saw Dtune
+3,82,95,66,Saws Key 1
+3,83,95,66,Saws Key 2
+3,84,95,66,Saws Key 3
+3,85,95,66,Saws Key 4
+3,86,95,66,Saws Key 5
+3,87,95,66,Saws Key 6
+3,88,95,66,Saws Key 7
+3,89,95,66,Saws Key 8
+3,90,95,66,Saws Key 9
+3,91,95,66,Saws Key 10
+3,36,95,67,Scoop Poly 1
+3,37,95,67,Scoop Poly 2
+3,38,95,67,Scoop Poly 3
+3,39,95,67,Scoop Poly 4
+3,40,95,67,Scoop Poly 5
+3,41,95,67,Scoop Poly 6
+3,48,95,67,Slow Poly
+3,74,95,67,SoHo Lucky
+3,88,95,67,Sqr Key
+3,47,95,67,Square Poly
+3,50,95,67,S-SawPoly 1
+3,51,95,67,S-SawPoly 2
+3,52,95,67,S-SawPoly 3
+3,53,95,67,S-SawPoly 4
+3,54,95,67,S-SawPoly 5
+3,55,95,67,S-SawPoly 6
+3,56,95,67,S-SawPoly 7
+3,57,95,67,S-SawPoly 8
+3,58,95,67,S-SawPoly 9
+3,59,95,67,S-SawPoly 10
+3,60,95,67,S-SawPoly 11
+3,61,95,67,S-SawPoly 12
+3,62,95,67,S-SawPoly 13
+3,33,95,67,Sweep Poly 1
+3,34,95,67,Sweep Poly 2
+3,35,95,67,Sweep Poly 3
+3,42,95,67,Tekno Poly 1
+3,43,95,67,Tekno Poly 2
+3,44,95,67,Tekno Poly 3
+3,63,95,67,Trance Key 1
+3,64,95,67,Trance Key 2
+3,65,95,67,Trance Key 3
+3,66,95,67,Trance Key 4
+3,67,95,67,Trance Key 5
+3,68,95,67,Trance Key 6
+3,73,95,67,Trance Saw
+3,89,95,67,Tri Key
+3,80,95,67,Vntg Stack
+3,49,95,67,Vox Poly
+3,0,95,67,Wave Scan
+3,1,95,67,Wire String
+3,97,87,70,Ambi Voices PCM
+3,64,87,65,Analog Seq
+3,103,87,70,BermudaShort
+3,102,87,70,Con Sequence
+3,72,87,67,Cyber Swing
+3,70,87,67,Plik-Plok
+3,71,87,67,RingSequence
+3,61,87,65,Seq Mallet
+3,56,87,65,Velo Tekno 2
+3,98,87,69,Winky
+3,74,95,68,Scrt Decay SNS
+3,34,95,68,SEQ 1
+3,35,95,68,SEQ 2
+3,36,95,68,SEQ 3
+3,37,95,68,SEQ 4
+3,38,95,68,SEQ 5
+3,39,95,68,SEQ 6
+3,40,95,68,SEQ 7
+3,41,95,68,SEQ 8
+3,42,95,68,SEQ 9
+3,43,95,68,SEQ 10
+3,44,95,68,SEQ 11
+3,45,95,68,SEQ 12
+3,46,95,68,SEQ 13
+3,47,95,68,SEQ 14
+3,48,95,68,SEQ 15
+3,49,95,68,SEQ 16
+3,50,95,68,SEQ 17
+3,51,95,68,SEQ 18
+3,52,95,68,SEQ 19
+3,53,95,68,SEQ 20
+3,54,95,68,SEQ 21
+3,55,95,68,SEQ 22
+3,56,95,68,SEQ 23
+3,57,95,68,SEQ 24
+3,58,95,68,SEQ 25
+3,59,95,68,SEQ 26
+3,60,95,68,SEQ 27
+3,61,95,68,SEQ 28
+3,62,95,68,SEQ 29
+3,63,95,68,SEQ 30
+3,64,95,68,SEQ 31
+3,65,95,68,SEQ 32
+3,66,95,68,SEQ 33
+3,67,95,68,SEQ 34
+3,68,95,68,SEQ 35
+3,69,95,68,SEQ 36
+3,70,95,68,SEQ 37
+3,71,95,68,SEQ 38
+3,72,95,68,SEQ 39
+3,73,95,68,Stubby Mono
+
+2,Plucked/Stroked
+3,7,89,96,Kalimba
+3,8,89,96,Kalimba Buzz
+3,13,89,96,Koto
+3,14,89,96,Koto Gliss
+3,11,89,96,Sanshin
+3,12,89,96,SanshinUpPck
+3,15,89,96,Taisho Koto
+3,9,89,96,Tsugaru
+3,10,89,96,TsugaruUpPck
+
+2,Acoustic Guitar ExCN4
+3,0,89,99,12StringsGtr
+3,1,89,99,Deturned12Gt
+3,4,89,99,FingSteelGtr
+3,5,89,99,FingStlStrum
+3,10,89,99,MandolinGt
+3,11,89,99,MandolinStum
+3,8,89,99,NylonGt2
+3,9,89,99,NylonGt2Strm
+3,7,89,99,SftPkStlStrm
+3,6,89,99,SoftPckStlGt
+3,2,89,99,Ukulele
+3,3,89,99,UkuleleStrum
+
+2,Brass ExSN5
+3,9,89,100,Bass Tb
+3,3,89,100,Classic Tp
+3,4,89,100,CupMute Tp
+3,7,89,100,FHorn2 Stc
+3,0,89,100,Flugel Horn
+3,6,89,100,FrenchHorn2
+3,2,89,100,Mariachi Tp
+3,5,89,100,StraightMtTp
+3,8,89,100,Trombone 2
+3,1,89,100,Trumpet 2
+3,10,89,100,Tuba
+3,11,89,100,TubaStaccato
+
+2,Concert Acoustic Piano SRX-02
+3,29,93,1,Air Grand
+3,4,93,1,Bright Grand
+3,11,93,1,Bright Mono
+3,5,93,1,Classical
+3,15,93,1,Comp Piano
+3,3,93,1,Concert Hall
+3,22,93,1,Concerto 1
+3,23,93,1,Concerto 2
+3,2,93,1,DynamicGrand
+3,14,93,1,Enhanced Pno
+3,44,93,1,Gig Split 1
+3,45,93,1,Gig Split 2
+3,46,93,1,Gig Split 3
+3,21,93,1,Grand w/Str
+3,40,93,1,Hard Stack 1
+3,41,93,1,Hard Stack 2
+3,16,93,1,HonkytonkPno
+3,13,93,1,Mellow Piano
+3,17,93,1,NewAgeGrand1
+3,18,93,1,NewAgeGrand2
+3,35,93,1,Nylon Grand
+3,8,93,1,OnMic Bright
+3,7,93,1,OnMicPremier
+3,9,93,1,OnMicSoftPdl
+3,28,93,1,Oohs Piano
+3,42,93,1,PianoBrass
+3,43,93,1,PianoBrs ff
+3,10,93,1,Premier Mono
+3,0,93,1,PremierGrand
+3,19,93,1,Requiem
+3,24,93,1,SoftpadGrand
+3,12,93,1,SoftPdl Mono
+3,6,93,1,SoftPdlGrand
+3,20,93,1,Soundscape
+3,1,93,1,Steady Grand
+3,25,93,1,Synpad Grand
+3,26,93,1,Vox Grand 1
+3,27,93,1,Vox Grand 2
+3,34,93,1,Wet Chorus
+
+2,Acoustic Piano SRX-06
+3,20,93,9,Empathy
+3,19,93,9,JoyoClassics
+3,21,93,9,Piano & Strs
+3,22,93,9,Pno Concerto
+3,23,93,9,Song Wish
+3,18,93,9,St EuroPiano
+
+2,Accordion/Harmonica SRX-06
+3,74,93,9,Musaccordion
+
+2,Bell/Mallet SRX-06
+3,47,93,9,BlfryChm SRX
+3,51,93,9,BsMarimbSRX1
+3,52,93,9,BsMarimbSRX2
+3,46,93,9,ChurchBellS1
+3,48,93,9,ChurchBellS2
+3,57,93,9,Clear Glock
+3,54,93,9,Glocken
+3,55,93,9,Glockeneste
+3,56,93,9,GlocknlstSRX
+3,61,93,9,Mallet Stack
+3,53,93,9,MultiMallets
+3,40,93,9,MusicBellSRX
+3,42,93,9,Newborn
+3,44,93,9,St M Box SRX
+3,49,93,9,Tub Bells S1
+3,50,93,9,Tub Bells S2
+3,43,93,9,Victoriana 1
+3,45,93,9,Victoriana 2
+3,41,93,9,Water Mallet
+3,59,93,9,Xylophone S1
+3,60,93,9,Xylophone S2
+3,58,93,9,Xylorimba
+
+2,Brass SRX-06
+3,17,93,9,Multi Sax
+3,8,93,9,4-Pc Brs Scn
+3,0,93,9,BigBones SRX
+3,9,93,9,BiggieBrsSRX
+3,126,93,8,Bone Boys
+3,119,93,8,Bone Fluegal
+3,127,93,8,Bones sectn
+3,3,93,9,Brass Choral
+3,15,93,9,Brass ff
+3,6,93,9,Brass Orche
+3,16,93,9,Brass Sect /
+3,4,93,9,BrassEns/Mod
+3,124,93,8,Bs Tb
+3,1,93,9,BsBoneSctSRX
+3,110,93,8,Coronet
+3,101,93,8,Dynamic Hrns
+3,109,93,8,El Bono SRX
+3,105,93,8,F Horn Rip
+3,99,93,8,FizzHorns ff
+3,111,93,8,Flugelhorn
+3,100,93,8,Fr Horns SRX
+3,103,93,8,Fr HrnSfzSRX
+3,14,93,9,Full Brass
+3,102,93,8,Horn Sect /
+3,97,93,8,Hornz Stereo
+3,113,93,8,HrmnMute SRX
+3,95,93,8,HrnAccompSRX
+3,13,93,9,Medieval Brs
+3,112,93,8,Mute Tp SRX
+3,104,93,8,MuteFr Horns
+3,120,93,8,Natural Tbn
+3,107,93,8,Natural Tmpt
+3,2,93,9,Noblesse
+3,98,93,8,Orch Hrns ff
+3,96,93,8,Orch Hrns Sw
+3,108,93,8,Real Tp SRX
+3,5,93,9,Small Brass
+3,118,93,8,Softy Bones
+3,93,93,8,Solo Fr Horn
+3,94,93,8,SoloF HrnSRX
+3,122,93,8,SoloTb SRX 1
+3,123,93,8,SoloTb SRX 2
+3,10,93,9,SoloTuba SRX
+3,7,93,9,Switch Fall
+3,125,93,8,Tbn One
+3,116,93,8,Tp Ens SRX
+3,121,93,8,Trombone SRX
+3,106,93,8,Trumpet Plus
+3,115,93,8,Trumpeters
+3,117,93,8,Trumps ff!!
+3,11,93,9,Tuba sfz/Mod
+3,12,93,9,Tuba SRX
+3,114,93,8,WahMute /Mod
+
+2,Flute SRX-06
+3,42,93,8,AmbiFluteSRX
+3,39,93,8,Calliope SRX
+3,37,93,8,Double Flute
+3,40,93,8,DynoCelt SRX
+3,41,93,8,Ethnic Flute
+3,38,93,8,Fl/EH Usn
+3,35,93,8,FluteAtm/Aft
+3,33,93,8,Orch Flute
+3,30,93,8,Orch Piccolo
+3,31,93,8,Picc Vel Tr
+3,36,93,8,Picc/Fl 8va
+3,32,93,8,Piccolo Trio
+3,34,93,8,Vibra Flute
+
+2,Harpsichord SRX-06
+3,38,93,9,Continuo Pdl
+3,36,93,9,FullHarpsi 1
+3,37,93,9,FullHarpsi 2
+3,30,93,9,Hps F/B SRX
+3,32,93,9,Hps F/B/B4 S
+3,31,93,9,Hps F4/B SRX
+3,27,93,9,HpsBackSRX 1
+3,28,93,9,HpsBackSRX 2
+3,29,93,9,HpsBackSRX 3
+3,24,93,9,HpsFrntSRX 1
+3,25,93,9,HpsFrntSRX 2
+3,26,93,9,HpsFrntSRX 3
+3,34,93,9,HpsLute 2
+3,35,93,9,HpsLute 3
+3,33,93,9,HpsLuteSRX 1
+3,39,93,9,Celesta SRX
+
+2,Hit SRX-06
+3,4,93,8,Big Hit Dim
+3,1,93,8,Big Hit Maj1
+3,2,93,8,Big Hit Maj2
+3,3,93,8,Big Hit Min
+3,23,93,8,Big Hit SRX
+3,26,93,8,BrassFallSRX
+3,19,93,8,BrassStabSRX
+3,28,93,8,BrsStacc SRX
+3,119,93,7,Catwalk
+3,13,93,8,Drama Stab
+3,123,93,7,Dynam Hit
+3,20,93,8,Finale
+3,29,93,8,Finale SRX /
+3,18,93,8,Harp Dn Hit
+3,17,93,8,Harp Up Hit
+3,8,93,8,Hit/Off-Maj
+3,24,93,8,HorrorHitSRX
+3,14,93,8,Maj Concern
+3,124,93,7,MondoHit SRX
+3,12,93,8,Orc/Prc 5-1^
+3,15,93,8,OrcGlsMajSRX
+3,16,93,8,OrcGlsMinSRX
+3,125,93,7,OrchHit SRX
+3,122,93,7,OrchHitStack
+3,0,93,8,OrcHitDimSRX
+3,126,93,7,OrcHitMajSRX
+3,127,93,7,OrcHitMinSRX
+3,120,93,7,OrchStaccato
+3,25,93,8,Perc Hit
+3,5,93,8,Sfz! Hit-Maj
+3,6,93,8,Sfz! Hit-Min
+3,121,93,7,Staccato SRX
+3,7,93,8,Suspense
+3,27,93,8,Tp Fall
+3,11,93,8,Trem Hit-Dim
+3,9,93,8,Trem Hit-Maj
+3,10,93,8,Trem Hit-Min
+3,21,93,8,Tuned HIT
+3,22,93,8,YourMissionS
+
+2,Organ SRX-06
+3,70,93,9,CathedralSRX
+3,67,93,9,ChrchPipes S
+3,72,93,9,ChurchOrgSRX
+3,69,93,9,Early Harmn
+3,71,93,9,Harmonium
+3,68,93,9,Organ&Recdr
+3,73,93,9,OrganChrdSRX
+3,65,93,9,OrgFlute 8'S
+3,62,93,9,OrgFlutes S1
+3,63,93,9,OrgFlutes S2
+3,64,93,9,OrgFlutes S3
+3,66,93,9,Psyche Pipes
+
+2,Percussion SRX-06
+3,47,93,10,4-way Timps
+3,58,93,10,BD Roll SRX/
+3,54,93,10,Big Orc Perc
+3,44,93,10,BodhranMenuS
+3,41,93,10,BodhranSplit
+3,42,93,10,BodhranVel S
+3,64,93,10,CastanetsS /
+3,57,93,10,ConcertBDSRX
+3,43,93,10,CrazyBodhrnS
+3,48,93,10,DynaTimpsSRX
+3,56,93,10,FingerCymSRX
+3,46,93,10,MassiveTimpa
+3,51,93,10,MultiTimpani
+3,40,93,10,Orch Percs
+3,35,93,10,Perc Ens 1^
+3,36,93,10,Perc Ens 2^
+3,37,93,10,Perc Ens 3^
+3,38,93,10,Perc Ens 4^
+3,39,93,10,Perc Ens 5^
+3,45,93,10,Perc Mix SRX
+3,60,93,10,Piatti!! SRX
+3,52,93,10,Roll > Klang
+3,62,93,10,SlapstickS /
+3,61,93,10,SleighBellsS
+3,34,93,10,SN Roll SRX/
+3,59,93,10,Tam Tam SRX
+3,63,93,10,TambourineS/
+3,53,93,10,Timpani /
+3,49,93,10,TimpaniRoll1
+3,50,93,10,TimpaniRoll2
+3,55,93,10,WindChimeSRX
+
+2,Plucked/Stroked SRX-06
+3,30,93,10,Bohemian SRX
+3,25,93,10,Bousouk&Harp
+3,32,93,10,Bousouki
+3,31,93,10,Bousouki Pic
+3,18,93,10,C Hrp/padSRX
+3,16,93,10,ClarsahHarpS
+3,20,93,10,ClearHarpSRX
+3,29,93,10,CymblnDuoSRX
+3,27,93,10,DelicateCOMB
+3,26,93,10,Etheral Lute
+3,22,93,10,Harp SRX
+3,17,93,10,Heavens Harp
+3,21,93,10,Nails Harp
+3,23,93,10,Natural Harp
+3,19,93,10,PhaseClarsah
+3,33,93,10,PulcinelaSRX
+3,28,93,10,St CymblnSRX
+3,24,93,10,Warm Harp
+3,75,93,9,Mystery Pad
+
+2,Recorder SRX-06
+3,45,93,8,Sop Recorder
+3,43,93,8,T WhistleDly
+3,44,93,8,TinWhistle
+3,46,93,8,Tnr Recorder
+3,47,93,8,Whistle SRX
+
+2,Sound FX SRX-06
+3,87,93,9,9th/b9 Harps
+3,106,93,9,Backword
+3,96,93,9,Cluster Gong
+3,101,93,9,Cluster SRX
+3,109,93,9,Colombus SRX
+3,107,93,9,Dreamseq SRX
+3,80,93,9,Eylsium +7^
+3,79,93,9,Eylsium 9th^
+3,81,93,9,Eylsium b9^
+3,78,93,9,Eylsium m7^
+3,90,93,9,Harp +7 SRX
+3,89,93,9,Harp 9th SRX
+3,91,93,9,Harp b9 SRX
+3,88,93,9,Harp m7 SRX
+3,94,93,9,Harp+7SclSRX
+3,93,93,9,Harp9thScrlS
+3,95,93,9,Harpb9SclSRX
+3,92,93,9,Harpm7SclSRX
+3,103,93,9,Hell Section
+3,102,93,9,HorrorClustr
+3,104,93,9,Legettimare
+3,105,93,9,Limbus SRX
+3,86,93,9,Maj/MinHarps
+3,108,93,9,Midnight SRX
+3,98,93,9,Prc Ens6-Maj
+3,99,93,9,Prc Ens7-Min
+3,100,93,9,Prc Ens8-Dim
+3,76,93,9,Psychedelic1
+3,77,93,9,Psychedelic2
+3,97,93,9,Sus Perc Hit
+3,84,93,9,Vln RunDn Mj
+3,85,93,9,Vln RunDn Mn
+3,82,93,9,Vln RunUp Mj
+3,83,93,9,Vln RunUp Mn
+
+2,Strings SRX-06
+3,13,93,7,3 Cellos
+3,39,93,7,4Seasons SRX
+3,32,93,7,Adagio Strs
+3,23,93,7,Agitato Cbs
+3,51,93,7,Agitato STR
+3,48,93,7,Agitato to 0
+3,7,93,7,Agitato Vas
+3,17,93,7,Agitato Vcs
+3,3,93,7,Agitato Vlns
+3,68,93,7,AgitatoVaSRX
+3,6,93,7,Arco Vas SRX
+3,19,93,7,Arco Vcs+Cbs
+3,117,93,7,Bad Ending
+3,56,93,7,Big Marcato!
+3,24,93,7,BIG StrgEns
+3,25,93,7,Big Strings2
+3,21,93,7,Cb Sect SRX
+3,112,93,7,Celesta&Flt
+3,14,93,7,Cellos
+3,15,93,7,CelloSectMrc
+3,46,93,7,Cluster Sect
+3,116,93,7,DawnSynphony
+3,35,93,7,DramaStrsSRX
+3,49,93,7,DynaMarc SRX
+3,87,93,7,DynOrchestr1
+3,102,93,7,DynOrchestr2
+3,108,93,7,End Titles
+3,118,93,7,Epic Ending
+3,11,93,7,Fast Cellos
+3,97,93,7,Finally Orch
+3,82,93,7,Full Orc SRX
+3,105,93,7,Full Orch 1
+3,106,93,7,Full Orch 2
+3,107,93,7,Full Orch 3
+3,103,93,7,GiantOrchest
+3,85,93,7,GRAND OrcSRX
+3,91,93,7,Grand Tutti
+3,111,93,7,Harp & Flute
+3,109,93,7,HornStrs SRX
+3,34,93,7,Intim StrSec
+3,1,93,7,Legato Vlns
+3,33,93,7,LegatoStrngs
+3,9,93,7,Marc Vas SRX
+3,73,93,7,Marcato Vc
+3,16,93,7,Marcato Vcs
+3,114,93,7,MassInCeeSRX
+3,79,93,7,Mellow Tape
+3,2,93,7,NaturalVlnsS
+3,62,93,7,Nite Pizzico
+3,99,93,7,NowWeAreFree
+3,89,93,7,Oboes & Sect
+3,78,93,7,Old Tale
+3,96,93,7,ORC full+BD
+3,98,93,7,Orch & Choir
+3,26,93,7,Orch p
+3,27,93,7,Orch p>f/Mod
+3,101,93,7,OrchestrlSRX
+3,84,93,7,OrchUnif SRX
+3,45,93,7,OuvertureSRX
+3,88,93,7,Pathetique
+3,115,93,7,PentatnicSRX
+3,59,93,7,Piz-Spc /
+3,113,93,7,ProkofevSRX
+3,42,93,7,Quartet SRX
+3,38,93,7,Real Strings
+3,60,93,7,RoomPizz SRX
+3,66,93,7,Sad S VlnSRX
+3,37,93,7,SlowEpic Str
+3,90,93,7,SlowEpicOrch
+3,31,93,7,SlowResinStr
+3,75,93,7,Solo Cb /
+3,69,93,7,Solo Cello 1
+3,70,93,7,Solo Cello 2
+3,72,93,7,Solo Vc /
+3,67,93,7,Solo Viola
+3,65,93,7,Solo Violin
+3,64,93,7,Solo Vln /
+3,58,93,7,Spc+Pz/rleas
+3,57,93,7,Spicc Sect
+3,54,93,7,Spicc/releas
+3,110,93,7,SRX Full Orc
+3,83,93,7,St OrcUniSRX
+3,36,93,7,St Str p/f
+3,53,93,7,StacctoSectn
+3,61,93,7,Stage Pizz
+3,55,93,7,STR Marcato
+3,52,93,7,STR SpiccSRX
+3,44,93,7,Str Swell
+3,104,93,7,Strngs&Horns
+3,28,93,7,StrsArco SRX
+3,29,93,7,StrSwel/ModS
+3,30,93,7,StStrOrcp/fS
+3,41,93,7,StudioString
+3,93,93,7,SuspenceOrch
+3,76,93,7,Tape Orc SRX
+3,77,93,7,Tape Str SRX
+3,71,93,7,The V Cello
+3,20,93,7,Thick Basses
+3,100,93,7,Too Tense
+3,94,93,7,Tremolo /
+3,95,93,7,TremOrc /Mod
+3,92,93,7,Ultimate Orc
+3,10,93,7,Vc Sec mf
+3,12,93,7,Vcs Legato
+3,18,93,7,Vcs+Cbs SRX
+3,47,93,7,Velo Str SRX
+3,43,93,7,VibSwStrings
+3,63,93,7,VIOLIN solo
+3,50,93,7,VivaceStrSRX
+3,5,93,7,Vl&Va Spicct
+3,8,93,7,Vlas-Spc /
+3,74,93,7,Vln&Vcl
+3,4,93,7,Vlns-Spc /
+3,40,93,7,VlVaVcCb SRX
+3,0,93,7,WarmVlns SRX
+3,86,93,7,WavinGoodbye
+3,22,93,7,WideBasses S
+
+2,Synth Pad/Strings SRX-06
+3,80,93,7,Cystaline Pd
+3,115,93,9,Eclipse SRX
+3,118,93,9,Meditate PAD
+3,116,93,9,PulsingVox S
+3,81,93,7,SynStrings
+3,117,93,9,SynthStr Pad
+3,114,93,9,Wreck
+
+2,Synth PolyKey SRX-06
+3,112,93,9,AncientTimes
+3,111,93,9,Desert Dream
+3,110,93,9,Once Upon A
+
+2,Vox/Choir SRX-06
+3,6,93,10,17th Movemnt
+3,120,93,9,Angelic Pad
+3,121,93,9,BoysChoirSRX
+3,119,93,9,Choir
+3,1,93,10,Choir /Mod
+3,2,93,10,Close Mouths
+3,13,93,10,GregorianCho
+3,7,93,10,Matins
+3,0,93,10,Mmms & Aaahs
+3,5,93,10,Morph4Choir
+3,4,93,10,MorphieChoir
+3,8,93,10,Quartet II 5
+3,126,93,9,RealChoirSRX
+3,9,93,10,Scat /
+3,10,93,10,Scatmen! SRX
+3,122,93,9,Sing! /Mod
+3,123,93,9,SmockyVoices
+3,124,93,9,Smooth Choir
+3,14,93,10,Soprano&co
+3,127,93,9,StChrMm/Ah S
+3,15,93,10,Tenor solo
+3,11,93,10,The Voices
+3,12,93,10,VocalCollect
+3,3,93,10,Voice Stax
+3,125,93,9,X Vox SRX
+
+2,Wind SRX-06
+3,60,93,8,2 Close Oboe
+3,65,93,8,BassFoons
+3,64,93,8,Bassoon III
+3,51,93,8,Bs Clairenet
+3,71,93,8,BsCl/Bsn 8vb
+3,72,93,8,BsCl/Bsn Usn
+3,53,93,8,Cl/Bs Cl 8va
+3,67,93,8,Cl/Bsn 8va
+3,66,93,8,Cl/Bsn Usn
+3,73,93,8,Cl/Hrn/Bsn 1
+3,74,93,8,Cl/Hrn/Bsn 2
+3,58,93,8,Cor Oboe
+3,82,93,8,EH/Bs Cl 8va
+3,80,93,8,EH/Bsn 8va
+3,79,93,8,EH/Bsn Usn
+3,81,93,8,EH/Cl Usn
+3,70,93,8,Fl/Bsn 8va
+3,55,93,8,Fl/Cl 8va
+3,54,93,8,Fl/Cl Usn
+3,69,93,8,Fl/EH 8va
+3,68,93,8,Fl/Ob Usn
+3,91,93,8,Hill&Sheeps
+3,92,93,8,HilndChr SRX
+3,62,93,8,Horn'o U K
+3,85,93,8,Hrns/Bsns
+3,89,93,8,Medieval Rds
+3,88,93,8,Multi Reeds
+3,84,93,8,Ob/BsCl 15va
+3,76,93,8,Ob/Bsn 8va
+3,83,93,8,Ob/Cl Usn
+3,78,93,8,Ob/EH 8va
+3,77,93,8,Ob/EH Usn
+3,75,93,8,Ob/Hrns/Bsns
+3,59,93,8,OBOE Solo
+3,63,93,8,Orch Bassoon
+3,52,93,8,Orch Bs Clar
+3,50,93,8,Orch Clar
+3,61,93,8,Orch Eng Hrn
+3,56,93,8,Orch Oboe
+3,86,93,8,Really Reeds
+3,87,93,8,Reed Duet
+3,90,93,8,ScottishPIPE
+3,48,93,8,Solo Clari
+3,57,93,8,Sweet Oboe
+3,49,93,8,Unison Clari
+
+2,Acoustic Bass SRX-07
+3,91,93,12,Ac Bs Nz SRX
+3,77,93,12,BriteUpright
+3,75,93,12,Contrabbasso
+3,81,93,12,Dry AcB SRX
+3,76,93,12,InYerFaceBas
+3,80,93,12,JPHardAB SRX
+3,79,93,12,JPSoftAB SRX
+3,78,93,12,Uplectric
+
+2,Acoustic Guitar SRX-07
+3,24,93,12,Conquest
+3,25,93,12,Heaven Nylon
+3,26,93,12,In Peace
+3,23,93,12,Moody Nylon
+3,22,93,12,Nylon on Pad
+3,21,93,12,Nylon SoSoft
+3,20,93,12,Spanish Gtr
+
+2,Acoustic Piano SRX-07
+3,2,93,11,Easy Rocker
+3,1,93,11,Gran' Piano
+3,5,93,11,Padded Pno
+3,4,93,11,SA Rocker
+3,3,93,11,Stage Grand
+3,0,93,11,Stereo Piano
+
+2,Beat&Groove SRX-07
+3,69,93,14,Arcade 132
+3,72,93,14,Chem Burn120
+3,78,93,14,Circuit 112
+3,82,93,14,Circuit 90
+3,77,93,14,Cool At 102
+3,67,93,14,DrumLP DemoS
+3,81,93,14,FunkyDrummer
+3,79,93,14,Hurt 90
+3,76,93,14,Nocturne
+3,80,93,14,Orleans 90
+3,68,93,14,Pursuit 90
+3,73,93,14,Rockshow 126
+3,70,93,14,SeventhHeavn
+3,83,93,14,SweepingLP S
+3,74,93,14,T-Pop 132
+3,71,93,14,TrollDrummin
+3,75,93,14,Valentine 76
+
+2,Bell/Mallet SRX-07
+3,65,93,11,2 2 SEQ SRX
+3,63,93,11,Analog Bell
+3,64,93,11,Goodnite SRX
+3,67,93,11,SA Vibe SRX
+3,62,93,11,Troika Ride
+3,66,93,11,Vibraphone!
+
+2,Brass SRX-07
+3,37,93,13,AmazngEchSRX
+3,34,93,13,Cool Sax
+3,35,93,13,Duelin' Saxs
+3,29,93,13,Oct Brass
+3,28,93,13,Pop Fanfare
+3,31,93,13,R&R Bras SRX
+3,30,93,13,SessnBrs SRX
+3,36,93,13,SoftSaxesSRX
+3,32,93,13,SuperTnr SRX
+3,33,93,13,T Sax f SRX
+3,27,93,13,TpSoloistSRX
+
+2,Clav SRX-07
+3,39,93,11,Clav 1 SRX
+3,40,93,11,Clav 2 SRX
+3,42,93,11,Clav 3 SRX
+3,52,93,11,Clav By III
+3,44,93,11,Clav Pluck
+3,51,93,11,Clav Supremo
+3,48,93,11,CompClav SRX
+3,46,93,11,Dyno Clav
+3,53,93,11,Funk Synclav
+3,43,93,11,Generic Clav
+3,55,93,11,GuitClav SRX
+3,37,93,11,Harpsiclav
+3,60,93,11,HyperClv SRX
+3,59,93,11,JP8 Clav SRX
+3,56,93,11,Juno Clavi
+3,58,93,11,Moogy Pulse
+3,49,93,11,MuteClv1 SRX
+3,50,93,11,MuteClv2 SRX
+3,47,93,11,PhaserClavi
+3,57,93,11,PhazynClvSRX
+3,54,93,11,Quacky Clav
+3,41,93,11,VeloClav SRX
+3,45,93,11,Vintage Clav
+
+2,Distorted Guitar SRX-07
+3,33,93,12,Disto-Chunky
+3,37,93,12,MutedDsBlief
+3,36,93,12,Plugged!
+3,34,93,12,Rock Mute
+3,35,93,12,Telemaster
+3,32,93,12,Touchy Mutes
+
+2,Drums SRX-07
+3,90,93,14,Cymbals Menu
+3,88,93,14,Hi-Hat Menu
+3,84,93,14,Kick Menu
+3,85,93,14,Snare Menu 1
+3,86,93,14,Snare Menu 2
+3,87,93,14,Snare Menu 3
+3,89,93,14,Tom-Tom Menu
+
+2,Electric Bass SRX-07
+3,49,93,12,6strngBASS +
+3,43,93,12,Abe 4way SRX
+3,55,93,12,Abe'sPBsSRX
+3,52,93,12,AbeLimitrSRX
+3,58,93,12,AL SoftBs/Nz
+3,56,93,12,AL Solid SRX
+3,57,93,12,AL2wayFngSRX
+3,44,93,12,AL3way/NzSRX
+3,45,93,12,ALDarkSlpSRX
+3,73,93,12,ALFlsSoloSRX
+3,90,93,12,AllNoisesSRX
+3,89,93,12,AllSlidesSRX
+3,50,93,12,Big Bad AL
+3,64,93,12,BritePickSRX
+3,51,93,12,Comp 6tr Bas
+3,67,93,12,Country Mute
+3,66,93,12,DarkPick SRX
+3,83,93,12,Dist Bs SRX
+3,68,93,12,FretlessBASS
+3,42,93,12,Funk Bass
+3,85,93,12,FunkinWahSRX
+3,86,93,12,Harm A#9 SRX
+3,87,93,12,Harm E69 SRX
+3,40,93,12,HyperFunkSRX
+3,46,93,12,John 4waySRX
+3,48,93,12,John w/NzSRX
+3,53,93,12,JP PBs 1SRX
+3,54,93,12,JP PBs 2SRX
+3,62,93,12,JP Rock SRX
+3,70,93,12,JP6StrFlsSRX
+3,47,93,12,JPBritSlpSRX
+3,74,93,12,JPSoloFlsSRX
+3,59,93,12,MarcusJB SRX
+3,41,93,12,MillerPopSRX
+3,38,93,12,MM Bass /
+3,60,93,12,MM JB SRX
+3,71,93,12,MM OctFlsSRX
+3,39,93,12,MMFatSlapSRX
+3,72,93,12,MMSmthFlsSRX
+3,65,93,12,PhsrMute SRX
+3,61,93,12,Pick UP SRX
+3,63,93,12,PickedJzBass
+3,88,93,12,SlidesNz SRX
+3,69,93,12,SoloFls SRX
+3,84,93,12,StickyBs SRX
+3,82,93,12,WildThangSRX
+
+2,Electric Guitar SRX-07
+3,28,93,12,Caster Delay
+3,31,93,12,Gtr PopArps
+3,30,93,12,Narnia
+3,27,93,12,NashvilleSRX
+3,29,93,12,Ricken12stGT
+
+2,Electric Piano SRX-07
+3,26,93,11,60's Bros
+3,23,93,11,70'EP Bs
+3,19,93,11,70's Ballad
+3,14,93,11,80's EP
+3,31,93,11,80's FM
+3,13,93,11,BalladPanner
+3,29,93,11,Cheapy Ep1
+3,20,93,11,Church Mouse
+3,21,93,11,ClaviQ EP
+3,25,93,11,Dyno-Wurli
+3,35,93,11,FirstDigital
+3,22,93,11,FlaredTrouzr
+3,8,93,11,Fusiontastic
+3,33,93,11,Heavens Tine
+3,9,93,11,Inspiration
+3,17,93,11,Nursery Tine
+3,16,93,11,Padded EP
+3,28,93,11,Pianette 2K
+3,27,93,11,Pianohner
+3,7,93,11,Real Thing
+3,30,93,11,Rox 668 St
+3,18,93,11,Sine EP
+3,34,93,11,Sparkle EPno
+3,12,93,11,Stage EP 2
+3,11,93,11,Stage73 SRX
+3,6,93,11,Suitcase EP
+3,15,93,11,SweetStagePN
+3,24,93,11,Swurly
+3,32,93,11,The 70'EP
+3,10,93,11,Touch EP SRX
+
+2,Flute SRX-07
+3,26,93,13,Calli SRX
+3,25,93,13,Flute School
+3,22,93,13,Solo Flute
+3,24,93,13,StrawberTRON
+3,23,93,13,TouchFlt SRX
+
+2,Harpsichord SRX-07
+3,38,93,11,E Harpsi
+3,36,93,11,Vox Harpsi
+
+2,Organ SRX-07
+3,14,93,12,2 2 Organ
+3,74,93,11,2BorNot2B3 2
+3,106,93,11,60s Brothers
+3,90,93,11,70's KeysMix
+3,110,93,11,858808880SRX
+3,100,93,11,888 +3rd SRX
+3,101,93,11,8888+3rd SRX
+3,86,93,11,Absolute B3
+3,116,93,11,AllSkate!SRX
+3,83,93,11,AllStarB3SRX
+3,126,93,11,AnimalModSRX
+3,105,93,11,B3 888000004
+3,115,93,11,B3Sermon SRX
+3,89,93,11,BalladB /Mod
+3,117,93,11,BalladB3 SRX
+3,68,93,11,Blue B SRX
+3,98,93,11,BluesPercSRX
+3,76,93,11,Bookin'B SRX
+3,85,93,11,CabnetSeries
+3,99,93,11,Club Organ
+3,1,93,12,Continental
+3,6,93,12,CrummyOrgSRX
+3,16,93,12,D50 OrganSRX
+3,19,93,12,Das Limpet
+3,12,93,12,DittyDoo SRX
+3,92,93,11,Dyna Hammnd
+3,10,93,12,Farf 8' + 2'
+3,8,93,12,FarfComboSRX
+3,9,93,12,Farfsorium
+3,107,93,11,FirePerc SRX
+3,69,93,11,FullPerc SRX
+3,123,93,11,FuzzheadSRX
+3,120,93,11,GimmeSomeSRX
+3,84,93,11,GoodLord/Mod
+3,75,93,11,Gospel B SRX
+3,71,93,11,GreenB /Pdl
+3,104,93,11,Gutsy C3
+3,122,93,11,HardPerc3rd
+3,80,93,11,Harm Organ
+3,81,93,11,Harm Organ2
+3,77,93,11,Hush B3 SRX
+3,7,93,12,IronFarf SRX
+3,103,93,11,Jazzy B
+3,73,93,11,LA Blues SRX
+3,91,93,11,Leslied B3
+3,111,93,11,Mad Organ
+3,72,93,11,Mello
+3,95,93,11,Mellow 4'SRX
+3,4,93,12,New Riders
+3,70,93,11,NiceFeel SRX
+3,17,93,12,OrganbellSRX
+3,2,93,12,Organfest'66
+3,3,93,12,PalisadesSRX
+3,108,93,11,PercNorm3rd
+3,109,93,11,PercSoft3rd
+3,97,93,11,Perky Twin B
+3,18,93,12,PhazedOrgSRX
+3,82,93,11,Power B SRX
+3,119,93,11,Purple SRX
+3,114,93,11,R&R B3 SRX
+3,78,93,11,Real Organ
+3,87,93,11,Rox368-B/Mod
+3,11,93,12,RoxOrgan SRX
+3,93,93,11,SaltyDog SRX
+3,125,93,11,ShimmerOrgan
+3,121,93,11,Smoked Water
+3,113,93,11,Souvenirs
+3,88,93,11,Suitcase B3
+3,127,93,11,SurfMnkysSRX
+3,94,93,11,Swt&Mllw SRX
+3,0,93,12,TelstarOrgan
+3,79,93,11,Tenamos L100
+3,5,93,12,The Sham SRX
+3,112,93,11,Touchy B Fst
+3,13,93,12,Tranny Organ
+3,124,93,11,Tron B
+3,118,93,11,Ultimate B 4
+3,102,93,11,Velo Perc
+3,15,93,12,VS Organ SRX
+3,96,93,11,ZomBee SRX
+
+2,Pulsating SRX-07
+3,102,93,13,AeroInsctSRX
+3,95,93,13,B-lieve
+3,96,93,13,Blue Light
+3,93,93,13,Cleanse
+3,101,93,13,HappyLFOsSRX
+3,84,93,13,Ice Man
+3,103,93,13,MC8 Seq SRX
+3,94,93,13,Mer
+3,98,93,13,Modularswirl
+3,97,93,13,Progress
+3,99,93,13,Sparkly
+3,100,93,13,Undertones
+
+2,Sound FX SRX-07
+3,18,93,14,Arp Saws SRX
+3,116,93,13,Comp Net SRX
+3,17,93,14,DreaminOfJMJ
+3,112,93,13,Ethereal SRX
+3,108,93,13,Experimental
+3,107,93,13,Haunted Tron
+3,104,93,13,Legato Rip
+3,114,93,13,MantrawavSRX
+3,111,93,13,Martian Bell
+3,109,93,13,Megatron
+3,113,93,13,Meow 5thsSRX
+3,110,93,13,Outer Spaces
+3,115,93,13,RSS SpinnerS
+3,106,93,13,Scanner7
+3,105,93,13,Steam Valve
+3,91,93,13,ThipsBlipSRX
+
+2,Strings SRX-07
+3,12,93,13,MelloVlnsSRX
+3,9,93,13,STronSTringz
+3,10,93,13,TrnStrDrySRX
+3,11,93,13,Tron Vls SRX
+
+2,Synth Bass SRX-07
+3,94,93,12,101 Bass
+3,104,93,12,101ZapBs SRX
+3,103,93,12,202 Bass
+3,121,93,12,2-way Bass
+3,126,93,12,8VCO Mono
+3,112,93,12,Acid TB Bs
+3,97,93,12,Bassic101SRX
+3,101,93,12,BigSubBs SRX
+3,123,93,12,BsPedals SRX
+3,115,93,12,Classic Bs
+3,1,93,13,Dark~~~~BASS
+3,116,93,12,Fat Bass
+3,98,93,12,Fat Butt
+3,106,93,12,HousineBsSRX
+3,105,93,12,Housy Bass
+3,99,93,12,JP-4 Bs SRX
+3,109,93,12,Low Bass SRX
+3,111,93,12,MeanderingBs
+3,124,93,12,MG PedalsSRX
+3,118,93,12,MG Punchbass
+3,113,93,12,MonsterMGSRX
+3,125,93,12,OB Bass SRX
+3,122,93,12,Oct stinger
+3,5,93,13,Organ Bass
+3,4,93,13,OrganSawBass
+3,117,93,12,ResoMG BsSRX
+3,3,93,13,Rezidence
+3,114,93,12,Rogue Bs SRX
+3,93,93,12,SH Dullbass
+3,95,93,12,SH101 Bass
+3,96,93,12,SH-2 Bs SRX
+3,7,93,13,SlobbryBsSRX
+3,119,93,12,Spike Bs SRX
+3,6,93,13,SquareBs SRX
+3,8,93,13,Super Bs SRX
+3,108,93,12,System100SRX
+3,100,93,12,Systm700 SRX
+3,110,93,12,TB3O3 Reso
+3,0,93,13,The Synbass
+3,127,93,12,Thick OBass
+3,102,93,12,TickerBs SRX
+3,2,93,13,Valve5thBass
+3,120,93,12,WetMG Bs SRX
+3,92,93,12,WildSynth101
+3,107,93,12,WooferBs SRX
+
+2,Synth Bellpad SRX-07
+3,124,93,13,D50Belpd1SRX
+3,125,93,13,D50Belpd2SRX
+3,126,93,13,D50Belpd3SRX
+3,3,93,14,HandleW/Care
+3,22,93,14,Iceburg
+3,1,93,14,Reflections
+3,4,93,14,StaccHvn SRX
+3,61,93,11,Twinkle Bell
+
+2,Synth Brass SRX-07
+3,123,93,13,FM Brs SRX
+3,122,93,13,M MG Brs SRX
+3,119,93,13,OBStabBrsSRX
+3,118,93,13,Pro-10BrsSRX
+3,120,93,13,Pro-5 BrsSRX
+3,121,93,13,Quack BrsSRX
+3,117,93,13,SpitBrs SRX
+
+2,Synth Lead SRX-07
+3,39,93,13,2voiceLd SRX
+3,47,93,13,4 Old Saws
+3,71,93,13,BuzzzzzzzSRX
+3,64,93,13,Changes
+3,67,93,13,Cutting Solo
+3,57,93,13,Dreams Saw
+3,45,93,13,FM Lead SRX
+3,9,93,14,Glidiator
+3,50,93,13,GR500 Ld SRX
+3,59,93,13,H 2 O
+3,40,93,13,Hollo Lead
+3,55,93,13,Homey Lead
+3,51,93,13,LimonaireSRX
+3,27,93,14,Medusa SRX
+3,56,93,13,MG Lead SRX
+3,61,93,13,Mono FM Lead
+3,52,93,13,NakdCheseSRX
+3,65,93,13,P5 Lead
+3,53,93,13,PromarsLdSRX
+3,60,93,13,PulseLd SRX
+3,68,93,13,Racy Lead
+3,79,93,13,Raveferenz
+3,70,93,13,Rotary Lead
+3,48,93,13,Saw Bowed
+3,63,93,13,Saws Lead
+3,66,93,13,SH-2&5 Sqr
+3,44,93,13,SH2000VoxSRX
+3,42,93,13,Shmoog SRX
+3,43,93,13,Sine
+3,41,93,13,Sinusolo SRX
+3,69,93,13,Speedometer
+3,54,93,13,Sweeze Lead
+3,72,93,13,Telstar Lead
+3,75,93,13,The Pipe 5th
+3,58,93,13,The Real Pat
+3,46,93,13,TrickTailEnd
+3,62,93,13,VCO OctLdSRX
+3,49,93,13,VoxSaws Lead
+
+2,Synth Pad/Strings SRX-07
+3,49,93,14,Aulophony
+3,0,93,14,B Higher
+3,21,93,13,Big Str SRX
+3,55,93,14,CanyonDreams
+3,43,93,14,Chewy Pad
+3,48,93,14,Classic OB
+3,33,93,14,Combing SRX
+3,50,93,14,Dark Shadow
+3,51,93,14,Drawning Pad
+3,44,93,14,Hollow SRX
+3,47,93,14,JP Spirit
+3,42,93,14,JP SquPadSRX
+3,15,93,13,JP+OB StrSRX
+3,13,93,13,JP8 Str1 SRX
+3,14,93,13,JP8 Str2 SRX
+3,54,93,14,K World
+3,127,93,13,KlmbSynthSRX
+3,41,93,14,Liquid Lunch
+3,16,93,13,M12 Strings
+3,18,93,13,MemoryMG SRX
+3,56,93,14,Mysterioso
+3,36,93,14,OBSftPad SRX
+3,35,93,14,OBThickPdSRX
+3,20,93,13,Omni Strings
+3,39,93,14,PG Phaser
+3,34,93,14,PhzslopadSRX
+3,53,93,14,R I P
+3,37,93,14,RealStrSynth
+3,38,93,14,Rezonant Ens
+3,57,93,14,S/HTexturSRX
+3,52,93,14,Sawed String
+3,46,93,14,Slow 3D Vox
+3,19,93,13,Solina SRX
+3,40,93,14,SynthOdyssey
+3,45,93,14,Too Heaven
+3,17,93,13,Wavestr SRX
+
+2,Synth PolyKey SRX-07
+3,13,93,14,Big PWM SRX
+3,29,93,14,Build-Up SRX
+3,76,93,13,Buzzy Beez
+3,74,93,13,Carbonite
+3,7,93,14,CS Squared
+3,31,93,14,DigiChoirSRX
+3,85,93,13,DncStack1SRX
+3,86,93,13,DncStack2SRX
+3,87,93,13,DncStack3SRX
+3,88,93,13,DncStack4SRX
+3,89,93,13,DncStack5SRX
+3,90,93,13,Euro BrsSRX
+3,81,93,13,Exit
+3,6,93,14,JP6SqKeySRX
+3,8,93,14,MawnlowerMan
+3,23,93,14,Old,Warm OBX 
+3,73,93,13,Pattern It
+3,28,93,14,PhazeNRG SRX
+3,24,93,14,Poly 3osc SH
+3,25,93,14,PortaSyn SRX
+3,11,93,14,Raver One
+3,26,93,14,RazrVCOs SRX
+3,78,93,13,Razzert
+3,32,93,14,Rezidue SRX
+3,12,93,14,Slop-a-ramaS
+3,10,93,14,Spit Synthie
+3,80,93,13,SupremeCheez
+3,16,93,14,SyncRush SRX
+3,15,93,14,T8 Sync SRX
+3,5,93,14,TimeﬂiesSRX
+3,2,93,14,VintagLayers
+3,14,93,14,WavesyncSRX
+3,30,93,14,WavetableSRX
+
+2,Synth Seq/Pop SRX-07
+3,77,93,13,Look Back
+3,21,93,14,Planet-S SRX
+3,19,93,14,QuixelateSRX
+3,83,93,13,Riff the 5th
+3,20,93,14,SpikedChzSRX
+
+2,Vox/Choir SRX-07
+3,62,93,14,Gamma Girls
+3,63,93,14,Lo-Tek Choir
+3,59,93,14,Mellorkestra
+3,61,93,14,PreSampleVox
+3,60,93,14,Tron Mass
+3,64,93,14,Tron Vox SRX
+3,65,93,14,Vox JX8P SRX
+3,66,93,14,VP303 Arpeg
+3,58,93,14,VP-330ChrSRX
+3,38,93,13,FlaxOstinato
+
+2,Acoustic Bass SRX-08
+3,0,93,16,LoFi A BsSRX
+
+2,Acoustic Piano SRX-08
+3,115,93,17,1FingrPnoSRX
+3,114,93,17,90s Pno SRX
+3,113,93,17,LightPno SRX
+3,112,93,17,Tech Pno SRX
+
+2,Beat&Groove SRX-08
+3,18,93,15,1978 116BPM
+3,21,93,15,AcidRiff 125
+3,55,93,15,Aerosol Can
+3,30,93,15,Antenna 61
+3,0,93,15,Autopilot
+3,36,93,15,BAD 88
+3,31,93,15,Barry 76
+3,78,93,15,Beat Menu 1
+3,79,93,15,Beat Menu 2
+3,28,93,15,Blitzkrieg
+3,42,93,15,Blvd 96
+3,67,93,15,Bongo Congo
+3,26,93,15,Cauldron 138
+3,58,93,15,Chemiclspill
+3,49,93,15,CHI 125
+3,43,93,15,Coder 98
+3,13,93,15,Crowd 84
+3,60,93,15,Cubit Dance
+3,65,93,15,Cyclone 125
+3,57,93,15,De Final CUT
+3,59,93,15,DerangedBeat
+3,77,93,15,DnB SRX
+3,37,93,15,Drama 89
+3,1,93,15,ElasticHouse
+3,66,93,15,Electrolux
+3,22,93,15,FullHous SRX
+3,23,93,15,Funk E 125
+3,64,93,15,Fuzzy Wuzzy
+3,46,93,15,Haiti 120
+3,29,93,15,Hauln 166
+3,47,93,15,Hiphouse 125
+3,14,93,15,Hop Chop SRX
+3,44,93,15,iROBOT 120
+3,24,93,15,Le Punk 125
+3,45,93,15,Lifeform 120
+3,39,93,15,McSick 90
+3,40,93,15,Meanstreet
+3,41,93,15,Meow 92
+3,50,93,15,Miami 125
+3,38,93,15,Mon 90
+3,61,93,15,Multi Level
+3,52,93,15,ObsessionSRX
+3,35,93,15,Only Human
+3,48,93,15,OW! 125
+3,53,93,15,PJ 144
+3,16,93,15,Predator 92
+3,27,93,15,Punken 144
+3,62,93,15,Random Beat
+3,17,93,15,Scream! SRX
+3,15,93,15,Skid 92
+3,54,93,15,Sky 160
+3,34,93,15,Slam 86
+3,70,93,15,SlamSymphony
+3,32,93,15,Slipn 80
+3,2,93,15,Smash Beat
+3,63,93,15,Sonic Beat
+3,51,93,15,Swing 125
+3,25,93,15,TekOp SRX
+3,20,93,15,Trans SRX
+3,68,93,15,Tricky Beat
+3,56,93,15,Triggroove
+3,33,93,15,UndrTheStair
+3,69,93,15,Windmill 132
+3,19,93,15,X-Tronic SRX
+
+2,Clav SRX-08
+3,8,93,18,Clav-ClubSRX
+3,9,93,18,DanceClavSRX
+
+2,Distorted Guitar SRX-08
+3,17,93,18,Distinctive
+3,16,93,18,FakeHead Hit
+3,14,93,18,GTRPowerSRX1
+3,15,93,18,GTRPowerSRX2
+
+2,Drums SRX-08
+3,50,93,18,Clap Menu
+3,48,93,18,Cymbal Menu
+3,32,93,18,Drumpeopled1
+3,33,93,18,Drumpeopled2
+3,34,93,18,Drumpeopled3
+3,36,93,18,Hardcore Hit
+3,47,93,18,HH&Cym Menu
+3,45,93,18,HiHat Menu 1
+3,46,93,18,HiHat Menu 2
+3,37,93,18,Kick Menu 1
+3,38,93,18,Kick Menu 2
+3,39,93,18,Kick Menu 3
+3,35,93,18,KitTek drmFX
+3,31,93,18,MelodicDrums
+3,40,93,18,Snare Menu 1
+3,41,93,18,Snare Menu 2
+3,42,93,18,Snare Menu 3
+3,43,93,18,Snare Menu 4
+3,44,93,18,Snare Menu 5
+3,49,93,18,Tom Menu
+
+2,Electric Bass SRX-08
+3,127,93,15,FatBs / SRX
+3,126,93,15,Hocket Bass
+3,1,93,16,ProcesBs SRX
+
+2,Electric Guitar SRX-08
+3,18,93,18,Gtr&BassMenu
+3,12,93,18,Guitar Stuff
+3,13,93,18,WahWahMelSRX
+
+2,Electric Piano SRX-08
+3,122,93,17,77GaragesSRX
+3,119,93,17,Assembled
+3,121,93,17,Echo EP SRX
+3,118,93,17,HiphopEP SRX
+3,124,93,17,Lo Fi Wurli
+3,120,93,17,MelowTremSRX
+3,117,93,17,Substitute
+3,123,93,17,Wurlpool
+
+2,Hit SRX-08
+3,77,93,17,2am-11am
+3,84,93,17,30's Tpt SRX
+3,83,93,17,Big Stab SRX
+3,82,93,17,Brazzer LoFi
+3,89,93,17,Break HIT
+3,85,93,17,BrsFall SRX
+3,108,93,17,China White
+3,76,93,17,Crap Stab
+3,90,93,17,Cwisp SRX
+3,88,93,17,DiscoStr Hit
+3,103,93,17,Exit 2
+3,73,93,17,Full Force
+3,75,93,17,GarageChdSRX
+3,79,93,17,HIT in face
+3,78,93,17,Hit&Run SRX
+3,72,93,17,Hse Stb 125
+3,97,93,17,Image BOOOM!
+3,98,93,17,Keep Clubing
+3,101,93,17,LateNiteTunz
+3,93,93,17,LoFi Subsine
+3,80,93,17,LoFiHits SRX
+3,94,93,17,Maj/Min /
+3,104,93,17,Massive
+3,106,93,17,Metalsmith
+3,107,93,17,Meteor Pelt
+3,102,93,17,Moody Vibes
+3,100,93,17,MySweetHouse
+3,109,93,17,NewTech D&B
+3,81,93,17,Next Stab
+3,91,93,17,NYC Club SRX
+3,96,93,17,Slam Hit
+3,86,93,17,Slammer
+3,74,93,17,Soho Clubs
+3,21,93,18,Stringy Stab
+3,92,93,17,Tape Stops
+3,95,93,17,Techno Logic
+3,99,93,17,Techno Riff 1
+3,105,93,17,Techno Riff 2
+3,87,93,17,Tribal Disco
+3,111,93,17,Tribal Steel
+3,110,93,17,Water Plug
+
+2,Organ SRX-08
+3,5,93,18,1FingrOrgSRX
+3,7,93,18,1FingrShrOrg
+3,127,93,17,Clubed Organ
+3,125,93,17,Dance Organ
+3,126,93,17,Juno Org SRX
+3,0,93,18,Pop B
+3,6,93,18,Shorty Organ
+3,2,93,18,SpenderOrgan
+3,4,93,18,Thick Organ
+3,3,93,18,Tines&Wheels
+3,1,93,18,Vel Syn Org
+
+2,Percussion SRX-08
+3,51,93,18,808 Chord
+3,52,93,18,808 Conga 3D
+3,59,93,18,Cow&Rim Menu
+3,54,93,18,Dirty Sox
+3,55,93,18,ExtremPercus
+3,60,93,18,Perc Menu 1
+3,61,93,18,Perc Menu 2
+3,62,93,18,Perc Menu 3
+3,63,93,18,Perc Menu 4
+3,56,93,18,Pure Tribal
+3,53,93,18,Slow Chimes
+3,58,93,18,Tamb&SkrMenu
+3,57,93,18,TeknoTriangl
+
+2,Pulsating SRX-08
+3,116,93,17,Pf/Key Menu
+3,64,93,16,Ana Logic
+3,65,93,16,Bass & More
+3,69,93,16,BrainWaveSRX
+3,68,93,16,Charmer
+3,57,93,16,CordintheAct
+3,73,93,16,Cyber SRX
+3,74,93,16,EtheraltySRX
+3,67,93,16,Galaxia
+3,75,93,16,IceDream SRX
+3,66,93,16,In The Lab
+3,59,93,16,Lava Flow
+3,72,93,16,Location
+3,58,93,16,MetroPoly
+3,61,93,16,Nautilus
+3,6,93,15,Nicer Slicer
+3,77,93,16,Padestrians
+3,60,93,16,Panorama
+3,70,93,16,Replicants
+3,62,93,16,Sliced Bread
+3,71,93,16,Speak Delay
+3,63,93,16,Time Machine
+3,76,93,16,UpperStepper
+
+2,Sound FX SRX-08
+3,69,93,17,3D Turntable
+3,68,93,17,78 RPM SRX
+3,18,93,17,Alien Life
+3,26,93,17,Alter Native
+3,48,93,17,AlternSawSRX
+3,40,93,17,Bada Boing
+3,45,93,17,Big Bang *
+3,62,93,17,BigBang SRX
+3,51,93,17,B-Movie
+3,33,93,17,Bombay Drone
+3,43,93,17,Bugstep Noot
+3,36,93,17,Cleansers
+3,41,93,17,Confused
+3,32,93,17,CrepedOutSRX
+3,44,93,17,Crotals
+3,23,93,17,Dimensions
+3,66,93,17,DJ stuﬀ SRX
+3,57,93,17,DrumMeltDown
+3,49,93,17,ElctroJamSRX
+3,27,93,17,Evolution
+3,34,93,17,Fathoms SRX
+3,71,93,17,Faze Gt&Bass
+3,15,93,17,Fulcanelli03
+3,16,93,17,Galaxial
+3,63,93,17,GateKeperSRX
+3,12,93,15,Hit&FX Menu
+3,29,93,17,Hyperspace
+3,56,93,17,Iron Hit SRX
+3,17,93,17,It's Outside
+3,55,93,17,Krashead
+3,14,93,17,LitleDowners
+3,60,93,17,Mad RHyThM
+3,13,93,17,Micromusic
+3,61,93,17,ModrnLifeSRX
+3,74,93,15,Mother Ship
+3,35,93,17,MothrshipSRX
+3,47,93,17,MunchiesPt12
+3,31,93,17,Orcafreq SRX
+3,28,93,17,Outer Space
+3,59,93,17,Pit People
+3,19,93,17,Prey 160
+3,70,93,17,RadioBrekSRX
+3,42,93,17,Revolution#9
+3,52,93,17,ScientistSRX
+3,53,93,17,Siren
+3,67,93,17,Skratchy SRX
+3,54,93,17,Sliderz SRX
+3,25,93,17,Sonic Saucer
+3,46,93,17,South Sahara
+3,21,93,17,Steel Drone
+3,65,93,17,TheWetSet
+3,39,93,17,Thrilling
+3,71,93,15,Time Pulse
+3,58,93,17,TR Synhit
+3,20,93,17,Transender
+3,22,93,17,Trissle
+3,24,93,17,TuneBrethSRX
+3,38,93,17,Turbine SRX
+3,64,93,17,UndrWaterSRX
+3,11,93,15,VesperTONE
+3,37,93,17,Vinylprelude
+3,30,93,17,WhaleUnitSRX
+3,75,93,15,YankyDoodlDo
+3,50,93,17,Zaps
+
+2,Strings SRX-08
+3,19,93,18,Pizz Xpress
+3,20,93,18,Tek Pizz SRX
+
+2,Synth Bass SRX-08
+3,103,93,15,7 bit bass
+3,89,93,15,Acidic Testz
+3,98,93,15,Arrpy Bs SRX
+3,85,93,15,Bass Ment 1
+3,86,93,15,Bass Ment 2
+3,115,93,15,Bassamatazz
+3,109,93,15,Big Bad Bass
+3,121,93,15,Boomer
+3,117,93,15,Da JuBs SRX
+3,107,93,15,Dancer Bass
+3,114,93,15,Deep Bass 2
+3,102,93,15,Deep Fat Bas
+3,104,93,15,DistortObass
+3,105,93,15,Double Bass
+3,125,93,15,FallBend Bs
+3,110,93,15,Fat FM Bass
+3,118,93,15,Fizzle Bass
+3,84,93,15,HiLo303/Mod
+3,111,93,15,JackYourBody
+3,116,93,15,Juno 6 Bass
+3,96,93,15,Juno Bs SRX
+3,106,93,15,Killer Bass
+3,124,93,15,LFO SqrBass
+3,92,93,15,Massive Bass
+3,120,93,15,No Rez 4 You
+3,122,93,15,OrgAtk Bass
+3,4,93,15,Pure Bass
+3,108,93,15,Rave Bass
+3,119,93,15,Ringin' Bass
+3,95,93,15,SH-5 Synbass
+3,101,93,15,Si<n>ck Bass
+3,97,93,15,SlippyBs SRX
+3,112,93,15,Solid Bs SRX
+3,94,93,15,SQR Reso Bs
+3,83,93,15,Sub Bass
+3,81,93,15,Subporter
+3,82,93,15,Subsonics
+3,90,93,15,Talk Bass
+3,80,93,15,TarzanBottom
+3,99,93,15,TB / SRX
+3,88,93,15,TB OwBs SRX
+3,87,93,15,TB SawBs SRX
+3,93,93,15,TB Sqr SRX
+3,100,93,15,TB-notTB SRX
+3,113,93,15,Thick Bass
+3,91,93,15,VocoBass SRX
+3,123,93,15,WahBassMod X
+
+2,Synth Bellpad SRX-08
+3,11,93,18,AnaBells SRX
+3,10,93,18,CeremonyBell
+
+2,Synth Brass SRX-08
+3,22,93,18,CS80Brass
+3,23,93,18,Fat Brass
+
+2,Synth Lead SRX-08
+3,30,93,16,3D Lead
+3,19,93,16,5th Rave
+3,5,93,16,Alias Lead
+3,25,93,16,Ana Flt SRX
+3,20,93,16,Auto 101
+3,50,93,16,Chime Blocks
+3,51,93,16,Chordon Bleu
+3,55,93,16,ChrdMaj7 SRX
+3,56,93,16,ChrdMin7 SRX
+3,54,93,16,Club Hit
+3,45,93,16,Cool Beam
+3,18,93,16,Dance Baby
+3,7,93,16,Dist-O-Matic
+3,15,93,16,DistortedSaw
+3,3,93,16,Euro mix SRX
+3,33,93,16,EuroSteroidz
+3,38,93,16,Formantz
+3,32,93,16,Gringeley
+3,12,93,16,HipassTB SRX
+3,5,93,15,Jazz Parrotz
+3,26,93,16,JUResLd SRX1
+3,31,93,16,JUResLd SRX2
+3,49,93,16,Landing Crew
+3,8,93,16,Lead Dirt
+3,27,93,16,Med Solo SRX
+3,28,93,16,MilkyWay SRX
+3,16,93,16,Nail Driver
+3,17,93,16,Nasty 303
+3,35,93,16,NeverStopRvn
+3,4,93,16,Nitty Gritty
+3,6,93,16,Old Fi
+3,34,93,16,Operator
+3,11,93,16,Outrage
+3,53,93,16,PhenomenaSRX
+3,24,93,16,Piccolo solo
+3,52,93,16,Porter Rix
+3,9,93,16,RetroRave
+3,47,93,16,Santaz House
+3,3,93,15,SawPortaLead
+3,29,93,16,Shalot SRX
+3,21,93,16,Sine me in
+3,10,93,16,Skreech Lead
+3,2,93,16,Solo flight
+3,22,93,16,SoloSin SRX1
+3,23,93,16,SoloSin SRX2
+3,39,93,16,SRX Talker
+3,48,93,16,Sub Melodic
+3,14,93,16,TB Saw
+3,13,93,16,TB Squared
+3,37,93,16,TechnoAttack
+3,36,93,16,TheSteamRoks
+3,72,93,15,TrainAComin
+
+2,Synth Pad/Strings SRX-08
+3,125,93,16,AfterPad SRX
+3,12,93,17,AlphaWavePad
+3,3,93,17,Avalon SRX
+3,6,93,17,CricketChoir
+3,118,93,16,DetuneSawStr
+3,122,93,16,Discrete
+3,4,93,17,Dreames SRX
+3,76,93,15,Elven Kbds
+3,8,93,17,Elven Times
+3,126,93,16,Euro Strings
+3,2,93,17,Europad
+3,124,93,16,Explore SRX
+3,121,93,16,Glitz
+3,0,93,17,JU&JP PhsSRX
+3,117,93,16,Juno Strings
+3,10,93,15,Look Back
+3,1,93,17,Lost In Time
+3,127,93,16,Powder
+3,5,93,17,SirenSng SRX
+3,11,93,17,SoftStrngSRX
+3,9,93,15,Subtle Pads
+3,7,93,17,TV Drama
+3,9,93,17,TwilightPad
+3,120,93,16,Vintage Pad
+3,123,93,16,VntageRevSRX
+3,10,93,17,WarmerPd SRX
+3,119,93,16,Wavebreaker
+
+2,Synth PolyKey SRX-08
+3,98,93,16,Alpha Fizz
+3,104,93,16,Daft
+3,82,93,16,EuroDnc SRX1
+3,83,93,16,EuroDnc SRX2
+3,103,93,16,Euronal Syn
+3,80,93,16,Eurosynth
+3,81,93,16,Fat JP
+3,46,93,16,First Synth
+3,95,93,16,FM Ringer
+3,99,93,16,FunkyJunoHrp
+3,91,93,16,Generation e
+3,90,93,16,Intense Euro
+3,89,93,16,Intense Vibe
+3,102,93,16,JU Keys SRX
+3,86,93,16,Juno Pluck
+3,87,93,16,Juno Plucked
+3,94,93,16,Kill Eyeopee
+3,96,93,16,Live at 5
+3,7,93,15,Masssive
+3,40,93,16,Nanite Pops
+3,105,93,16,Neurotic Syn
+3,92,93,16,NewSkool 70s
+3,97,93,16,Octo
+3,85,93,16,Organ-ized
+3,43,93,16,OrganOran
+3,42,93,16,Ringywig
+3,88,93,16,Rubberized
+3,78,93,16,Starlite XV
+3,100,93,16,Steel Piano
+3,93,93,16,SyncDiffrent
+3,41,93,16,TechnoAmbint
+3,8,93,15,Trance Line1
+3,79,93,16,Trance Line2
+3,101,93,16,Velorez 8000
+3,84,93,16,XpressiveSRX
+
+2,Synth Seq/Pop SRX-08
+3,115,93,16,Amber
+3,106,93,16,Deep Forest
+3,108,93,16,Funky Pluck
+3,73,93,15,House Rules
+3,113,93,16,JU Pluck SRX
+3,44,93,16,Piddlee-Dee
+3,107,93,16,Pip Square
+3,110,93,16,Saw Yr Point
+3,111,93,16,Shortsawz
+3,114,93,16,TB AtkDst
+3,109,93,16,Tight TB
+3,112,93,16,Tropical Syn
+3,116,93,16,Vox Switcher
+
+2,Vox/Choir SRX-08
+3,26,93,18,1 2 3 4 SRX
+3,27,93,18,1234 x4 SRX
+3,28,93,18,Baby ? SRX
+3,24,93,18,Talk Box SRX
+3,25,93,18,TekMusic SRX
+3,29,93,18,Vox Menu 1
+3,30,93,18,Vox Menu 2
+
+2,Acoustic Bass SRX-09
+3,70,93,20,GtrrnOct SRX
+3,69,93,20,GuitarnBsSRX
+3,68,93,20,Tub Bass
+
+2,Acoustic Guitar SRX-09
+3,105,93,19,12 String
+3,115,93,19,2 Players
+3,108,93,19,Ac Gtr 12stg
+3,114,93,19,Ac Gtrs SRX
+3,118,93,19,AcousticBros
+3,127,93,19,BlugrsSldSRX
+3,124,93,19,Bottom Ruan
+3,120,93,19,Chinese Duo
+3,121,93,19,ChugRunTrSRX
+3,122,93,19,Chung Ruan
+3,123,93,19,ChungRuanSRX
+3,104,93,19,Compresd D18
+3,112,93,19,Dobro Modro
+3,0,93,20,Guitaro SRX
+3,103,93,19,High Strung
+3,111,93,19,Living R Gtr
+3,110,93,19,Loose 12Str
+3,117,93,19,Loose Nylon
+3,106,93,19,Mixed 12Str1
+3,107,93,19,Mixed 12Str2
+3,100,93,19,N'Ville Soft
+3,109,93,19,No Borders
+3,126,93,19,Oud SRX
+3,102,93,19,Procssd AGtr
+3,113,93,19,ResonatorGtr
+3,125,93,19,RuangGtr SRX
+3,119,93,19,So Sad Nylon
+3,116,93,19,Solo RequGtr
+3,99,93,19,SoloSteelGtr
+3,101,93,19,Spruce Top
+3,98,93,19,Steel Rhythm
+3,5,93,19,Sweet Nylon
+
+2,Accordion/Harmonica SRX-09
+3,114,93,20,Acd ffOp SRX
+3,113,93,20,AcdionOp SRX
+3,116,93,20,Bluesy
+3,108,93,20,Cajun
+3,118,93,20,CuntryHrpSRX
+3,109,93,20,D Accordion
+3,117,93,20,HarmonicaSRX
+3,11,93,19,La Musette
+3,119,93,20,Sessn HrpSRX
+3,111,93,20,Squeeze Box
+3,110,93,20,SquezeBoxSRX
+3,115,93,20,St AcdCl SRX
+3,112,93,20,St AcdOp SRX
+
+2,Beat&Groove SRX-09
+3,27,93,19,Asia UFO
+3,23,93,19,Banjo Phrs
+3,20,93,19,ClanAdvances
+3,29,93,19,Didgeri /
+3,21,93,19,Eastern Tour
+3,22,93,19,Enough!STOP!
+3,35,93,19,Flu&AcompSRX
+3,24,93,19,Guitar Phrs1
+3,25,93,19,Guitar Phrs2
+3,34,93,19,JasonGoEast
+3,31,93,19,LoopPhrase 1
+3,32,93,19,LoopPhrase 2
+3,26,93,19,PdlStl Phrs
+3,36,93,19,Split Floot
+3,33,93,19,TABLA groove
+3,38,93,19,TempBassSolo
+3,28,93,19,UBeenSoBaa
+3,19,93,19,World Radio
+3,0,93,19,World Sounds
+3,30,93,19,WorldGroove
+
+2,Bell/Mallet SRX-09
+3,75,93,20,Asia Bells
+3,92,93,20,Asian Wood
+3,90,93,20,Baateri SRX
+3,91,93,20,Balafon SRX
+3,77,93,20,Bell Orchest
+3,98,93,20,BonangGamSRX
+3,10,93,19,Childwood
+3,9,93,19,Gamelan Ems
+3,97,93,20,Gendrous SRX
+3,94,93,20,Glas Mlt SRX
+3,8,93,19,HeavenGender
+3,73,93,20,HybridKemong
+3,104,93,20,Jegogn / SRX
+3,103,93,20,JeGong / SRX
+3,105,93,20,Jublag / SRX
+3,102,93,20,Kane / SRX
+3,101,93,20,Kemong / SRX
+3,72,93,20,Meditation 2
+3,93,93,20,Mellow tone
+3,71,93,20,PacifcDream
+3,107,93,20,Pemade / SRX
+3,74,93,20,Purify
+3,76,93,20,Rama Cym SRX
+3,106,93,20,Reyong / SRX
+3,78,93,20,Sacred Bells
+3,79,93,20,Spokes
+3,95,93,20,SteelDr SRX1
+3,96,93,20,SteelDr SRX2
+3,100,93,20,TemleMetlSRX
+3,99,93,20,VelAfro SRX2
+3,81,93,20,Wind Bells
+3,80,93,20,Winter Bells
+3,84,93,20,Wood EPiano
+
+2,Brass SRX-09
+3,36,93,21,2Tp+Tbn SRX
+3,35,93,21,Brass sfzzZZ
+3,34,93,21,Brass Snapz
+3,41,93,21,BrsChd13 SRX
+3,42,93,21,BrsChdMi9SRX
+3,43,93,21,BrsChdMj9SRX
+3,14,93,19,GipsyTrumpt/
+3,25,93,21,GrowlWah/Mod
+3,40,93,21,Hit & Fall
+3,37,93,19,Hot Salsa
+3,31,93,21,Indian Radio
+3,22,93,21,Latin Trumpt
+3,39,93,21,LatinBrasses
+3,28,93,21,LatinTubaSRX
+3,23,93,21,MariachiTpts
+3,37,93,21,MemphisHORNS
+3,26,93,21,Muted-Grw /
+3,38,93,21,SectStactSRX
+3,21,93,21,Snake Eyes
+3,27,93,21,SoloTuba SRX
+3,40,93,19,SplitThisSRX
+3,30,93,21,Stab&Hold
+3,33,93,21,Trombones
+3,24,93,21,Trumpets
+3,32,93,21,Wide Brass
+3,29,93,21,World Orch
+
+2,Distorted Guitar SRX-09
+3,27,93,20,335 &Cabinet
+3,25,93,20,LP Gtr SRX
+3,29,93,20,Short & Long
+3,28,93,20,Tele Licker
+3,26,93,20,Tele-Funfken
+
+2,Electric Bass SRX-09
+3,63,93,20,6Str Bs SRX1
+3,65,93,20,6Str/Mt SRX
+3,57,93,20,Baby Bass
+3,62,93,20,Bass Oddesy
+3,56,93,20,Comp BabyBss
+3,58,93,20,Comp Fingerd
+3,61,93,20,Flango Bass
+3,59,93,20,Jazz Fing BS
+3,60,93,20,Live Bass
+3,64,93,20,Muted Bass
+3,66,93,20,PickBsHd SRX
+3,67,93,20,PickedBs SRX
+3,7,93,19,Tubby Baby
+
+2,Electric Guitar SRX-09
+3,11,93,20,335VelMt SRX
+3,18,93,20,BackingEGSRX
+3,4,93,20,Chorus Twang
+3,6,93,20,CleanStrtSRX
+3,9,93,20,Comp Muted
+3,3,93,20,Coral
+3,13,93,20,Dob-Compress
+3,10,93,20,E GtrMt SRX
+3,17,93,20,EGDynaPikSRX
+3,16,93,20,FastRotrySRX
+3,24,93,20,GtrFX Menu
+3,23,93,20,MutedAmbient
+3,1,93,20,Natural Tele
+3,14,93,20,Nice Twelvey
+3,20,93,20,Pedal Steel
+3,21,93,20,Phased PStl
+3,5,93,20,Pick Licker
+3,2,93,20,Psyche Tele
+3,22,93,20,PureSteelSRX
+3,8,93,20,Right Funky
+3,19,93,20,Room Slide
+3,15,93,20,RotaryCrunch
+3,6,93,19,Tele R&F
+3,7,93,20,Velo 335 SRX
+3,12,93,20,Wide Guitar
+
+2,Flute SRX-09
+3,14,93,21,Bang Di Vib
+3,16,93,21,BreathyIndia
+3,39,93,19,CherryFlower
+3,8,93,21,Desert Flute
+3,19,93,21,DreamInColor
+3,3,93,21,Indian Ens
+3,10,93,21,Isolation
+3,4,93,21,Nature Loves
+3,12,93,21,New IndFlute
+3,15,93,21,New Kawala
+3,17,93,21,New Shaku
+3,5,93,21,PanPipes SRX
+3,13,93,21,Qu Di Vib
+3,43,93,19,Qu DiEnsembl
+3,6,93,21,Sad Pipe
+3,18,93,21,Shakuhachi
+3,7,93,21,Shell blow
+3,3,93,19,The Great W
+3,20,93,21,TwinHillyLd
+3,2,93,21,VillageDance
+3,9,93,21,Zampona
+3,13,93,19,Zampona /
+
+2,Organ SRX-09
+3,72,93,21,Jegorgan
+3,71,93,21,Mission
+
+2,Percussion SRX-09
+3,94,93,21,AfricanRhtms
+3,124,93,21,AfropercMenu
+3,111,93,21,AsiaCym Menu
+3,95,93,21,Big Logs SRX
+3,115,93,21,BigBazar SRX
+3,87,93,21,BUK
+3,99,93,21,Caixa Menu
+3,89,93,21,Chenchen /
+3,107,93,21,China Menu
+3,108,93,21,ChinaGongSRX
+3,106,93,21,ChinaPrcMenu
+3,82,93,21,Clap & Snap
+3,75,93,21,Congas+Bongo
+3,100,93,21,Cowbell Menu
+3,83,93,21,CowbellRandm
+3,121,93,21,Dhol Menu
+3,119,93,21,Dholak Menu1
+3,120,93,21,Dholak Menu2
+3,93,93,21,Doholla Fun
+3,92,93,21,DrumsScene
+3,73,93,21,Dyno Conga 1
+3,74,93,21,Dyno Conga 2
+3,79,93,21,Dyno Surdo
+3,76,93,21,DynTimbale 1
+3,77,93,21,DynTimbale 2
+3,122,93,21,Egypt Tablah
+3,16,93,19,Fun WithPerc
+3,113,93,21,Gamelan Menu
+3,114,93,21,GamlnPrcMenu
+3,112,93,21,Gong Menu
+3,88,93,21,Gongs
+3,101,93,21,JapanPrcMenu
+3,102,93,21,Kabuki Menu
+3,84,93,21,Karachi-Man
+3,105,93,21,KoreaPrcMenu
+3,103,93,21,KwangwariSRX
+3,123,93,21,Madal Menu
+3,81,93,21,Rainstick
+3,118,93,21,Rek Menu
+3,80,93,21,Rhythm Sect
+3,97,93,21,Samba Menu
+3,109,93,21,Sanba / SRX
+3,98,93,21,Shaker Menu
+3,110,93,21,St ShouBoSRX
+3,86,93,21,StreetParade
+3,91,93,21,Tabla+
+3,117,93,21,TablaBy Menu
+3,85,93,21,That Was Zen
+3,78,93,21,TimbaleCuica
+3,104,93,21,Tuzumi / SRX
+3,116,93,21,Udu Pot Menu
+3,96,93,21,WarDrums SRX
+3,90,93,21,WisdomWithin
+
+2,Plucked/Stroked SRX-09
+3,33,93,20,3ChdStrumSRX
+3,90,93,19,3D Dulcimer
+3,37,93,20,5StringBanjo
+3,67,93,19,Afro Harp
+3,46,93,19,Art Of Feng
+3,56,93,19,Asian Pizz
+3,65,93,19,Bandolim SRX
+3,38,93,20,Banjo SRX 1
+3,39,93,20,Banjo SRX 2
+3,40,93,20,Banjo SRX 3
+3,36,93,20,Banjo-Mando
+3,82,93,20,BelAngk SRX
+3,96,93,19,Berimbau
+3,95,93,19,BerimbauMenu
+3,94,93,19,Biwa Menu
+3,93,93,19,Biwa SRX
+3,32,93,20,Bousoukhit!
+3,31,93,20,Bouzouki
+3,88,93,20,BsKalimbaSRX
+3,88,93,19,Canton
+3,53,93,19,China pluck
+3,78,93,19,Conch&Sitar
+3,72,93,19,Distance
+3,77,93,19,Drone Sitar
+3,68,93,19,Ethnhit!
+3,52,93,19,Fugi-man
+3,1,93,19,Go2China /C2
+3,2,93,19,Go2India /C2
+3,89,93,19,HamrDulcimer
+3,50,93,19,IntarMel SRX
+3,97,93,19,JawHarp Menu
+3,66,93,19,K Bandolim
+3,85,93,20,Kalimba
+3,86,93,20,Kalimbatch
+3,55,93,19,Kayakeum
+3,58,93,19,Koto SRX
+3,89,93,20,LogDetunrSRX
+3,92,93,19,Magic Pluck
+3,75,93,19,Mando Club
+3,74,93,19,Mandolin
+3,73,93,19,Mandolin/Mod
+3,64,93,19,Marco Polo
+3,76,93,19,MdlnTrmStSRX
+3,45,93,19,Meditation 1
+3,44,93,19,NasalBlossom
+3,30,93,20,NewBeginning
+3,49,93,19,No Worries
+3,69,93,19,OctaHarp+
+3,51,93,19,Ode 2 An Oud
+3,47,93,19,Orient xPres
+3,48,93,19,Padded Sitar
+3,80,93,19,Pas2IndiaSRX
+3,57,93,19,PiPa SRX
+3,79,93,19,Punjab Rocks
+3,81,93,19,Rain Drone
+3,60,93,19,Sanshin SRX
+3,87,93,19,Santur /Mod
+3,86,93,19,SanturTrmSRX
+3,59,93,19,Shamisen SRX
+3,82,93,19,SitarGlisSRX
+3,70,93,19,St GuZhngSRX
+3,85,93,19,St SanturSRX
+3,35,93,20,Strum Away
+3,34,93,20,Strum Poetic
+3,63,93,19,SultanPalace
+3,84,93,19,TambDroneSRX
+3,83,93,19,Tambura SRX
+3,83,93,20,Tcheekolyna
+3,87,93,20,VelAfro SRX1
+3,61,93,19,Yang Qin trm
+3,62,93,19,Yang Qin/Mod
+3,54,93,19,Yuehchin SRX
+3,4,93,19,Yuehchin+
+3,71,93,19,Zheng Zither
+3,91,93,19,Zither
+
+2,Pulsating SRX-09
+3,67,93,21,DubJazz Trip
+3,70,93,21,G'day Mate
+3,66,93,21,GuruTronics
+3,68,93,21,Meditation 2
+3,69,93,21,Political
+
+2,Sound FX SRX-09
+3,11,93,21,Ocarina
+3,22,93,22,AfropunchSRX
+3,126,93,21,Amazone
+3,125,93,21,CommSatelite
+3,3,93,22,Crystal
+3,23,93,22,Dance Tape
+3,8,93,22,DerangedMind
+3,15,93,22,Doom Drum
+3,12,93,22,Dream Harp
+3,0,93,22,Ethnic FX 1
+3,1,93,22,Ethnic FX 2
+3,18,93,19,Feets
+3,14,93,22,Gender 3D
+3,11,93,22,GlistenToYou
+3,17,93,19,GuZheng arp
+3,5,93,22,HitAscension
+3,20,93,22,Kalissando
+3,6,93,22,Nervous Man
+3,18,93,22,PakistanVibe
+3,17,93,22,PlasticBones
+3,9,93,22,PolyDrone
+3,21,93,22,Rain Forest
+3,7,93,22,Silk Stream
+3,4,93,22,SpaceLuvSick
+3,2,93,22,SpacetualBoy
+3,16,93,22,Stalker
+3,127,93,21,Tasman Sea
+3,10,93,22,TequillaWorm
+3,19,93,22,ThusSpokeZtr
+3,13,93,22,Waterfall
+
+2,Strings SRX-09
+3,47,93,20,AJapaneseInn
+3,46,93,20,AsianOrcPizz
+3,50,93,20,ChinesOrcSRX
+3,48,93,20,Deep Blue
+3,51,93,20,ErHu / SRX
+3,53,93,20,ErHu Ld SRX
+3,52,93,20,ErHuSolo SRX
+3,49,93,20,Ethnic Ens
+3,41,93,20,Fiddle
+3,42,93,20,Fiddle 2002
+3,44,93,20,Fiddle Sect
+3,54,93,20,FiddleFXmenu
+3,45,93,20,FiddleStacto
+3,43,93,20,FiddleSwitch
+3,55,93,20,ViolnSoloSRX
+
+2,Synth Pad/Strings SRX-09
+3,65,93,21,Glass Cut
+3,58,93,21,& 40 Thieves
+3,47,93,21,Ambiccordian
+3,44,93,21,Blow Pad
+3,45,93,21,Ceremony
+3,41,93,19,Crane Dance
+3,48,93,21,DroneFlanger
+3,51,93,21,Dry Fishes
+3,57,93,21,Ethno Strngs
+3,56,93,21,Ethnopad
+3,46,93,21,Glasses
+3,42,93,19,LostInMists
+3,54,93,21,Rain Pad
+3,55,93,21,Rising Sun
+3,49,93,21,Rock Gods
+3,50,93,21,ScotlandLass
+3,53,93,21,Soul revived
+3,52,93,21,SteroidBrass
+3,15,93,19,We Dream }{
+
+2,Synth PolyKey SRX-09
+3,60,93,21,GrandExaltd1
+3,61,93,21,Sun Dog
+3,59,93,21,TromboSynthy
+3,64,93,21,WorkerBeetle
+3,63,93,21,Play Softly
+3,62,93,21,TechnoSpirit
+
+2,Vox/Choir SRX-09
+3,27,93,22,Voice Menu 1
+3,28,93,22,Voice Menu 2
+3,29,93,22,Voice Menu 3
+3,26,93,22,Voices SRX
+3,24,93,22,Zaghruta SRX
+
+2,Wind SRX-09
+3,127,93,20,Bagpipes SRX
+3,121,93,20,Before Time
+3,120,93,20,Esraj&Mizmar
+3,12,93,19,Essence
+3,122,93,20,Gagaku Ems
+3,126,93,20,HichirikSRX
+3,123,93,20,Mizmar solo
+3,124,93,20,PiriSolo SRX
+3,125,93,20,Shahnai SRX
+3,0,93,21,Sheng / SRX
+3,1,93,21,Suona / SRX
+
+2,Big Brass Ensemble SRX-10
+3,89,93,23,Blend Brass
+3,99,93,23,BrsStac Echo
+3,8,93,23,C Tp Section
+3,9,93,23,C TpSect Stc
+3,10,93,23,C TpSect Tri
+3,60,93,23,C Tpts /Trit
+3,53,93,23,C-Tp Sect
+3,55,93,23,C-Tp Sect M
+3,57,93,23,CTp Sect Sfz
+3,54,93,23,C-Tp Sect WS
+3,85,93,23,CTp+Tb Sect/
+3,52,93,23,C-Tps w/Vib
+3,96,93,23,DiminerBrass
+3,47,93,23,Don't Doit!
+3,95,93,23,Don't hit me
+3,92,93,23,Dyna Section
+3,21,93,23,DynaBrass M
+3,75,93,23,EmotiveHorns
+3,88,93,23,FullOnBrass
+3,87,93,23,Hey You Mute
+3,72,93,23,Horn Sect
+3,74,93,23,Horn Sect M
+3,73,93,23,Horn Sect WS
+3,14,93,23,Horn Section
+3,16,93,23,HornSect Rip
+3,77,93,23,HornSect Sfz
+3,15,93,23,HornSect Stc
+3,78,93,23,HornSect/Rip
+3,79,93,23,HornSwitcher
+3,86,93,23,LOUD OK?!
+3,90,93,23,LR Mix Stacc
+3,59,93,23,Mainly Stacc
+3,19,93,23,Mezzo Pop
+3,20,93,23,Mezzo Pop WS
+3,98,93,23,Mid Thirties
+3,56,93,23,Mild CTpSect
+3,76,93,23,Mild Horns
+3,50,93,23,Mild MuteTps
+3,62,93,23,Mild Tb Sect
+3,36,93,23,Mild Tp Sect
+3,80,93,23,Mild Tuba
+3,7,93,23,MtTpSect Stc
+3,6,93,23,Mute Tp Sect
+3,49,93,23,MuteTpSect M
+3,48,93,23,MuteTpSect S
+3,23,93,23,Oct PopBrass
+3,2,93,23,Pop Brs Fall
+3,0,93,23,Pop Brs Sect
+3,1,93,23,Pop Brs Stac
+3,28,93,23,PopBrass Rip
+3,24,93,23,PopBrass Sfz
+3,29,93,23,PopBrs /Fl 1
+3,30,93,23,PopBrs /Fl 2
+3,27,93,23,PopBrs LngFl
+3,26,93,23,PopBrs ShtFl
+3,94,93,23,Schizo Brass
+3,31,93,23,ShortBrs /Fl
+3,69,93,23,ShortTbs /Fl
+3,45,93,23,ShortTps /Fl
+3,22,93,23,Smooth Brass
+3,51,93,23,Smooth C-Tps
+3,71,93,23,Smooth Horns
+3,61,93,23,Smooth Tbs
+3,32,93,23,Smooth Tps
+3,25,93,23,Stac PopSect
+3,63,93,23,Tb Sect
+3,68,93,23,Tb Sect /Fl
+3,13,93,23,Tb Sect Fall
+3,65,93,23,Tb Sect M
+3,67,93,23,Tb Sect Rip
+3,66,93,23,Tb Sect Sfz
+3,12,93,23,Tb Sect Stac
+3,64,93,23,Tb Sect WS
+3,46,93,23,the Ripper
+3,70,93,23,ToodleAction
+3,5,93,23,Tp Sect Doit
+3,38,93,23,Tp Sect Fall
+3,37,93,23,Tp Sect Sfz
+3,4,93,23,Tp Sect Stac
+3,84,93,23,Tp+Tb Sect /
+3,40,93,23,TpSect RipCp
+3,39,93,23,TpSect RipFl
+3,41,93,23,TpSect Shake
+3,35,93,23,Tpt Sect M
+3,34,93,23,Tpt Sect WS
+3,33,93,23,Tpt Section
+3,58,93,23,Tripoli
+3,11,93,23,TromboneSect
+3,3,93,23,Trumpet Sect
+3,42,93,23,Trumpets /Fl
+3,44,93,23,Trumpts/Doit
+3,43,93,23,Trumpts/Shak
+3,17,93,23,Tuba /
+3,82,93,23,Tuba Sect M
+3,81,93,23,Tuba Sect WS
+3,18,93,23,Tuba Stacc
+3,83,93,23,TubaSwitchOn
+3,93,93,23,Warm Horns
+3,91,93,23,Warm Tp Sect
+3,97,93,23,Wild Niner
+
+2,Complete Piano SRX-11
+3,18,93,24,AntiqueUprit
+3,22,93,24,Archive Pno
+3,11,93,24,BrighterSide
+3,9,93,24,BrightPopV/S
+3,8,93,24,BriteOnStage
+3,2,93,24,ClassicGrand
+3,13,93,24,Dark Ballad
+3,15,93,24,Darker Side
+3,32,93,24,Deep Breath
+3,36,93,24,D-lightful
+3,7,93,24,Dynamic Grd
+3,30,93,24,First Star
+3,12,93,24,Full Rock pF
+3,21,93,24,Gnu House pF
+3,24,93,24,Grand n Str
+3,10,93,24,Grand P1
+3,14,93,24,Grand P2
+3,23,93,24,Lil' Takker
+3,33,93,24,Mc Reverse
+3,34,93,24,Meditate
+3,27,93,24,Mixed Layer
+3,31,93,24,New Age Layr
+3,35,93,24,Penta Duo
+3,5,93,24,PerfectGrand
+3,20,93,24,Ragtime Gd
+3,40,93,24,RandoMeistro
+3,3,93,24,Rock Grand
+3,26,93,24,Sad Farewell
+3,6,93,24,SingUsASong
+3,0,93,24,Superb Grand
+3,4,93,24,Superior Grd
+3,25,93,24,Superior Str
+3,19,93,24,SuperiorMono
+3,28,93,24,SuperiorPd1
+3,29,93,24,SuperiorPd2
+3,16,93,24,VelocaverPno
+3,17,93,24,Warm Room pF
+3,1,93,24,WideStereoGd
+3,37,93,24,Custom Clav
+3,38,93,24,Barococo
+3,41,93,24,Spooky Dimin
+3,39,93,24,Pianolins
+
+2,Classic EPs SRX-12
+3,10,93,26,Comp Clav CB
+3,45,93,26,Dual Clav CA
+3,44,93,26,Dual Clav CB
+3,43,93,26,Dual Clav DA
+3,42,93,26,Dual Clav DB
+3,47,93,26,DualClavMtCB
+3,46,93,26,DualClavMtDB
+3,40,93,26,Enhance Clav
+3,41,93,26,Peaking Clav
+3,8,93,26,PhaseClav CB
+3,48,93,26,PhaseClav DB
+3,49,93,26,PhaseClvMtCB
+3,7,93,26,Pure Clav CB
+3,6,93,26,Pure Clav DB
+3,11,93,26,PureClavMtCB
+3,9,93,26,Wah Clav CB
+3,32,93,26,Amped EP1
+3,33,93,26,Amped EP2
+3,15,93,26,Chorus EP1
+3,16,93,26,Chorus EP2
+3,14,93,26,Chorus Wurly
+3,17,93,26,Dp-Cho EP1
+3,18,93,26,Dp-Cho EP2
+3,38,93,26,Dual EP1
+3,39,93,26,Dual Wurly
+3,24,93,26,EP1 w/FM
+3,27,93,26,EP1 w/PAD
+3,26,93,26,EP1 w/STR
+3,25,93,26,EP1 w/VOX
+3,28,93,26,Flanger EP1
+3,29,93,26,Flanger EP2
+3,30,93,26,FlangerWurly
+3,22,93,26,Hard EP1
+3,1,93,26,Lo-Fi EP1
+3,34,93,26,Lo-Fi EP2
+3,35,93,26,Lo-Fi Wurly
+3,31,93,26,Melodic EP1
+3,36,93,26,ModDly EP1
+3,37,93,26,ModDly EP2
+3,23,93,26,Moving EP1
+3,21,93,26,Phase Wurly
+3,3,93,26,Phaser EP1
+3,0,93,26,Pure EP1
+3,2,93,26,Pure EP2
+3,5,93,26,Pure Wurly
+3,19,93,26,Soft EP1
+3,20,93,26,Soft EP2
+3,4,93,26,Soft Wurly
+3,12,93,26,St Trem EP1
+3,13,93,26,St Trem EP2
+
+2,Acoustic Guitar SRX-12
+3,112,97,0,Folk Gtr 1
+3,113,97,0,Folk Gtr 2
+3,114,97,0,Folk Gtr 3
+3,115,97,0,Latin Gtr
+3,110,97,0,Nylon Gtr 3
+3,111,97,0,Nylon Gtr 4
+
+2,Acoustic Piano SRX-12
+3,8,97,0,Honky-tonk 2
+3,6,97,0,JD Piano
+3,9,97,0,Pop Piano 1
+3,10,97,0,Pop Piano 2
+3,11,97,0,Pop Piano 3
+3,0,97,0,St Piano 1
+3,1,97,0,St Piano 2
+3,2,97,0,St Piano 3
+3,3,97,0,St Piano 4
+3,4,97,0,St Piano 5
+3,5,97,0,St Piano 6
+3,7,97,0,Stage Piano
+3,41,97,0,Harpsichord2
+
+2,Accordion/Harmonica SRX-12
+3,107,97,0,AccordionIt2
+3,108,97,0,Musette
+3,109,97,0,Vodkakordion
+
+2,Bell/Mallet SRX-12
+3,66,97,0,Analog Bell
+3,49,97,0,Bell 1
+3,50,97,0,Bell 2
+3,59,97,0,Bell 3
+3,60,97,0,Bell 4
+3,69,97,0,Bell Ring
+3,74,97,0,BsMarimba 1
+3,75,97,0,BsMarimba 2
+3,67,97,0,Carillon 2
+3,57,97,0,Dreaming Bel
+3,78,97,0,Ethno Keys
+3,73,97,0,Jazz Vib
+3,62,97,0,Kalimbells
+3,61,97,0,Music Bells
+3,58,97,0,Music Box 2
+3,81,97,0,Sine Mallet
+3,80,97,0,Soft StlDrm
+3,79,97,0,Steel Drums2
+3,68,97,0,Tower Bell
+3,64,97,0,Toy Box
+3,70,97,0,TubularBell2
+3,71,97,0,Vibraphone 2
+3,72,97,0,VibraphoneTr
+3,76,97,0,Xylophone 2
+3,77,97,0,Xylophone 3
+
+2,Brass SRX-12
+3,105,97,1,Brass 3
+3,106,97,1,Brass 4
+3,107,97,1,Brass 5
+3,108,97,1,Brass 6
+3,101,97,1,Romantic Tp
+3,100,97,1,Trumpet 2
+
+2,Clav SRX-12
+3,46,97,0,Analog Clav
+3,47,97,0,Biting Clav
+3,42,97,0,Clav 2
+3,43,97,0,Pulse Clav 2
+3,44,97,0,Pulse Clav 3
+3,48,97,0,Pulse Clv St
+3,45,97,0,Sweepin Clav
+
+2,Distorted Guitar SRX-12
+3,3,97,1,Dist Gtr 1
+3,4,97,1,Dist Gtr 2
+3,5,97,1,Dist Gtr 3
+3,2,97,1,OverdriveGt2
+
+2,Electric Bass SRX-12
+3,8,97,1,Finger Slap2
+3,7,97,1,Fretless Bs2
+3,9,97,1,Return2Base!
+
+2,Electric Guitar SRX-12
+3,122,97,0,Clean Gtr 2
+3,123,97,0,Clean Gtr 3
+3,124,97,0,Clean Gtr 4
+3,127,97,0,Funk Guitar2
+3,125,97,0,Jazz Guitar2
+3,1,97,1,Pedal Steel2
+3,126,97,0,Pick E Gtr
+3,0,97,1,Wet E Gtr
+
+2,Electric Piano SRX-12
+3,36,97,0,80's EP
+3,25,97,0,Back2the60s
+3,32,97,0,Curly Wurly
+3,22,97,0,Dyno EP
+3,23,97,0,Dyno EP Trm
+3,16,97,0,E Piano 3
+3,17,97,0,E Piano 4
+3,18,97,0,E Piano 5
+3,19,97,0,E Piano 6
+3,20,97,0,E Piano 7
+3,21,97,0,E Piano 8
+3,35,97,0,EP Belle
+3,34,97,0,EP Legend 3
+3,37,97,0,FM EP 1
+3,38,97,0,FM EP 2
+3,29,97,0,Psy EP
+3,27,97,0,SA EP 1
+3,28,97,0,SA EP 2
+3,39,97,0,Sinus EP
+3,40,97,0,Spirit Tines
+3,12,97,0,Stage EP 1
+3,13,97,0,Stage EP 2
+3,14,97,0,Stage EP Trm
+3,33,97,0,Super Wurly
+3,26,97,0,Tine EP
+3,15,97,0,Tremolo EP 1
+3,24,97,0,Tremolo EP 2
+3,30,97,0,Wurly EP
+3,31,97,0,Wurly EP Trm
+
+2,Flute SRX-12
+3,97,97,1,Pan Flute 2
+3,98,97,1,Pan Pipes
+3,43,97,3,Pipe Key
+
+2,Organ SRX-12
+3,99,97,0,70's E Org 1
+3,100,97,0,70's E Org 2
+3,102,97,0,Ana Organ 1
+3,103,97,0,Ana Organ 2
+3,104,97,0,Ana Organ 3
+3,105,97,0,Ana Organ 4
+3,106,97,0,Ana Organ 5
+3,92,97,0,E Organ 1
+3,93,97,0,E Organ 2
+3,94,97,0,E Organ 3
+3,95,97,0,E Organ 4
+3,96,97,0,E Organ 5
+3,97,97,0,E Organ 6
+3,98,97,0,E Organ 7
+3,101,97,0,Grand Pipes
+3,89,97,0,Perc Organ 2
+3,90,97,0,Perc Organ 3
+3,91,97,0,Perc Organ 4
+3,82,97,0,Rock Organ 1
+3,83,97,0,Rock Organ 2
+3,84,97,0,Rock Organ 3
+3,85,97,0,Rock Organ 4
+3,86,97,0,Rock Organ 5
+3,87,97,0,RotaryOrgan1
+3,88,97,0,RotaryOrgan2
+
+2,Plucked/Stroked SRX-12
+3,116,97,0,Aerial Harp
+3,41,97,3,Harp Pad
+3,118,97,0,Indian Frtls
+3,117,97,0,LostParadise
+3,120,97,0,Santur 2
+3,121,97,0,Santur 3
+3,119,97,0,Sitar 3
+3,42,97,3,Sitar Pad
+3,104,97,2,Electrostar
+3,103,97,2,Keep Going
+3,102,97,2,LFO Saw
+
+2,Sax SRX-12
+3,103,97,1,BreathyTenor
+3,102,97,1,Soprano Sax2
+3,104,97,1,Tenor Sax 2
+
+2,Sound FX SRX-12
+3,99,97,1,Ocarina 2
+3,89,97,2,5th Voice
+3,108,97,2,909 Fx
+3,114,97,2,Bubble 2
+3,111,97,2,Cosmic Drops
+3,94,97,2,Dance Saws 1
+3,113,97,2,FX Ramp
+3,93,97,2,Ju-D Fifths
+3,91,97,2,Juno-D Maj7
+3,112,97,2,LoFi Piano
+3,92,97,2,Major 7
+3,110,97,2,Passing By
+3,109,97,2,PolySweep Nz
+3,107,97,2,ResoSweep Dn
+3,106,97,2,Sci-Fi
+3,115,97,2,Scratch 2
+3,105,97,2,Shimmer Pad
+3,90,97,2,Sweet House
+
+2,Strings SRX-12
+3,94,97,1,Full Orc
+3,75,97,1,Hall Strings
+3,84,97,1,Hybrid Str
+3,85,97,1,Marc Str
+3,74,97,1,Mood Strings
+3,92,97,1,Orc Unison 1
+3,93,97,1,Orc Unison 2
+3,87,97,1,Pizz 1
+3,88,97,1,Pizz 2
+3,83,97,1,Pop Strings
+3,81,97,1,Stage Str 1
+3,82,97,1,Stage Str 2
+3,76,97,1,Strings 2
+3,77,97,1,Strings 3
+3,78,97,1,Strings 4
+3,79,97,1,Strings 5
+3,80,97,1,Strings 6
+3,86,97,1,StringsStacc
+3,89,97,1,TapeStrings1
+3,90,97,1,TapeStrings2
+3,91,97,1,VintageStr 8
+
+2,Synth Bass SRX-12
+3,23,97,1,106 Bass 1
+3,58,97,1,106 Bass 2
+3,71,97,1,80's Bass
+3,47,97,1,Acid Bass 2
+3,48,97,1,Acid Bass 3
+3,49,97,1,Acid Bass 4
+3,30,97,1,Alpha Bass 1
+3,50,97,1,Alpha Bass 2
+3,51,97,1,Alpha ResoBs
+3,65,97,1,Brite Bass
+3,59,97,1,Compu Bass 1
+3,60,97,1,Compu Bass 2
+3,70,97,1,Fat Bass
+3,64,97,1,Flat Bass
+3,62,97,1,Garage Bass
+3,36,97,1,Intrusive Bs
+3,56,97,1,JunoSqr Bs 1
+3,57,97,1,JunoSqr Bs 2
+3,26,97,1,MC202 Bass
+3,16,97,1,MG Bass 1
+3,17,97,1,MG Bass 2
+3,18,97,1,MG Bass 3
+3,19,97,1,MG Bass 4
+3,20,97,1,MG Bass 5
+3,21,97,1,MG Bass 6
+3,22,97,1,MG Bass 7
+3,32,97,1,Modular Bs 1
+3,33,97,1,Modular Bs 2
+3,34,97,1,Modular Bs 3
+3,52,97,1,Monster Bs 1
+3,55,97,1,Monster Bs 2
+3,61,97,1,Mufed Bass
+3,54,97,1,Nu RnB SawBs
+3,53,97,1,Nu Saw Bass
+3,31,97,1,P5 Bass
+3,28,97,1,Pedal Bass 1
+3,29,97,1,Pedal Bass 2
+3,66,97,1,Pedal Bass 3
+3,27,97,1,Pulse Bass
+3,10,97,1,R&B Bass 1
+3,11,97,1,R&B Bass 2
+3,12,97,1,R&B Bass 3
+3,13,97,1,R&B Bass 4
+3,14,97,1,R&B Bass 5
+3,15,97,1,R&B Bass 6
+3,69,97,1,Ramp Bass
+3,37,97,1,Reso Bass 1
+3,38,97,1,Reso Bass 2
+3,39,97,1,Reso Bass 3
+3,40,97,1,Reso Bass 4
+3,41,97,1,Reso Bass 5
+3,43,97,1,Reso Bass 6
+3,44,97,1,Reso Bass 7
+3,45,97,1,Reso Bass 8
+3,67,97,1,Reso Bass 9
+3,68,97,1,Reso Bass10
+3,42,97,1,Rubber Bass2
+3,63,97,1,Sub Bass
+3,24,97,1,Synth Bass 3
+3,25,97,1,Synth Bass 4
+3,35,97,1,Synth Bass 5
+3,72,97,1,TB Bass 1
+3,73,97,1,TB Bass 2
+3,46,97,1,TB Bass 3
+
+2,Synth Bellpad SRX-12
+3,32,97,3,Air Key 2
+3,54,97,0,D50 Bell
+3,53,97,0,D50 Fantasy
+3,55,97,0,Dreambell
+3,56,97,0,Dreaming Box
+3,51,97,0,Fantasy 1
+3,52,97,0,Fantasy 2
+3,63,97,0,Org Bell
+3,65,97,0,Soft Bell
+3,33,97,3,Stacc Heaven
+
+2,Synth Brass SRX-12
+3,10,97,2,106 Brass
+3,113,97,1,80's Brass 1
+3,114,97,1,80's Brass 2
+3,122,97,1,80's Brass 3
+3,123,97,1,80's Brass 4
+3,124,97,1,80's Brass 5
+3,125,97,1,80's Brass 6
+3,126,97,1,80's Brass 7
+3,127,97,1,80's Brass 8
+3,0,97,2,80's Brass 9
+3,1,97,2,80's Brass10
+3,4,97,2,Brite SynBrs
+3,13,97,2,Dual Saw Brs
+3,6,97,2,EuroExpress1
+3,5,97,2,Express Brs
+3,121,97,1,FM Brass
+3,7,97,2,JP Brass 1
+3,2,97,2,JP Brass 2
+3,109,97,1,JP8 Brass 1
+3,110,97,1,JP8 Brass 2
+3,111,97,1,JP8 Brass 3
+3,112,97,1,JP8 Brass 4
+3,115,97,1,JP8 Brass 5
+3,120,97,1,Juno Brass
+3,8,97,2,Ox Brass
+3,11,97,2,Poly Brass 1
+3,12,97,2,Poly Brass 2
+3,119,97,1,Reso Brass
+3,116,97,1,Soft SynBrs1
+3,117,97,1,Soft SynBrs2
+3,118,97,1,Soft SynBrs3
+3,14,97,2,VintageBrs 1
+3,15,97,2,VintageBrs 2
+3,3,97,2,Warm SynBrs
+3,9,97,2,Wide SynBrs
+
+2,Synth Lead SRX-12
+3,57,97,2,A Leader
+3,59,97,2,Air Lead
+3,58,97,2,Alpha Spit
+3,24,97,2,Ana Vox Lead
+3,67,97,2,Bell Lead
+3,25,97,2,BellSaw Lead
+3,49,97,2,Brass Lead
+3,36,97,2,Bright GR
+3,79,97,2,Brite SQR
+3,35,97,2,Classic GR
+3,43,97,2,Classic Lead
+3,86,97,2,CS Lead
+3,65,97,2,Detune Ramp
+3,27,97,2,Digi Lead
+3,28,97,2,EQ Lead
+3,38,97,2,Fat GR Lead
+3,51,97,2,Follow Me
+3,88,97,2,Hoover Again
+3,62,97,2,Juicy Lead
+3,40,97,2,JupiterLead1
+3,41,97,2,JupiterLead2
+3,55,97,2,Leading Sync
+3,50,97,2,Legato Tkno
+3,87,97,2,Mini Growl
+3,39,97,2,MODifed Ld
+3,69,97,2,OB Lead
+3,52,97,2,Octa Juice
+3,53,97,2,Octa Saw
+3,84,97,2,Octa Square
+3,54,97,2,Octa Sync
+3,44,97,2,On Air
+3,26,97,2,OSC-Sync
+3,37,97,2,Pro Fat Ld 1
+3,45,97,2,Pro Fat Ld 2
+3,83,97,2,Pulse Lead
+3,60,97,2,Pulstar Lead
+3,77,97,2,Pure Lead
+3,46,97,2,Ramp Lead
+3,64,97,2,Reso Saw
+3,63,97,2,Resoform
+3,78,97,2,Round SQR
+3,16,97,2,Saw Lead 1
+3,17,97,2,Saw Lead 2
+3,18,97,2,Saw Lead 3
+3,19,97,2,Saw Lead 4
+3,20,97,2,Saw Lead 5
+3,21,97,2,Saw Lead 6
+3,22,97,2,Saw Lead 7
+3,23,97,2,Saw Lead 8
+3,29,97,2,Saw Lead 9
+3,30,97,2,Saw Lead 10
+3,31,97,2,Saw Lead 11
+3,32,97,2,Saw Lead 12
+3,33,97,2,Saw Lead 13
+3,34,97,2,Saw Lead 14
+3,42,97,2,Saw Lead 15
+3,72,97,2,Simple Sine
+3,81,97,2,Simple SQR
+3,71,97,2,Simple Tri
+3,73,97,2,Sine Lead 1
+3,74,97,2,Sine Lead 2
+3,70,97,2,Soft Lead
+3,76,97,2,Spooky Lead
+3,82,97,2,Sqr Lead
+3,68,97,2,Square Lead
+3,75,97,2,Square Pipe
+3,80,97,2,Square SAW
+3,66,97,2,Sweep Saw
+3,56,97,2,Sync Lead
+3,61,97,2,Therasaw
+3,85,97,2,Tranceformer
+3,48,97,2,Waspy Lead
+3,47,97,2,Wormy Lead
+
+2,Synth Pad/Strings SRX-12
+3,45,97,3,106 Strings
+3,100,97,3,5th Pad 1
+3,82,97,3,5th Pad 2
+3,44,97,3,80's Strings
+3,58,97,3,Airy Pad
+3,75,97,3,Angelis Pad
+3,79,97,3,BPF Pad
+3,70,97,3,Brite Wine
+3,80,97,3,Bubble 3
+3,103,97,3,Bubble 4
+3,99,97,3,Digital Pad
+3,34,97,3,Dreamheaven
+3,46,97,3,Fading Str
+3,101,97,3,Fairy's Song
+3,97,97,3,FineWinePad1
+3,98,97,3,FineWinePad2
+3,63,97,3,Giant Sweep
+3,92,97,3,Heaven Pad 3
+3,94,97,3,Heaven Pad 4
+3,95,97,3,Heaven Pad 5
+3,90,97,3,Hollow Pad 1
+3,91,97,3,Hollow Pad 2
+3,49,97,3,JP Strings 1
+3,50,97,3,JP Strings 2
+3,88,97,3,JP8 Hollow 1
+3,89,97,3,JP8 Hollow 2
+3,83,97,3,JP8 Strings1
+3,84,97,3,JP8 Strings2
+3,52,97,3,JX Strings
+3,61,97,3,Nu Epic Pad
+3,47,97,3,OB Strings
+3,96,97,3,Oct Heaven
+3,102,97,3,Org Pad
+3,104,97,3,ParadisePad
+3,68,97,3,PWM Pad 2
+3,51,97,3,PWM Str 1
+3,67,97,3,PWM Str 2
+3,69,97,3,Reso Pad
+3,48,97,3,Sawtooth Str
+3,77,97,3,Scoop Pad 1
+3,78,97,3,Scoop Pad 2
+3,85,97,3,Soft Pad 1
+3,106,97,3,Soft Pad 2
+3,86,97,3,Soft Pad 3
+3,87,97,3,Soft Pad 4
+3,107,97,3,Soft Pad 5
+3,66,97,3,Soft Pad 6
+3,105,97,3,Soft PWM Pad
+3,65,97,3,Stringship
+3,81,97,3,Strobe Pad
+3,72,97,3,Sweep Pad 2
+3,73,97,3,Sweep Pad 3
+3,74,97,3,Sweep Pad 4
+3,62,97,3,Trance Pad
+3,76,97,3,TrnsSweepPad
+3,53,97,3,VintageStr 1
+3,54,97,3,VintageStr 2
+3,55,97,3,VintageStr 3
+3,56,97,3,VintageStr 4
+3,57,97,3,VintageStr 5
+3,59,97,3,VintageStr 6
+3,60,97,3,VintageStr 7
+3,64,97,3,Voyager
+3,93,97,3,Warm Heaven
+3,71,97,3,Wine Pad
+
+2,Synth PolyKey SRX-12
+3,31,97,3,Air Key 1
+3,4,97,3,Analog Days
+3,37,97,3,Analog Dream
+3,119,97,2,Analog Key
+3,5,97,3,Analog Saws
+3,8,97,3,Bustranza
+3,39,97,3,Dance Saws 2
+3,120,97,2,Digital Key1
+3,121,97,2,Digital Key2
+3,26,97,3,DigitalDream
+3,7,97,3,Digitaless
+3,38,97,3,DOC Stack
+3,124,97,2,Dream Pulse
+3,123,97,2,Dream Saws
+3,125,97,2,Dream Trance
+3,27,97,3,Dreamvox 1
+3,28,97,3,Dreamvox 2
+3,20,97,3,EuroExpress2
+3,21,97,3,Fat Synth
+3,25,97,3,Heaven Key
+3,35,97,3,Heaven Pad 1
+3,36,97,3,Heaven Pad 2
+3,22,97,3,Hi Saw Band
+3,122,97,2,Huge MIDI
+3,9,97,3,Jump Poly
+3,24,97,3,Ox Synth
+3,11,97,3,Poly Synth 2
+3,12,97,3,Poly Synth 3
+3,13,97,3,Poly Synth 4
+3,14,97,3,Poly Synth 5
+3,23,97,3,PWM Pad 1
+3,118,97,2,Reso Key 1
+3,18,97,3,Reso Key 2
+3,19,97,3,Reso Key 3
+3,116,97,2,Saws Key 1
+3,117,97,2,Saws Key 2
+3,2,97,3,S-Saw Poly
+3,17,97,3,Str Machine
+3,3,97,3,Super Saws 1
+3,10,97,3,Super Saws 2
+3,29,97,3,Sweet Keys
+3,40,97,3,Sync Key
+3,127,97,2,Trance Keys
+3,0,97,3,Trance Saws
+3,126,97,2,Trance Synth
+3,1,97,3,Trancy
+3,6,97,3,Uni-G
+3,16,97,3,Vintage Key
+3,30,97,3,Vox Key
+3,15,97,3,Waspy Synth
+
+2,Vox/Choir SRX-12
+3,120,97,3,80's Vox
+3,112,97,3,Aerial Choir
+3,111,97,3,Angels Choir
+3,124,97,3,Chipmunk
+3,110,97,3,Choir Pad
+3,113,97,3,Doo Pad
+3,116,97,3,Gospel Hum
+3,114,97,3,Humming 2
+3,115,97,3,Humming 3
+3,108,97,3,Jazz Scat 1
+3,109,97,3,Jazz Scat 2
+3,123,97,3,Mini Vox
+3,127,97,3,Sad Ceremony
+3,125,97,3,Sample Opera
+3,126,97,3,Sop Vox
+3,121,97,3,SynVox 2
+3,122,97,3,SynVox 3
+3,117,97,3,Vox Pad 1
+3,118,97,3,Vox Pad 2
+3,119,97,3,VP-330 Chr
+
+2,GM2 Drum Kits SRX-12 
+3,25,120,0,GM2 ANALOG
+3,40,120,0,GM2 BRUSH
+3,24,120,0,GM2 ELECTRIC
+3,32,120,0,GM2 JAZZ
+3,48,120,0,GM2 ORCHSTRA
+3,16,120,0,GM2 POWER
+3,8,120,0,GM2 ROOM
+3,56,120,0,GM2 SFX
+3,0,120,0,GM2 STANDARD
+
+2,PCM Drum Kits SRX-12
+3,4,86,64,JazzDrumSet2
+3,5,86,64,OrchDrumSet
+3,0,86,64,Pop DrumSet 1
+3,1,86,64,Pop DrumSet 2
+3,2,86,64,Power DrumSet
+3,6,86,64,PowerDrmSet2
+3,7,86,64,PowerRaveSet
+3,3,86,64,RaveDrumSet
+3,13,86,64,XV Bully Kit
+3,10,86,64,XV Jazz Kit
+3,8,86,64,XV Pop Kit
+3,9,86,64,XV Rock Kit
+3,11,86,64,XV Rust Kit
+3,12,86,64,XV WayHipKit
