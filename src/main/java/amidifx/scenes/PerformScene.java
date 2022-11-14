@@ -180,8 +180,8 @@ public class PerformScene {
     boolean ppressed8 = false;
 
     String lastVoiceButton = "U1-1";
-    int lastVoiceChannel = 14;
-    int lastVoiceChannelSound = 14;
+    int lastVoiceChannel = 0;
+    int lastVoiceChannelSound = 0;
 
     // Tracking Upper1 Buttons
     Button rbutton11 = new Button();
@@ -330,6 +330,7 @@ public class PerformScene {
             // Create instance of Shared Status to report back to Scenes
             sharedStatus = SharedStatus.getInstance();
             lastVoiceChannel = sharedStatus.getUpper1CHAN();
+            lastVoiceChannelSound = lastVoiceChannel;
 
             // Start Building the Scene
             System.out.println("PerformScene: Scene PerformScene!");

@@ -152,7 +152,7 @@ public class MidiButtons {
         // Need to validate this
         buttonList.clear();
 
-        System.out.println("LoadMidiButtons: Loading buttons file:  " + buttonFile);
+        System.out.println("LoadMidiButtons: Loading buttons file " + buttonFile);
 
         BufferedReader br = null;
         try {
@@ -242,14 +242,8 @@ public class MidiButtons {
         boolean perror = true;
         //if (perror) return perror;
 
-        // Validate that two sets of Perf Buttons exusting in file
-        if ((mButton.getButtonIdx() < 0) || (mButton.getButtonIdx() > 59 )) return false;
-
         if ((mButton.getChannelIdx() < 0) || (mButton.getChannelIdx() > 15)) return false;
         if ((mButton.getChannelOutIdx() < 0) || (mButton.getChannelOutIdx() > 15)) return false;
-
-        // No more tha two otaves up or down allowed to maintain instrument sound quality
-        if ((mButton.getOctaveTran() < -2) || (mButton.getOctaveTran() > 2)) return false;
 
         if ((mButton.getVOL() < 0) || (mButton.getVOL() > 127)) return false;
         if ((mButton.getEXP() < 0) || (mButton.getEXP() > 127)) return false;
@@ -378,7 +372,7 @@ public class MidiButtons {
                 //System.out.print("buttonline: " + buttonLine);
             }
 
-            System.out.println("Button file " + buttonFile + " successfully written");
+            System.out.println("MidiButtons: Button file " + buttonFile + " successfully written");
         }
         catch (IOException ioe) {
             ioe.printStackTrace();

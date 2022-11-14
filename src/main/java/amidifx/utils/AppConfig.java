@@ -242,7 +242,7 @@ public class AppConfig {
             channelidx = new Byte(channelidxstr);
 
             // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
-            if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
+            if ((channelidx < 1) || (channelidx > 16)) channelidx = 1;
         }
         catch (Exception ex) {
             System.err.println("AppConfig: Error read MIDI Expression CHannel from AppConfig file");
@@ -260,7 +260,7 @@ public class AppConfig {
             channelidx = new Byte(channelidxstr);
 
             // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
-            if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
+            if ((channelidx < 1) || (channelidx > 16)) channelidx = 2;
         }
         catch (Exception ex) {
             System.err.println("AppConfig: Error read MIDI Expression CHannel from AppConfig file");
@@ -278,7 +278,7 @@ public class AppConfig {
             channelidx = new Byte(channelidxstr);
 
             // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
-            if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
+            if ((channelidx < 1) || (channelidx > 16)) channelidx = 11;
         }
         catch (Exception ex) {
             System.err.println("AppConfig: Error read MIDI Drum CHannel from AppConfig file");
@@ -296,7 +296,7 @@ public class AppConfig {
             channelidx = new Byte(channelidxstr);
 
             // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
-            if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
+            if ((channelidx < 1) || (channelidx > 16)) channelidx = 4;
         }
         catch (Exception ex) {
             System.err.println("AppConfig: Error read MIDI Upper 1 CHannel from AppConfig file");
@@ -314,7 +314,7 @@ public class AppConfig {
             channelidx = new Byte(channelidxstr);
 
             // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
-            if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
+            if ((channelidx < 1) || (channelidx > 16)) channelidx = 14;
         }
         catch (Exception ex) {
             System.err.println("AppConfig: Error read MIDI Upper 2 CHannel from AppConfig file");
@@ -332,7 +332,7 @@ public class AppConfig {
             channelidx = new Byte(channelidxstr);
 
             // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
-            if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
+            if ((channelidx < 1) || (channelidx > 16)) channelidx = 15;
         }
         catch (Exception ex) {
             System.err.println("AppConfig: Error read MIDI Upper 3 CHannel from AppConfig file");
@@ -350,7 +350,7 @@ public class AppConfig {
             channelidx = new Byte(channelidxstr);
 
             // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
-            if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
+            if ((channelidx < 1) || (channelidx > 16)) channelidx = 3;
         }
         catch (Exception ex) {
             System.err.println("AppConfig: Error read MIDI Lower 1 CHannel from AppConfig file");
@@ -368,7 +368,7 @@ public class AppConfig {
             channelidx = new Byte(channelidxstr);
 
             // Ignore incorrect values: 0 = not used, 1 - 16 = valid channels
-            if ((channelidx < -1) || (channelidx > 16)) channelidx = 0;
+            if ((channelidx < 1) || (channelidx > 16)) channelidx = 12;
         }
         catch (Exception ex) {
             System.err.println("AppConfig: Error read MIDI Lower 2 CHannel from AppConfig file");

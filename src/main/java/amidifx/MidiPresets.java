@@ -190,7 +190,6 @@ public class MidiPresets {
         // Check if valid module range for number supported and validate that the module in preset is the same as
         // currently and connected selected! We do not want to send invalid program changes to the wrong module.
         if ((mPreset.getModuleIdx() < 0) || (mPreset.getModuleIdx() > sharedStatus.getModuleCount())) return false;
-        if (mPreset.getModuleIdx() != sharedStatus.getModuleidx()) return false;
 
         // No more tha two otaves up or down allowed to maintain instrument sound quality
         if ((mPreset.getOctaveTran() < -2) || (mPreset.getOctaveTran() > 2)) return false;

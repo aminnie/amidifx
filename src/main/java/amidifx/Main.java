@@ -300,7 +300,7 @@ public class Main extends Application {
         Button buttonsc1 = new Button("Manual");
         buttonsc1.setStyle(btnMenuOff);
         buttonsc1.setOnAction(e -> {
-            System.out.println(("Main: Changing to Organ Scene: " + sharedStatus.getPerformScene().toString()));
+            System.out.println(("Main: Changing to Organ Scene " + sharedStatus.getPerformScene().toString()));
             stage.setScene(sharedStatus.getPerformScene());
             try {
                 Thread.sleep(250);
@@ -327,7 +327,7 @@ public class Main extends Application {
         //buttonsc3.setOnAction(e -> stage.setScene(scenePresets));
         buttonsc3.setDisable(true);
         buttonsc3.setOnAction(e -> {
-            System.out.println(("Main: Changing to Presets Scene: " + sharedStatus.getPresetsScene().toString()));
+            System.out.println(("Main: Changing to Presets Scene " + sharedStatus.getPresetsScene().toString()));
             stage.setScene(sharedStatus.getPresetsScene());
             try {
                 Thread.sleep(250);
@@ -624,7 +624,7 @@ public class Main extends Application {
             Button buttonPresetSceneInit = sharedStatus.getButtonPresetSceneInit();
             buttonPresetSceneInit.fire();
 
-            System.out.println("Main: Changing to Presets Scene: " + sharedStatus.getPresetsScene().toString());
+            System.out.println("Main: Changing to Presets Scene " + sharedStatus.getPresetsScene().toString());
             stage.setScene(sharedStatus.getPresetsScene());
 
             try {
@@ -791,7 +791,7 @@ public class Main extends Application {
                 if (fileexistcnt == 0) {
 
                     if (bnewSong) {
-                        System.out.println("Main: Creating new midi files for: " + txtSmfFile.getText());
+                        System.out.println("Main: Creating new midi files for " + txtSmfFile.getText());
 
                         // Never overwrite defaultgm.pre. System needs to boot.
                         if (txtPresetSaveAsFile.getText().equals("defaultgm.pre")) {
@@ -802,7 +802,7 @@ public class Main extends Application {
                         // Create a new MIDI Preset file based on source Preset file selected
                         if (!dosongs.copyFile(txtPresetFile.getText(), txtPresetSaveAsFile.getText(), true))
                             return;
-                        System.out.println("Main: Created new preset file: " + txtPresetSaveAsFile.getText() + " based on " + txtPresetFile.getText());
+                        System.out.println("Main: Created new preset file " + txtPresetSaveAsFile.getText() + " based on " + txtPresetFile.getText());
 
                         MidiSong midiSong = new MidiSong();
                         //midiSong.setSongId(dosongs.sizeSongs());

@@ -639,8 +639,8 @@ public class PresetScene {
         sharedStatus.setPresetListView(presetListView);
 
         // Preset select Combobox
-        String[] weekDays = {"Preset 1", "Preset 2", "Preset 3", "Preset 4", "Preset 5", "Preset 6", "Preset 7", "Preset 8"};
-        presetCombo = new ComboBox(FXCollections.observableArrayList(weekDays));
+        String[] ListofPresets = {"Preset 1", "Preset 2", "Preset 3", "Preset 4", "Preset 5", "Preset 6", "Preset 7", "Preset 8"};
+        presetCombo = new ComboBox(FXCollections.observableArrayList(ListofPresets));
         sharedStatus.setPresetCombo(presetCombo);
         presetCombo.setPrefSize(xpatchlist, 20);
         presetCombo.setStyle(selectcolorOff);
@@ -1230,7 +1230,6 @@ public class PresetScene {
 
             labelstatus.setText(" Status: CHAN " + (channelIdx + 1) + " VOL: " + newValue.intValue());
         });
-        sliderVOL.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getVOL());
 
         // Create EXP slider
         sliderEXP = new Slider(0, 127, 0);
@@ -1255,7 +1254,6 @@ public class PresetScene {
 
             labelstatus.setText(" Status; CHAN " + channelIdx + " EXP: " + newValue.intValue());
         });
-        sliderEXP.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getEXP());
 
         // Create REV slider
         sliderREV = new Slider(0, 127, 0);
@@ -1280,7 +1278,6 @@ public class PresetScene {
 
             labelstatus.setText(" Status: CHAN " + (channelIdx + 1) + " REV: " + newValue.intValue());
         });
-        sliderREV.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getREV());
 
         // Create CHO slider
         sliderCHO = new Slider(0, 127, 0);
@@ -1305,7 +1302,6 @@ public class PresetScene {
 
             labelstatus.setText(" Status: CHAN " + (channelIdx + 1) + " CHO: " + newValue.intValue());
         });
-        sliderCHO.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getCHO());
 
         // Create MOD slider
         sliderMOD = new Slider(0, 127, 0);
@@ -1330,7 +1326,6 @@ public class PresetScene {
 
             labelstatus.setText(" Starus: CHAN " + (channelIdx + 1) + " MOD: " + newValue.intValue());
         });
-        sliderMOD.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getMOD());
 
         // Create PAN slider
         sliderPAN = new Slider(0, 127, 0);
@@ -1357,7 +1352,6 @@ public class PresetScene {
 
             labelstatus.setText(" Status: CHAN " + (channelIdx + 1) + " PAN: " + newValue.intValue());
         });
-        sliderPAN.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
 
         // Create TIM (Timber/Resonance) slider
         sliderTIM = new Slider(0, 127, 0);
@@ -1384,7 +1378,6 @@ public class PresetScene {
 
             labelstatus.setText(" Status: CHAN " + (channelIdx + 1) + " TIM: " + newValue.intValue());
         });
-        sliderTIM.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getTIM());
 
         // Create ATK (Attack) slider
         sliderATK = new Slider(0, 127, 0);
@@ -1411,7 +1404,6 @@ public class PresetScene {
 
             labelstatus.setText(" Status: CHAN " + (channelIdx + 1) + " ATK: " + newValue.intValue());
         });
-        sliderATK.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getATK());
 
         // Create REL (Release) slider
         sliderREL = new Slider(0, 127, 0);
@@ -1438,7 +1430,6 @@ public class PresetScene {
 
             labelstatus.setText(" Status: CHAN " + (channelIdx + 1) + " REL: " + newValue.intValue());
         });
-        sliderREL.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getREL());
 
         // Create BRI (Brightness) slider
         sliderBRI = new Slider(0, 127, 0);
@@ -1465,7 +1456,6 @@ public class PresetScene {
 
             labelstatus.setText(" Status: CHAN " + (channelIdx + 1) + " BRI: " + newValue.intValue());
         });
-        sliderBRI.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getBRI());
 
         // Create OCT (Octave) slider
         sliderOCT = new Slider(-2, 2, 0);
@@ -1489,7 +1479,6 @@ public class PresetScene {
 
             labelstatus.setText(" Status: CHAN " + (channelIdx + 1) + " OCT: " + newValue.intValue());
         });
-        sliderOCT.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getBRI());
 
         flowpane.getChildren().add(pstbutton1);
         flowpane.getChildren().add(pstbutton2);
@@ -1805,6 +1794,18 @@ public class PresetScene {
         // After initial render set saveButton to false if trigger during initial config, e.g. setting sliders.
         flgDirtyPreset = false;
         buttonSave.setDisable(true);
+
+        ////sliderVOL.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getVOL());
+        ////sliderEXP.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getEXP());
+        ////sliderREV.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getREV());
+        ////sliderCHO.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getCHO());
+        ////sliderMOD.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getMOD());
+        ////sliderPAN.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
+        ////sliderTIM.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getTIM());
+        ////sliderATK.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getATK());
+        ////sliderREL.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getREL());
+        ////sliderBRI.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getBRI());
+        ////sliderOCT.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getBRI());
 
         // Prepare background Image
         //try {
