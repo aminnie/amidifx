@@ -1,9 +1,9 @@
 ## Introduction to AMIDIFX
 
-Last Update: 07 November 2022
+Last Update: 13 November 2022
 
 Most recent updates:
-* Add logic to load MIDI Channel configuration from XML Config File
+* Updated the solution to load MIDI Channel configuration from XML Config File instead of hard coded values used to date
 * Added Octave Transpose to every voice on Upper and Lower Manual and every Presets Channel/Voice
 * Added Layering modes for Lower 1 + 2 and Upper 1 + 2 + 3 Keyboards
 * Added MIDI Expression Pedal support to Upper, Lower and Bass channels via input CHAN 16
