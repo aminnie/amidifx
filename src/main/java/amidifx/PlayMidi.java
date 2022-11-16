@@ -145,6 +145,9 @@ public class PlayMidi {
             return false;
         }
 
+        // Send Master Control volume SysEx
+        ////sendMasterVolume();
+
         // Reset all MIDI Controllers as we start out
         sendAllControllersOff();
 
@@ -1266,9 +1269,12 @@ public class PlayMidi {
                             if (sm.getCommand() == 192) {
                                 //System.out.println("PlayMidi: Track " + trackNumber + " Channel=" + (sm.getChannel() + 1) + " " + instruments[sm.getData1()]);
 
-                                instrumentlist = instrumentlist.concat("Track=").concat(Integer.toString(trackNumber));
-                                ////instrumentlist = instrumentlist.concat(" Channel=").concat(Integer.toString(sm.getChannel() + 1));
-                                instrumentlist = instrumentlist.concat(" ").concat(instruments[sm.getData1()].toString()).concat("\n");
+                                instrumentlist = instrumentlist.concat("TRK=").concat(Integer.toString(trackNumber));
+                                instrumentlist = instrumentlist.concat("\t");
+                                instrumentlist = instrumentlist.concat(" CHN=").concat(Integer.toString(sm.getChannel() + 1));
+                                instrumentlist = instrumentlist.concat("\t");
+                                instrumentlist = instrumentlist.concat(instruments[sm.getData1()].toString());
+                                instrumentlist = instrumentlist.concat("\n");
 
                                 break;
                             }
@@ -1404,4 +1410,35 @@ public class PlayMidi {
         track.add(new MidiEvent(message, tick));
     }
 
+    // The Universal SysEx message adjusts a device's master volume.
+    public void sendMasterVolume() {
+
+        // In a multitimbral device, the Volume controller messages are used to control the volumes of individual Channels.
+        // The message to control Master Volume is as follows:
+        //
+        // 0xF0  SysEx
+        // 0x7F  Realtime
+        // 0x7F  The SysEx channel. Could be from 0x00 to 0x7F. Here we set it to "disregard channel".
+        // 0x04  Sub-ID -- Device Control
+        // 0x01  Sub-ID2 -- Master Volume
+        // 0xLL  Bits 0 to 6 of a 14-bit volume
+        // 0xMM  Bits 7 to 13 of a 14-bit volume
+        // 0xF7  End of SysEx
+
+        byte volLL = (byte) 0x3F; //0011 1111
+        byte volMM = (byte) 0x3F; //0011 1111
+
+        byte[] sysexvol = new byte[8];
+        sysexvol[0] = (byte) 0xF0;
+        sysexvol[1] = (byte) 0x7F;
+        sysexvol[2] = (byte) 0x0F;
+        sysexvol[3] = (byte) 0x04;
+        sysexvol[4] = (byte) 0x01;
+        sysexvol[5] = (byte) volLL;
+        sysexvol[6] = (byte) volMM;
+        sysexvol[7] = (byte) 0xF7;
+
+        sendSysEx(sysexvol);
+
+    }
 }

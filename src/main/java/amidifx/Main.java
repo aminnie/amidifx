@@ -263,12 +263,12 @@ public class Main extends Application {
     TextField txtLower = new TextField("12");
     TextField txtUpper = new TextField("14");
     TextField txtTimeSig = new TextField("4/4");
-    TextArea txtInstrumentList = new TextArea("Play Song to update Song MIDI Track Instruments");
+    TextArea txtInstrumentList = new TextArea("Play Song to retrieve MIDI Instruments.\n\nMIDI Sequencer mutes by Track not Channel number!");
 
     Label lblCurSongMidiModule = new Label("MIDI GM");
     int cursongmoduleidx = 0;
 
-    Button buttonupdate = new Button(" Save List ");
+    Button buttonupdate = new Button(" Save ");
 
     Button buttonedit = new Button("  Edit ");
     Button buttonnew = new Button("  New ");
@@ -562,7 +562,7 @@ public class Main extends Application {
                     presetchooser.setDisable(true);
                     midichooser.setDisable(true);
 
-                    txtInstrumentList.setText("Play Song to update Song MIDI Track Instruments");
+                    txtInstrumentList.setText("Play Song to retrieve Song MIDI Instruments.\nSequecer mutes by Track not Channel Number!");
 
                     songTitle = midiSong.getSongTitle();
                     songFile = midiSong.getMidiFile();
@@ -671,7 +671,7 @@ public class Main extends Application {
         Label lblsong = new Label("Song Title:");
         lblsong.setStyle(styletextwhite);
         txtSongTitle.setStyle(styletext);
-        txtSongTitle = new TextField();
+        //**txtSongTitle.setStyle("-fx-opacity: 0.75;");
         txtSongTitle.setDisable(true);
         txtSongTitle.setMaxWidth(250);
         txtSongTitle.textProperty().addListener(event -> {
@@ -687,12 +687,11 @@ public class Main extends Application {
         txtSongTitle.setPrefColumnCount(20);
         txtSongTitle.setTooltip(new Tooltip(
                 "Item name (5 to 25 Alphanum chars length)"));
-        txtSongTitle.setStyle("-fx-control-inner-background: #E7ECEC;");
 
         Label lblpreset = new Label("Preset File:");
         lblpreset.setStyle(styletextwhite);
         txtPresetFile.setStyle(styletext);
-        txtPresetFile = new TextField();
+        //**txtPresetFile.setStyle("-fx-opacity: 0.75;");
         txtPresetFile.setDisable(true);
         txtPresetFile.textProperty().addListener(event -> {
             String regexfile = "^[A-Za-z0-9]{3,12}[.]{1}[A-Za-z]{3}$";
@@ -707,12 +706,11 @@ public class Main extends Application {
         txtPresetFile.setPrefColumnCount(10);
         txtPresetFile.setTooltip(new Tooltip(
                 "Item name (Name in 3-12 Alphanum format)"));
-        txtPresetFile.setStyle("-fx-control-inner-background: #E7ECEC;");
 
         Label lblsmf = new Label("MIDI File:");
         lblsmf.setStyle(styletextwhite);
         txtSmfFile.setStyle(styletext);
-        txtSmfFile = new TextField();
+        //**txtSmfFile.setStyle("-fx-opacity: 0.75;");
         txtSmfFile.setDisable(true);
         txtSmfFile.textProperty().addListener(event -> {
             String regexfile = "^[A-Za-z0-9]{3,12}[.]{1}[A-Za-z]{3}$";
@@ -727,15 +725,15 @@ public class Main extends Application {
         txtSmfFile.setPrefColumnCount(10);
         txtSmfFile.setTooltip(new Tooltip(
                 "Item name (Name in 3-12 Alphanum format)"));
-        txtSmfFile.setStyle("-fx-control-inner-background: #E7ECEC;");
 
         Label lblpresetsaveas = new Label("Preset As:");
         lblpresetsaveas.setStyle(styletextwhite);
         txtPresetSaveAsFile.setStyle(styletext);
+        //**txtPresetSaveAsFile.setStyle("-fx-opacity: 0.75;");
         txtPresetSaveAsFile.setDisable(true);
-        txtPresetSaveAsFile.setEditable(false);
-        txtPresetSaveAsFile.setMouseTransparent(true);
-        txtPresetSaveAsFile.setFocusTraversable(false);
+        //**txtPresetSaveAsFile.setEditable(false);
+        //**txtPresetSaveAsFile.setMouseTransparent(true);
+        //**txtPresetSaveAsFile.setFocusTraversable(false);
         txtPresetSaveAsFile.textProperty().addListener(event -> {
             String regexfile = "^[A-Za-z0-9]{3,12}[.]{1}[A-Za-z]{3}$";
             txtPresetSaveAsFile.pseudoClassStateChanged(
@@ -751,7 +749,6 @@ public class Main extends Application {
         txtPresetSaveAsFile.setPrefColumnCount(10);
         txtPresetSaveAsFile.setTooltip(new Tooltip(
                 "Save as Preset name (Name in 3-12 Alphanum format)"));
-        txtPresetSaveAsFile.setStyle("-fx-control-inner-background: #E7ECEC;");
 
         Label lblCurMidiModule = new Label("Module:");
         lblCurMidiModule.setStyle(styletextwhite);
@@ -832,8 +829,8 @@ public class Main extends Application {
 
                         // Disable Preset File Save As text entry after save
                         txtPresetSaveAsFile.setDisable(true);
-                        txtPresetSaveAsFile.setMouseTransparent(true);
-                        txtPresetSaveAsFile.setFocusTraversable(false);
+                        //**txtPresetSaveAsFile.setMouseTransparent(true);
+                        //**txtPresetSaveAsFile.setFocusTraversable(false);
 
                         labelstatusSng.setText(" Status: Saved New Song " + txtSongTitle.getText());
                     }
@@ -870,13 +867,13 @@ public class Main extends Application {
         });
 
         // Get Song Bass, Lower and Upper Channel override from User
-        Label lblSongChannels = new Label("MIDI Track Number Override for Mute:");
+        Label lblSongChannels = new Label("Mute MIDI Track Numbers:");
         lblSongChannels.setStyle(styletextwhite);
 
         Label lblBass = new Label("Bass:  ");
         lblBass.setStyle(styletextwhite);
-        txtBass.setStyle(styletextwhite);
         txtBass = new TextField(Integer.toString(sharedStatus.getBassCHAN()));
+        txtBass.setStyle(styletext);
         txtBass.setDisable(true);
         txtBass.setMaxWidth(xmute);
         txtBass.textProperty().addListener(event -> {
@@ -890,8 +887,8 @@ public class Main extends Application {
 
         Label lblLower = new Label("   Lower:  ");
         lblLower.setStyle(styletextwhite);
-        txtLower.setStyle(styletextwhite);
         txtLower = new TextField(Integer.toString(sharedStatus.getLower1CHAN()));
+        txtLower.setStyle(styletext);
         txtLower.setDisable(true);
         txtLower.setMaxWidth(xmute);
         txtLower.textProperty().addListener(event -> {
@@ -905,8 +902,8 @@ public class Main extends Application {
 
         Label lblUpper = new Label("   Upper:  ");
         lblUpper.setStyle(styletextwhite);
-        txtUpper.setStyle(styletextwhite);
         txtUpper = new TextField(Integer.toString(sharedStatus.getUpper1CHAN()));
+        txtUpper.setStyle(styletext);
         txtUpper.setDisable(true);
         txtUpper.setMaxWidth(xmute);
         txtUpper.textProperty().addListener(event -> {
@@ -1005,9 +1002,9 @@ public class Main extends Application {
             bnewSong = true;
 
             // Enable Preset File Save As text entry
-            txtPresetSaveAsFile.setEditable(true);
-            txtPresetSaveAsFile.setMouseTransparent(false);
-            txtPresetSaveAsFile.setFocusTraversable(true);
+            //**txtPresetSaveAsFile.setEditable(true);
+            //**txtPresetSaveAsFile.setMouseTransparent(false);
+            //**txtPresetSaveAsFile.setFocusTraversable(true);
             txtPresetSaveAsFile.setDisable(false);
 
             // Enable Preset File Save As text entry
@@ -1021,7 +1018,7 @@ public class Main extends Application {
             presetchooser.setDisable(false);
             midichooser.setDisable(false);
 
-            txtInstrumentList.setText("Play Song to update Song MIDI Track Instruments");
+            txtInstrumentList.setText("Play Song to retrieve MIDI Instrument List.\n Sequencer mutes by Track not Channel Number!");
 
             buttonedit.setDisable(true);
             buttonnew.setDisable(true);

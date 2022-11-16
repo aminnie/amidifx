@@ -168,7 +168,7 @@ public class MidiDevices {
             // Get output Synth or external Sound Module
             midircvr = openMidiReceiver(seloutdevice);
             if (midircvr == null) {
-                System.err.print("**** Error: Unable to open selected MIDI OUT device: " + seloutdevice);
+                System.err.println("**** Error: Unable to open selected MIDI OUT device: " + seloutdevice);
 
                 sharedstatus.setStatusText("Error opening selected MIDI OUT device");
                 return -1;
@@ -400,7 +400,7 @@ public class MidiDevices {
             //System.out.println("LayerOutMessages: " + channel + ", " + message.toString());
 
             // Layer Upper Channel 1
-            if (channel == (byte) (sharedstatus.getUpper1CHAN() - 1)) {
+            if (channel == (byte) (sharedstatus.getUpper1CHAN())) {
 
                 // Track open notes to prevent hung notes. Close out all open notes before completing the layer off request
                 // Note: Midi Note ON with Velocity = 0, is same as Note OFF
@@ -554,7 +554,7 @@ public class MidiDevices {
             }
 
             // Layer Lower Channel 1
-            else if (channel == (byte) (sharedstatus.getLower1CHAN() - 1)) {
+            else if (channel == (byte) (sharedstatus.getLower1CHAN())) {
 
                 // Track open notes to prevent hung notes. Close out all open notes before completing the layer off request
                 // Note: Midi Note ON with Velocity = 0, is same as Note OFF
@@ -661,7 +661,7 @@ public class MidiDevices {
             }
 
             // Layer Bass Channel 1
-            else if (channel == (byte) (sharedstatus.getBassCHAN() - 1)) {
+            else if (channel == (byte) (sharedstatus.getBassCHAN())) {
 
                 // Track open notes to prevent hung notes. Close out all open notes before completing the layer off request
                 // Note: Midi Note ON with Velocity = 0, is same as Note OFF
@@ -1136,26 +1136,26 @@ public class MidiDevices {
         }
     }
 
-    public boolean setOctaveCHAN(int channelusr, int octadjust) {
+    public boolean setOctaveCHAN(int CHAN, int octadjust) {
 
-        if ( (uppernoteson != 0) && (channelusr == sharedstatus.getUpper1CHAN()) )
-            return false;
-        else if ( (lowernoteson != 0) && (channelusr == sharedstatus.getLower1CHAN()) )
-            return false;
-        else if ( (bassnoteson != 0) && (channelusr == sharedstatus.getBassCHAN()) )
-            return false;
+        System.out.println("MidiDevices: set Octave on CHAN: " + CHAN + " ADJ:" + octadjust);
 
-        int channelidx = channelusr - 1;
-        if (channelidx < 0) channelidx = 0;
+        if ((CHAN < 0) || (CHAN > 15)) return false;
+
+        if ( (uppernoteson != 0) && (CHAN == sharedstatus.getUpper1CHAN()) )
+            return false;
+        else if ( (lowernoteson != 0) && (CHAN == sharedstatus.getLower1CHAN()) )
+            return false;
+        else if ( (bassnoteson != 0) && (CHAN == sharedstatus.getBassCHAN()) )
+            return false;
 
         // Prevent excessive layer up or down transpose
         if (octadjust < -2 || octadjust > 2) {
-            octadjust = 0;
             return false;
         }
 
         // Finally actave shift the channel
-        this.octchannel[channelidx] = octadjust;
+        this.octchannel[CHAN] = octadjust;
 
         return true;
     }
@@ -1167,8 +1167,8 @@ public class MidiDevices {
         }
     }
 
-    public int getOctaveCHAN(int channelidx) {
-        return this.octchannel[channelidx];
+    public int getOctaveCHAN(int CHAN) {
+        return this.octchannel[CHAN];
     }
 
 }

@@ -145,6 +145,7 @@ public class PresetScene {
     boolean flgDirtyPreset = false; // Track need to save changes Presets
     boolean bplaying = false;
     boolean btestnote = false;
+    int octavetestnote =  0;
 
     ListView<String> presetListView;
     String songTitle = "Organ";
@@ -589,7 +590,7 @@ public class PresetScene {
         banklistView.getSelectionModel().selectFirst();
         banklistView.setStyle(styletext);
 
-        Button buttonb = new Button("Set Voice");
+        Button buttonb = new Button("Select Voice Bank");
         buttonb.setStyle(selectcolorOff);
         buttonb.setPrefSize(xbutton, ybutton - 10);
         buttonb.setOnAction(event -> {
@@ -1082,6 +1083,7 @@ public class PresetScene {
             renderVoiceButtons(patchIdx - 16 > 0 ? (patchIdx = patchIdx - 16) : (patchIdx = 0), dopatches.getMIDIPatchSize());
         });
 
+        channelIdx = sharedStatus.getUpper1CHAN();
         Button btntest = new Button("Demo Voice");
         btntest.setStyle(btnplayOff);
         btntest.setPrefSize(xbutton, ybutton);
@@ -1108,18 +1110,48 @@ public class PresetScene {
                     playmidifile.sendMidiControlChange((byte) (channelIdx), ccREL, (byte) sliderREL.getValue());
                     playmidifile.sendMidiControlChange((byte) (channelIdx), ccBRI, (byte) sliderBRI.getValue());
 
-                    playmidifile.sendMidiNote((byte) (channelIdx), (byte) 60, true);
+                    // Play middle C ON octave translated.
+                    // However, ensure demo note is OFF before applying a new demo note
+                    if (btestnote) {
+                        // Play middle C OFF octave translated
+                        channelIdx = sharedStatus.getUpper1CHAN();
+                        PlayMidi playmidifileOFF = PlayMidi.getInstance();
+                        playmidifileOFF.sendMidiNote((byte) (channelIdx), (byte) octavetestnote, false);
+                        btestnote = false;
+                    }
+
+                    channelIdx = 0;
+                    byte octave = (byte)sliderOCT.getValue();
+                    int note = 60 + (byte) (octave * 13);
+                    channelIdx = sharedStatus.getUpper1CHAN();
+                    PlayMidi playmidifileON = PlayMidi.getInstance();
+                    playmidifileON.sendMidiNote((byte) (channelIdx), (byte) note, true);
                     //playmidifile.startMidiDemo(channelIdx+1);
 
                     // Remember channel sounding so, we can turn this one off after we may have changed to another
                     //channelIdxSound = channelIdx;
                     btestnote = true;
+                    octavetestnote =  note;
                 } else {
                     btntest.setText("Demo Voice");
                     btntest.setStyle(btnplayOff);
 
-                    PlayMidi playmidifile = PlayMidi.getInstance();
-                    playmidifile.sendMidiNote((byte) (channelIdx), (byte) 60, false);
+                    // Ensure previous demo note is OFF before applying a new demo note
+                    if (btestnote) {
+                        // Play middle C OFF octave translated
+                        channelIdx = sharedStatus.getUpper1CHAN();
+                        PlayMidi playmidifileOFF = PlayMidi.getInstance();
+                        playmidifileOFF.sendMidiNote((byte) (channelIdx), (byte) octavetestnote, false);
+                        btestnote = false;
+                    }
+
+                    // Play middle C OFF octave translated
+                    channelIdx = 0;
+                    byte octave = (byte)sliderOCT.getValue();
+                    int note = 60 + (byte) (octave * 13);
+                    channelIdx = sharedStatus.getUpper1CHAN();
+                    PlayMidi playmidifileOFF = PlayMidi.getInstance();
+                    playmidifileOFF.sendMidiNote((byte) (channelIdx), (byte) note, false);
 
                     btestnote = false;
                 }
@@ -1458,7 +1490,7 @@ public class PresetScene {
         });
 
         // Create OCT (Octave) slider
-        sliderOCT = new Slider(-2, 2, 0);
+        sliderOCT = new Slider(-2.5, 2.5, 0);
         sliderOCT.setOrientation(Orientation.VERTICAL);
         sliderOCT.setShowTickLabels(true);
         sliderOCT.setShowTickMarks(true);
@@ -1470,6 +1502,7 @@ public class PresetScene {
             //Setting the angle for the rotation
             rotateOct.setAngle((double) newValue);
 
+            channelIdx = sharedStatus.getUpper1CHAN();
             System.out.println("Main: Old Oct Value " + dopresets.getPreset(presetIdx * 16 + channelIdx).getOctaveTran());
             dopresets.getPreset(presetIdx * 16 + channelIdx).setOctaveTran(newValue.intValue());
             System.out.println("Main: New Oct Value " + dopresets.getPreset(presetIdx * 16 + channelIdx).getOctaveTran());
@@ -1731,7 +1764,7 @@ public class PresetScene {
             MidiPreset applypreset = dopresets.getPreset(presetIdx * 16 + channelIdx);
             dopresets.applyMidiPreset(applypreset, channelIdx);
 
-            labelstatus.setText(" Status: Preset " + (presetIdx + 1) + " CHAN " + (channelIdx + 1) + " MIDI sent");
+            labelstatus.setText(" Status: MIDI sent Voice to Preset " + (presetIdx + 1) + " Channel " + (channelIdx + 1));
         });
 
         // Send All Presets to MIDI Module Button
@@ -1744,7 +1777,7 @@ public class PresetScene {
                 dopresets.applyMidiPreset(applypreset, idx);
             }
 
-            labelstatus.setText(" Status: MIDI Sent all CHAN Presets");
+            labelstatus.setText(" Status: MIDI sent Voices to all Preset Channels");
         });
 
         // Copy all Presets to Next Preset. Makes it easier to set next one up - especially when it is incremental

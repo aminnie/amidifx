@@ -108,7 +108,7 @@ public class PerformScene {
     final String btnplayOn = "-fx-background-color: #DB6B6B; -fx-font-size: " + fsize ;
 
     final String lrpressedOn = "-fx-background-color: #8ED072; -fx-font-size: " + fsize ;
-    final String lrpressedOff = "-fx-background-color: #DB6B6B; -fx-font-size: " + fsize ;
+    final String lrpressedOff = "-fx-background-color: #CBE9BE; -fx-font-size: " + fsize ;
 
     final String styletext = "-fx-text-fill: black; -fx-font-size: " + fsize ;
     final String styletextwhite = "-fx-text-fill: white; -fx-font-size: " + fsize ;
@@ -3415,7 +3415,7 @@ public class PerformScene {
 
             // Create OCT slider
             octaveflg = true;
-            sliderOCT = new Slider(-2, 2, 0);
+            sliderOCT = new Slider(-2.5, 2.5, 0);
             sliderOCT.setOrientation(Orientation.VERTICAL);
             sliderOCT.setShowTickLabels(true);
             sliderOCT.setShowTickMarks(true);
