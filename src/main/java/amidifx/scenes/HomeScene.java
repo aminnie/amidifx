@@ -140,6 +140,7 @@ public class HomeScene {
             sharedStatus.setSelInDevice(appconfig.getInDevice());
             sharedStatus.setSelOutDevice(appconfig.getOutDevice());
 
+            sharedStatus.setDemoCHAN(appconfig.getDemoChannel());
             sharedStatus.setDrumCHAN(appconfig.getDrumChannel());
             sharedStatus.setSoloCHAN(appconfig.getSoloChannel());
             sharedStatus.setBassCHAN(appconfig.getBassChannel());
@@ -320,7 +321,7 @@ public class HomeScene {
                     introline2 + System.getProperty("line.separator") +
                     introline3;
             TextArea txtIntro = new TextArea(introlines);
-            txtIntro.setStyle("-fx-background-color: #CCCCCC; ");
+            txtIntro.setStyle("-fx-background-color: #CCCCCC; -fx-opacity: 0.7;");
             txtIntro.setPrefSize(300, 250);
             txtIntro.setWrapText(true);
             txtIntro.setEditable(false);
@@ -346,7 +347,7 @@ public class HomeScene {
                     keyboards8 + System.getProperty("line.separator") +
                     keyboards9;
             TextArea txtKeyboard = new TextArea(keyboards);
-            txtKeyboard.setStyle("-fx-background-color: #CACACA; ");
+            txtKeyboard.setStyle("-fx-background-color: #CACACA; -fx-opacity: 0.7;");
             txtKeyboard.setPrefSize(200, 250);
             txtKeyboard.setWrapText(true);
             txtKeyboard.setEditable(false);
@@ -463,7 +464,7 @@ public class HomeScene {
                 //System.out.println("Selection made: [" + selectedIndex + "] " + selectedItem);
                 //System.out.println("   ComboBox.getValue(): " + comboInDevice.getValue());
             });
-            Label lblinselect = new Label("Select MIDI IN:");
+            Label lblinselect = new Label("MIDI IN:");
             lblinselect.setStyle(styletextwhite);
 
             VBox vboxcomboindevice = new VBox();
@@ -511,7 +512,7 @@ public class HomeScene {
                 //System.out.println("   ComboBox.getValue(): " + comboOutDevice.getValue());
             });
 
-            Label lbloutselect = new Label("Select MIDI OUT:");
+            Label lbloutselect = new Label("MIDI OUT:");
             lbloutselect.setStyle(styletextwhite);
 
             VBox vboxcombooutdevice = new VBox();

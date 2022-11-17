@@ -1269,11 +1269,14 @@ public class PlayMidi {
                             if (sm.getCommand() == 192) {
                                 //System.out.println("PlayMidi: Track " + trackNumber + " Channel=" + (sm.getChannel() + 1) + " " + instruments[sm.getData1()]);
 
+                                String instrumentname = instruments[sm.getData1()].toString();
+                                String instrumentnamenew = instrumentname.replace("Instrument:", "");
+
                                 instrumentlist = instrumentlist.concat("TRK=").concat(Integer.toString(trackNumber));
                                 instrumentlist = instrumentlist.concat("\t");
                                 instrumentlist = instrumentlist.concat(" CHN=").concat(Integer.toString(sm.getChannel() + 1));
                                 instrumentlist = instrumentlist.concat("\t");
-                                instrumentlist = instrumentlist.concat(instruments[sm.getData1()].toString());
+                                instrumentlist = instrumentlist.concat(instrumentnamenew);
                                 instrumentlist = instrumentlist.concat("\n");
 
                                 break;

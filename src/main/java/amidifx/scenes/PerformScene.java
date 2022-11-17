@@ -329,7 +329,7 @@ public class PerformScene {
         try {
             // Create instance of Shared Status to report back to Scenes
             sharedStatus = SharedStatus.getInstance();
-            lastVoiceChannel = sharedStatus.getUpper1CHAN();
+            lastVoiceChannel = sharedStatus.getDemoCHAN();
             lastVoiceChannelSound = lastVoiceChannel;
 
             // Start Building the Scene

@@ -38,6 +38,7 @@ public class SharedStatus {
     private String seloutdevice = "default";
 
     // Hardcoded keyboard channels for now. Roland AT900 TX Channels default. Overriden from AppConfig XML after init.
+    private byte DEMOKBD = 1;
     private byte SOLOKBD = 1;
     private byte BASSKBD = 2;
     private byte LOWER1KBD = 3;
@@ -323,6 +324,9 @@ public class SharedStatus {
         return BASSKBD;
     }
     public void setBassCHAN(byte midichan) { BASSKBD = midichan; }
+
+    public byte getDemoCHAN() { return DEMOKBD; }
+    public void setDemoCHAN(byte midichan) {DEMOKBD = midichan; }
 
     public byte getSoloCHAN() { return SOLOKBD; }
     public void setSoloCHAN(byte midichan) {SOLOKBD = midichan; }

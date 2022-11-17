@@ -1101,6 +1101,18 @@ public class Main extends Application {
         buttondemo.setPrefSize(xsmallbtn * 2, ysmallbtn);
         buttondemo.setOnAction(e -> {
             try {
+                // Only play Song if the selected moduleidx is the same as moduleidx on the Song
+                if (sharedStatus.getModuleidx() != dosongs.getSong(idxSongList).getModuleIdx()) {
+                    bplaying = false;
+
+                    labelstatusSng.setText(" Status: To play this Song, connect module " + sharedStatus.getModuleName(dosongs.getSong(idxSongList).getModuleIdx()));
+                    labelstatusSng.setStyle(styletextred);
+
+                    return;
+                }
+                else
+                    labelstatusSng.setStyle(styletext);
+
                 if (!bplaying) {
                     bplaying = true;
                     boolean bsettimer = false;

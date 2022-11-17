@@ -1114,7 +1114,7 @@ public class PresetScene {
                     // However, ensure demo note is OFF before applying a new demo note
                     if (btestnote) {
                         // Play middle C OFF octave translated
-                        channelIdx = sharedStatus.getUpper1CHAN();
+                        channelIdx = sharedStatus.getDemoCHAN();
                         PlayMidi playmidifileOFF = PlayMidi.getInstance();
                         playmidifileOFF.sendMidiNote((byte) (channelIdx), (byte) octavetestnote, false);
                         btestnote = false;
@@ -1123,7 +1123,7 @@ public class PresetScene {
                     channelIdx = 0;
                     byte octave = (byte)sliderOCT.getValue();
                     int note = 60 + (byte) (octave * 13);
-                    channelIdx = sharedStatus.getUpper1CHAN();
+                    channelIdx = sharedStatus.getDemoCHAN();
                     PlayMidi playmidifileON = PlayMidi.getInstance();
                     playmidifileON.sendMidiNote((byte) (channelIdx), (byte) note, true);
                     //playmidifile.startMidiDemo(channelIdx+1);
@@ -1139,7 +1139,7 @@ public class PresetScene {
                     // Ensure previous demo note is OFF before applying a new demo note
                     if (btestnote) {
                         // Play middle C OFF octave translated
-                        channelIdx = sharedStatus.getUpper1CHAN();
+                        channelIdx = sharedStatus.getDemoCHAN();
                         PlayMidi playmidifileOFF = PlayMidi.getInstance();
                         playmidifileOFF.sendMidiNote((byte) (channelIdx), (byte) octavetestnote, false);
                         btestnote = false;
@@ -1149,7 +1149,7 @@ public class PresetScene {
                     channelIdx = 0;
                     byte octave = (byte)sliderOCT.getValue();
                     int note = 60 + (byte) (octave * 13);
-                    channelIdx = sharedStatus.getUpper1CHAN();
+                    channelIdx = sharedStatus.getDemoCHAN();
                     PlayMidi playmidifileOFF = PlayMidi.getInstance();
                     playmidifileOFF.sendMidiNote((byte) (channelIdx), (byte) note, false);
 
