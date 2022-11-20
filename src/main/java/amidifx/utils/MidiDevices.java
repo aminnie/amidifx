@@ -186,7 +186,7 @@ public class MidiDevices {
                 System.out.println("Ready to play MIDI keyboard...");
             } else
                 System.out.println("**** No MIDI keyboard connected! Connect USB MIDI keyboard proceed.");
-        } catch (Exception e) {     //// MidiUnavailableException
+        } catch (Exception e) {     // MidiUnavailableException
             System.err.println("MidiDevices: Device configuration error getting receiver, custom receiver or transmitter");
             e.printStackTrace();
 
@@ -296,7 +296,7 @@ public class MidiDevices {
         }
 
         try {
-            return MidiSystem.getSequencer();
+            return MidiSystem.getSequencer(false);
         } catch (MidiUnavailableException e) {
             System.err.println("Error getting sequencer");
             e.printStackTrace();
@@ -487,23 +487,22 @@ public class MidiDevices {
                             upper2notestrack[bytes1] = (byte) 0;
 
                             // Tracking Note On in preparation for Note Off following Layer off command with 10s timeout
-                            if (uppernoteson == 0) {
-                                upper2layeron = false;
-                                trackupper2opennotes = false;            // Interim state until all notes closed out on keyboard - triggers real layer off
-                            }
-                            else if (trackupper2opennotes && ((System.currentTimeMillis() - upper2layerofftime) > noteofftimeout)) {
-                                for (int inote = 21; inote < 109; inote++) {
-                                    if (upper2notestrack[inote] != 0) {
-                                        shortmessage = new ShortMessage();
-                                        shortmessage.setMessage(0x80, chan, inote, 0);
-                                        receiver.send(shortmessage, timeStamp);
+                            if ((uppernoteson == 0) && (trackupper2opennotes)) {
+                                    if ((System.currentTimeMillis() - upper2layerofftime) > noteofftimeout) {
+                                        for (int inote = 21; inote < 109; inote++) {
+                                            if (upper2notestrack[inote] != 0) {
+                                                shortmessage = new ShortMessage();
+                                                shortmessage.setMessage(0x80, chan, inote, 0);
+                                                receiver.send(shortmessage, timeStamp);
 
-                                        upper2notestrack[inote] = 0;
-                                        //System.out.println("layerOutMessages: Timeout notes cleared on: " + chan + ", " + inote);
+                                                upper2notestrack[inote] = 0;
+                                                //System.out.println("layerOutMessages: Timeout notes cleared on: " + chan + ", " + inote);
+                                            }
+                                        }
                                     }
-                                }
                                 upper2layeron = false;
                                 trackupper2opennotes = false;
+                                layerUpper[upper2idx+1] = (byte)(0);
                             }
                         }
 
@@ -522,23 +521,22 @@ public class MidiDevices {
                             upper3notestrack[bytes1] = (byte) 0;
 
                             // Tracking Note On in preparation for Note Off following Layer off command with 10s timeout
-                            if (uppernoteson == 0) {
-                                upper3layeron = false;
-                                trackupper3opennotes = false;            // Interim state until all notes closed out on keyboard - triggers real layer off
-                            }
-                            else if (trackupper3opennotes && ((System.currentTimeMillis() - upper3layerofftime) > noteofftimeout)) {
-                                for (int inote = 21; inote < 109; inote++) {
-                                    if (upper3notestrack[inote] != 0) {
-                                        shortmessage = new ShortMessage();
-                                        shortmessage.setMessage(0x80, chan, inote, 0);
-                                        receiver.send(shortmessage, timeStamp);
+                            if ((uppernoteson == 0) && (trackupper3opennotes)) {
+                                if ((System.currentTimeMillis() - upper3layerofftime) > noteofftimeout) {
+                                    for (int inote = 21; inote < 109; inote++) {
+                                        if (upper3notestrack[inote] != 0) {
+                                            shortmessage = new ShortMessage();
+                                            shortmessage.setMessage(0x80, chan, inote, 0);
+                                            receiver.send(shortmessage, timeStamp);
 
-                                        upper3notestrack[inote] = 0;
-                                        //System.out.println("layerOutMessages: Timeout notes cleared on: " + chan + ", " + inote);
+                                            upper3notestrack[inote] = 0;
+                                            //System.out.println("layerOutMessages: Timeout notes cleared on: " + chan + ", " + inote);
+                                        }
                                     }
                                 }
                                 upper3layeron = false;
                                 trackupper3opennotes = false;
+                                layerUpper[upper3idx+1] = (byte)(0);
                             }
                         }
                     }
@@ -628,23 +626,22 @@ public class MidiDevices {
                             lower2notestrack[bytes1] = (byte) 0;
 
                             // Tracking Note On in preparation for Note Off following Layer off command with 10s timeout
-                            if (lowernoteson == 0) {
-                                lower2layeron = false;
-                                tracklower2opennotes = false;            // Interim state until all notes closed out on keyboard - triggers real layer off
-                            }
-                            else if (tracklower2opennotes && ((System.currentTimeMillis() - lower2layerofftime) > noteofftimeout)) {
-                                for (int inote = 21; inote < 109; inote++) {
-                                    if (lower2notestrack[inote] != 0) {
-                                        shortmessage = new ShortMessage();
-                                        shortmessage.setMessage(0x80, chan, inote, 0);
-                                        receiver.send(shortmessage, timeStamp);
+                            if ((lowernoteson == 0) && (tracklower2opennotes)) {
+                                if ((System.currentTimeMillis() - lower2layerofftime) > noteofftimeout) {
+                                    for (int inote = 21; inote < 109; inote++) {
+                                        if (lower2notestrack[inote] != 0) {
+                                            shortmessage = new ShortMessage();
+                                            shortmessage.setMessage(0x80, chan, inote, 0);
+                                            receiver.send(shortmessage, timeStamp);
 
-                                        lower2notestrack[inote] = 0;
-                                        //System.out.println("layerOutMessages: Timeout notes cleared on: " + chan + ", " + inote);
+                                            lower2notestrack[inote] = 0;
+                                            //System.out.println("layerOutMessages: Timeout notes cleared on: " + chan + ", " + inote);
+                                        }
                                     }
                                 }
                                 lower2layeron = false;
-                                tracklower2opennotes = false;            // Interim state until all notes closed out on keyboard - triggers real layer off
+                                tracklower2opennotes = false;
+                                layerLower[lower2idx+1] = (byte)(0);
                             }
                         }
                     }
@@ -857,7 +854,6 @@ public class MidiDevices {
         System.out.println("*** openMidiReceiver " + seloutdevice + " ***");
 
         try {
-            ////selectedDevice = MidiSystem.getSynthesizer();
             MidiDevice.Info[] devices = MidiSystem.getMidiDeviceInfo();
 
             if (devices.length == 0) {
@@ -1026,10 +1022,11 @@ public class MidiDevices {
             if (layeron) {
                 layerUpper[upper2idx+1] = (byte)(1);
                 upper2layeron = true;
+                trackupper2opennotes = false;            // Interim state until all notes closed out on keyboard - triggers real layer off
                 uppernoteson = 0;
             }
             else {
-                layerUpper[upper2idx+1] = (byte)(0);
+                //layerUpper[upper2idx+1] = (byte)(0);
                 upper2layeron = false;
                 trackupper2opennotes = true;            // Interim state until all notes closed out on keyboard - triggers real layer off
                 upper2layerofftime = System.currentTimeMillis();
@@ -1041,10 +1038,11 @@ public class MidiDevices {
             if (layeron) {
                 layerUpper[upper3idx+1] = (byte)(1);
                 upper3layeron = true;
+                trackupper3opennotes = false;            // Interim state until all notes closed out on keyboard - triggers real layer off
                 uppernoteson = 0;
             }
             else {
-                layerUpper[upper3idx+1] = (byte)(0);
+                //layerUpper[upper3idx+1] = (byte)(0);
                 upper3layeron = false;
                 trackupper3opennotes = true;            // Interim state until all notes closed out on keyboard - triggers real layer off
                 upper3layerofftime = System.currentTimeMillis();
@@ -1074,10 +1072,11 @@ public class MidiDevices {
             if (layeron) {
                 layerLower[lower2idx+1] = (byte)(1);
                 lower2layeron = true;
+                tracklower2opennotes = false;            // Interim state until all notes closed out on keyboard - triggers real layer off
                 lowernoteson = 0;
             }
             else {
-                layerLower[lower2idx+1] = (byte)(0);
+                //layerLower[lower2idx+1] = (byte)(0);
                 lower2layeron = false;
                 tracklower2opennotes = true;            // Interim state until all notes closed out on keyboard - triggers real layer off
                 lower2layerofftime = System.currentTimeMillis();

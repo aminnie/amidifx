@@ -353,17 +353,14 @@ public class PerformScene {
 
             // To Do: Generalize the first two Songs in the Song List and ensure cannot be deleted
             if (config.getSoundModuleIdx() == 1) {
-                ////sharedStatus.setPresetFile("defaultdb.pre");
                 sharedStatus.setPresetFile(config.getPresetFileName(1));
                 idxSongList = 1;
             }
             else if (config.getSoundModuleIdx() == 2) {
-                ////sharedStatus.setPresetFile("defaultin.pre");
                 sharedStatus.setPresetFile(config.getPresetFileName(2));
                 idxSongList = 2;
             }
             else {
-                ////sharedStatus.setPresetFile("defaultgm.pre");
                 sharedStatus.setPresetFile(config.getPresetFileName(0));
                 idxSongList = 0;
             }
@@ -377,7 +374,6 @@ public class PerformScene {
             // Load MIDI Default MIDI Preset file on start up
             dopresets = MidiPresets.getInstance();
             presetFile = sharedStatus.getPresetFile();
-            ////dopresets.loadMidiPresets(presetFile);
             if (!dopresets.loadMidiPresets(presetFile)) {
                 labelstatusOrg.setText(" Status: Error loading preset file " + presetFile);
                 labelstatusOrg.setStyle(styletextred);
@@ -496,7 +492,6 @@ public class PerformScene {
 
                 // For newly selected Song, change to the first Preset and 16 Channels
                 presetFile = sharedStatus.getPresetFile();
-                ////dopresets.loadMidiPresets(presetFile);
                 if (!dopresets.loadMidiPresets(presetFile)) {
                     labelstatusOrg.setText(" Status: Error loading preset file " + presetFile);
                     labelstatusOrg.setStyle(styletextred);
@@ -534,7 +529,7 @@ public class PerformScene {
             });
 
             // Save Performance Button
-            buttonSave = new Button("Save Perform");
+            buttonSave = new Button("Save Manual");
             buttonSave.setStyle(btnMenuSaveOn);
             buttonSave.setDisable(true);
             buttonSave.setOnAction(event -> {
@@ -636,6 +631,15 @@ public class PerformScene {
             buttonSongLoad.setPrefSize(xbtnleftright, ybtnleftright);
             buttonSongLoad.setAlignment(Pos.CENTER);
             buttonSongLoad.setOnAction(e -> {
+
+                // Check if Song Module setting is the same as connected Module
+                if (sharedStatus.getModuleidx() != dosongs.getSong(idxSongList).getModuleIdx()) {
+                    labelstatusOrg.setText(" Status: Unable to play. Preset configured for module " + sharedStatus.getModuleName(dosongs.getSong(idxSongList).getModuleIdx()));
+                    labelstatusOrg.setStyle(styletextred);
+
+                    return;
+                }
+
                 buttonPresetLoad(dosongs.getSong(idxSongList).getPresetFile());
 
                 buttonSongLoad.setStyle(selectcolorOn);
@@ -709,6 +713,7 @@ public class PerformScene {
                 offAllPresetButtons();
 
                 labelstatusOrg.setText(" Status: Click Song to select.");
+                labelstatusOrg.setStyle(styletext);
                 //System.out.println("PerformScene: Previous Song " + songTitle);
             });
 
@@ -730,6 +735,7 @@ public class PerformScene {
                 offAllPresetButtons();
 
                 labelstatusOrg.setText(" Status: Click Song to select.");
+                labelstatusOrg.setStyle(styletext);
                 //System.out.println("PerformScene: Next Song " + songTitle);
             });
 
@@ -834,9 +840,6 @@ public class PerformScene {
                 fontname = dopatches.getMIDIPatch(patchidx).getPatchName();
                 buttonSoundFont.setText(fontname);
 
-                ///// Get the Patch index so we can test voice
-                ////patchidx = dopatches.getMIDIPatch(patchidx).getPatchId();
-
                 labelstatusOrg.setText(" Status: Click Voice to select.");
                 //System.out.println("PerformScene: Previous Voice " + fontname);
             });
@@ -850,9 +853,6 @@ public class PerformScene {
                 fontname = dopatches.getMIDIPatch(patchidx).getPatchName();
                 buttonSoundFont.setText(fontname);
 
-                ///// Get the Patch index so we can test voice
-                ////patchidx = dopatches.getMIDIPatch(patchidx).getPatchId();
-
                 labelstatusOrg.setText(" Status: Click Voice to select.");
                 //System.out.println("PerformScene: Next Voice " + fontname);
             });
@@ -865,7 +865,7 @@ public class PerformScene {
             hboxFont.getChildren().add(buttonSoundFontRight);
 
             // Voice Test Button
-            Button btntest = new Button("Sound");
+            Button btntest = new Button("Demo");
             btntest.setStyle(btnplayOff);
             btntest.setPrefSize(xbtnleftright / 2 - 10, ybtnleftright);
             btntest.setOnAction(e -> {
@@ -896,13 +896,19 @@ public class PerformScene {
                         btestnote = true;
                     }
                     else {
-                        btntest.setText("Sound");
+                        btntest.setText("Demo");
                         btntest.setStyle(btnplayOff);
 
                         PlayMidi playmidifile = PlayMidi.getInstance();
                         playmidifile.sendMidiNote((byte)lastVoiceChannelSound, (byte)60, false);
 
                         btestnote = false;
+
+                        // Re-Apply MIDI Program Change on Upper Channel for Button Press since we used it for sound Demo
+                        int CHAN = sharedStatus.getUpper1CHAN();
+                        int buttonidx = midiButtons.lookupButtonIdx(rbutton11.getId());
+                        applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
+
                     }
                     labelstatusOrg.setText(" Status: ");
                 }
@@ -1348,7 +1354,7 @@ public class PerformScene {
             gridmidcenterPerform.add(bass3, 0, 2, 1, 1);
             gridmidcenterPerform.add(bass4, 1, 2, 1, 1);
 
-            Button d1layerbtn = new Button("Drums [" + (sharedStatus.getBassCHAN() + 1) + "]");
+            Button d1layerbtn = new Button("Drums [" + (sharedStatus.getDrumCHAN() + 1) + "]");
             d1layerbtn.setStyle(styletext);
             d1layerbtn.setStyle(lrpressedOn);
             d1layerbtn.setMaxSize(xlayerbtn, ylayerbtn);
@@ -3563,7 +3569,6 @@ public class PerformScene {
 
     void buttonPresetLoad(String presetFile) {
 
-        ////dopresets.loadMidiPresets(presetFile);
         if (!dopresets.loadMidiPresets(presetFile)) {
             labelstatusOrg.setText(" Status: Error loading preset file " + presetFile);
             labelstatusOrg.setStyle(styletextred);
@@ -3573,7 +3578,6 @@ public class PerformScene {
                 wait(10000);
             }
             catch(Exception exception) {}
-            ////System.exit(-1);
         }
         System.out.println("PerformScene Init: Loaded new Preset file: " + presetFile);
 
@@ -3606,7 +3610,6 @@ public class PerformScene {
 
             // Reload Preset file if changed, e.g. in Preset Scene
             if (sharedStatus.getPresetReload() == true) {
-                ////dopresets.loadMidiPresets(presetFile);
                 if (!dopresets.loadMidiPresets(presetFile)) {
                     labelstatusOrg.setText(" Status: Error loading preset file " + presetFile);
                     labelstatusOrg.setStyle(styletextred);
@@ -3616,7 +3619,6 @@ public class PerformScene {
                         wait(10000);
                     }
                     catch(Exception exception) {}
-                    ////System.exit(-1);
                 }
                 System.out.println("PerformScene Init: Loaded new Preset file: " + presetFile);
 

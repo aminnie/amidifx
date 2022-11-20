@@ -120,22 +120,6 @@ public class PlayMidi {
 
         // Get default sequencer.
         try {
-            //if (sequencer == null) {
-            //    sequencer = MidiSystem.getSequencer();
-            //    if (!sequencer.isOpen()) {
-            //        sequencer.open();
-            //    }
-            //    midircv = MidiSystem.getReceiver();
-            //    Receiver midircv = sharedStatus.getRxDevice();
-            //    sequencer.getTransmitter().setReceiver(midircv);
-            //}
-
-            //if (sequencer == null) {
-            //    sharedStatus.setStatusText("No Sequencer device available. Unable to start MIDI file play!");
-            //    System.err.println("PlayMidi Error: No Sequencer device available. Unable to start play!");
-            //    return false;
-            //}
-
             Receiver midircv = sharedStatus.getRxDevice();
             sequencer.getTransmitter().setReceiver(midircv);
 
@@ -339,11 +323,6 @@ public class PlayMidi {
                 //System.out.println("PlayMidi: stopMidiPlay stopping running Sequencer");
                 sequencer.stop();
             }
-            ////if (sequencer.isOpen()) {
-            ////    //System.out.println("PlayMidi: stopMidiPlay closing open Sequencer");
-            ////    sequencer.close();
-            ////}
-
         }
         catch (Exception ex) {
             System.err.println("### PlayMidi: Error attempting to stop sequencer play: " + ex);
@@ -467,7 +446,7 @@ public class PlayMidi {
                         midircv.send(midiMsg, timeStamp);
 
                         curPresetList.get(CHAN).setVOL(VAL);
-                        System.out.println("CHAN " + CHAN + " VOL setting changed! " + VAL);
+                        //System.out.println("CHAN " + CHAN + " VOL setting changed! " + VAL);
                     }
                     //else
                     //    System.out.println("VOL setting NOT changed! " + VAL);
@@ -970,7 +949,7 @@ public class PlayMidi {
         if (CHAN < 0) return false;
 
         try {
-            sequencer = MidiSystem.getSequencer();
+            sequencer = MidiSystem.getSequencer(false);
 
             sequencer.setTrackMute(CHAN, true);
 
@@ -994,7 +973,7 @@ public class PlayMidi {
     public void unmuteAllTracks() {
 
         try {
-            sequencer = MidiSystem.getSequencer();
+            sequencer = MidiSystem.getSequencer(false);
 
             for (int CHAN = 0; CHAN < 16; CHAN++) {
                 sequencer.setTrackMute(CHAN, false);
@@ -1013,7 +992,7 @@ public class PlayMidi {
         if (CHAN < 0) return false;
 
         try {
-            sequencer = MidiSystem.getSequencer();
+            sequencer = MidiSystem.getSequencer(false);
 
             sequencer.setTrackMute(CHAN, false);
 
@@ -1052,10 +1031,9 @@ public class PlayMidi {
 
         try {
             if (sequencer == null) {
-                ////midircv = MidiSystem.getReceiver();
                 midircv = sharedStatus.getRxDevice();
 
-                sequencer = MidiSystem.getSequencer();
+                sequencer = MidiSystem.getSequencer(false);
                 sequencer.getTransmitter().setReceiver(midircv);
             }
 
@@ -1118,7 +1096,7 @@ public class PlayMidi {
                 //midircv = MidiSystem.getReceiver();
                 midircv = sharedStatus.getRxDevice();
 
-                sequencer = MidiSystem.getSequencer();
+                sequencer = MidiSystem.getSequencer(false);
                 sequencer.getTransmitter().setReceiver(midircv);
             }
 
@@ -1358,47 +1336,73 @@ public class PlayMidi {
         TimeSigNum = Integer.parseInt(timeSigDetails[0]);
         TimeSigDen = Integer.parseInt(timeSigDetails[1]);
 
-        //System.out.println("MidiPlay: TimeSigNum " + TimeSigNum + ", TimeSigDen " + TimeSigDen);
+        if (debugmode != 0) System.out.println("MidiPlay: TimeSigNum " + TimeSigNum + ", TimeSigDen " + TimeSigDen);
     }
 
 
     // Set MIDI events to play a short Demo tune
-    public void startMidiDemo(int channel) {
+    public void midiDemo(int channel) {
 
         if ((channel < 0) || (channel > 15)) channel = 0;
 
-        int velocity = 64;
-        int note = 35;
-        int tick = 0;
+        demoplay(channel);
+    }
 
-        sendMidiNote((byte)(channel+1), (byte)60, true);
-
-/*
+    // Hard Coded Demo Song
+    public void demoplay(int channel) {
         try {
-            int ticksPerQuarterNote = 4;
-            Sequence seq;
-            seq = new Sequence(Sequence.PPQ, ticksPerQuarterNote);
+            Sequencer player = MidiSystem.getSequencer();
+            player.open();
+            Sequence seq = new Sequence(Sequence.PPQ, 4);
             Track track = seq.createTrack();
 
-            addMidiEvent(track, ShortMessage.NOTE_ON, channel, note, velocity, tick);
-            addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note, 0, tick + 2);
+            setMidiEvents(track, channel);
 
-            addMidiEvent(track, ShortMessage.NOTE_ON, channel, note + 1 , velocity, tick + 4);
-            addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note + 1, 0, tick + 7);
+            player.setSequence(seq);
+            player.start();
 
-            addMidiEvent(track, ShortMessage.NOTE_ON, channel, note + 2, velocity, tick + 8);
-            addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note + 2, 0, tick + 11);
+            // Credit: Code for stopping the player was suggested by Mr. Ryan Chapman
+            while (true) {
+                if(!player.isRunning()) {
+                    player.stop();
 
-            addMidiEvent(track, ShortMessage.NOTE_ON, channel, note + 3, velocity, tick + 12);
-            addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note + 3, 0, tick + 17);
-
-            addMidiEvent(track, ShortMessage.NOTE_ON, channel, note + 4, velocity, tick + 18);
-            addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note + 4, 0, tick + 22);
+                    //System.exit(0);
+                }
+            }
         }
-        catch(Exception ex) {}
-
-*/
+        catch (MidiUnavailableException ex) {
+            ex.printStackTrace();
+        }
+        catch (InvalidMidiDataException ex) {
+            ex.printStackTrace();
+        }
     }
+
+    // Set MIDI events to play "Mary Had a Little Lamb"
+    // Credit: https://github.com/ksnortum/midi-examples/blob/master/src/main/java/net/snortum/play/midi/PlaySequencer.java
+    private void setMidiEvents(Track track, int channel) {
+        int velocity = 64;
+        int note = 61;
+        int tick = 0;
+
+        addMidiEvent(track, ShortMessage.PROGRAM_CHANGE, channel, 64, 0, tick);
+        addMidiEvent(track, ShortMessage.NOTE_ON, channel, note, velocity, tick);
+        addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note, 0, tick + 3);
+        addMidiEvent(track, ShortMessage.NOTE_ON, channel, note - 2, velocity, tick + 4);
+        addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note - 2, 0, tick + 7);
+        addMidiEvent(track, ShortMessage.NOTE_ON, channel, note - 4, velocity, tick + 8);
+        addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note - 4, 0, tick + 11);
+        addMidiEvent(track, ShortMessage.NOTE_ON, channel, note - 2, velocity, tick + 12);
+        addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note - 2, 0, tick + 15);
+        addMidiEvent(track, ShortMessage.NOTE_ON, channel, note, velocity, tick + 16);
+        addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note, 0, tick + 19);
+        addMidiEvent(track, ShortMessage.NOTE_ON, channel, note, velocity, tick + 20);
+        addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note, 0, tick + 23);
+        addMidiEvent(track, ShortMessage.NOTE_ON, channel, note, velocity, tick + 24);
+        addMidiEvent(track, ShortMessage.NOTE_OFF, channel, note, 0, tick + 31);
+    }
+
+
     // Create a MIDI event and add it to the track
     private void addMidiEvent(Track track, int command, int channel, int data1, int data2, int tick) {
         ShortMessage message = new ShortMessage();

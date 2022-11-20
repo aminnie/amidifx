@@ -200,7 +200,6 @@ public class Main extends Application {
 
             System.exit(-1);
         }
-        ////dosongs.makeMidiSongs();
         sharedStatus.setDoSongs(dosongs);
 
         // Load MIDI Patch files on start up based on AppConfig set sound module
@@ -229,16 +228,8 @@ public class Main extends Application {
         sharedStatus.setSongsScene(sceneSongs);
 
         // Preset Scene
-        ///////////scenePresets = new Scene(createPresetScene(stage), xscene, yscene);
-        ///////////scenePresets.getStylesheets().clear();
-        ///////////scenePresets.getStylesheets().add("style.css");
-        ///////////sharedStatus.setPresetsScene(scenePresets);
         PresetScene presetScene = new PresetScene(stage);
         sharedStatus.setPresetsScene(presetScene.getScene());
-
-        ///// Song Perform/Keyboard/Organ Scene
-        ////PerformScene performScene = new PerformScene(stage);
-        ////sharedStatus.setPerformScene(performScene.getScene());
 
         // Device Configuration Home Scene
         HomeScene homeScene = new HomeScene(stage);
@@ -268,7 +259,7 @@ public class Main extends Application {
     Label lblCurSongMidiModule = new Label("MIDI GM");
     int cursongmoduleidx = 0;
 
-    Button buttonupdate = new Button(" Save ");
+    Button buttonupdate = new Button(" Save Song ");
 
     Button buttonedit = new Button("  Edit ");
     Button buttonnew = new Button("  New ");
@@ -383,7 +374,7 @@ public class Main extends Application {
         buttonReload.setStyle(btnMenuOff);
         buttonReload.setDisable(false);
         buttonReload.setOnAction(event -> {
-/* //////////////////////////////////
+/*
             //dopresets = new MidiPresets();
             presetFile = sharedStatus.getPresetFile();
             dopresets.makeMidiPresets(presetFile);
@@ -401,8 +392,8 @@ public class Main extends Application {
             presetListView.getSelectionModel().select(channelIdx);
             presetListView.refresh();
 
-            /////////////////presetCombo.requestFocus();
-            /////////////////presetCombo.getSelectionModel().select(0);
+            //presetCombo.requestFocus();
+            //presetCombo.getSelectionModel().select(0);
 
             // Force reload of all channels
             playmidifile = PlayMidi.getInstance();
@@ -597,7 +588,6 @@ public class Main extends Application {
             // For newly selected Song, change to the first Preset and 16 Channels
             // Abort if error loading Preset file
             presetFile = txtPresetFile.getText();
-            ////dopresets.loadMidiPresets(presetFile);
             if (!dopresets.loadMidiPresets(presetFile))  {
                 labelstatusSng.setText(" Status: Error loading preset file " + presetFile);
                 labelstatusSng.setStyle(styletextred);
@@ -1119,7 +1109,6 @@ public class Main extends Application {
 
                     // Reload the Preset file for current Song in case it has changed
                     presetFile = sharedStatus.getPresetFile();
-                    ////dopresets.loadMidiPresets(presetFile);
                     if (!dopresets.loadMidiPresets(presetFile)) {
                         labelstatusSng.setText(" Status: Error loading preset file " + presetFile);
                         labelstatusSng.setStyle(styletextred);

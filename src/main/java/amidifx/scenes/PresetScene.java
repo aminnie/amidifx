@@ -207,8 +207,11 @@ public class PresetScene {
     Button buttonSave = new Button();   // Presets save button - disabled/enabled when dirty
     Button buttonReload = new Button(); // Reload current Presets
     Button buttonvoice;                 // Update Channel with new Patch/Voice
+    Button buttontest;
 
     Button buttonPresetSceneInit = new Button("");
+
+    Button buttonApplyAllPresets;
 
     ComboBox presetCombo;
 
@@ -384,7 +387,7 @@ public class PresetScene {
         });
 
         // Save Presets Button
-        buttonSave.setText("Save");
+        buttonSave.setText("Save Presets");
         buttonSave.setStyle(btnMenuSaveOn);
         buttonSave.setDisable(true);
         buttonSave.setOnAction(event -> {
@@ -408,7 +411,6 @@ public class PresetScene {
         buttonReload.setDisable(false);
         buttonReload.setOnAction(event -> {
             presetFile = sharedStatus.getPresetFile();
-            ////dopresets.loadMidiPresets(presetFile);
             if (!dopresets.loadMidiPresets(presetFile)) {
                 labelstatus.setText(" Status: Error loading preset file " + presetFile);
                 labelstatus.setStyle(styletextred);
@@ -534,12 +536,14 @@ public class PresetScene {
 
                         buttonSave.setDisable(true);
                         buttonvoice.setDisable(true);
+                        buttontest.setDisable(true);
 
                         bmodulechanged = true;
                         System.out.println("Module changed to" + sharedStatus.getModuleName(moduleidx1));
                     } else {
                         buttonSave.setDisable(false);
                         buttonvoice.setDisable(false);
+                        buttontest.setDisable(false);
                     }
 
                     banklistView.getItems().clear();
@@ -615,7 +619,6 @@ public class PresetScene {
 
         // Load MIDI Default MIDI Preset file on start up
         dopresets = MidiPresets.getInstance();
-        ////dopresets.loadMidiPresets(presetFile);
         if (!dopresets.loadMidiPresets(presetFile)) {
             labelstatus.setText(" Status: Error loading preset file " + presetFile);
             labelstatus.setStyle(styletextred);
@@ -781,7 +784,7 @@ public class PresetScene {
             playmidifile.sendMidiProgramChange(channelIdx, midiPatch.getPC(), midiPatch.getLSB(), midiPatch.getMSB());
 
             //System.out.println("Main: Updated selected Preset and Channel Voice");
-            labelstatus.setText(" Status: Applied CHAN Voice " + channelIdx + " " + midiPatch.getPatchName());
+            labelstatus.setText(" Status: Applied CHAN Voice " + (channelIdx + 1) + " " + midiPatch.getPatchName());
 
             buttonSave.setDisable(false);
             flgDirtyPreset = true;      // Need to save updated Preset
@@ -1083,79 +1086,82 @@ public class PresetScene {
             renderVoiceButtons(patchIdx - 16 > 0 ? (patchIdx = patchIdx - 16) : (patchIdx = 0), dopatches.getMIDIPatchSize());
         });
 
-        channelIdx = sharedStatus.getUpper1CHAN();
-        Button btntest = new Button("Demo Voice");
-        btntest.setStyle(btnplayOff);
-        btntest.setPrefSize(xbutton, ybutton);
-        btntest.setOnAction(e -> {
+        channelIdxSound = sharedStatus.getDemoCHAN();
+        buttontest = new Button("Demo Voice");
+        buttontest.setStyle(btnplayOff);
+        buttontest.setPrefSize(xbutton, ybutton);
+        buttontest.setOnAction(e -> {
             try {
+
+                // Play Demo Note
                 if (!btestnote) {
-                    btntest.setText("Stop");
-                    btntest.setStyle(btnplayOn);
+                    buttontest.setText("Stop");
+                    buttontest.setStyle(btnplayOn);
 
                     PlayMidi playmidifile = PlayMidi.getInstance();
                     MidiPatch patch = dopatches.getMIDIPatch(selpatchIdx);
                     //System.out.println("Main: Selecting patch " + patch.toString());
 
-                    playmidifile.sendMidiProgramChange((byte) (channelIdx), (byte) patch.getPC(), (byte) patch.getLSB(), (byte) patch.getMSB());
+                    playmidifile.sendMidiProgramChange((byte) (channelIdxSound), (byte) patch.getPC(), (byte) patch.getLSB(), (byte) patch.getMSB());
 
-                    playmidifile.sendMidiControlChange((byte) (channelIdx), ccVOL, (byte) sliderVOL.getValue());
-                    playmidifile.sendMidiControlChange((byte) (channelIdx), ccEXP, (byte) sliderEXP.getValue());
-                    playmidifile.sendMidiControlChange((byte) (channelIdx), ccREV, (byte) sliderREV.getValue());
-                    playmidifile.sendMidiControlChange((byte) (channelIdx), ccCHO, (byte) sliderCHO.getValue());
-                    playmidifile.sendMidiControlChange((byte) (channelIdx), ccMOD, (byte) sliderMOD.getValue());
-                    playmidifile.sendMidiControlChange((byte) (channelIdx), ccPAN, (byte) sliderPAN.getValue());
-                    playmidifile.sendMidiControlChange((byte) (channelIdx), ccTIM, (byte) sliderTIM.getValue());
-                    playmidifile.sendMidiControlChange((byte) (channelIdx), ccATK, (byte) sliderATK.getValue());
-                    playmidifile.sendMidiControlChange((byte) (channelIdx), ccREL, (byte) sliderREL.getValue());
-                    playmidifile.sendMidiControlChange((byte) (channelIdx), ccBRI, (byte) sliderBRI.getValue());
+                    playmidifile.sendMidiControlChange((byte) (channelIdxSound), ccVOL, (byte) sliderVOL.getValue());
+                    playmidifile.sendMidiControlChange((byte) (channelIdxSound), ccEXP, (byte) sliderEXP.getValue());
+                    playmidifile.sendMidiControlChange((byte) (channelIdxSound), ccREV, (byte) sliderREV.getValue());
+                    playmidifile.sendMidiControlChange((byte) (channelIdxSound), ccCHO, (byte) sliderCHO.getValue());
+                    playmidifile.sendMidiControlChange((byte) (channelIdxSound), ccMOD, (byte) sliderMOD.getValue());
+                    playmidifile.sendMidiControlChange((byte) (channelIdxSound), ccPAN, (byte) sliderPAN.getValue());
+                    playmidifile.sendMidiControlChange((byte) (channelIdxSound), ccTIM, (byte) sliderTIM.getValue());
+                    playmidifile.sendMidiControlChange((byte) (channelIdxSound), ccATK, (byte) sliderATK.getValue());
+                    playmidifile.sendMidiControlChange((byte) (channelIdxSound), ccREL, (byte) sliderREL.getValue());
+                    playmidifile.sendMidiControlChange((byte) (channelIdxSound), ccBRI, (byte) sliderBRI.getValue());
 
                     // Play middle C ON octave translated.
                     // However, ensure demo note is OFF before applying a new demo note
                     if (btestnote) {
                         // Play middle C OFF octave translated
-                        channelIdx = sharedStatus.getDemoCHAN();
+                        channelIdxSound = sharedStatus.getDemoCHAN();
                         PlayMidi playmidifileOFF = PlayMidi.getInstance();
-                        playmidifileOFF.sendMidiNote((byte) (channelIdx), (byte) octavetestnote, false);
+                        playmidifileOFF.sendMidiNote((byte) (channelIdxSound), (byte) octavetestnote, false);
                         btestnote = false;
                     }
 
-                    channelIdx = 0;
+                    channelIdxSound = 0;
                     byte octave = (byte)sliderOCT.getValue();
                     int note = 60 + (byte) (octave * 13);
-                    channelIdx = sharedStatus.getDemoCHAN();
+                    channelIdxSound = sharedStatus.getDemoCHAN();
                     PlayMidi playmidifileON = PlayMidi.getInstance();
-                    playmidifileON.sendMidiNote((byte) (channelIdx), (byte) note, true);
-                    //playmidifile.startMidiDemo(channelIdx+1);
+                    playmidifileON.sendMidiNote((byte) (channelIdxSound), (byte) note, true);
+                    //playmidifile.midiDemo(channelIdx, 1);
 
                     // Remember channel sounding so, we can turn this one off after we may have changed to another
                     //channelIdxSound = channelIdx;
                     btestnote = true;
                     octavetestnote =  note;
-                } else {
-                    btntest.setText("Demo Voice");
-                    btntest.setStyle(btnplayOff);
-
-                    // Ensure previous demo note is OFF before applying a new demo note
-                    if (btestnote) {
-                        // Play middle C OFF octave translated
-                        channelIdx = sharedStatus.getDemoCHAN();
-                        PlayMidi playmidifileOFF = PlayMidi.getInstance();
-                        playmidifileOFF.sendMidiNote((byte) (channelIdx), (byte) octavetestnote, false);
-                        btestnote = false;
-                    }
+                }
+                // Demo Note Off
+                else {
+                    buttontest.setText("Demo Voice");
+                    buttontest.setStyle(btnplayOff);
 
                     // Play middle C OFF octave translated
-                    channelIdx = 0;
                     byte octave = (byte)sliderOCT.getValue();
                     int note = 60 + (byte) (octave * 13);
-                    channelIdx = sharedStatus.getDemoCHAN();
+
+                    channelIdxSound = sharedStatus.getDemoCHAN();
                     PlayMidi playmidifileOFF = PlayMidi.getInstance();
-                    playmidifileOFF.sendMidiNote((byte) (channelIdx), (byte) note, false);
+                    playmidifileOFF.sendMidiNote((byte) (channelIdxSound), (byte) note, false);
 
                     btestnote = false;
+
+                    // Re-Apply MIDI Program Change on Upper Channel for Button Press since we used it for sound Demo
+                    int CHAN = sharedStatus.getUpper1CHAN();
+
+                    MidiPreset applypreset = dopresets.getPreset(presetIdx * 16 + CHAN);
+                    dopresets.applyMidiPreset(applypreset, channelIdx);
                 }
-            } catch (Exception exception) {
+
+            }
+            catch (Exception exception) {
                 exception.printStackTrace();
             }
         });
@@ -1174,10 +1180,14 @@ public class PresetScene {
                     bplaying = true;
 
                     PlayMidi playmidifile = PlayMidi.getInstance();
-
                     if (!playmidifile.startMidiPlay(midisong, dopresets, 2)) {
                         labelstatus.setText(" Status: " + sharedStatus.getStatusText());
-                    } else {
+                    }
+                    else {
+
+                        // Disable Perform and Songs menu switch while playing
+                        buttonsc1.setDisable(true);
+                        buttonsc2.setDisable(true);
 
                         // Song Play Repeating Timer: Collects Beat Timer and Play Status every 250ms
                         Timer songPlayTimer = new Timer();
@@ -1193,6 +1203,10 @@ public class PresetScene {
                                         btndemo.setText("Play Song");
                                         btndemo.setStyle(btnplayOff);
                                         labelstatus.setText(" Status: Song Play Complete " + playmidifile.getSequencerTickPosition());
+
+                                        // Enable Perform and Songs menu switch when not playing
+                                        buttonsc1.setDisable(false);
+                                        buttonsc2.setDisable(false);
                                     });
                                     songPlayTimer.cancel();
                                     return;
@@ -1216,12 +1230,21 @@ public class PresetScene {
                     playmidifile.stopMidiPlay(songFile);
 
                     bplaying = false;
+
+                    // Enable Perform and Songs menu switch when not playing
+                    buttonsc1.setDisable(false);
+                    buttonsc2.setDisable(false);
                 }
-            } catch (Exception exception) {
+            }
+            catch (Exception exception) {
                 bplaying = false;
 
                 btndemo.setText("Play Song");
                 btndemo.setStyle(btnplayOff);
+
+                // Enable Perform and Songs menu switch when not playing
+                buttonsc1.setDisable(false);
+                buttonsc2.setDisable(false);
 
                 exception.printStackTrace();
             }
@@ -1284,7 +1307,7 @@ public class PresetScene {
             buttonSave.setDisable(false);
             flgDirtyPreset = true;      // Need to save updated Preset
 
-            labelstatus.setText(" Status; CHAN " + channelIdx + " EXP: " + newValue.intValue());
+            labelstatus.setText(" Status; CHAN " + (channelIdx +1) + " EXP: " + newValue.intValue());
         });
 
         // Create REV slider
@@ -1502,7 +1525,6 @@ public class PresetScene {
             //Setting the angle for the rotation
             rotateOct.setAngle((double) newValue);
 
-            channelIdx = sharedStatus.getUpper1CHAN();
             System.out.println("Main: Old Oct Value " + dopresets.getPreset(presetIdx * 16 + channelIdx).getOctaveTran());
             dopresets.getPreset(presetIdx * 16 + channelIdx).setOctaveTran(newValue.intValue());
             System.out.println("Main: New Oct Value " + dopresets.getPreset(presetIdx * 16 + channelIdx).getOctaveTran());
@@ -1531,7 +1553,7 @@ public class PresetScene {
         flowpane.getChildren().add(pstbutton16);
 
         flowpane.getChildren().add(btnprev);
-        flowpane.getChildren().add(btntest);
+        flowpane.getChildren().add(buttontest);
         flowpane.getChildren().add(btndemo);
         flowpane.getChildren().add(btnnext);
 
@@ -1768,7 +1790,7 @@ public class PresetScene {
         });
 
         // Send All Presets to MIDI Module Button
-        Button buttonApplyAllPresets = new Button("All Channels");
+        buttonApplyAllPresets = new Button("All Channels");
         buttonApplyAllPresets.setPrefSize(xbutton / 1.5, ybutton);
         buttonApplyAllPresets.setStyle(btnplayOff);
         buttonApplyAllPresets.setOnAction(event -> {
@@ -1824,21 +1846,12 @@ public class PresetScene {
         // Initial Patches Render
         renderVoiceButtons(patchIdx, dopatches.getMIDIPatchSize());
 
+        // Apply all Preset 1 Channels to MIDI Controller
+        buttonApplyAllPresets.fire();
+
         // After initial render set saveButton to false if trigger during initial config, e.g. setting sliders.
         flgDirtyPreset = false;
         buttonSave.setDisable(true);
-
-        ////sliderVOL.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getVOL());
-        ////sliderEXP.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getEXP());
-        ////sliderREV.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getREV());
-        ////sliderCHO.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getCHO());
-        ////sliderMOD.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getMOD());
-        ////sliderPAN.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getPAN());
-        ////sliderTIM.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getTIM());
-        ////sliderATK.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getATK());
-        ////sliderREL.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getREL());
-        ////sliderBRI.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getBRI());
-        ////sliderOCT.setValue(dopresets.getPreset(presetIdx * 16 + channelIdx).getBRI());
 
         // Prepare background Image
         //try {
