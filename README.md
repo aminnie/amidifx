@@ -1,6 +1,6 @@
 ## Introduction to AMIDIFX
 
-Last Update: 13 November 2022
+Last Update: 20 November 2022
 
 Most recent updates:
 * Updated the solution to load MIDI Channel configuration from XML Config File instead of hard coded values used to date
@@ -31,14 +31,14 @@ There are numerous free and commercial MIDI arrangements available that can be a
   * Preset files allow layering of channels enabling multiple voices on a track. 
    * We plan to extend this to multiplex input channels into multiple output MIDI modules in future. 
 
-AMIDIFIX loads easily modified Sound Module Cubase Patch files enabling the user to select, configure and test the patches for each Preset Channel. A selected Patch can tested with a single note, or while a selected MIDI SMF file is playing. Program and Control Changes to a channel are implemented realtime, enabling you to adjust the instrument voice until it matches the arrangement best. Preset files are saved to disk along with the MIDI SMF file for future play and instant recall of any of the eigth Presets programmed for the Song.
+AMIDIFIX loads modified Sound Module Cubase Patch files enabling the user to select, configure and test the patches for each Preset Channel. A selected Patch can tested with a single note, or while a selected MIDI SMF file is playing. Program and Control Changes to a channel are implemented realtime, enabling you to adjust the instrument voice until it matches the arrangement best. Preset files are saved to disk along with the MIDI SMF file for future play and instant recall of any of the eigth Presets programmed for the Song.
 
 AMDIDFX optimizes Program and Control changes by tracking the most recent status for every channel. Only deltas of any of the Program or Control changes are sent to the sound MIDI modules to prevent unecessary trafic and poential sound glitches such as mid-note changes PC changes experienced on some sound modules.
 
 AMIDIFX provides a realtime keyboard or organ interface (Perform) that is used to manage multiple MIDI keyboards, including Bass, Lower 1 + 2, Upper 1 + 2 + 3 for a MIDI capable organ.
 
 You will find really great MIDI SMF files for free or sale on the internet. The idea is to manipluate your MIDI files enabling you to use them as backing tracks for real-time play. Typically the following changes are needed:
-* Move the MIDI channels around to match our keyboard input MIDI channels. Typically I have the Bass pedals on channel 11, Lower KBD on channel 12 (& 13 for layering), and Upper keyboards on channel 14 (& 15,& 16 for layering) if extra keyboards, keyboard split or layering is used
+* Move the MIDI channels around to match our keyboard input MIDI channels. Typically I have the Solo on channe 1, Bass pedals on channel 2, Lower KBD on channel 3 (& 12 for layering), and Upper keyboards on channel 4 (& 13,& 15 for layering) if extra keyboards, keyboard split or layering is used
 * A MIDI SMF file can be modified to by adding the following MIDI Meta CUE Messages enables the build-in AMIDIFX MIDI Sequencer to:
   * MIDI CUE meta message P[1-8]: Trigger Preset P[1-8] changes via a callback mechanism in the MIDI Sequencer. This messages is added into the MIDI file just afer the original program changes, a fraction of a second before the first notes are played. Doing so allows MIDI play wiht the original MIDI GM sounds, or overriding them with your preset channel voice selections.
   * MIDI CUE meta message B[0-1]: Trigger Sequencer Bar Counter B[0-1] to enable a realtime Bar Coint display.
@@ -57,7 +57,7 @@ AMDIDFX is the 4th incarnation of a solution that started life as a simple prese
 
 AMIDIFX is a replacement solution 6-7 years later. This time round we want to simplify the build and use the additional resources of newer microcontrollers. Additionally microcontrollers such as the Teensy 4.1 are significantly more powerful. The Raspberry PI, an ARM based solution did not have JAVAFX support at the time I built the solution, and I used JAVA Swing for the user interface. I never got around to building out the functionality to manage Song and Preset files using the touch interface. Typically, I managed them offline on my laptop and uploaded the files to the Raspberry PI using a terminal solution. However, using PDFs to look up e.g. the Integra's >6000 patches and not knowing what they sound like, equalizing the channels, etc. proved to be a laborious exercise.
 
-Earlier in 2020, Deebach (https://www.deebach.eu/#xl_xr_page_blackbox) made the new Blackbox hardware sound module available. To listen, visit their Youtube channel: https://www.youtube.com/channel/UCNsB0ht9ZPpWABu3nxK_K1Q. This module offers a rich set of sounds and control paramteres at a very reasonable price. BlackBox offers two versions, the Blockbox-Y that integrates with the Yamaha Tyros, and the other - well a black box! I decided to order the BlackBox. The Deebach team has been very responsive and supportive, and initially engaged in a conversation to validate that I understand the BlackBox unit will require custom integration into my equipment. And that is the journey we are on now.
+In 2020 Deebach (https://www.deebach.eu/#xl_xr_page_blackbox) made a new Blackbox hardware sound module available. To listen, visit their Youtube channel: https://www.youtube.com/channel/UCNsB0ht9ZPpWABu3nxK_K1Q. This module offers a rich set of sounds and control paramteres at a very reasonable price. BlackBox offers two versions, the Blockbox-Y that integrates with the Yamaha Tyros, and the other - well a black box! I decided to order the BlackBox. The Deebach team has been very responsive and supportive, and initially engaged in a conversation to validate that I understand the BlackBox unit will require custom integration into my equipment. And that is the journey we are on now.
 
 ## What do I need to build AMIDFX?
 
@@ -68,10 +68,10 @@ You need the following hardware and software to run AMIDIFX:
 
 * In January 2021, I ported the solution to a single board computer (SBC) - the Seeed Odyssey: https://www.seeedstudio.com/ODYSSEY-X86J4105800-p-4445.html.
   * This X86-based SBC has 8GB RAM, support for SATA drives and SSDs (including M.2 and NVMe), as well as onboard ARM microcontroller that is integrated to the X86 via USB. This ARM controller can programmed to add low level GPIO to a AMIDIFX running on the X86. The JavaFX application forwards MIDI layering configurations to the ARM controller to manage MIDI keyboard layering, muting, etc.
-  * A Screen with 1024 x 600 or better a 1280 by 800 resolution - capacitive touch preferably. I use this one: https://www.waveshare.com/10.1inch-hdmi-lcd-with-case.htm
+  * A Screen with 1024 x 600 or better a 1280 by 800 resolution - capacitive touch preferably. I use this one: https://www.waveshare.com/10.1inch-hdmi-lcd-with-case.htm. The buttons a big enough for a comfortable touch on 10" and 16" touch screens.
   * A MIDI Interface DIN Board. This board provides the MIDI DIN IN and OUT connectivity to the Odyssey ARM controller via the one/two sets of Serial GPIO pins. Most MIDI interface boards will work. For example, I use the midibox.org (http://www.ucapps.de/) dual MIDI channel MBHP_MIDI_IO board. Note: This board is not needed at this time, as the MIDI keyboard can be connected directly to the AMIDIFX host via USB, or a DIN to USB converter such as: https://www.amazon.com/gp/product/B08HMWJWDW/ref=ppx_yo_dt_b_asin_title_o04_s00?ie=UTF8&psc=1
 
-* At this time, the Deebach Blackbox (https://www.deebach.eu/) sound module, Roland Integra 7, or a MIDI GM compatible sound module is supported
+* At this time, the Deebach Blackbox (https://www.deebach.eu/) sound module, Roland Integra 7, or a MIDI GM compatible sound modules are supported
 
 * MIDI file manipulation software. MidiYodi (https://www.canato.se/midiyodi/) works great for manipulating channel events, inserting Preset and Bar Counter CUE meta messages, program changes, and moving channels around to map to you keyboard preferences. I use CHAN 2 for Bass, CHAN 3 + 12 for Lower, and CHAN 4 + 14 + 15 for Upper. Channel numbers can chamged to different values in the AMIDIFX config file. 
 
@@ -170,7 +170,7 @@ How to Use Song screen:
     * Find the MIDI tracks that contain the Bass, Upper and Lower MIDI channels. MIDI Tracks abd Channels are not the same! Start playing the Song and stop and see the tracks detected to assist with Track Mute input a swell as Preset configurations. Ideally change the channels to the the Drum (10) and Bass (2), Lower (3), Upper (4) MIDI channels usng e.g. MidiYodi or equvalent software.
   * Signature:
     * At this time the system support 3/4, 4/4 and 6/8 time signatures. 
-  * A Preset file that you can copy form an existing during the New Song operation. In 8.3 format with the extension .csv (yes Excel text file)
+  * A Preset file that you can copy form an existing during the New Song operation. Uses the extension .pre. This is a comma delimited file that can be edited in Excel if needed.
   * Note: All Songs and Preset files are contained in the folder: c:\amidifx\midifiles. Any new MIDI files should be added to this direct. Please take care with the file names and working with directory as overwriting the wrong files will cuase issues, and may leave the system inoperable. It is a good idea to keep a recent backup of the midifiles folder somewhere else incase you need to restore to a good state.
 * New Button
   * Creates a new Song with details to be entered. Has basic validation input validation.
@@ -230,7 +230,7 @@ How to use the Preset configuration screen:
   * Every MIDI channel can be mapped to up to 10 other channels to layer additional MIDI sounds onto it.
   * This feature relies on an external custom controller currently in development and testing. The idea is that you connect your keyboard/organ to this device and the output of this controller to the sound module. The controller is updated with layers associated with each channel. Inbound keyboard notes are mapped real-time to configured output channels - up to 16 of them. Additionally external VOL control changes form the organ or MIDI volume pedal is mapped to all Keyboard Bass, Lower 1+2, Upper 1+2+3 channels as well as all layers - just like the expression pedal on an Organ. The Seeed Oddesey shown above is already integrated in this manner and I am working on the ARM controller source code. This external ARM controller will be connected to hardware drawbars as well as additional rotary encoders and buttons
  
-### Current Status: 03/23/2021
+### Current Status:
 
 Next up:
   * Updating the Song screen to list all active tracks and channels along with a track mute buttons for an easy play along mode
