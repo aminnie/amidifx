@@ -136,7 +136,7 @@ How to Use the Performance screen:
 * Backing/PlayAlong Button: This button has two modes
    * Play Along with plays up to and all 16 channels in Song Midi files.
    * Backing which mutes the MIDI tracks that contain the Upper 1, Lower 1, and Bass MIDI channels.
-   * Until further notice the external keyboard MIDI channels should be configured to: Drums = 10, Bass - 11, Lower = 12, Upper = 14. Channels 1 through 9 and selected higher can be used for the backing tracks.
+   * Until further notice the external keyboard MIDI channels should be configured to: Drums = 10, Bass - 2, Lower = 3, Upper = 4. Remaining channels can be used for the backing tracks. However, consider Upper 2 and 3 and Lower 2 layering channels and if they are to be used/shared in the organ or midi file.
 * Presets:
   * Every preset file can be programmed with 8 presets and 16 channels each. See the Preset Screen
   * Once a song is selected, the associated file configured in the Songs screen is loaded.
@@ -167,7 +167,7 @@ How to Use Song screen:
   * A Song Name (up to 25 characters)
   * A MIDI file that you select from the file system. In 8.3 format with every file extension .mid
   * Track Mutes:
-    * Find the MIDI tracks that contain the Bass, Upper and Lower MIDI channels. MIDI Tracks abd Channels are not the same! Start playing the Song and stop and see the tracks detected to assist with Track Mute input a swell as Preset configurations. Ideally change the channels to the the Drum (10) and Bass (11), Lower (12), Upper (13) MIDI channels usng e.g. MidiYodi or equvalent software.
+    * Find the MIDI tracks that contain the Bass, Upper and Lower MIDI channels. MIDI Tracks abd Channels are not the same! Start playing the Song and stop and see the tracks detected to assist with Track Mute input a swell as Preset configurations. Ideally change the channels to the the Drum (10) and Bass (2), Lower (3), Upper (4) MIDI channels usng e.g. MidiYodi or equvalent software.
   * Signature:
     * At this time the system support 3/4, 4/4 and 6/8 time signatures. 
   * A Preset file that you can copy form an existing during the New Song operation. In 8.3 format with the extension .csv (yes Excel text file)
