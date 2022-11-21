@@ -699,8 +699,9 @@ public class PerformScene {
             buttonSongNameLeft.setStyle(selectcolorOff);
             buttonSongNameLeft.setPrefSize(xleftright, yleftright);
             buttonSongNameLeft.setOnAction(e -> {
+                // Decrement to previous Song and turn to end of list when index goes below 0
+                if (--idxSongList < 0) idxSongList = dosongs.getSongListSize() - 1;
 
-                if (idxSongList > 0) --idxSongList;
                 songTitle = dosongs.getSong(idxSongList).getSongTitle();
                 songFile = dosongs.getSong(idxSongList).getMidiFile();
                 buttonSongLoad.setText(songTitle);
@@ -721,8 +722,9 @@ public class PerformScene {
             buttonSongNameRight.setStyle(selectcolorOff);
             buttonSongNameRight.setPrefSize(xleftright, yleftright);
             buttonSongNameRight.setOnAction(e -> {
+                // Increment to next Song and turn to first in list when index goes below 0
+                if (++idxSongList > dosongs.getSongListSize() - 1) idxSongList = 0;
 
-                if (idxSongList < (dosongs.getSongListSize() - 1)) idxSongList++;
                 songTitle = dosongs.getSong(idxSongList).getSongTitle();
                 songFile = dosongs.getSong(idxSongList).getMidiFile();
                 buttonSongLoad.setText(songTitle);
@@ -824,12 +826,19 @@ public class PerformScene {
             buttonSoundFont.setOnAction(e -> {
                 //buttonPresetLoad(dosongs.getSong(songidx).getPresetFile());
 
-                buttonSoundFont.setStyle(selectcolorOn);
+                if (!bnewpatchselected) {
+                    buttonSoundFont.setStyle(selectcolorOn);
+                    bnewpatchselected = true;
 
-                bnewpatchselected = true;
+                    labelstatusOrg.setText(" Status: Selected " + fontname + ". Next click on Button to add, or unclick to cancel.");
+                    //System.out.println("PerformScene: Loaded Voice " + fontname);
+                }
+                else {
+                    buttonSoundFont.setStyle(selectcolorOff);
+                    bnewpatchselected = false;
 
-                labelstatusOrg.setText(" Status: Voice " + fontname + " loaded. Next add to a Voice Button.");
-                //System.out.println("PerformScene: Loaded Voice " + fontname);
+                    labelstatusOrg.setText(" Status: Voice " + fontname + " cleared.");
+                }
             });
 
             Button buttonSoundFontLeft = new Button("<<");
@@ -1640,6 +1649,7 @@ public class PerformScene {
                 if (l2pressed == false) {
                     mididevices.layerChannel(sharedStatus.getLower2CHAN(), true);
 
+                    l2layerbtn.setText("L Lower 1 [" + (sharedStatus.getLower2CHAN() + 1) + "]   ");
                     l2layerbtn.setStyle(lrpressedOn);
                     l2pressed = true;
 
@@ -1648,6 +1658,7 @@ public class PerformScene {
                 else {
                     mididevices.layerChannel(sharedStatus.getLower2CHAN(), false);
 
+                    l2layerbtn.setText("Lower 2 [" + (sharedStatus.getLower2CHAN() + 1) + "]   ");
                     l2layerbtn.setStyle(lrpressedOff);
                     l2pressed = false;
 
@@ -2214,6 +2225,7 @@ public class PerformScene {
                 if (r2pressed == false) {
                     mididevices.layerChannel(sharedStatus.getUpper2CHAN(), true);
 
+                    r2layerbtn.setText("L Upper 1 [" + (sharedStatus.getUpper2CHAN() + 1) + "]   ");
                     r2layerbtn.setStyle(lrpressedOn);
                     r2pressed = true;
 
@@ -2222,6 +2234,7 @@ public class PerformScene {
                 else {
                     mididevices.layerChannel(sharedStatus.getUpper2CHAN(), false);
 
+                    r2layerbtn.setText("Upper 2 [" + (sharedStatus.getUpper2CHAN() + 1) + "]   ");
                     r2layerbtn.setStyle(lrpressedOff);
                     r2pressed = false;
 
@@ -2241,6 +2254,7 @@ public class PerformScene {
                 if (r3pressed == false) {
                     mididevices.layerChannel(sharedStatus.getUpper3CHAN(), true);
 
+                    r3layerbtn.setText("L Upper 1 [" + (sharedStatus.getUpper3CHAN() + 1) + "]   ");
                     r3layerbtn.setStyle(lrpressedOn);
                     r3pressed = true;
 
@@ -2249,6 +2263,7 @@ public class PerformScene {
                 else {
                     mididevices.layerChannel(sharedStatus.getUpper3CHAN(), false);
 
+                    r3layerbtn.setText("Upper 3 [" + (sharedStatus.getUpper3CHAN() + 1) + "]   ");
                     r3layerbtn.setStyle(lrpressedOff);
                     r3pressed = false;
 
