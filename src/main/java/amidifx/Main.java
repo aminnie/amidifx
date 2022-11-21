@@ -553,7 +553,7 @@ public class Main extends Application {
                     presetchooser.setDisable(true);
                     midichooser.setDisable(true);
 
-                    txtInstrumentList.setText("Play Song to retrieve Song MIDI Instruments.\nSequecer mutes by Track not Channel Number!");
+                    txtInstrumentList.setText("Play Song to retrieve Song MIDI Instruments.\nSequencer mutes by Track not Channel Number!\nUse number 0 for Tracks not too mute.");
 
                     songTitle = midiSong.getSongTitle();
                     songFile = midiSong.getMidiFile();

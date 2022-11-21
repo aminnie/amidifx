@@ -946,7 +946,8 @@ public class PlayMidi {
     // Mute one specific Channel
     public boolean muteChannel(int CHAN) {
 
-        if (CHAN < 0) return false;
+        // Do not mute Track number 0
+        if (CHAN <= 0) return false;
 
         try {
             sequencer = MidiSystem.getSequencer(false);

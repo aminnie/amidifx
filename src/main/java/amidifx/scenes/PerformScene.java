@@ -830,7 +830,7 @@ public class PerformScene {
                     buttonSoundFont.setStyle(selectcolorOn);
                     bnewpatchselected = true;
 
-                    labelstatusOrg.setText(" Status: Selected " + fontname + ". Next click on Button to add, or unclick to cancel.");
+                    labelstatusOrg.setText(" Status: Selected " + fontname + ". Click on Voice Button to add, or unclick to cancel.");
                     //System.out.println("PerformScene: Loaded Voice " + fontname);
                 }
                 else {
@@ -1189,7 +1189,7 @@ public class PerformScene {
                 }
                 bpressed1 = !bpressed1;
 
-                labelstatusOrg.setText(" Status: Applied B1");
+                labelstatusOrg.setText(" Status: Applied B1. Use Sliders to adjust B1 Effects.");
             });
 
             bass2.setText(" Bass 2");
@@ -1244,7 +1244,7 @@ public class PerformScene {
                 }
                 bpressed2 = !bpressed2;
 
-                labelstatusOrg.setText(" Status: Applied B2");
+                labelstatusOrg.setText(" Status: Applied B2. Use Sliders to adjust B2 Effects.");
             });
 
             bass3.setText(" Bass 3");
@@ -1299,7 +1299,7 @@ public class PerformScene {
                 }
                 bpressed3 = !bpressed3;
 
-                labelstatusOrg.setText(" Status: Applied B3");
+                labelstatusOrg.setText(" Status: Applied B3. Use Sliders to adjust B3 Effects.");
             });
             
             bass4.setText(" Bass 4");
@@ -1354,7 +1354,7 @@ public class PerformScene {
                 }
                 bpressed4 = !bpressed4;
 
-                labelstatusOrg.setText(" Status: Applied B4");
+                labelstatusOrg.setText(" Status: Applied B4. Use Sliders to adjust B4 Effects.");
             });
 
             gridmidcenterPerform.add(b1layerbtn, 0, 0, 1, 1);
@@ -1435,7 +1435,7 @@ public class PerformScene {
                 }
                 dpressed1 = !dpressed1;
 
-                labelstatusOrg.setText(" Status: Applied D1");
+                labelstatusOrg.setText(" Status: Applied D1. Use Sliders to adjust D1 Effects.");
             });
 
             drum2.setText(" Drums 2");
@@ -1490,7 +1490,7 @@ public class PerformScene {
                 }
                 dpressed2 = !dpressed2;
 
-                labelstatusOrg.setText(" Status: Applied D2");
+                labelstatusOrg.setText(" Status: Applied D2. Use Sliders to adjust D2 Effects.");
             });
 
             drum3.setText(" Drums 3");
@@ -1545,7 +1545,7 @@ public class PerformScene {
                 }
                 dpressed3 = !dpressed3;
 
-                labelstatusOrg.setText(" Status: Applied D3");
+                labelstatusOrg.setText(" Status: Applied D3. Use Sliders to adjust D3 Effects.");
             });
 
             drum4.setText(" Drums 4");
@@ -1601,7 +1601,7 @@ public class PerformScene {
                 }
                 dpressed4 = !dpressed4;
 
-                labelstatusOrg.setText(" Status: Applied D4");
+                labelstatusOrg.setText(" Status: Applied D4. Use Sliders to adjust D4 Effects.");
             });
 
             gridmidcenterPerform.add(d1layerbtn, 0, 3, 1, 1);
@@ -1720,7 +1720,7 @@ public class PerformScene {
                 }
                 lpressed11 = !lpressed11;
 
-                labelstatusOrg.setText(" Status: Applied L1-1");
+                labelstatusOrg.setText(" Status: Applied L1-1. Use Sliders to adjust Effects.");
             });
 
             lbutton12.setText(" Lower 1-2");
@@ -1775,7 +1775,7 @@ public class PerformScene {
                 }
                 lpressed12 = !lpressed12;
 
-                labelstatusOrg.setText(" Status: Applied L1-2");
+                labelstatusOrg.setText(" Status: Applied L1-2. Use Sliders to adjust Effects.");
             });
 
             lbutton13.setText(" Lower 1-3");
@@ -1830,7 +1830,7 @@ public class PerformScene {
                 }
                 lpressed13 = !lpressed13;
 
-                labelstatusOrg.setText(" Status: Applied L1-3");
+                labelstatusOrg.setText(" Status: Applied L1-3. Use Sliders to adjust Effects.");
             });
 
             lbutton14.setText(" Lower 1-4");
@@ -1885,7 +1885,7 @@ public class PerformScene {
                 }
                 lpressed14 = !lpressed14;
 
-                labelstatusOrg.setText(" Status: Applied L1-4");
+                labelstatusOrg.setText(" Status: Applied L1-4. Use Sliders to adjust Effects.");
             });
 
             //playmidifile.sendRotaryOn(false);
@@ -2007,7 +2007,7 @@ public class PerformScene {
                 }
                 lpressed21 = !lpressed21;
 
-                labelstatusOrg.setText(" Status: Applied L2-1");
+                labelstatusOrg.setText(" Status: Applied L2-1. Use Sliders to adjust Effects.");
             });
 
             lbutton22 = new Button(" Lower 2-2");
@@ -2062,7 +2062,7 @@ public class PerformScene {
                 }
                 lpressed22 = !lpressed22;
 
-                labelstatusOrg.setText(" Status: Applied L2-2");
+                labelstatusOrg.setText(" Status: Applied L2-2. Use Sliders to adjust Effects.");
             });
 
             lbutton23 = new Button(" Lower 2-3");
@@ -2117,7 +2117,7 @@ public class PerformScene {
                 }
                 lpressed23 = !lpressed23;
 
-                labelstatusOrg.setText(" Status: Applied L2-3");
+                labelstatusOrg.setText(" Status: Applied L2-3. Use Sliders to adjust Effects.");
             });
 
             lbutton24 = new Button(" Lower 2-4");
@@ -2172,7 +2172,7 @@ public class PerformScene {
                 }
                 lpressed24 = !lpressed24;
 
-                labelstatusOrg.setText(" Status: Applied L2-4");
+                labelstatusOrg.setText(" Status: Applied L2-4. Use Sliders to adjust Effects.");
             });
 
             gridmidcenterPerform.add(l1layerbtn, 3, 0, 1, 1);
@@ -2327,7 +2327,7 @@ public class PerformScene {
                 }
                 rpressed11 = !rpressed11;
 
-                labelstatusOrg.setText(" Status: Applied U1-1");
+                labelstatusOrg.setText(" Status: Applied U1-1. Use Sliders to adjust Effects.");
             });
 
             rbutton12.setText(" Upper 1-2");
@@ -2383,7 +2383,7 @@ public class PerformScene {
                 }
                 rpressed12 = !rpressed12;
 
-                labelstatusOrg.setText(" Status: Applied U1-2");
+                labelstatusOrg.setText(" Status: Applied U1-2. Use Sliders to adjust Effects.");
             });
 
             rbutton13.setText(" Upper 1-3");
@@ -2439,7 +2439,7 @@ public class PerformScene {
                 }
                 rpressed13 = !rpressed13;
 
-                labelstatusOrg.setText(" Status: Applied U1-3");
+                labelstatusOrg.setText(" Status: Applied U1-3. Use Sliders to adjust Effects.");
             });
 
             rbutton14.setText(" Upper 1-4");
@@ -2498,7 +2498,7 @@ public class PerformScene {
                 lastVoiceButton = rbutton14.getId();
                 lastVoiceChannel = midiButtons.getButtonChannel(rbutton14.getId());
 
-                labelstatusOrg.setText(" Status: Applied U1-4");
+                labelstatusOrg.setText(" Status: Applied U1-4. Use Sliders to adjust Effects.");
             });
 
             rbutton15.setText(" Upper 1-5");
@@ -2554,7 +2554,7 @@ public class PerformScene {
                 }
                 rpressed15 = !rpressed15;
 
-                labelstatusOrg.setText(" Status: Applied U1-5");
+                labelstatusOrg.setText(" Status: Applied U1-5. Use Sliders to adjust Effects.");
             });
 
             rbutton16.setText(" Upper 1-6");
@@ -2610,7 +2610,7 @@ public class PerformScene {
                 }
                 rpressed16 = !rpressed16;
 
-                labelstatusOrg.setText(" Status: Applied U1-6");
+                labelstatusOrg.setText(" Status: Applied U1-6. Use Sliders to adjust Effects.");
             });
 
             //playmidifile.sendRotaryOn(false);
@@ -2734,7 +2734,7 @@ public class PerformScene {
                 }
                 rpressed21 = !rpressed21;
 
-                labelstatusOrg.setText(" Status: Applied U2-1");
+                labelstatusOrg.setText(" Status: Applied U2-1. Use Sliders to adjust Effects.");
             });
 
             rbutton22.setText(" Upper 2-2");
@@ -2790,7 +2790,7 @@ public class PerformScene {
                 }
                 rpressed22 = !rpressed22;
 
-                labelstatusOrg.setText(" Status: Applied U2-2");
+                labelstatusOrg.setText(" Status: Applied U2-2. Use Sliders to adjust Effects.");
             });
 
             rbutton23.setText(" Upper 2-3");
@@ -2846,7 +2846,7 @@ public class PerformScene {
                 }
                 rpressed23 = !rpressed23;
 
-                labelstatusOrg.setText(" Status: Applied U2-3");
+                labelstatusOrg.setText(" Status: Applied U2-3. Use Sliders to adjust Effects.");
             });
 
             rbutton24.setText(" Upper 2-4");
@@ -2902,7 +2902,7 @@ public class PerformScene {
                 }
                 rpressed24 = !rpressed24;
 
-                labelstatusOrg.setText(" Status: Applied U2-4");
+                labelstatusOrg.setText(" Status: Applied U2-4. Use Sliders to adjust Effects.");
             });
 
             rbutton31.setText(" Upper 3-1");
@@ -2958,7 +2958,7 @@ public class PerformScene {
                 }
                 rpressed31 = !rpressed31;
 
-                labelstatusOrg.setText(" Status: Applied U3-1");
+                labelstatusOrg.setText(" Status: Applied U3-1. Use Sliders to adjust Effects.");
             });
 
             rbutton32.setText(" Upper 3-2");
@@ -3014,7 +3014,7 @@ public class PerformScene {
                 }
                 rpressed32 = !rpressed32;
 
-                labelstatusOrg.setText(" Status: Applied U3-2");
+                labelstatusOrg.setText(" Status: Applied U3-2. Use Sliders to adjust Effects.");
             });
 
             rbutton33.setText(" Upper 3-3");
@@ -3070,7 +3070,7 @@ public class PerformScene {
                 }
                 rpressed33 = !rpressed33;
 
-                labelstatusOrg.setText(" Status: Applied U3-3");
+                labelstatusOrg.setText(" Status: Applied U3-3. Use Sliders to adjust Effects.");
             });
 
             rbutton34.setText(" Upper 3-4");
@@ -3126,7 +3126,7 @@ public class PerformScene {
                 }
                 rpressed34 = !rpressed34;
 
-                labelstatusOrg.setText(" Status: Applied U3-4");
+                labelstatusOrg.setText(" Status: Applied U3-4. Use Sliders to adjust Effects.");
             });
 
             gridmidcenterPerform.add(r1layerbtn, 6, 0, 1, 1);
