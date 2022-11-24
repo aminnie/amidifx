@@ -164,18 +164,28 @@ public class SharedStatus {
 
 
     public void setRxDevice(Receiver RxDevice) {
+        System.out.println("SharedStatus.setRxDevice to: " + RxDevice.toString());
+
         this.RxDevice = RxDevice;
     }
 
     public Receiver getRxDevice() {
+        if (this.RxDevice == null)
+            System.err.println("SharedStatus.getRxDevice: RxDevice is NULL and not defined");
+
         return this.RxDevice;
     }
 
     public void setTxDevice(Transmitter TxDevice) {
+        System.out.println("SharedStatus.setTxDevice to: " + TxDevice.toString());
+
         this.TxDevice = TxDevice;
     }
 
     public Transmitter getTxDevice() {
+        if (this.TxDevice == null)
+            System.err.println("SharedStatus.getTxDevice: TxDevice is NULL and not defined");
+
         return this.TxDevice;
     }
 
@@ -233,7 +243,7 @@ public class SharedStatus {
 
     public void SetDebugmode(int debugmode) {
         this.debugmode = debugmode;
-        System.out.println("Setting debugmode = " + this.debugmode);
+        System.out.println("SharedStatus: Setting debugmode = " + this.debugmode);
     }
 
     public int getModuleidx() {
@@ -242,7 +252,7 @@ public class SharedStatus {
 
     public void setModuleidx(int moduleidx) {
         this.moduleidx = moduleidx;
-        System.out.println("Setting moduleIdx = " + this.moduleidx);
+        System.out.println("SharedStatus: Setting moduleIdx = " + this.moduleidx);
     }
 
     // Return Deebach MaxPlus (1), Roland Integra7 (2), or MIDI GM (0)

@@ -275,7 +275,7 @@ public class Main extends Application {
 
     public BorderPane createSongScene(Stage stage) {
 
-        System.out.println("Main: Scene SongScene!");
+        System.out.println("Main: Scene SongScene Starting!");
 
         BorderPane borderPaneSng = new BorderPane();
         borderPaneSng.setStyle(bgpanecolor);

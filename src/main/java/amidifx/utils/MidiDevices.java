@@ -138,6 +138,8 @@ public class MidiDevices {
 
     public int createMidiDevices(String selindevice, String seloutdevice) {
 
+        System.out.println("MidiDevices: Creating MIDI Receiver and Transmitter");
+
         this.selindevice = selindevice;
         this.seloutdevice = seloutdevice;
 
@@ -161,7 +163,7 @@ public class MidiDevices {
             Sequencer midiseq = sharedstatus.getSeqDevice();
             midiseq.close();
         } catch (Exception ex) {
-            System.out.println("Info: Exiting: No receiver set yet");
+            System.err.println("Info: Exiting: No receiver set yet");
         }
 
         try {

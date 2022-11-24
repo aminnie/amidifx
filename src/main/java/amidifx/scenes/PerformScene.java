@@ -351,7 +351,7 @@ public class PerformScene {
 
             AppConfig config = AppConfig.getInstance();
 
-            // To Do: Generalize the first two Songs in the Song List and ensure cannot be deleted
+            // To Do: Generalize the first three Songs in the Song List and ensure cannot be deleted
             if (config.getSoundModuleIdx() == 1) {
                 sharedStatus.setPresetFile(config.getPresetFileName(1));
                 idxSongList = 1;

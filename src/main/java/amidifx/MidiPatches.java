@@ -54,7 +54,7 @@ public class MidiPatches {
 
         BufferedReader br = null;
         try {
-            System.out.println("Reading Patchfile: " + patchfile);
+            System.out.println("MidiPatches: Reading Patchfile " + patchfile);
 
             // Read the csv file
             br = new BufferedReader(new FileReader(MID_DIRECTORY + patchfile));

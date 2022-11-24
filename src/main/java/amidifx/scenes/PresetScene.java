@@ -1,6 +1,7 @@
 package amidifx.scenes;
 
 import amidifx.*;
+import amidifx.PlayMidi;
 import amidifx.models.*;
 import amidifx.utils.AppConfig;
 import amidifx.utils.ArduinoUtils;
@@ -249,7 +250,7 @@ public class PresetScene {
     // Select Bank and Sounds Panel
     public PresetScene(Stage stage) {
 
-        System.out.println("PresetScene: AMIDIFX Preset Scene Starting");
+        System.out.println("PresetScene: Preset Scene Starting!");
 
         sharedStatus = SharedStatus.getInstance();
         config = AppConfig.getInstance();
@@ -629,7 +630,7 @@ public class PresetScene {
             catch(Exception exception) {}
         }
         else
-            System.out.println("Main Init: Loaded new Preset file: " + presetFile);
+            System.out.println("Main Init: Loaded new Preset file " + presetFile);
 
         // **** Show Right Pane: MIDI Sound Bank List
 
@@ -1845,9 +1846,6 @@ public class PresetScene {
 
         // Initial Patches Render
         renderVoiceButtons(patchIdx, dopatches.getMIDIPatchSize());
-
-        // Apply all Preset 1 Channels to MIDI Controller
-        buttonApplyAllPresets.fire();
 
         // After initial render set saveButton to false if trigger during initial config, e.g. setting sliders.
         flgDirtyPreset = false;
