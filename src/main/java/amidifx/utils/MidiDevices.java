@@ -424,7 +424,7 @@ public class MidiDevices {
 
                         // Layer Upper Channel + 1 if not 0 (off/muted)
                         chan = layerUpper[upper2idx];
-                        if ((chan != 0) && (layerUpper[upper2idx+1] != 0)) {
+                        if ((chan != 0) && (layerUpper[upper2idx+1] != 0) && (upper2layeron != false)) {
                             // Octave Translate layered note
                             byte bytes1 = octaveTran(chan, bytes[1]);
 
@@ -438,7 +438,7 @@ public class MidiDevices {
 
                         // Layer Upper Channel + 2 if not 0 (off/muted)
                         chan = layerUpper[upper3idx];
-                        if ((chan != 0) && (layerUpper[upper3idx+1] != 0)) {
+                        if ((chan != 0) && (layerUpper[upper3idx+1] != 0) && (upper3layeron != false)) {
                             // Octave Translate layered note
                             byte bytes1 = octaveTran(chan, bytes[1]);
 
@@ -577,7 +577,7 @@ public class MidiDevices {
 
                         // Layer Lower + 1 if not 0 (off muted)
                         chan = layerLower[lower2idx];
-                        if ((chan != 0) && (layerLower[lower2idx+1] != 0)) {
+                        if ((chan != 0) && (layerLower[lower2idx+1] != 0) && (lower2layeron != false)) {
                             // Octave Translate incoming note on
                             byte bytes1 = octaveTran(chan, bytes[1]);
 

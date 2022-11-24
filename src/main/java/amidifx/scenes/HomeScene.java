@@ -327,15 +327,15 @@ public class HomeScene {
             txtIntro.setEditable(false);
 
             String keyboards0 = "Keyboard MIDI Channels:";
-            String keyboards1 = "       Solo: Channel " +  sharedStatus.getSoloCHAN();
-            String keyboards2 = "       Bass: Channel " +  sharedStatus.getBassCHAN();
-            String keyboards3 = "  Lower 1: Channel " +  sharedStatus.getLower1CHAN();
-            String keyboards4 = "  Upper 1: Channel " + sharedStatus.getUpper1CHAN();
-            String keyboards5 = "  Lower 2: Channel " +  sharedStatus.getLower2CHAN();
-            String keyboards6 = "  Upper 2: Channel " + sharedStatus.getUpper2CHAN();
-            String keyboards7 = "  Upper 3: Channel " + sharedStatus.getUpper3CHAN();
-            String keyboards8 = "    Drums: Channel " + sharedStatus.getDrumCHAN();
-            String keyboards9 = "        Expr: Channel " + sharedStatus.getExpressionCHAN();
+            String keyboards1 = "       Solo: Channel " +  (sharedStatus.getSoloCHAN() + 1);
+            String keyboards2 = "       Bass: Channel " +  (sharedStatus.getBassCHAN() + 1);
+            String keyboards3 = "  Lower 1: Channel " +  (sharedStatus.getLower1CHAN() + 1);
+            String keyboards4 = "  Upper 1: Channel " + (sharedStatus.getUpper1CHAN() + 1);
+            String keyboards5 = "  Lower 2: Channel " +  (sharedStatus.getLower2CHAN() + 1);
+            String keyboards6 = "  Upper 2: Channel " + (sharedStatus.getUpper2CHAN() + 1);
+            String keyboards7 = "  Upper 3: Channel " + (sharedStatus.getUpper3CHAN() + 1);
+            String keyboards8 = "    Drums: Channel " + (sharedStatus.getDrumCHAN() + 1);
+            String keyboards9 = "        Expr: Channel " + (sharedStatus.getExpressionCHAN() + 1);
             String keyboards = keyboards0 + System.getProperty("line.separator") + System.getProperty("line.separator") +
                     keyboards1 + System.getProperty("line.separator") +
                     keyboards2 + System.getProperty("line.separator") +
@@ -413,13 +413,13 @@ public class HomeScene {
                     }
                     dopatches.loadMidiPatches(modulefile);
 
-                    labelstatusOrg.setText(" Status: Ready to play. Test keyboard connection or click To Perform.");
+                    labelstatusOrg.setText(" Status: Click To Manual to continue.");
                     labelstatusOrg.setStyle(styletext);
                 }
             });
 
             // Proceed to setup MIDI IN, OUT and SYNTH
-            btnStart = new Button("To Perform");
+            btnStart = new Button("To Manual");
             btnStart.setStyle(selectcolorOn);
             btnStart.setDisable(true);
             btnStart.setOnAction(e -> {

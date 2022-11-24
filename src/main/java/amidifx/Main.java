@@ -250,9 +250,9 @@ public class Main extends Application {
     TextField txtSmfFile = new TextField("");
     TextField txtPresetFile = new TextField("");
     TextField txtPresetSaveAsFile = new TextField("");
-    TextField txtBass = new TextField("11");
-    TextField txtLower = new TextField("12");
-    TextField txtUpper = new TextField("14");
+    TextField txtBass = new TextField("2");
+    TextField txtLower = new TextField("3");
+    TextField txtUpper = new TextField("4");
     TextField txtTimeSig = new TextField("4/4");
     TextArea txtInstrumentList = new TextArea("Play Song to retrieve MIDI Instruments.\n\nMIDI Sequencer mutes by Track not Channel number!");
 
