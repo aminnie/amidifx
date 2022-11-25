@@ -163,7 +163,7 @@ public class MidiDevices {
             Sequencer midiseq = sharedstatus.getSeqDevice();
             midiseq.close();
         } catch (Exception ex) {
-            System.err.println("Info: Exiting: No receiver set yet");
+            System.out.println("MidiDevices: Exiting as no MIDI TX and RX devices set yet");
         }
 
         try {
@@ -1143,12 +1143,12 @@ public class MidiDevices {
 
         if ((CHAN < 0) || (CHAN > 15)) return false;
 
-        if ( (uppernoteson != 0) && (CHAN == sharedstatus.getUpper1CHAN()) )
-            return false;
-        else if ( (lowernoteson != 0) && (CHAN == sharedstatus.getLower1CHAN()) )
-            return false;
-        else if ( (bassnoteson != 0) && (CHAN == sharedstatus.getBassCHAN()) )
-            return false;
+        ////if ( (uppernoteson != 0) && (CHAN == sharedstatus.getUpper1CHAN()) )
+        ////    return false;
+        ////else if ( (lowernoteson != 0) && (CHAN == sharedstatus.getLower1CHAN()) )
+        ////    return false;
+        ////else if ( (bassnoteson != 0) && (CHAN == sharedstatus.getBassCHAN()) )
+        ////    return false;
 
         // Prevent excessive layer up or down transpose
         if (octadjust < -2 || octadjust > 2) {
@@ -1172,4 +1172,21 @@ public class MidiDevices {
         return this.octchannel[CHAN];
     }
 
+    // Track Open Keyboard note status. Use to disallow active Changes while notes are being played, and
+    // potentially leaving open notes on original channel hanging.
+    public boolean isOpenUpperNotes() {
+        return (uppernoteson != 0);
+    }
+
+    public boolean isOpenLowerNotes() {
+        return (lowernoteson != 0);
+    }
+
+    public boolean isOpenBassNotes() {
+        return (bassnoteson != 0);
+    }
+
+    public boolean isOpenAnyKBDNotes() {
+        return ((uppernoteson != 0) || (lowernoteson != 0) || (bassnoteson != 0));
+    }
 }

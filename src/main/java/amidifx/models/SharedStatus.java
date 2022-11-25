@@ -23,12 +23,15 @@ public class SharedStatus {
     private String performgm = "midigm.prf";
     private String performdb = "deebach.prf";
     private String performin = "integra.prf";
+    private String performex = "midiext.prf";       // Add your own device by replace the midi ext prf, pre and dat files.
 
     private String modulename0 = "MIDI GM";
     private String modulename1 = "Deebach BlackBox";
     private String modulename2 = "Roland Integra7";
+    private String modulename3 = "MIDI EXT";
+
     private int defaultmoduleidx = 0;
-    private int modulecnt = 3;              // Change module validation count of more added
+    private int modulecnt = 4;              // Change module validation count of more added
 
     private String MID_DIRECTORY = "C:/amidifx/midifiles/";
     private String CFG_DIRECTORY = "C:/amidifx/config/";
@@ -171,7 +174,7 @@ public class SharedStatus {
 
     public Receiver getRxDevice() {
         if (this.RxDevice == null)
-            System.err.println("SharedStatus.getRxDevice: RxDevice is NULL and not defined");
+            System.out.println("SharedStatus.getRxDevice: RxDevice is NULL and not defined");
 
         return this.RxDevice;
     }
@@ -265,6 +268,10 @@ public class SharedStatus {
         // Return Roland Integra7
         if (moduleidx == 2)
             return this.modulename2;
+
+        // Return MIDI Ext (My special device)
+        if (moduleidx == 3)
+            return this.modulename3;
 
         // Return MIDIGM
         return modulename0;
@@ -372,13 +379,21 @@ public class SharedStatus {
     }
 
     public String getPerformFile() {
-        if (moduleidx == 0) {
-            System.out.println("Button File: " + performgm);
-            return performgm;
+        if (moduleidx == 1) {
+            System.out.println("SharedSatus: Get Deebach Button File: " + performdb);
+            return performdb;
+        }
+        if (moduleidx == 2) {
+            System.out.println("SharedStatus: Get Integra Button File: " + performin);
+            return performin;
+        }
+        if (moduleidx == 3) {
+            System.out.println("SharedStatus: Get Special MIDI Button File: " + performex);
+            return performex;
         }
         else {
-            System.out.println("Button File: " + performdb);
-            return performdb;
+            System.out.println("SharedStatus: Get MIDI GM Button File: " + performgm);
+            return performgm;
         }
     }
 
@@ -393,7 +408,7 @@ public class SharedStatus {
             AppConfig appconfig = AppConfig.getInstance();
             this.expchannel = appconfig.getExpressionChannel();
         }
-        System.out.println("Expression Channel: " + expchannel);
+        if (debugmode != 0) System.out.println("SharedStatus: Get Expression Channel " + expchannel);
 
         return expchannel;
     }

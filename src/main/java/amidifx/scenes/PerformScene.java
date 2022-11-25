@@ -3444,6 +3444,15 @@ public class PerformScene {
             sliderOCT.setBlockIncrement(1);
             Rotate rotateOct = new Rotate();
             sliderOCT.valueProperty().addListener((observable, oldValue, newValue) -> {
+
+                // Do not allow Octave Slider to move while any Keyboard Notes are open
+                MidiDevices mdevice = MidiDevices.getInstance();
+                if (mdevice.isOpenAnyKBDNotes()) {
+                    sliderOCT.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getOctaveTran());
+                    labelstatusOrg.setText(" Status: Button " + lastVoiceButton + " No OCT change allowed while Notes open");
+                    return;
+                }
+
                 //Setting the angle for the rotation
                 rotateOct.setAngle((double) newValue);
 
@@ -3456,13 +3465,7 @@ public class PerformScene {
                 if (lastVoiceButton != null)
                     labelstatusOrg.setText(" Status: Button " + lastVoiceButton + " OCT= " + newValue.intValue());
             });
-            // Only Update slider if no open notes!
-            if (octaveflg) {
-                sliderOCT.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getOctaveTran());
-            }
-            else {
-                labelstatusOrg.setText(" Status: Octave change only allowed with all notes off");
-            }
+            sliderOCT.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getOctaveTran());
 
             Label vollabel = new Label("VOL");
             vollabel.setStyle(styletextwhitesmall);

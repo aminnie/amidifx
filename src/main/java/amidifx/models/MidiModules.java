@@ -11,6 +11,9 @@ public class MidiModules {
     private static final String MID_PATCHFILE2 = "integra.dat";
     private static final String MID_PATCH2 = "Roland Integra7";
 
+    private static final String MID_PATCHFILE3 = "midiex.dat";
+    private static final String MID_PATCH3 = "MIDI (Ext)";
+
     final ArrayList moduleslist = new ArrayList<String>();
     final ArrayList modulesfiles = new ArrayList<String>();
 
@@ -20,10 +23,12 @@ public class MidiModules {
         moduleslist.add(MID_PATCH0);
         moduleslist.add(MID_PATCH1);
         moduleslist.add(MID_PATCH2);
+        moduleslist.add(MID_PATCH3);
 
         modulesfiles.add(MID_PATCHFILE0);
         modulesfiles.add(MID_PATCHFILE1);
         modulesfiles.add(MID_PATCHFILE2);
+        modulesfiles.add(MID_PATCHFILE3);
     }
 
     public ArrayList getModuleslist() {
