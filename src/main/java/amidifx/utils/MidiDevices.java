@@ -669,10 +669,13 @@ public class MidiDevices {
 
                     byte chan = layerBass[bass1idx];
                     try {
+                        // Octave Translate incoming note on
+                        byte bytes1 = octaveTran(chan, bytes[1]);
+
                         // Layer the first/origin Upper Channel if not 0 (off/muted)
                         if ((chan != 0)) {
                             shortmessage = new ShortMessage();
-                            shortmessage.setMessage(command, chan, byteToInt(bytes[1]), byteToInt(bytes[2]));
+                            shortmessage.setMessage(command, chan, byteToInt(bytes1), byteToInt(bytes[2]));
                             receiver.send(shortmessage, timeStamp);
 
                             bass1notestrack[(int) bytes[1]] = (byte) 1;
@@ -691,9 +694,11 @@ public class MidiDevices {
 
                     byte chan = layerBass[bass1idx];
                     try {
+                        // Octave Translate incoming note off
+                        byte bytes1 = octaveTran(chan, bytes[1]);
 
                         shortmessage = new ShortMessage();
-                        shortmessage.setMessage(command, chan, byteToInt(bytes[1]), byteToInt(bytes[2]));
+                        shortmessage.setMessage(command, chan, byteToInt(bytes1), byteToInt(bytes[2]));
                         receiver.send(shortmessage, timeStamp);
 
                         // Note Off for Channel Lower
@@ -1139,16 +1144,9 @@ public class MidiDevices {
 
     public boolean setOctaveCHAN(int CHAN, int octadjust) {
 
-        System.out.println("MidiDevices: set Octave on CHAN: " + CHAN + " ADJ:" + octadjust);
+        //System.out.println("MidiDevices: set Octave on CHAN: " + CHAN + " ADJ:" + octadjust);
 
         if ((CHAN < 0) || (CHAN > 15)) return false;
-
-        ////if ( (uppernoteson != 0) && (CHAN == sharedstatus.getUpper1CHAN()) )
-        ////    return false;
-        ////else if ( (lowernoteson != 0) && (CHAN == sharedstatus.getLower1CHAN()) )
-        ////    return false;
-        ////else if ( (bassnoteson != 0) && (CHAN == sharedstatus.getBassCHAN()) )
-        ////    return false;
 
         // Prevent excessive layer up or down transpose
         if (octadjust < -2 || octadjust > 2) {
