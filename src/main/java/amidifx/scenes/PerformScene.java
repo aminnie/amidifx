@@ -3614,10 +3614,13 @@ public class PerformScene {
 
         l1layerbtn.setStyle(lrpressedOn);
         l2layerbtn.setStyle(lrpressedOff);
+        l2layerbtn.setText("Lower 2 [" + (sharedStatus.getLower2CHAN() + 1) + "]   ");
 
         r1layerbtn.setStyle(lrpressedOn);
         r2layerbtn.setStyle(lrpressedOff);
+        r2layerbtn.setText("Upper 2 [" + (sharedStatus.getUpper2CHAN() + 1) + "]   ");
         r3layerbtn.setStyle(lrpressedOff);
+        r3layerbtn.setText("Upper 3 [" + (sharedStatus.getUpper3CHAN() + 1) + "]   ");
 
         //System.out.println("OrganScene: New Song selected: Loaded new Preset file: " + presetFile);
     }
