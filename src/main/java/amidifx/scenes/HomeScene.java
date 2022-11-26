@@ -242,7 +242,13 @@ public class HomeScene {
 
                 if (!appconfig.saveProperties()) {
                     labelstatusOrg.setText(" Status: Application config save failed!");
-                    System.err.println("Failed to save AppConfig file!");
+                    System.err.println("HomeScene Error: Failed to save AppConfig file!");
+
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("AMIDIFX Error!");
+                    alert.setHeaderText("Failed to save AppConfig file");
+                    Optional<ButtonType> result = alert.showAndWait();
+
                     System.exit(-1);
                 }
                 else {
@@ -404,6 +410,8 @@ public class HomeScene {
                     dopatches = MidiPatches.getInstance();
                     String modulefile = midimodules.getModuleFile(appconfig.getSoundModuleIdx());
                     if (!dopatches.fileExist(modulefile)) {
+                        System.err.println("HomeScene: Module Patch File "+ sharedStatus.getCFGDirectory() + modulefile + " not found!");
+
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("AMIDIFX Device Config Error");
                         alert.setHeaderText("Module Patch file " + sharedStatus.getCFGDirectory() + modulefile + " not found!");

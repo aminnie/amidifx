@@ -383,6 +383,8 @@ public class PerformScene {
                     wait(10000);
                 }
                 catch(Exception exception) {}
+
+                System.exit(-1);
             }
             System.out.println("PerformScene Init: Loaded new Preset file: " + presetFile);
 
@@ -399,6 +401,9 @@ public class PerformScene {
             int moduleidx = config.getSoundModuleIdx();
             String modulefile = midimodules.getModuleFile(moduleidx);
             if (!dopatches.fileExist(modulefile)) {
+
+                System.err.println("PerformScene: Module Patch File "+ sharedStatus.getCFGDirectory() + modulefile + " not found!");
+
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("AMIDIFX Perform Scene Error");
                 alert.setHeaderText("Module Patch file " + sharedStatus.getCFGDirectory() + modulefile + " not found!");

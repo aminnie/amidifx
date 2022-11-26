@@ -3,7 +3,6 @@ package amidifx;
 import amidifx.models.MidiPatch;
 import amidifx.models.MidiPreset;
 import amidifx.models.SharedStatus;
-import amidifx.utils.ArduinoUtils;
 import amidifx.utils.MidiDevices;
 
 import java.io.*;
@@ -143,7 +142,7 @@ public class MidiPresets {
             floadsuccess = false;
         }
         catch (Exception ee) {
-            System.out.println("*** Error reading MIDI Preset File " + presetFile);
+            System.err.println("*** Error reading MIDI Preset File " + presetFile);
             ee.printStackTrace();
             floadsuccess = false;
         }
@@ -152,21 +151,20 @@ public class MidiPresets {
                 br.close();
 
                 // Forward Preset Channel Layer Data to ARM Controller
-                ArduinoUtils arduinoutils = ArduinoUtils.getInstance();
-                if (arduinoutils.hasARMPort()) {
-                    for (int i = 0; i < presetList.size(); i++) {
-                        MidiPreset mPreset = presetList.get(i);
+                //ArduinoUtils arduinoutils = ArduinoUtils.getInstance();
+                //if (arduinoutils.hasARMPort()) {
+                //    for (int i = 0; i < presetList.size(); i++) {
+                //        MidiPreset mPreset = presetList.get(i);
 
-                        //MidiLayer midilayer = new MidiLayer(mPreset);
-                        //arduinoutils.writeLayerSysexData((byte)2, midilayer.getChannelOutIdx());
+                //        //MidiLayer midilayer = new MidiLayer(mPreset);
+                //        //arduinoutils.writeLayerSysexData((byte)2, midilayer.getChannelOutIdx());
 
                         //System.out.println("Sending to ARM Controller " + midilayer.toString());
-                    }
-                }
+                //    }
+                //}
 
                 // Reload presets on screens such as Perform it has changed
                 sharedStatus.setPresetReload(false);
-
             }
             catch (IOException ioe) {
                 System.out.println("*** Error occured while closing the MIDI Preset BufferedReader ***");

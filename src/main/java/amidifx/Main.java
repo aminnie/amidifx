@@ -589,15 +589,25 @@ public class Main extends Application {
             // Abort if error loading Preset file
             presetFile = txtPresetFile.getText();
             if (!dopresets.loadMidiPresets(presetFile))  {
-                labelstatusSng.setText(" Status: Error loading preset file " + presetFile);
+
+                labelstatusSng.setText(" Status: Error loading preset " + presetFile);
                 labelstatusSng.setStyle(styletextred);
 
-                System.out.println("Fatal Error: Unable to load preset file " + presetFile);
-                try {
-                    wait(10000);
-                }
-                catch(Exception exception) {}
-                System.exit(-1);
+                System.err.println("Main Error: Unable to load preset file " + presetFile);
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("AMIDIFX Error!");
+                alert.setHeaderText("Unable to load preset file " + presetFile);
+                Optional<ButtonType> result = alert.showAndWait();
+                return;
+
+                ////labelstatusSng.setText(" Status: Error loading preset file " + presetFile);
+                ////labelstatusSng.setStyle(styletextred);
+                ////try {
+                ////    wait(10000);
+                ////}
+                ////catch(Exception exception) {}
+                ////System.exit(-1);
             }
 
             for (int idx = 0; idx < 16; idx++) {
@@ -1110,14 +1120,22 @@ public class Main extends Application {
                     // Reload the Preset file for current Song in case it has changed
                     presetFile = sharedStatus.getPresetFile();
                     if (!dopresets.loadMidiPresets(presetFile)) {
-                        labelstatusSng.setText(" Status: Error loading preset file " + presetFile);
-                        labelstatusSng.setStyle(styletextred);
 
-                        try {
-                            wait(10000);
-                        }
-                        catch(Exception exception) {}
-                        System.exit(-1);
+                        System.err.println("Main Error: Unable to load preset file " + presetFile);
+
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("AMIDIFX Error!");
+                        alert.setHeaderText("Unable to load preset file " + presetFile);
+                        Optional<ButtonType> result = alert.showAndWait();
+                        return;
+
+                        //labelstatusSng.setText(" Status: Error loading preset file " + presetFile);
+                        //labelstatusSng.setStyle(styletextred);
+                        ////try {
+                        ////    wait(10000);
+                        ////}
+                        ////catch(Exception exception) {}
+                        ////System.exit(-1);
                     }
 
                     buttondemo.setText("Stop Play");

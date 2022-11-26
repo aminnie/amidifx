@@ -1,7 +1,11 @@
 package amidifx.utils;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+
 import java.io.*;
 import java.nio.channels.FileChannel;
+import java.util.Optional;
 import java.util.Properties;
 
 public class AppConfig {
@@ -34,6 +38,12 @@ public class AppConfig {
 
         if (!this.loadProperties()) {
             System.err.println("AppConfig: Failed to load AppConfig file!");
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("AMIDIFX Config Error");
+            alert.setHeaderText("AppConfig: Failed to load AppConfig file!");
+            Optional<ButtonType> presult = alert.showAndWait();
+
             System.exit(-1);
         }
     }
