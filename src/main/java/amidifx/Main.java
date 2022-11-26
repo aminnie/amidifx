@@ -315,7 +315,6 @@ public class Main extends Application {
 
         Button buttonsc3 = new Button("Presets");
         buttonsc3.setStyle(btnMenuOff);
-        //buttonsc3.setOnAction(e -> stage.setScene(scenePresets));
         buttonsc3.setDisable(true);
         buttonsc3.setOnAction(e -> {
             System.out.println(("Main: Changing to Presets Scene " + sharedStatus.getPresetsScene().toString()));

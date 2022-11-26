@@ -3200,6 +3200,7 @@ public class PerformScene {
                             // Disable Songs and Preset menu switch while playing
                             buttonsc2.setDisable(true);
                             buttonsc3.setDisable(true);
+                            buttonsc4.setDisable(true);
 
                             // Song Play Repeating Timer: Collects Beat Timer and Play Status every 250ms
                             Timer songPlayTimer = new Timer();
@@ -3254,6 +3255,7 @@ public class PerformScene {
                         // Enable Songs and Preset menu switch once stopped playing
                         buttonsc2.setDisable(false);
                         buttonsc3.setDisable(false);
+                        buttonsc4.setDisable(false);
                     }
                 }
                 catch (Exception exception) {

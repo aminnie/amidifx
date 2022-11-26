@@ -609,7 +609,7 @@ public class PresetScene {
         banklistView.getSelectionModel().selectFirst();
         banklistView.setStyle(styletext);
 
-        Button buttonb = new Button("Select Voice Bank");
+        Button buttonb = new Button("Set Voice Bank");
         buttonb.setStyle(selectcolorOff);
         buttonb.setPrefSize(xbutton, ybutton - 10);
         buttonb.setOnAction(event -> {
