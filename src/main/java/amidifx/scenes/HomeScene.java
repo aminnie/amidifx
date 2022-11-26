@@ -47,8 +47,8 @@ public class HomeScene {
     int xscene = (int)(1024 * xmul);
     int yscene = (int)(600 * ymul - 45);    // 45 = Adjustment while we are single showing Windows status bar
 
-    int xtoolbarleft = (int)(225 * xmul);
-    int xtitle = (int)(200 * xmul);
+    int xtoolbarleft = (int)(150 * xmul);
+    int xtitle = (int)(100 * xmul);
     int xtoolbarright = (int)(150 * xmul);
 
     int xleftright = (int)(50 * xmul);
@@ -221,6 +221,20 @@ public class HomeScene {
                 }
             });
 
+            Button buttonsc4 = new Button("Config");
+            buttonsc4.setStyle(btnMenuOff);
+            buttonsc4.setDisable(true);
+            buttonsc4.setOnAction(e -> {
+
+                System.out.println(("PerformScene: Changing to Config Scene " + sharedStatus.getHomeScene().toString()));
+                primaryStage.setScene(sharedStatus.getHomeScene());
+                try {
+                    Thread.sleep(250);
+                } catch (Exception ex) {
+                    System.err.println("PerformScene: Unable to set Config Scene!");
+                }
+            });
+
             Button buttonsc3 = new Button("Presets");
             buttonsc3.setStyle(btnMenuOff);
             buttonsc3.setDisable(true);
@@ -281,7 +295,7 @@ public class HomeScene {
                 Platform.exit();
             });
 
-            ToolBar toolbarLeft = new ToolBar(buttonsc1, buttonsc2, buttonsc3);
+            ToolBar toolbarLeft = new ToolBar(buttonsc1, buttonsc2, buttonsc3, buttonsc4);
             toolbarLeft.setStyle(bgheadercolor);
             toolbarLeft.setMinWidth(xtoolbarleft);
 
@@ -421,13 +435,13 @@ public class HomeScene {
                     }
                     dopatches.loadMidiPatches(modulefile);
 
-                    labelstatusOrg.setText(" Status: Click To Manual to continue.");
+                    labelstatusOrg.setText(" Status: Click Manual to continue.");
                     labelstatusOrg.setStyle(styletext);
                 }
             });
 
             // Proceed to setup MIDI IN, OUT and SYNTH
-            btnStart = new Button("To Manual");
+            btnStart = new Button("  Manual  ");
             btnStart.setStyle(selectcolorOn);
             btnStart.setDisable(true);
             btnStart.setOnAction(e -> {

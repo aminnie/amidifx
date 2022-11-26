@@ -46,8 +46,8 @@ public class PerformScene {
     int xscene = (int)(1024 * xmul);
     int yscene = (int)(600 * ymul - 45);    // 45 = Adjustment while we are single showing Windows status bar
 
-    int xtoolbarleft = (int)(225 * xmul);
-    int xtitle = (int)(200 * xmul);
+    int xtoolbarleft = (int)(150 * xmul);
+    int xtitle = (int)(100 * xmul);
     int xtoolbarright = (int)(150 * xmul);
 
     int xleftright = (int)(50 * xmul);
@@ -533,6 +533,20 @@ public class PerformScene {
                 }
             });
 
+            Button buttonsc4 = new Button("Config");
+            buttonsc4.setStyle(btnMenuOff);
+            buttonsc4.setOnAction(e -> {
+
+                System.out.println(("PerformScene: Changing to Config Scene " + sharedStatus.getHomeScene().toString()));
+                primaryStage.setScene(sharedStatus.getHomeScene());
+                try {
+                    Thread.sleep(250);
+                } catch (Exception ex) {
+                    System.err.println("PerformScene: Unable to set Config Scene!");
+                }
+            });
+
+
             // Save Performance Button
             buttonSave = new Button("Save Manual");
             buttonSave.setStyle(btnMenuSaveOn);
@@ -594,7 +608,7 @@ public class PerformScene {
                 System.exit(0);
             });
 
-            ToolBar toolbarLeft = new ToolBar(buttonsc1, buttonsc2, buttonsc3);
+            ToolBar toolbarLeft = new ToolBar(buttonsc1, buttonsc2, buttonsc3, buttonsc4);
             toolbarLeft.setStyle(bgheadercolor);
             toolbarLeft.setMinWidth(xtoolbarleft);
 

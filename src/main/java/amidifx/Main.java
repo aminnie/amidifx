@@ -58,8 +58,8 @@ public class Main extends Application {
     int xbutton = (int)(154 * xmul);
     int ybutton = (int)(50 * ymul);
 
-    int xtoolbarleft = (int)(225 * xmul);
-    int xtitle = 200 * (int)(xmul);
+    int xtoolbarleft = (int)(150 * xmul);
+    int xtitle = 100 * (int)(xmul);
     int xtoolbarright = (int)(150 * xmul);
 
     int xfileselect = (int)(25 * xmul);
@@ -327,6 +327,21 @@ public class Main extends Application {
             }
         });
 
+        Button buttonsc4 = new Button("Config");
+        buttonsc4.setStyle(btnMenuOff);
+        buttonsc4.setDisable(true);
+        buttonsc4.setOnAction(e -> {
+
+            System.out.println(("SongScene: Changing to Config Scene " + sharedStatus.getHomeScene().toString()));
+            stage.setScene(sharedStatus.getHomeScene());
+            try {
+                Thread.sleep(250);
+            } catch (Exception ex) {
+                System.err.println("SongScene: Unable to set Config Scene!");
+            }
+        });
+
+
         Button buttonPanic = new Button("  Panic  ");
         buttonPanic.setStyle(btnMenuOff);
         buttonPanic.setOnAction(e -> {
@@ -403,7 +418,7 @@ public class Main extends Application {
 */
         });
 
-        ToolBar toolbarLeft = new ToolBar(buttonsc1, buttonsc2, buttonsc3);
+        ToolBar toolbarLeft = new ToolBar(buttonsc1, buttonsc2, buttonsc3, buttonsc4);
         toolbarLeft.setStyle(bgheadercolor);
         toolbarLeft.setMinWidth(xtoolbarleft);
 
