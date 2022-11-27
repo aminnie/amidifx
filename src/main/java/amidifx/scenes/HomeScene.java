@@ -140,7 +140,6 @@ public class HomeScene {
             sharedStatus.setSelInDevice(appconfig.getInDevice());
             sharedStatus.setSelOutDevice(appconfig.getOutDevice());
 
-            sharedStatus.setDemoCHAN(appconfig.getDemoChannel());
             sharedStatus.setDrumCHAN(appconfig.getDrumChannel());
             sharedStatus.setSoloCHAN(appconfig.getSoloChannel());
             sharedStatus.setBassCHAN(appconfig.getBassChannel());
@@ -149,6 +148,9 @@ public class HomeScene {
             sharedStatus.setUpper1CHAN(appconfig.getUpper1Channel());
             sharedStatus.setUpper2CHAN(appconfig.getUpper2Channel());
             sharedStatus.setUpper3CHAN(appconfig.getUpper3Channel());
+
+            // Default the Demo Channel to Upper1
+            sharedStatus.setDemoCHAN(appconfig.getUpper1Channel());
 
             // Initialize Input and Output Device Lists
             MidiUtils midiutils = new MidiUtils();

@@ -151,6 +151,15 @@ public class PerformScene {
     boolean bplaying = false;
     boolean btestnote = false;
 
+    double tmpvol = 0;
+    double tmpexp = 0;
+    double tmprev = 0;
+    double tmpcho = 0;
+    double tmpmod = 0;
+    double tmpbri = 0;
+    double tmppan = 0;
+    double tmpoct = 0;
+
     Label labelstatusOrg;
     Label labelsynth;
 
@@ -330,7 +339,7 @@ public class PerformScene {
             // Create instance of Shared Status to report back to Scenes
             sharedStatus = SharedStatus.getInstance();
             lastVoiceChannel = sharedStatus.getDemoCHAN();
-            lastVoiceChannelSound = lastVoiceChannel;
+            ////**lastVoiceChannelSound = lastVoiceChannel;
 
             // Start Building the Scene
             System.out.println("PerformScene: Scene PerformScene!");
@@ -447,6 +456,16 @@ public class PerformScene {
 
             labelstatusOrg.setText(" Status: Loaded Button PRF file " + buttonFile);
             labelstatusOrg.setStyle(styletext);
+
+            // Prepare Expression Sliders to be used by all Voice Buttons
+            sliderVOL = new Slider(0, 127, 0);
+            sliderEXP = new Slider(0, 127, 0);
+            sliderREV = new Slider(0, 127, 0);
+            sliderCHO = new Slider(0, 127, 0);
+            sliderMOD = new Slider(0, 127, 0);
+            sliderBRI = new Slider(0, 127, 0);
+            sliderPAN = new Slider(0, 127, 0);
+            sliderOCT = new Slider(-2.5, 2.5, 0);
 
             // Create top bar navigation buttons
 
@@ -849,6 +868,15 @@ public class PerformScene {
                     buttonSoundFont.setStyle(selectcolorOn);
                     bnewpatchselected = true;
 
+                    // If we are in Sound Demo mode, apply the Patch now so we can continue to play on Keyboard Uppper Channel
+                    if (btestnote) {
+                        int CHAN = sharedStatus.getUpper1CHAN();
+
+                        PlayMidi playmidifile = PlayMidi.getInstance();
+                        MidiPatch patch = dopatches.getMIDIPatch(patchidx);
+                        playmidifile.sendMidiProgramChange((byte) (CHAN), (byte) patch.getPC(), (byte) patch.getLSB(), (byte) patch.getMSB());
+                    }
+
                     labelstatusOrg.setText(" Status: Selected " + fontname + ". Click on Voice Button to add, or unclick to cancel.");
                     //System.out.println("PerformScene: Loaded Voice " + fontname);
                 }
@@ -868,6 +896,9 @@ public class PerformScene {
                 fontname = dopatches.getMIDIPatch(patchidx).getPatchName();
                 buttonSoundFont.setText(fontname);
 
+                buttonSoundFont.setStyle(selectcolorOff);
+                bnewpatchselected = false;
+
                 labelstatusOrg.setText(" Status: Click Voice to select.");
                 //System.out.println("PerformScene: Previous Voice " + fontname);
             });
@@ -880,6 +911,9 @@ public class PerformScene {
 
                 fontname = dopatches.getMIDIPatch(patchidx).getPatchName();
                 buttonSoundFont.setText(fontname);
+
+                buttonSoundFont.setStyle(selectcolorOff);
+                bnewpatchselected = false;
 
                 labelstatusOrg.setText(" Status: Click Voice to select.");
                 //System.out.println("PerformScene: Next Voice " + fontname);
@@ -900,45 +934,65 @@ public class PerformScene {
                 try {
 
                     if (!btestnote) {
-                        btntest.setText("Stop");
+                        btntest.setText("Demo");
                         btntest.setStyle(btnplayOn);
+
+                        // Apply MIDI Program Change on Upper Channel for Button Press as we will use it Demo
+                        int CHAN = sharedStatus.getUpper1CHAN();
+                        int buttonidx = midiButtons.lookupButtonIdx(rbutton11.getId());
+                        applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
+
+                        // Keep original Upper 1 Slider values to restore at Demo Off
+                        tmpvol = sliderVOL.getValue();
+                        tmpexp = sliderEXP.getValue();
+                        tmprev = sliderREV.getValue();
+                        tmpcho = sliderCHO.getValue();
+                        tmpmod = sliderMOD.getValue();
+                        tmpbri = sliderBRI.getValue();
+                        tmppan = sliderPAN.getValue();
+                        tmpoct = sliderOCT.getValue();
 
                         PlayMidi playmidifile = PlayMidi.getInstance();
                         MidiPatch patch = dopatches.getMIDIPatch(patchidx);
-                        //System.out.println("PerformScene: Selecting patch " + patch.toString());
+                        playmidifile.sendMidiProgramChange((byte)(CHAN), (byte)patch.getPC(), (byte)patch.getLSB(), (byte)patch.getMSB());
 
-                        // Note: Monitor as using CHAN 15 by default may cause unexpected behavior.
-                        playmidifile.sendMidiProgramChange((byte)(lastVoiceChannel), (byte)patch.getPC(), (byte)patch.getLSB(), (byte)patch.getMSB());
-                        playmidifile.sendMidiNote((byte)(lastVoiceChannel), (byte)60, true);
-
-                        playmidifile.sendMidiControlChange((byte)lastVoiceChannel, ccVOL, (byte)sliderVOL.getValue());
-                        //playmidifile.sendMidiControlChange((byte)lastVoiceChannel, ccEXP, (byte)sliderEXP.getValue());
-                        playmidifile.sendMidiControlChange((byte)lastVoiceChannel, ccREV, (byte)sliderREV.getValue());
-                        playmidifile.sendMidiControlChange((byte)lastVoiceChannel, ccCHO, (byte)sliderCHO.getValue());
-                        playmidifile.sendMidiControlChange((byte)lastVoiceChannel, ccMOD, (byte)sliderMOD.getValue());
-                        playmidifile.sendMidiControlChange((byte)lastVoiceChannel, ccPAN, (byte)sliderPAN.getValue());
-                        //playmidifile.sendMidiControlChange((byte)lastVoiceChannel, ccTRE, (byte)sliderTRE.getValue());
-
-                        // Remember last voice channel that sounded, so that this one is remembered for turn off
-                        lastVoiceChannelSound = lastVoiceChannel;
                         btestnote = true;
+
+                        System.out.println("PerformScene: Selected Demo patch " + patch.toString());
+                        System.out.println("PerformScene: Change Demo channel to " + CHAN);
+
+                        labelstatusOrg.setText(" Status: Demo sounds active on CHAN " + (sharedStatus.getUpper1CHAN() + 1));
                     }
                     else {
                         btntest.setText("Demo");
                         btntest.setStyle(btnplayOff);
 
-                        PlayMidi playmidifile = PlayMidi.getInstance();
-                        playmidifile.sendMidiNote((byte)lastVoiceChannelSound, (byte)60, false);
-
-                        btestnote = false;
+                        // Turn Selected Demo Sound Font ofF so we do not accidentally load into next Panel Button pressed
+                        buttonSoundFont.setStyle(selectcolorOff);
+                        bnewpatchselected = false;
 
                         // Re-Apply MIDI Program Change on Upper Channel for Button Press since we used it for sound Demo
+                        // To do: Change Upper Button back to last Button selected instead of Upper 3-1
                         int CHAN = sharedStatus.getUpper1CHAN();
                         int buttonidx = midiButtons.lookupButtonIdx(rbutton11.getId());
                         applyMidiButton(buttonidx, CHAN, midiButtons.getMidiButton(buttonidx, 0));
+                        rbutton11.fire();
 
+                        // Restore original Upper 1 Slider values to to pre-Demo On
+                         sliderVOL.setValue(tmpvol);
+                         sliderEXP.setValue(tmpexp);
+                         sliderREV.setValue(tmprev);
+                         sliderCHO.setValue(tmpcho);
+                         sliderMOD.setValue(tmpmod);
+                         sliderBRI.setValue(tmpbri);
+                         sliderPAN.setValue(tmppan);
+                         sliderOCT.setValue(tmpoct);
+
+                        btestnote = false;
+
+                        System.out.println("PerformScene: Change Demo channel back to " + CHAN);
+                        labelstatusOrg.setText(" Status: Demo Sounds Off");
                     }
-                    labelstatusOrg.setText(" Status: ");
                 }
                 catch (Exception exception) {
                     exception.printStackTrace();
@@ -3305,7 +3359,6 @@ public class PerformScene {
             // Add VOL, REV and CHO Sliders. Show for the most recent selected Voice Button
 
             // Create VOL slider
-            sliderVOL = new Slider(0, 127, 0);
             sliderVOL.setOrientation(Orientation.VERTICAL);
             sliderVOL.setShowTickLabels(true);
             sliderVOL.setShowTickMarks(true);
@@ -3331,7 +3384,6 @@ public class PerformScene {
             sliderVOL.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getVOL());
 
             // Create REV slider
-            sliderREV = new Slider(0, 127, 0);
             sliderREV.setOrientation(Orientation.VERTICAL);
             sliderREV.setShowTickLabels(true);
             sliderREV.setShowTickMarks(true);
@@ -3356,7 +3408,6 @@ public class PerformScene {
             sliderREV.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getREV());
 
             // Create CHO slider
-            sliderCHO = new Slider(0, 127, 0);
             sliderCHO.setOrientation(Orientation.VERTICAL);
             sliderCHO.setShowTickLabels(true);
             sliderCHO.setShowTickMarks(true);
@@ -3381,7 +3432,6 @@ public class PerformScene {
             sliderCHO.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getCHO());
 
             // Create MOD slider
-            sliderMOD = new Slider(0, 127, 0);
             sliderMOD.setOrientation(Orientation.VERTICAL);
             sliderMOD.setShowTickLabels(true);
             sliderMOD.setShowTickMarks(true);
@@ -3406,7 +3456,6 @@ public class PerformScene {
             sliderMOD.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getMOD());
 
             // Create BRI (Brightness) slider
-            sliderBRI = new Slider(0, 127, 0);
             sliderBRI.setOrientation(Orientation.VERTICAL);
             sliderBRI.setShowTickLabels(true);
             sliderBRI.setShowTickMarks(true);
@@ -3431,7 +3480,6 @@ public class PerformScene {
             sliderBRI.setValue(midiButtons.getButtonById(lastVoiceButton, 0).getBRI());
 
             // Create PAN slider
-            sliderPAN = new Slider(0, 127, 0);
             sliderPAN.setOrientation(Orientation.VERTICAL);
             sliderPAN.setShowTickLabels(true);
             sliderPAN.setShowTickMarks(true);
@@ -3457,7 +3505,6 @@ public class PerformScene {
 
             // Create OCT slider
             octaveflg = true;
-            sliderOCT = new Slider(-2.5, 2.5, 0);
             sliderOCT.setOrientation(Orientation.VERTICAL);
             sliderOCT.setShowTickLabels(true);
             sliderOCT.setShowTickMarks(true);
