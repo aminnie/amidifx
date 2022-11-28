@@ -555,7 +555,7 @@ public class Main extends Application {
                     // Preset Time Signature for correct Bar Time Display
                     sharedStatus.setTimeSig(midiSong.getTimeSig());
 
-                    // Enable Preset File Save As text entry
+                    // Disable Song text entry
                     txtSongTitle.setDisable(true);
                     txtPresetFile.setDisable(true);
                     txtSmfFile.setDisable(true);
@@ -567,7 +567,11 @@ public class Main extends Application {
                     presetchooser.setDisable(true);
                     midichooser.setDisable(true);
 
-                    txtInstrumentList.setText("Play Song to retrieve Song MIDI Instruments.\nSequencer mutes by Track not Channel Number!\nUse number 0 for Tracks not too mute.");
+                    txtInstrumentList.setText("1. Start/Stop Play Song to retrieve MIDI GM encoded Instruments." +
+                            "\n    Replace the instruments with similar from your Sound Module." +
+                            "\n2. Sequencer mutes by Track not Channel Number." +
+                            "\n    Enter value 0 for Tracks not too mute." +
+                            "\n3. For new Song, select Source Preset File and save with new name.");
 
                     songTitle = midiSong.getSongTitle();
                     songFile = midiSong.getMidiFile();
@@ -868,12 +872,23 @@ public class Main extends Application {
                         dosongs.saveSongs(false);
 
                         labelstatusSng.setText(" Status: Updated Song " +  txtSongTitle.getText());
+                        labelstatusSng.setStyle(styletext);
                     }
                 }
             }
 
             // Prevent repeat saves or new entries
             buttonupdate.setDisable(true);
+
+            // Disable Song text input after Save
+            txtSongTitle.setDisable(true);
+            txtPresetFile.setDisable(true);
+            txtSmfFile.setDisable(true);
+            txtBass.setDisable(true);
+            txtLower.setDisable(true);
+            txtUpper.setDisable(true);
+            txtTimeSig.setDisable(true);
+            txtPresetSaveAsFile.setDisable(true);
 
             // Default the "Saved As" new file name after save
             txtPresetSaveAsFile.setPromptText("New Preset File (required for New)");

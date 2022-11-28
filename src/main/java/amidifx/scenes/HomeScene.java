@@ -202,6 +202,7 @@ public class HomeScene {
             buttonsc1.setDisable(true);
             buttonsc1.setOnAction(e -> {
                 //System.out.println(("OrganScene: Changing to Organ Scene " + sharedStatus.getOrganScene().toString()));
+
                 primaryStage.setScene(sharedStatus.getPerformScene());
                 try {
                     Thread.sleep(250);
@@ -449,6 +450,9 @@ public class HomeScene {
             btnStart.setOnAction(e -> {
 
                 System.out.println("HomeScene: Switching to Perform Scene");
+
+                btnStart.setStyle(selectcolorOn);
+                btnStart.setDisable(true);
 
                 PerformScene performScene = new PerformScene(primaryStage);
                 sharedStatus.setPerformScene(performScene.getScene());

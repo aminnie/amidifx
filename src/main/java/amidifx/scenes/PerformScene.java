@@ -1196,7 +1196,8 @@ public class PerformScene {
                     b1layerbtn.setStyle(lrpressedOn);
                     b1pressed = true;
 
-                    labelstatusOrg.setText(" Status: Layer Bass On");
+                    labelstatusOrg.setText(" Status: Bass On");
+                    labelstatusOrg.setStyle(styletext);
                 }
                 else {
                     mididevices.layerChannel(sharedStatus.getBassCHAN(), false);
@@ -1204,7 +1205,8 @@ public class PerformScene {
                     b1layerbtn.setStyle(lrpressedOff);
                     b1pressed = false;
 
-                    labelstatusOrg.setText(" Status: Layer Bass Off");
+                    labelstatusOrg.setText(" Status: Bass Off");
+                    labelstatusOrg.setStyle(styletext);
                 }
             });
             mididevices.layerChannel(sharedStatus.getBassCHAN(), true);
@@ -1698,7 +1700,8 @@ public class PerformScene {
                     l1layerbtn.setStyle(lrpressedOn);
                     l1pressed = true;
 
-                    labelstatusOrg.setText(" Status: Layer Lower 1 On");
+                    labelstatusOrg.setText(" Status: Lower 1 On");
+                    labelstatusOrg.setStyle(styletext);
                 }
                 else {
                     mididevices.layerChannel(sharedStatus.getLower1CHAN(), false);
@@ -1706,7 +1709,8 @@ public class PerformScene {
                     l1layerbtn.setStyle(lrpressedOff);
                     l1pressed = false;
 
-                    labelstatusOrg.setText(" Status: Layer Lower 1 Off");
+                    labelstatusOrg.setText(" Status: Lower 1 Off");
+                    labelstatusOrg.setStyle(styletext);
                 }
                 ////arduinoUtils.lefthandLayerSysexData(l1pressed, l2pressed);
             });
@@ -1726,7 +1730,8 @@ public class PerformScene {
                     l2layerbtn.setStyle(lrpressedOn);
                     l2pressed = true;
 
-                    labelstatusOrg.setText(" Status: Layer Lower 2 On");
+                    labelstatusOrg.setText(" Status: Layer Lower 2 to 1 On");
+                    labelstatusOrg.setStyle(styletext);
                 }
                 else {
                     mididevices.layerChannel(sharedStatus.getLower2CHAN(), false);
@@ -1735,7 +1740,8 @@ public class PerformScene {
                     l2layerbtn.setStyle(lrpressedOff);
                     l2pressed = false;
 
-                    labelstatusOrg.setText(" Status: Layer Lower 2 Off");
+                    labelstatusOrg.setText(" Status: Layer Lower 2 to 1 Off");
+                    labelstatusOrg.setStyle(styletext);
                 }
                 ////arduinoUtils.lefthandLayerSysexData(l1pressed, l2pressed);
             });
@@ -2274,7 +2280,8 @@ public class PerformScene {
                     r1layerbtn.setStyle(lrpressedOn);
                     r1pressed = true;
 
-                    labelstatusOrg.setText(" Status: Layer Upper 1 On");
+                    labelstatusOrg.setText(" Status: Upper 1 On");
+                    labelstatusOrg.setStyle(styletext);
                 }
                 else {
                     mididevices.layerChannel(sharedStatus.getUpper1CHAN(), false);
@@ -2282,7 +2289,8 @@ public class PerformScene {
                     r1layerbtn.setStyle(lrpressedOff);
                     r1pressed = false;
 
-                    labelstatusOrg.setText(" Status: Layer Upper 1 Off");
+                    labelstatusOrg.setText(" Status: Upper 1 Off");
+                    labelstatusOrg.setStyle(styletext);
                 }
                 ////arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
             });
@@ -2302,7 +2310,8 @@ public class PerformScene {
                     r2layerbtn.setStyle(lrpressedOn);
                     r2pressed = true;
 
-                    labelstatusOrg.setText(" Status: Layer Upper 2 On");
+                    labelstatusOrg.setText(" Status: Layer Upper 2 to 1 On");
+                    labelstatusOrg.setStyle(styletext);
                 }
                 else {
                     mididevices.layerChannel(sharedStatus.getUpper2CHAN(), false);
@@ -2311,7 +2320,8 @@ public class PerformScene {
                     r2layerbtn.setStyle(lrpressedOff);
                     r2pressed = false;
 
-                    labelstatusOrg.setText(" Status: Layer Upper 2 Off");
+                    labelstatusOrg.setText(" Status: Layer Upper 2 to 1 Off");
+                    labelstatusOrg.setStyle(styletext);
                 }
                 ////arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
             });
@@ -2331,7 +2341,8 @@ public class PerformScene {
                     r3layerbtn.setStyle(lrpressedOn);
                     r3pressed = true;
 
-                    labelstatusOrg.setText(" Status: Layer Upper 3 On");
+                    labelstatusOrg.setText(" Status: Layer Upper 3 to 1 On");
+                    labelstatusOrg.setStyle(styletext);
                 }
                 else {
                     mididevices.layerChannel(sharedStatus.getUpper3CHAN(), false);
@@ -2340,7 +2351,8 @@ public class PerformScene {
                     r3layerbtn.setStyle(lrpressedOff);
                     r3pressed = false;
 
-                    labelstatusOrg.setText(" Status: Layer Upper 3 Off");
+                    labelstatusOrg.setText(" Status: Layer Upper 3 to 1 Off");
+                    labelstatusOrg.setStyle(styletext);
                 }
                 ////arduinoUtils.righthandLayerSysexData(r1pressed, r2pressed, r3pressed);
 

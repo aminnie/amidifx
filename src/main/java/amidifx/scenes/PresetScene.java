@@ -276,6 +276,9 @@ public class PresetScene {
             buttonSave.setDisable(true);
         });
 
+        // Initialize to loaded module
+        moduleIdx = sharedStatus.getModuleidx();
+
         // Create top bar navigation buttons
         Button buttonsc1 = new Button("Manual");
         buttonsc1.setStyle(btnMenuOff);
@@ -775,6 +778,17 @@ public class PresetScene {
         buttonvoice.setStyle(selectcolorOff);
         buttonvoice.setPrefSize(xbutton, ybutton - 10);
         buttonvoice.setOnAction(event -> {
+
+            // Do no allow mismatced sound module voices in Preset File
+            if (moduleIdx != sharedStatus.getModuleidx()) {
+                labelstatus.setText(" Status: Song sound module mismatch. Unable to save " + sharedStatus.getModuleName(moduleIdx));
+                labelstatus.setStyle(styletextred);
+
+                buttonSave.setDisable(true);
+                flgDirtyPreset = false;      // Need to save updated Preset
+                return;
+            }
+
             MidiPatch midiPatch = dopatches.getMIDIPatch(selpatchIdx);
             dopresets.setPreset(presetIdx * 16 + channelIdx, moduleIdx, midiPatch);
 
@@ -1110,7 +1124,7 @@ public class PresetScene {
 
                 // Play Demo Note
                 if (!btestnote) {
-                    buttontest.setText("Stop");
+                    buttontest.setText("Demo Stop");
                     buttontest.setStyle(btnplayOn);
 
                     PlayMidi playmidifile = PlayMidi.getInstance();
@@ -1801,7 +1815,7 @@ public class PresetScene {
             MidiPreset applypreset = dopresets.getPreset(presetIdx * 16 + channelIdx);
             dopresets.applyMidiPreset(applypreset, channelIdx);
 
-            labelstatus.setText(" Status: MIDI sent Voice to Preset " + (presetIdx + 1) + " Channel " + (channelIdx + 1));
+            labelstatus.setText(" Status: Preset " + (presetIdx + 1) + " Voice applied to Channel " + (channelIdx + 1));
         });
 
         // Send All Presets to MIDI Module Button
@@ -1814,7 +1828,7 @@ public class PresetScene {
                 dopresets.applyMidiPreset(applypreset, idx);
             }
 
-            labelstatus.setText(" Status: MIDI sent Voices to all Preset Channels");
+            labelstatus.setText(" Status: Preset Voices applied to all Preset Channels");
         });
 
         // Copy all Presets to Next Preset. Makes it easier to set next one up - especially when it is incremental
