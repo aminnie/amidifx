@@ -209,6 +209,7 @@ public class PresetScene {
     Button buttonReload = new Button(); // Reload current Presets
     Button buttonvoice;                 // Update Channel with new Patch/Voice
     Button buttontest;
+    Button buttonCopyPresets = new Button();
 
     Button buttonPresetSceneInit = new Button("");
 
@@ -555,6 +556,9 @@ public class PresetScene {
                         buttonSave.setDisable(true);
                         buttonvoice.setDisable(true);
                         buttontest.setDisable(true);
+                        presetListView.setDisable(true);
+                        presetCombo.setDisable(true);
+                        buttonCopyPresets.setDisable(true);
 
                         bmodulechanged = true;
                         System.out.println("Module changed to" + sharedStatus.getModuleName(moduleidx1));
@@ -562,6 +566,9 @@ public class PresetScene {
                         buttonSave.setDisable(false);
                         buttonvoice.setDisable(false);
                         buttontest.setDisable(false);
+                        presetListView.setDisable(false);
+                        presetCombo.setDisable(false);
+                        buttonCopyPresets.setDisable(false);
                     }
 
                     banklistView.getItems().clear();
@@ -579,6 +586,7 @@ public class PresetScene {
                     banklistView.refresh();
 
                     labelstatus.setText(" Status: Selected Sound Module " + moduleCombo.getValue().toString());
+                    labelstatus.setStyle(styletext);
                 };
         moduleCombo.setOnAction(midxevent);
         VBox vboxModuleList = new VBox(moduleCombo);
@@ -727,6 +735,7 @@ public class PresetScene {
         // Initial populate of the Preset List View
         presetListView.getSelectionModel().selectedItemProperty().addListener(
                 (ObservableValue<? extends String> ov, String old_val, String new_val) -> {
+
                     String selectedItem = presetListView.getSelectionModel().getSelectedItem();
                     channelIdx = presetListView.getSelectionModel().getSelectedIndex();
 
@@ -1832,7 +1841,7 @@ public class PresetScene {
         });
 
         // Copy all Presets to Next Preset. Makes it easier to set next one up - especially when it is incremental
-        Button buttonCopyPresets = new Button("Copy Next");
+        buttonCopyPresets = new Button("Copy Next");
         buttonCopyPresets.setPrefSize(xbutton / 1.5, ybutton / 1.15);
         buttonCopyPresets.setStyle(selectcolorOff);
         buttonCopyPresets.setOnAction(event -> {

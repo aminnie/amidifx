@@ -3339,7 +3339,7 @@ public class PerformScene {
             // Backing Mode Button
             // Mode 1 = Original, 2 = Play Along, 3 = Backing
             playmode = 3;
-            btnbacking = new Button("Backing");
+            btnbacking = new Button("Backing Tracks");
             btnbacking.setDisable(true);
             btnbacking.setStyle(btnplayOff);
             btnbacking.setMaxSize(xvoicebtn, yvoicebtn);
@@ -3355,7 +3355,7 @@ public class PerformScene {
                     }
                 }
                 else {
-                    btnbacking.setText("Backing");
+                    btnbacking.setText("Backing Tracks");
                     btnbacking.setStyle(btnplayOff);
                     playmode = 3;
 
