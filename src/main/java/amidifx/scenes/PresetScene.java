@@ -1,7 +1,6 @@
 package amidifx.scenes;
 
 import amidifx.*;
-import amidifx.PlayMidi;
 import amidifx.models.*;
 import amidifx.utils.AppConfig;
 import amidifx.utils.ArduinoUtils;
@@ -719,6 +718,7 @@ public class PresetScene {
         VBox vboxPresetList = new VBox(presetCombo);
         vboxPresetList.setStyle(styletext);
 
+        // Initial Build of Preset Channels for Preset 1
         channelIdx = 0;
         presetIdx = 0;
         for (int idx = 0; idx < 16; idx++) {
@@ -730,6 +730,7 @@ public class PresetScene {
             //System.out.println("Main: Patch name " + name);
         }
         presetListView.getSelectionModel().select(channelIdx);
+
 
         VBox vboxList2 = new VBox(presetListView);
         // Initial populate of the Preset List View
