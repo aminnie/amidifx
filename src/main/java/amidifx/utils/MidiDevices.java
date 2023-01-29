@@ -268,7 +268,7 @@ public class MidiDevices {
     /**
      * Return a specific transmitter object by setting the system property, otherwise the default
      */
-    private Transmitter getTransmitter() {
+    public Transmitter getTransmitter() {
 
         String indevice = config.getInDevice();
         if (!indevice.isEmpty()) {

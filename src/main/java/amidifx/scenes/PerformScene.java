@@ -21,9 +21,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
-import javax.sound.midi.Receiver;
-import javax.sound.midi.Sequencer;
-import javax.sound.midi.Transmitter;
+import javax.sound.midi.*;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -3353,16 +3351,38 @@ public class PerformScene {
                     if (playmidifile.isMidiRunning()) {
                         playmidifile.unmuteKeyboardTracks(dosongs.getSong(idxSongList));
                     }
+
+                    // In addition to unmuting the keyboard tracks, also disable the MIDI transmitter to avoid keyboard and MIDI
+                    // playing on the same tracks and competing for note or and offs
+                    Transmitter miditrans = sharedStatus.getTxDevice();
+                    miditrans.close();
+                    sharedStatus.setTxDevice(null);
+
+                    labelstatusOrg.setText(" Status: Playing Backing selected");
                 }
                 else {
                     btnbacking.setText("Backing Tracks");
                     btnbacking.setStyle(btnplayOff);
                     playmode = 3;
 
+                    // In addition to unmuting the keyboard tracks, also disable the MIDI transmitter to avoid keyboard and MIDI
+                    // playing on the same tracks
+                    try {
+                        Transmitter miditrans = mididevices.getTransmitter();
+                        sharedStatus.setTxDevice(miditrans);
+                        miditrans.setReceiver(sharedStatus.getRxDevice());
+
+                        labelstatusOrg.setText(" Status: Playing Along selected");
+                    }
+                    catch (Exception ex) {
+                        System.out.println("No External MIDI keyboard available! Please connect a USB keyboard to Playalong.");
+                    }
+
                     PlayMidi playmidifile = PlayMidi.getInstance();
                     if (playmidifile.isMidiRunning()) {
                         playmidifile.muteKeyboardTracks(dosongs.getSong(idxSongList));
                     }
+
                 }
             });
             gridmidcenterPerform.add(btnbacking, 1, 6, 1, 1);
