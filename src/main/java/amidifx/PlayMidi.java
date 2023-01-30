@@ -1215,8 +1215,7 @@ public class PlayMidi {
             //System.out.println("PlayMidi: Checking sequencer is running");
         }
         catch (Exception ex) {
-            System.err.println("### PlayMidi Error: Checking sequencer is running");
-            System.err.println(ex);
+            System.out.println("### PlayMidi Info: Sequencer not run yet");
         }
         return bisrunning;
     }

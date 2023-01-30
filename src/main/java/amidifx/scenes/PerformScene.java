@@ -3266,6 +3266,9 @@ public class PerformScene {
                             buttonsc3.setDisable(true);
                             buttonsc4.setDisable(true);
 
+                            // Do not allow change between backing and playalong as we would have to clean up potential open notes
+                            btnbacking.setDisable(true);
+
                             // Song Play Repeating Timer: Collects Beat Timer and Play Status every 250ms
                             Timer songPlayTimer = new Timer();
                             songPlayTimer.scheduleAtFixedRate(new TimerTask(){
@@ -3287,6 +3290,9 @@ public class PerformScene {
 
                                             // Enable Songs menu switch once stopped playing
                                             buttonsc2.setDisable(false);
+
+                                            // Do not allow change between backing and playalong as we would have to clean up potential open notes
+                                            btnbacking.setDisable(false);
 
                                         });
                                         songPlayTimer.cancel();
@@ -3354,14 +3360,19 @@ public class PerformScene {
 
                     // In addition to unmuting the keyboard tracks, also disable the MIDI transmitter to avoid keyboard and MIDI
                     // playing on the same tracks and competing for note or and offs
-                    Transmitter miditrans = sharedStatus.getTxDevice();
-                    miditrans.close();
-                    sharedStatus.setTxDevice(null);
+                    try {
+                        Transmitter miditrans = sharedStatus.getTxDevice();
+                        miditrans.close();
+                    }
+                    catch (Exception ex) {
+                        System.out.println("No External MIDI keyboard available! Please connect a USB keyboard to Playalong.");
+                    }
 
-                    labelstatusOrg.setText(" Status: Playing Backing selected");
+                    labelstatusOrg.setText(" Status: Play Backing selected");
+                    System.out.println("Play Backing selected");
                 }
                 else {
-                    btnbacking.setText("Backing Tracks");
+                    btnbacking.setText("Play Backing");
                     btnbacking.setStyle(btnplayOff);
                     playmode = 3;
 
@@ -3369,20 +3380,22 @@ public class PerformScene {
                     // playing on the same tracks
                     try {
                         Transmitter miditrans = mididevices.getTransmitter();
-                        sharedStatus.setTxDevice(miditrans);
-                        miditrans.setReceiver(sharedStatus.getRxDevice());
+                        if (miditrans != null) {
+                            sharedStatus.setTxDevice(miditrans);
+                            miditrans.setReceiver(sharedStatus.getRxDevice());
+                        }
 
-                        labelstatusOrg.setText(" Status: Playing Along selected");
+                        PlayMidi playmidifile = PlayMidi.getInstance();
+                        if (playmidifile.isMidiRunning()) {
+                            playmidifile.muteKeyboardTracks(dosongs.getSong(idxSongList));
+                        }
                     }
                     catch (Exception ex) {
                         System.out.println("No External MIDI keyboard available! Please connect a USB keyboard to Playalong.");
                     }
 
-                    PlayMidi playmidifile = PlayMidi.getInstance();
-                    if (playmidifile.isMidiRunning()) {
-                        playmidifile.muteKeyboardTracks(dosongs.getSong(idxSongList));
-                    }
-
+                    labelstatusOrg.setText(" Status: Play Along selected");
+                    System.out.println("Play Along selected");
                 }
             });
             gridmidcenterPerform.add(btnbacking, 1, 6, 1, 1);
