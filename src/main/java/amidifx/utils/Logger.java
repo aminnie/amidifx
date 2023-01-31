@@ -1,6 +1,8 @@
 package amidifx.utils;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,17 +20,39 @@ public class Logger {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
 
-        System.out.println("Redirecting System.Out and System.Err Logger Files if Prod: " + dtf.format(now));
-
         AppConfig apconfig = AppConfig.getInstance();
-        if (apconfig.getDebugMode() == 0) {
-            setSystemErr();
-            setSystemOut();
-        }
 
+        // Read log directory override
         if (apconfig.getLogDirectory() != null) {
             logDirectory = apconfig.getLogDirectory();
         }
+
+        // Mode = 0: Only log Err in Production to Log File
+        // Mode = 1: Log Out and Err in Production Mode to Log File
+        // Mode = 2: Log Out and Err to IDE Console Debug Console
+        if (apconfig.getDebugMode() == 0) {
+            System.out.println("Logger Prod(0): Redirecting System.Err Logger Files to " + logDirectory + " (" + dtf.format(now) + ")");
+            setSystemErr();
+            setSystemOutNull();
+        }
+        else if (apconfig.getDebugMode() == 1) {
+            System.out.println("Logger Prod(1): Redirecting System.Out and System.Err Logger Files to " + logDirectory + " (" + dtf.format(now) + ")");
+            setSystemErr();
+            setSystemOut();
+        }
+        else
+            System.out.println("Logger Debug(2): System.Out and System.Err Logger Files to IDE Console (" + dtf.format(now) + ")");
+    }
+
+    // Output Stream Gobbler for System.Out
+    private static boolean setSystemOutNull() {
+        System.setOut(new PrintStream(new OutputStream() {
+            @Override
+            public void write(int arg0) throws IOException {
+
+            }
+        }));
+        return true;
     }
 
     private static boolean setSystemOut() {

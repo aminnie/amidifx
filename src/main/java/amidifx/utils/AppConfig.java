@@ -414,7 +414,7 @@ public class AppConfig {
             debugmode = new Integer(debugmodestr);
 
             // Debug modes: 0 = Production into Log Files, 1 = Logging into Dev Console
-            if ((debugmode < 0) || (debugmode > 1)) debugmode = 0;
+            if ((debugmode < 0) || (debugmode > 2)) debugmode = 0;
         }
         catch (Exception ex) {
             System.err.println("AppConfig: Error read MIDI Upper 1 CHannel from AppConfig file");
