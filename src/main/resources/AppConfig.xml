@@ -1,16 +1,42 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<!--
+    * Debug Mode: 0 = Prod, Err only to File, 1 = Prod and Err and Out to File, 2 = IDE Debug Mode
+    * Remember trailing slashes on diramidifx, dirconfig and dirlogs values
+    * Optionally modify the default indevice and outdevice entries to your preferences
+    * Do not modify the .sng, .dat and .pre file entries!
+-->
 <properties>
-    <comment>xml example</comment>
-    <entry key="appname">AMIDIFX</entry>
-    <entry key="appversion">0.5</entry>
-    <entry key="appdate">02/14/2021</entry>
-    <entry key="indevice">2- Seaboard RISE 49</entry>
-    <entry key="outdevice">Deebach-Blackbox</entry>
-    <entry key="songsfile">songs.csv</entry>
-    <entry key="sndmodfile0">midigm.dat</entry>
-    <entry key="sndmodfile1">maxplus.dat</entry>
-    <entry key="dirmidi">c:\amidifx\midi</entry>
-    <entry key="dirconfig">c:\amidifx\config</entry>
-    <entry key="moduleidx">0</entry>
+<comment>Config XML file save</comment>
+<entry key="usbhardware">false</entry>
+<entry key="indevice">SE25</entry>
+<entry key="debugmode">2</entry>
+<entry key="dirconfig">c:\amidifx\config</entry>
+<entry key="appname">AMIDIFX</entry>
+<entry key="diramidifx">c:\amidifx\</entry>
+<entry key="mididrums">10</entry>
+<entry key="tstmoduleidx">1</entry>
+<entry key="midiexpchan">16</entry>
+<entry key="midibass">2</entry>
+<entry key="midilower1">3</entry>
+<entry key="dirlogs">c:\amidifx\</entry>
+<entry key="appversion">0.91</entry>
+<entry key="midilower2">12</entry>
+<entry key="moduleidx">0</entry>
+<entry key="mididemo">4</entry>
+<entry key="songsfile">songs.sng</entry>
+<entry key="midisolo">1</entry>
+<entry key="midiupper1">4</entry>
+<entry key="sndmodfile2">integra.dat</entry>
+<entry key="midiupper2">14</entry>
+<entry key="sndmodfile1">maxplus.dat</entry>
+<entry key="midiupper3">15</entry>
+<entry key="controllertitle">MIDIFX Sound Module Controller</entry>
+<entry key="sndmodfile0">midigm.dat</entry>
+<entry key="outdevice">Gervill</entry>
+<entry key="appdate">01/31/2023</entry>
+<entry key="dirmidi">c:\amidifx\midi</entry>
+<entry key="premodfile0">defaultgm.pre</entry>
+<entry key="premodfile2">defaultin.pre</entry>
+<entry key="premodfile1">defaultfb.pre</entry>
 </properties>
