@@ -4,7 +4,7 @@
 <comment>Config XML file save</comment>
 <entry key="usbhardware">false</entry>
 <entry key="indevice">Microsoft MIDI Mapper</entry>
-<entry key="debugmode">1</entry>
+<entry key="debugmode">2</entry>
 <entry key="dirconfig">c:\amidifx\config</entry>
 <entry key="appname">AMIDIFX</entry>
 <entry key="diramidifx">c:\amidifx</entry>
@@ -14,7 +14,7 @@
 <entry key="midibass">2</entry>
 <entry key="midilower1">3</entry>
 <entry key="dirlogs">c:\amidifx</entry>
-<entry key="appversion">0.6</entry>
+<entry key="appversion">0.9</entry>
 <entry key="midilower2">12</entry>
 <entry key="moduleidx">0</entry>
 <entry key="songsfile">songs.sng</entry>
