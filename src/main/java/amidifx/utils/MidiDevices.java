@@ -282,8 +282,9 @@ public class MidiDevices {
 
         try {
             return MidiSystem.getTransmitter();
-        } catch (MidiUnavailableException e) {
-            System.err.println("No External MIDI keyboard available! Please connect a USB keyboard.");
+        }
+        catch (MidiUnavailableException e) {
+            System.out.println("No External MIDI keyboard available! Please connect a USB keyboard.");
             //e.printStackTrace();
             return null;
         }
